@@ -1,4 +1,4 @@
-package com.aay.common.chart
+package chart
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import chart.AxesDrawing
 
 @Composable
 fun TestAxesDrawing(){
