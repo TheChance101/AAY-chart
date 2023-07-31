@@ -23,7 +23,7 @@ fun <X, Y : Number> AxesDrawing(
     getXLabel: (X) -> String,
     getYLabel: (Y) -> String
 ) {
-    val spacing = 100f
+    val spacing = 130f
     val upperValue = remember {
         data.maxOfOrNull { it.second.toDouble() }?.plus(1) ?: 0.0
     }
@@ -37,6 +37,8 @@ fun <X, Y : Number> AxesDrawing(
         val spaceBetweenXes = (size.width - spacing) / (data.size - 1)
         data.forEachIndexed { i, dataPoint ->
             val xValue = dataPoint.first
+
+            // for x coordinate
             drawContext.canvas.nativeCanvas.apply {
                 drawText(
                     textMeasurer = textMeasure, text = getXLabel(xValue),
@@ -44,11 +46,13 @@ fun <X, Y : Number> AxesDrawing(
                         fontSize = 12.sp,
                         color = Color.Gray
                     ),
-                    topLeft = Offset(spacing + i * spaceBetweenXes , size.height / 1.08f)
+                    topLeft = Offset(spacing + i * spaceBetweenXes , size.height / 1.07f)
                 )
             }
             val priceRange = upperValue - lowerValue
             val priceStep = priceRange / 5f
+
+            // for y coordinate
             (0..4).forEach { i ->
                 drawContext.canvas.nativeCanvas.apply {
                     val yValue = lowerValue + priceStep * i
@@ -58,7 +62,7 @@ fun <X, Y : Number> AxesDrawing(
                             fontSize = 12.sp,
                             color = Color.Gray,
                         ),
-                        topLeft = Offset(30f, size.height - spacing - i * size.height / 5f)
+                        topLeft = Offset(10f, size.height - spacing - i * size.height / 5f)
                     )
                 }
             }
