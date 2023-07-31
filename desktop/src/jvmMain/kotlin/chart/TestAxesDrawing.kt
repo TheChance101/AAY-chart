@@ -1,4 +1,4 @@
-package com.aay.common.chart
+package chart
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
