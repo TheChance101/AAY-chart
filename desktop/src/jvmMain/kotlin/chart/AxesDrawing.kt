@@ -6,11 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,7 +18,8 @@ fun <X, Y : Number> AxesDrawing(
     modifier: Modifier = Modifier,
     data: List<Pair<X, Y>> = emptyList(),
     getXLabel: (X) -> String,
-    getYLabel: (Y) -> String
+    getYLabel: (Y) -> String,
+    lineShadow: Boolean = false
 ) {
     val spacing = 130f
     val upperValue = remember {
@@ -97,6 +95,25 @@ fun <X, Y : Number> AxesDrawing(
                     cap = StrokeCap.Round
                 )
             )
+
+            if (lineShadow) {
+                val fillPath = strokePath.apply {
+                    lineTo(size.width - spaceBetweenXes, size.height - spacing)
+                    lineTo(spacing, size.height - spacing)
+                    close()
+                }
+
+                drawPath(
+                    path = fillPath,
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color.Red.copy(alpha = .3f),
+                            Color.Transparent
+                        ),
+                        endY = size.height - spacing
+                    )
+                )
+            }
 
         }
 
