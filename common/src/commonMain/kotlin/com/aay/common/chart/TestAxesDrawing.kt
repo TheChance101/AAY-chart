@@ -15,11 +15,10 @@ fun TestAxesDrawing(){
         Pair("Feb",20000),
         Pair("Mar",40000),
         Pair("Apr",50000),
-        Pair("May",60000),
+        Pair("May",20000),
         Pair("Aug",70000),
-        Pair("Sep",80000),
+        Pair("Sep",50000),
         Pair("Oct",90000),
-
         )
     Column (modifier = Modifier.fillMaxSize()) {
         AxesDrawing(
