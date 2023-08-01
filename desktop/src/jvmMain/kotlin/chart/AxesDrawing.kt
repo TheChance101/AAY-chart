@@ -91,6 +91,24 @@ fun <X, Y : Number> AxesDrawing(
                         cap = StrokeCap.Round
                     )
                 )
+                if (lineShadow) {
+                    val fillPath = strokePathDefault.apply {
+                        lineTo(size.width - spaceBetweenXes, size.height - spacing)
+                        lineTo(spacing, size.height - spacing)
+                        close()
+                    }
+
+                    drawPath(
+                        path = fillPath,
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Blue.copy(alpha = .3f),
+                                Color.Transparent
+                            ),
+                            endY = size.height - spacing
+                        )
+                    )
+                }
             } else {
                 var medX: Float
                 var medY: Float
@@ -123,27 +141,30 @@ fun <X, Y : Number> AxesDrawing(
                     )
                 )
 
-            }
-            if (lineShadow) {
-                val fillPath = strokePath.apply {
-                    lineTo(size.width - spaceBetweenXes, size.height - spacing)
-                    lineTo(spacing, size.height - spacing)
-                    close()
+                if (lineShadow) {
+                    val fillPath = strokePath.apply {
+                        lineTo(size.width - spaceBetweenXes, size.height - spacing)
+                        lineTo(spacing, size.height - spacing)
+                        close()
+                    }
+
+                    drawPath(
+                        path = fillPath,
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Red.copy(alpha = .3f),
+                                Color.Transparent
+                            ),
+                            endY = size.height - spacing
+                        )
+                    )
                 }
 
-                drawPath(
-                    path = fillPath,
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color.Red.copy(alpha = .3f),
-                            Color.Transparent
-                        ),
-                        endY = size.height - spacing
-                    )
-                )
             }
+
 
         }
 
     }
+
 }

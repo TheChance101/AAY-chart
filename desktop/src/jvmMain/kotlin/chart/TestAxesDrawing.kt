@@ -27,7 +27,8 @@ fun TestAxesDrawing(){
             data = revenueData,
             getXLabel = { month -> month },
             getYLabel = { revenue -> "\$${revenue}" },
-
+            defaultLineShape = true,
+            lineShadow = true
         )
     }
 }
