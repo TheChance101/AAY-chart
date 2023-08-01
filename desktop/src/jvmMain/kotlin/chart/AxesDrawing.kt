@@ -6,14 +6,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.jetbrains.skia.impl.Log
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
@@ -21,7 +19,8 @@ fun <X, Y : Number> AxesDrawing(
     modifier: Modifier = Modifier,
     data: List<Pair<X, Y>> = emptyList(),
     getXLabel: (X) -> String,
-    getYLabel: (Y) -> String
+    getYLabel: (Y) -> String,
+    drawLineColor: Color
 ) {
     val spacing = 130f
     val upperValue = remember {
@@ -31,11 +30,18 @@ fun <X, Y : Number> AxesDrawing(
         data.minOfOrNull { it.second.toDouble() } ?: 0.0
     }
 
+    val yAxis = mutableListOf<Float>()
+    val pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
+
     val textMeasure = rememberTextMeasurer()
+
 
     Canvas(modifier = modifier) {
         val spaceBetweenXes = (size.width - spacing) / (data.size - 1)
-        data.forEachIndexed { i, dataPoint ->
+        val barWidthPx = 0.2.dp.toPx()
+
+
+        data.forEachIndexed { index, dataPoint ->
             val xValue = dataPoint.first
 
             // for x coordinate
@@ -46,26 +52,40 @@ fun <X, Y : Number> AxesDrawing(
                         fontSize = 12.sp,
                         color = Color.Gray
                     ),
-                    topLeft = Offset(spacing + i * spaceBetweenXes , size.height / 1.07f)
+                    topLeft = Offset(spacing + index * spaceBetweenXes, size.height / 1.07f)
                 )
             }
+
+
+            // for y coordinate
             val priceRange = upperValue - lowerValue
             val priceStep = priceRange / 5f
 
-            // for y coordinate
-            (0..4).forEach { i ->
+            (0..5).forEach { i ->
                 drawContext.canvas.nativeCanvas.apply {
                     val yValue = lowerValue + priceStep * i
+
                     drawText(
                         textMeasurer = textMeasure, text = getYLabel(yValue as Y),
                         style = TextStyle(
                             fontSize = 12.sp,
                             color = Color.Gray,
                         ),
-                        topLeft = Offset(10f, size.height - spacing - i * size.height / 5f)
+                        topLeft = Offset(0f, size.height - spacing - i * size.height / 5f)
                     )
                 }
+
+                yAxis.add(size.height - spacing - i * size.height / 5.1f)
+
+                drawLine(
+                    drawLineColor,
+                    start = Offset(spacing, yAxis[i]),
+                    end = Offset(size.width, yAxis[i]),
+                    strokeWidth = barWidthPx,
+                    pathEffect = pathEffect
+                )
             }
+
 
             var medX: Float
             var medY: Float
