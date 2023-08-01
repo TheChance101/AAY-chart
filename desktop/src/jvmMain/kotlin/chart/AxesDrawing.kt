@@ -20,6 +20,7 @@ fun <X, Y : Number> AxesDrawing(
     getXLabel: (X) -> String,
     getYLabel: (Y) -> String,
     drawLineColor: Color,
+    defaultLineShape: Boolean = false,
     lineShadow: Boolean = false
 ) {
     val spacing = 130f
@@ -87,57 +88,101 @@ fun <X, Y : Number> AxesDrawing(
             }
 
 
-            var medX: Float
-            var medY: Float
-            val strokePath = Path().apply {
-                val height = size.height
-                data.indices.forEach { i ->
-                    val nextInfo = data.getOrNull(i + 1) ?: data.last()
-                    val firstRatio = (data[i].second.toFloat() - lowerValue) / (upperValue - lowerValue)
-                    val secondRatio = (nextInfo.second.toFloat() - lowerValue) / (upperValue - lowerValue)
+            if (defaultLineShape) {
+                val strokePathDefault = Path().apply {
+                    val height = size.height
+                    data.indices.forEach { i ->
+                        val info = data[i]
+                        val ratio = (info.second.toFloat() - lowerValue) / (upperValue - lowerValue)
 
-                    val x1 = spacing + i * spaceBetweenXes
-                    val y1 = height - spacing - (firstRatio * height).toFloat()
-                    val x2 = spacing + (i + 1) * spaceBetweenXes
-                    val y2 = height - spacing - (secondRatio * height).toFloat()
-                    if (i == 0) {
-                        moveTo(x1, y1)
-                    } else {
-                        medX = (x1 + x2) / 2f
-                        medY = (y1 + y2) / 2f
-                        quadraticBezierTo(x1 = x1, y1 = y1, x2 = medX, y2 = medY)
+                        val x1 = spacing + i * spaceBetweenXes
+                        val y1 = height - spacing - (ratio * height).toFloat()
+
+                        if (i == 0) {
+                            moveTo(x1, y1)
+                        }
+                        lineTo(x1, y1)
                     }
-                }
-            }
-            drawPath(
-                path = strokePath,
-                color = Color.Red,
-                style = Stroke(
-                    width = 3.dp.toPx(),
-                    cap = StrokeCap.Round
-                )
-            )
-
-            if (lineShadow) {
-                val fillPath = strokePath.apply {
-                    lineTo(size.width - spaceBetweenXes, size.height - spacing)
-                    lineTo(spacing, size.height - spacing)
-                    close()
                 }
 
                 drawPath(
-                    path = fillPath,
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color.Red.copy(alpha = .3f),
-                            Color.Transparent
-                        ),
-                        endY = size.height - spacing
+                    path = strokePathDefault,
+                    color = Color.Blue,
+                    style = Stroke(
+                        width = 3.dp.toPx(),
+                        cap = StrokeCap.Round
                     )
                 )
+                if (lineShadow) {
+                    val fillPath = strokePathDefault.apply {
+                        lineTo(size.width - spaceBetweenXes, size.height - spacing)
+                        lineTo(spacing, size.height - spacing)
+                        close()
+                    }
+
+                    drawPath(
+                        path = fillPath,
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Blue.copy(alpha = .3f),
+                                Color.Transparent
+                            ),
+                            endY = size.height - spacing
+                        )
+                    )
+                }
+            } else {
+                var medX: Float
+                var medY: Float
+                val strokePath = Path().apply {
+                    val height = size.height
+                    data.indices.forEach { i ->
+                        val nextInfo = data.getOrNull(i + 1) ?: data.last()
+                        val firstRatio = (data[i].second.toFloat() - lowerValue) / (upperValue - lowerValue)
+                        val secondRatio = (nextInfo.second.toFloat() - lowerValue) / (upperValue - lowerValue)
+
+                        val x1 = spacing + i * spaceBetweenXes
+                        val y1 = height - spacing - (firstRatio * height).toFloat()
+                        val x2 = spacing + (i + 1) * spaceBetweenXes
+                        val y2 = height - spacing - (secondRatio * height).toFloat()
+                        if (i == 0) {
+                            moveTo(x1, y1)
+                        } else {
+                            medX = (x1 + x2) / 2f
+                            medY = (y1 + y2) / 2f
+                            quadraticBezierTo(x1 = x1, y1 = y1, x2 = medX, y2 = medY)
+                        }
+                    }
+                }
+                drawPath(
+                    path = strokePath,
+                    color = Color.Red,
+                    style = Stroke(
+                        width = 3.dp.toPx(),
+                        cap = StrokeCap.Round
+                    )
+                )
+
+                if (lineShadow) {
+                    val fillPath = strokePath.apply {
+                        lineTo(size.width - spaceBetweenXes, size.height - spacing)
+                        lineTo(spacing, size.height - spacing)
+                        close()
+                    }
+
+                    drawPath(
+                        path = fillPath,
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Red.copy(alpha = .3f),
+                                Color.Transparent
+                            ),
+                            endY = size.height - spacing
+                        )
+                    )
+                }
+
             }
-
         }
-
     }
 }
