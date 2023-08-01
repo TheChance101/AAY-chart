@@ -11,7 +11,6 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.jetbrains.skia.impl.Log
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
@@ -20,7 +19,8 @@ fun <X, Y : Number> AxesDrawing(
     data: List<Pair<X, Y>> = emptyList(),
     getXLabel: (X) -> String,
     getYLabel: (Y) -> String,
-    drawLineColor: Color
+    drawLineColor: Color,
+    lineShadow: Boolean = false
 ) {
     val spacing = 130f
     val upperValue = remember {
@@ -117,6 +117,25 @@ fun <X, Y : Number> AxesDrawing(
                     cap = StrokeCap.Round
                 )
             )
+
+            if (lineShadow) {
+                val fillPath = strokePath.apply {
+                    lineTo(size.width - spaceBetweenXes, size.height - spacing)
+                    lineTo(spacing, size.height - spacing)
+                    close()
+                }
+
+                drawPath(
+                    path = fillPath,
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color.Red.copy(alpha = .3f),
+                            Color.Transparent
+                        ),
+                        endY = size.height - spacing
+                    )
+                )
+            }
 
         }
 
