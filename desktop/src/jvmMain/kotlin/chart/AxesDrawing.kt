@@ -2,6 +2,7 @@ package chart
 
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -19,7 +20,8 @@ fun <X, Y : Number> AxesDrawing(
     data: List<Pair<X, Y>> = emptyList(),
     getXLabel: (X) -> String,
     getYLabel: (Y) -> String,
-    defaultLineShape : Boolean = false,
+    drawLineColor: Color,
+    defaultLineShape: Boolean = false,
     lineShadow: Boolean = false
 ) {
     val spacing = 130f
@@ -30,11 +32,18 @@ fun <X, Y : Number> AxesDrawing(
         data.minOfOrNull { it.second.toDouble() } ?: 0.0
     }
 
+    val yAxis = mutableListOf<Float>()
+    val pathEffect = PathEffect.dashPathEffect(floatArrayOf(16f, 16f), 0f)
+
     val textMeasure = rememberTextMeasurer()
+
 
     Canvas(modifier = modifier) {
         val spaceBetweenXes = (size.width - spacing) / (data.size - 1)
-        data.forEachIndexed { i, dataPoint ->
+        val barWidthPx = 0.2.dp.toPx()
+
+
+        data.forEachIndexed { index, dataPoint ->
             val xValue = dataPoint.first
 
             // for x coordinate
@@ -45,26 +54,42 @@ fun <X, Y : Number> AxesDrawing(
                         fontSize = 12.sp,
                         color = Color.Gray
                     ),
-                    topLeft = Offset(spacing + i * spaceBetweenXes, size.height / 1.07f)
+                    topLeft = Offset(spacing + index * spaceBetweenXes, size.height / 1.07f)
                 )
             }
+
+
+            // for y coordinate
             val priceRange = upperValue - lowerValue
             val priceStep = priceRange / 5f
 
-            // for y coordinate
             (0..4).forEach { i ->
                 drawContext.canvas.nativeCanvas.apply {
                     val yValue = lowerValue + priceStep * i
+
                     drawText(
                         textMeasurer = textMeasure, text = getYLabel(yValue as Y),
                         style = TextStyle(
                             fontSize = 12.sp,
                             color = Color.Gray,
                         ),
-                        topLeft = Offset(10f, size.height - spacing - i * size.height / 5f)
+                        topLeft = Offset(0f, size.height - spacing - i * size.height / 8f)
                     )
                 }
             }
+
+            (0..4).forEach { i ->
+                yAxis.add(size.height - spacing - i * size.height / 8f)
+
+                drawLine(
+                    drawLineColor,
+                    start = Offset(spacing - 10, yAxis[i] + 12f),
+                    end = Offset(size.width / 1.07f, yAxis[i] + 12f),
+                    strokeWidth = barWidthPx,
+                    pathEffect = pathEffect
+                )
+            }
+
 
             if (defaultLineShape) {
                 val strokePathDefault = Path().apply {
@@ -161,10 +186,6 @@ fun <X, Y : Number> AxesDrawing(
                 }
 
             }
-
-
         }
-
     }
-
 }
