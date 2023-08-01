@@ -2,12 +2,12 @@ package chart
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import chart.AxesDrawing
 
 @Composable
 fun TestAxesDrawing(){
@@ -23,10 +23,12 @@ fun TestAxesDrawing(){
         )
     Column (modifier = Modifier.fillMaxSize()) {
         AxesDrawing(
-            modifier = Modifier.size(500.dp).align(Alignment.CenterHorizontally),
+            modifier = Modifier.size(500.dp).align(Alignment.CenterHorizontally).padding(top = 24.dp),
             data = revenueData,
             getXLabel = { month -> month },
-            getYLabel = { revenue -> "\$${revenue}" }
+            getYLabel = { revenue -> "\$${revenue}" },
+            defaultLineShape = true,
+            lineShadow = true
         )
     }
 }
