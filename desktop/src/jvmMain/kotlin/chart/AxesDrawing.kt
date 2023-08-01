@@ -61,7 +61,7 @@ fun <X, Y : Number> AxesDrawing(
             val priceRange = upperValue - lowerValue
             val priceStep = priceRange / 5f
 
-            (0..5).forEach { i ->
+            (0..4).forEach { i ->
                 drawContext.canvas.nativeCanvas.apply {
                     val yValue = lowerValue + priceStep * i
 
@@ -71,11 +71,11 @@ fun <X, Y : Number> AxesDrawing(
                             fontSize = 12.sp,
                             color = Color.Gray,
                         ),
-                        topLeft = Offset(0f, size.height - spacing - i * size.height / 5f)
+                        topLeft = Offset(0f, size.height - spacing - i * size.height / 8f)
                     )
                 }
 
-                yAxis.add(size.height - spacing - i * size.height / 5.1f)
+                yAxis.add(size.height - spacing - i * size.height / 8.2f)
 
                 drawLine(
                     drawLineColor,
