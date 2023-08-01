@@ -52,7 +52,7 @@ fun <X, Y : Number> AxesDrawing(
                         fontSize = 12.sp,
                         color = Color.Gray
                     ),
-                    topLeft = Offset(spacing + index * spaceBetweenXes, size.height / 1.07f)
+                    topLeft = Offset(spacing + index * spaceBetweenXes, size.height / 1.09f)
                 )
             }
 
@@ -62,6 +62,8 @@ fun <X, Y : Number> AxesDrawing(
             val priceStep = priceRange / 5f
 
             (0..4).forEach { i ->
+                yAxis.add(size.height - spacing - i * size.height / 8f)
+
                 drawContext.canvas.nativeCanvas.apply {
                     val yValue = lowerValue + priceStep * i
 
@@ -73,17 +75,15 @@ fun <X, Y : Number> AxesDrawing(
                         ),
                         topLeft = Offset(0f, size.height - spacing - i * size.height / 8f)
                     )
+
+                    drawLine(
+                        drawLineColor,
+                        start = Offset(spacing, yAxis[i]),
+                        end = Offset(size.width, yAxis[i]),
+                        strokeWidth = barWidthPx,
+                        pathEffect = pathEffect
+                    )
                 }
-
-                yAxis.add(size.height - spacing - i * size.height / 8.2f)
-
-                drawLine(
-                    drawLineColor,
-                    start = Offset(spacing, yAxis[i]),
-                    end = Offset(size.width, yAxis[i]),
-                    strokeWidth = barWidthPx,
-                    pathEffect = pathEffect
-                )
             }
 
 

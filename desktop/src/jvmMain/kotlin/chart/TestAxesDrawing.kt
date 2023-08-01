@@ -21,7 +21,7 @@ fun TestAxesDrawing() {
         Pair("May", 20000),
         Pair("Aug", 70000),
         Pair("Sep", 50000),
-        Pair("Oct", 90000),
+        Pair("Oct", 10000),
     )
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -33,7 +33,8 @@ fun TestAxesDrawing() {
             data = revenueData,
             getXLabel = { month -> month },
             getYLabel = { revenue -> "\$${revenue}" },
-            drawLineColor = Color.Gray
+            drawLineColor = Color.Gray,
+            lineShadow = true
         )
     }
 }
