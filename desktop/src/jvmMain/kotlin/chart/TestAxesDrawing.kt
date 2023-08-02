@@ -25,7 +25,7 @@ fun TestAxesDrawing(){
              Pair("Sep",50000.0),
              Pair("Oct",90000.0),
          ),
-        Color.Blue,
+        Color.Red,
         LineType.QUADRATIC_LINE,
         LineShadow.SHADOW
     )
@@ -42,14 +42,14 @@ fun TestAxesDrawing(){
             Pair("Oct",90000.0),
         ),
         Color.Blue,
-        LineType.QUADRATIC_LINE,
+        LineType.DEFAULT_LINE,
         LineShadow.BLANK
     )
 
     val chart: Chart = Chart(
         listOf(lineParameters,lineParameters2),
         BackGroundGrid.SHOW,
-        Color.White,
+        Color.Gray,
         "month",
         "money"
     )
