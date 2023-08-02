@@ -41,7 +41,7 @@ fun TestAxesDrawing(){
             Pair("Sep",50000.0),
             Pair("Oct",90000.0),
         ),
-        Color.Blue,
+        Color.Red,
         LineType.QUADRATIC_LINE,
         LineShadow.BLANK
     )

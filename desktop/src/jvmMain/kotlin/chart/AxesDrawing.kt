@@ -52,7 +52,7 @@ fun AxesDrawing(
             // for x coordinate
             drawContext.canvas.nativeCanvas.apply {
                 drawText(
-                    textMeasurer = textMeasure, text = xAxisLabel,
+                    textMeasurer = textMeasure, text = xValue,
                     style = TextStyle(
                         fontSize = 12.sp,
                         color = Color.Gray
@@ -71,7 +71,7 @@ fun AxesDrawing(
                     val yValue = lowerValue + priceStep * i
 
                     drawText(
-                        textMeasurer = textMeasure, text = yAxisLabel,
+                        textMeasurer = textMeasure, text = yValue.toInt().toString(),
                         style = TextStyle(
                             fontSize = 12.sp,
                             color = Color.Gray,
@@ -110,7 +110,7 @@ fun AxesDrawing(
 
                     drawPath(
                         path = strokePathDefault,
-                        color = Color.Blue,
+                        color = line.lineColor,
                         style = Stroke(
                             width = 3.dp.toPx(),
                             cap = StrokeCap.Round
@@ -127,7 +127,7 @@ fun AxesDrawing(
                             path = fillPath,
                             brush = Brush.verticalGradient(
                                 colors = listOf(
-                                    Color.Blue.copy(alpha = .3f),
+                                    line.lineColor.copy(alpha = .3f),
                                     Color.Transparent
                                 ),
                                 endY = size.height - spacing
@@ -159,7 +159,7 @@ fun AxesDrawing(
                     }
                     drawPath(
                         path = strokePath,
-                        color = Color.Red,
+                        color = line.lineColor,
                         style = Stroke(
                             width = 3.dp.toPx(),
                             cap = StrokeCap.Round
@@ -177,7 +177,7 @@ fun AxesDrawing(
                             path = fillPath,
                             brush = Brush.verticalGradient(
                                 colors = listOf(
-                                    Color.Red.copy(alpha = .3f),
+                                    line.lineColor.copy(alpha = .3f),
                                     Color.Transparent
                                 ),
                                 endY = size.height - spacing
