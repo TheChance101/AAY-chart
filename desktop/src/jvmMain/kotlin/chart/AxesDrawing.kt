@@ -31,10 +31,10 @@ fun AxesDrawing(
 
     val spacing = 130f
     val upperValue = remember {
-        linesParameters[0].data.maxOfOrNull { it }?.plus(1) ?: 0.0
+        linesParameters.flatMap { it.data }.maxOrNull()?.plus(1.0) ?: 0.0
     }
     val lowerValue = remember {
-        linesParameters[0].data.minOfOrNull { it } ?: 0.0
+        linesParameters.flatMap { it.data }.minOrNull() ?: 0.0
     }
 
     val yAxis = mutableListOf<Float>()
