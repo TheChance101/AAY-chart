@@ -49,6 +49,7 @@ fun AxesDrawing(
 
 
         xAxisData.forEachIndexed { index, dataPoint ->
+            val xLength = spacing + index * spaceBetweenXes
             // for x coordinate
             drawContext.canvas.nativeCanvas.apply {
                 drawText(
@@ -57,7 +58,7 @@ fun AxesDrawing(
                         fontSize = 12.sp,
                         color = Color.Gray
                     ),
-                    topLeft = Offset(spacing + index * spaceBetweenXes, size.height / 1.07f)
+                    topLeft = Offset(xLength, size.height / 1.07f)
                 )
             }
 
@@ -88,7 +89,7 @@ fun AxesDrawing(
                 drawLine(
                     backGroundColor,
                     start = Offset(spacing - 10, yAxis[i] + 12f),
-                    end = Offset(size.width / 1.07f, yAxis[i] + 12f),
+                    end = Offset(xLength + 55, yAxis[i] + 12f),
                     strokeWidth = barWidthPx,
                     pathEffect = pathEffect
                 )

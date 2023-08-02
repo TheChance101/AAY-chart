@@ -14,7 +14,7 @@ object ChartDefault {
     val chart: Chart = Chart(
         lines = listOf(lineParameters),
         backGroundGrid = BackGroundGrid.SHOW,
-        backGroundColor = Color.Gray,
+        backGroundColor = Color.Black,
         xAxisLabel = "month",
         yAxisLabel = "money",
         xAxisData = emptyList()

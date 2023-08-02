@@ -34,12 +34,6 @@ fun TestAxesDrawing() {
     val xAxisList = listOf(
         "Jan",
         "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Aug",
-        "Sep",
-        "Oct",
     )
 
     val lineParameters2 = LineParameters(
