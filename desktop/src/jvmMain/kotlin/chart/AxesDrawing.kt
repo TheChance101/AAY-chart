@@ -21,15 +21,16 @@ import model.LineType
 @Composable
 fun AxesDrawing(
     modifier: Modifier = Modifier,
-    linesParameters: List<LineParameters> =ChartDefault.chart.lines,
+    linesParameters: List<LineParameters> = ChartDefault.chart.lines,
     backGroundGrid: BackGroundGrid = ChartDefault.chart.backGroundGrid,
-    backGroundColor: Color=ChartDefault.chart.backGroundColor,
-    xAxisLabel:String=ChartDefault.chart.xAxisLabel,
-    yAxisLabel:String=ChartDefault.chart.yAxisLabel,
-    ) {
+    backGroundColor: Color = ChartDefault.chart.backGroundColor,
+    xAxisLabel: String = ChartDefault.chart.xAxisLabel,
+    yAxisLabel: String = ChartDefault.chart.yAxisLabel,
+) {
+
     val spacing = 130f
     val upperValue = remember {
-        linesParameters[0].data.maxOfOrNull{ it.second.toDouble() }?.plus(1) ?: 0.0
+        linesParameters[0].data.maxOfOrNull { it.second }?.plus(1) ?: 0.0
     }
     val lowerValue = remember {
         linesParameters[0].data.minOfOrNull { it.second.toDouble() } ?: 0.0
@@ -80,18 +81,24 @@ fun AxesDrawing(
                     )
                 }
             }
-            linesParameters.forEach { line->
-                (0..4).forEach { i ->
-                    yAxis.add(size.height - spacing - i * size.height / 8f)
-                    drawLine(
-                        line.lineColor,
-                        start = Offset(spacing - 10, yAxis[i] + 12f),
-                        end = Offset(size.width / 1.07f, yAxis[i] + 12f),
-                        strokeWidth = barWidthPx,
-                        pathEffect = pathEffect
-                    )
-                }
-                if (line.lineType==LineType.DEFAULT_LINE ) {
+
+
+            //background line
+            (0..4).forEach { i ->
+                yAxis.add(size.height - spacing - i * size.height / 8f)
+                drawLine(
+                    backGroundColor,
+                    start = Offset(spacing - 10, yAxis[i] + 12f),
+                    end = Offset(size.width / 1.07f, yAxis[i] + 12f),
+                    strokeWidth = barWidthPx,
+                    pathEffect = pathEffect
+                )
+            }
+
+
+            // lines drawing
+            linesParameters.forEach { line ->
+                if (line.lineType == LineType.DEFAULT_LINE) {
                     val strokePathDefault = Path().apply {
                         val height = size.height
                         line.data.indices.forEach { i ->
@@ -116,7 +123,7 @@ fun AxesDrawing(
                             cap = StrokeCap.Round
                         )
                     )
-                    if (line.lineShadow==LineShadow.SHADOW) {
+                    if (line.lineShadow == LineShadow.SHADOW) {
                         val fillPath = strokePathDefault.apply {
                             lineTo(size.width - spaceBetweenXes, size.height - spacing)
                             lineTo(spacing, size.height - spacing)
@@ -166,7 +173,7 @@ fun AxesDrawing(
                         )
                     )
 
-                    if (line.lineShadow==LineShadow.SHADOW) {
+                    if (line.lineShadow == LineShadow.SHADOW) {
                         val fillPath = strokePath.apply {
                             lineTo(size.width - spaceBetweenXes, size.height - spacing)
                             lineTo(spacing, size.height - spacing)
@@ -184,7 +191,7 @@ fun AxesDrawing(
                             )
                         )
                     }
-                 }
+                }
             }
         }
     }
