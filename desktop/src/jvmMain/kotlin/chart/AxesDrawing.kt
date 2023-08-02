@@ -26,14 +26,15 @@ fun AxesDrawing(
     backGroundColor: Color = ChartDefault.chart.backGroundColor,
     xAxisLabel: String = ChartDefault.chart.xAxisLabel,
     yAxisLabel: String = ChartDefault.chart.yAxisLabel,
+    xAxisData: List<String> = ChartDefault.chart.xAxisData,
 ) {
 
     val spacing = 130f
     val upperValue = remember {
-        linesParameters[0].data.maxOfOrNull { it.second }?.plus(1) ?: 0.0
+        linesParameters[0].data.maxOfOrNull { it }?.plus(1) ?: 0.0
     }
     val lowerValue = remember {
-        linesParameters[0].data.minOfOrNull { it.second.toDouble() } ?: 0.0
+        linesParameters[0].data.minOfOrNull { it } ?: 0.0
     }
 
     val yAxis = mutableListOf<Float>()
@@ -47,13 +48,11 @@ fun AxesDrawing(
         val barWidthPx = 0.2.dp.toPx()
 
 
-        linesParameters[0].data.forEachIndexed { index, dataPoint ->
-            val xValue = dataPoint.first
-
+        xAxisData.forEachIndexed { index, dataPoint ->
             // for x coordinate
             drawContext.canvas.nativeCanvas.apply {
                 drawText(
-                    textMeasurer = textMeasure, text = xValue,
+                    textMeasurer = textMeasure, text = dataPoint,
                     style = TextStyle(
                         fontSize = 12.sp,
                         color = Color.Gray
@@ -103,7 +102,7 @@ fun AxesDrawing(
                         val height = size.height
                         line.data.indices.forEach { i ->
                             val info = line.data[i]
-                            val ratio = (info.second.toFloat() - lowerValue) / (upperValue - lowerValue)
+                            val ratio = (info.toFloat() - lowerValue) / (upperValue - lowerValue)
 
                             val x1 = spacing + i * spaceBetweenXes
                             val y1 = height - spacing - (ratio * height).toFloat()
@@ -148,8 +147,8 @@ fun AxesDrawing(
                         val height = size.height
                         line.data.indices.forEach { i ->
                             val nextInfo = line.data.getOrNull(i + 1) ?: line.data.last()
-                            val firstRatio = (line.data[i].second.toFloat() - lowerValue) / (upperValue - lowerValue)
-                            val secondRatio = (nextInfo.second.toFloat() - lowerValue) / (upperValue - lowerValue)
+                            val firstRatio = (line.data[i].toFloat() - lowerValue) / (upperValue - lowerValue)
+                            val secondRatio = (nextInfo.toFloat() - lowerValue) / (upperValue - lowerValue)
 
                             val x1 = spacing + i * spaceBetweenXes
                             val y1 = height - spacing - (firstRatio * height).toFloat()

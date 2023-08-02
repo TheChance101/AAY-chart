@@ -8,14 +8,15 @@ object ChartDefault {
         data = emptyList(),
         lineColor = Color.Blue,
         lineType = LineType.QUADRATIC_LINE,
-        lineShadow = LineShadow.SHADOW
+        lineShadow = LineShadow.SHADOW,
     )
 
     val chart: Chart = Chart(
         lines = listOf(lineParameters),
         backGroundGrid = BackGroundGrid.SHOW,
-        backGroundColor = Color.White,
+        backGroundColor = Color.Gray,
         xAxisLabel = "month",
-        yAxisLabel = "money"
+        yAxisLabel = "money",
+        xAxisData = emptyList()
     )
 }
