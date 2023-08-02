@@ -8,6 +8,7 @@ data class Chart(
     val backGroundColor: Color,
     val xAxisLabel: String,
     val yAxisLabel: String,
+    val xAxisData: List<String>
 )
 
 enum class BackGroundGrid {

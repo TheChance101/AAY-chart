@@ -14,60 +14,73 @@ import model.*
 @Composable
 fun TestAxesDrawing() {
 
-    val lineParameters: LineParameters = LineParameters(
-        "revenue",
-        listOf(
-            Pair("Jan", 10000.0),
-            Pair("Feb", 20000.0),
-            Pair("Mar", 40000.0),
-            Pair("Apr", 50000.0),
-            Pair("May", 20000.0),
-            Pair("Aug", 70000.0),
-            Pair("Sep", 50000.0),
-            Pair("Oct", 90000.0),
+    val lineParameters = LineParameters(
+        dataName = "revenue",
+        data = listOf(
+            10000.0,
+            20000.0,
+            40000.0,
+            50000.0,
+            20000.0,
+            70000.0,
+            50000.0,
+            90000.0,
         ),
-        Color.Blue,
-        LineType.QUADRATIC_LINE,
-        LineShadow.SHADOW
-    )
-    val lineParameters2: LineParameters = LineParameters(
-        "revenue",
-        listOf(
-            Pair("Jan", 50000.0),
-            Pair("Feb", 10000.0),
-            Pair("Mar", 40000.0),
-            Pair("Apr", 30000.0),
-            Pair("May", 40000.0),
-            Pair("Aug", 50000.0),
-            Pair("Sep", 50000.0),
-            Pair("Oct", 90000.0),
-        ),
-        Color.Red,
-        LineType.QUADRATIC_LINE,
-        LineShadow.BLANK
+        lineColor = Color.Blue,
+        lineType = LineType.QUADRATIC_LINE,
+        lineShadow = LineShadow.SHADOW
     )
 
-    val chart: Chart = Chart(
-        listOf(lineParameters, lineParameters2),
-        BackGroundGrid.SHOW,
-        Color.White,
-        "month",
-        "money"
+    val xAxisList = listOf(
+        "Jan",
+        "Feb",
     )
+
+    val lineParameters2 = LineParameters(
+        dataName = "revenue",
+        data = listOf(
+            50000.0,
+            40000.0,
+            30000.0,
+            50000.0,
+            20000.0,
+            90000.0,
+            10000.0,
+            90000.0,
+        ),
+        lineColor = Color.Red,
+        lineType = LineType.QUADRATIC_LINE,
+        lineShadow = LineShadow.BLANK
+    )
+
+    val chart = Chart(
+        lines = listOf(lineParameters, lineParameters2),
+        backGroundGrid = BackGroundGrid.SHOW,
+        backGroundColor = Color.White,
+        xAxisLabel = "month",
+        yAxisLabel = "money",
+        xAxisData = xAxisList
+    )
+
+    // for x or y this list?????
     val revenueData = listOf(
-        Pair("Jan", 10000),
-        Pair("Feb", 20000),
-        Pair("Mar", 40000),
+        Pair("Jan", 50000),
+        Pair("Feb", 40000),
+        Pair("Mar", 30000),
         Pair("Apr", 50000),
-        Pair("May", 20000),
-        Pair("Aug", 70000),
-        Pair("Sep", 50000),
-        Pair("Oct", 90000),
+        Pair("May", 40000),
+        Pair("Aug", 20000),
+        Pair("Sep", 10000),
+        Pair("Oct", 50000),
     )
+
     Column(modifier = Modifier.fillMaxSize()) {
         AxesDrawing(
-            modifier = Modifier.size(500.dp).align(Alignment.CenterHorizontally).padding(top = 24.dp),
-            chart.lines
+            modifier = Modifier.size(500.dp)
+                .align(Alignment.CenterHorizontally)
+                .padding(top = 24.dp),
+            linesParameters = chart.lines,
+            xAxisData = chart.xAxisData,
         )
     }
 }
