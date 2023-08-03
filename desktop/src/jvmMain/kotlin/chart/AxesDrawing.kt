@@ -46,7 +46,7 @@ fun AxesDrawing(
 
     val textMeasure = rememberTextMeasurer()
 
-    val animatedProgress = remember { Animatable(0f) }
+    val animatedProgress = remember { if (animateChart) Animatable(0f) else Animatable(1f) }
 
 
     LaunchedEffect(animateChart) {
