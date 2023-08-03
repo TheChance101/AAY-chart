@@ -2,8 +2,12 @@ package chart
 
 
 import ChartDefault
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -27,6 +31,7 @@ fun AxesDrawing(
     xAxisLabel: String = ChartDefault.chart.xAxisLabel,
     yAxisLabel: String = ChartDefault.chart.yAxisLabel,
     xAxisData: List<String> = ChartDefault.chart.xAxisData,
+    animateChart: Boolean = true // Add the animateChart property and set a default value
 ) {
     val spacing = 130f
     val upperValue = remember {
@@ -41,7 +46,18 @@ fun AxesDrawing(
 
     val textMeasure = rememberTextMeasurer()
 
+    // Animatable value for animating the drawing of the chart and the fill
+    val animatedProgress = remember { Animatable(0f) }
 
+    // Update the animation progress when animateChart is true
+    LaunchedEffect(animateChart) {
+        if (animateChart) {
+            animatedProgress.animateTo(
+                targetValue = 1f,
+                animationSpec = tween(durationMillis = 1000, easing = LinearEasing)
+            )
+        }
+    }
 
     Canvas(modifier = modifier) {
         val spaceBetweenXes = (size.width - spacing) / (linesParameters[0].data.size - 1)
@@ -115,7 +131,7 @@ fun AxesDrawing(
                         val ratio = (info.toFloat() - lowerValue) / (upperValue - lowerValue)
 
                         val x1 = spacing + i * spaceBetweenXes
-                        val y1 = height - spacing - (ratio * height).toFloat()
+                        val y1 = height - spacing - (ratio * height * animatedProgress.value).toFloat()
 
                         // Adjust the coordinates to stay within boundaries
                         val xAdjusted = x1.coerceIn(minX, maxX)
@@ -167,9 +183,9 @@ fun AxesDrawing(
                         val secondRatio = (nextInfo.toFloat() - lowerValue) / (upperValue - lowerValue)
 
                         val x1 = spacing + i * spaceBetweenXes
-                        val y1 = height - spacing - (firstRatio * height).toFloat()
+                        val y1 = height - spacing - (firstRatio * height * animatedProgress.value).toFloat()
                         val x2 = spacing + (i + 1) * spaceBetweenXes
-                        val y2 = height - spacing - (secondRatio * height).toFloat()
+                        val y2 = height - spacing - (secondRatio * height * animatedProgress.value).toFloat()
 
                         // Adjust the coordinates to stay within boundaries
                         val x1Adjusted = x1.coerceIn(minX, maxX)
