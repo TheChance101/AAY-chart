@@ -46,10 +46,9 @@ fun AxesDrawing(
 
     val textMeasure = rememberTextMeasurer()
 
-    // Animatable value for animating the drawing of the chart and the fill
     val animatedProgress = remember { Animatable(0f) }
 
-    // Update the animation progress when animateChart is true
+
     LaunchedEffect(animateChart) {
         if (animateChart) {
             animatedProgress.animateTo(
