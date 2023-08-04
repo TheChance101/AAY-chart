@@ -90,7 +90,7 @@ fun AxesDrawing(
 
             // Ensure the line stays within the boundaries
             val xStart = (spacing - 10).coerceIn(minX, maxX)
-            val xEnd = (size.width).coerceIn(minX, maxX)
+            val xEnd = (size.width).coerceIn(minX, maxX - spacing)
 
             drawLine(
                 backGroundColor,
@@ -133,7 +133,7 @@ fun AxesDrawing(
                         val y1 = height - spacing - (ratio * height * animatedProgress.value).toFloat()
 
                         // Adjust the coordinates to stay within boundaries
-                        val xAdjusted = x1.coerceIn(minX, maxX)
+                        val xAdjusted = x1.coerceIn(minX, maxX - spacing)
                         val yAdjusted = y1.coerceIn(minY, maxY)
 
                         if (i == 0) {
@@ -187,9 +187,9 @@ fun AxesDrawing(
                         val y2 = height - spacing - (secondRatio * height * animatedProgress.value).toFloat()
 
                         // Adjust the coordinates to stay within boundaries
-                        val x1Adjusted = x1.coerceIn(minX, maxX)
+                        val x1Adjusted = x1.coerceIn(minX, maxX - spacing)
                         val y1Adjusted = y1.coerceIn(minY, maxY)
-                        val x2Adjusted = x2.coerceIn(minX, maxX)
+                        val x2Adjusted = x2.coerceIn(minX, maxX - spacing)
                         val y2Adjusted = y2.coerceIn(minY, maxY)
 
                         if (i == 0) {
