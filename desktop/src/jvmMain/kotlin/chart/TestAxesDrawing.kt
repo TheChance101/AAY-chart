@@ -1,14 +1,18 @@
 package chart
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import composables.CustomDropDownHeader
 import model.*
 
 @Composable
@@ -23,8 +27,9 @@ fun TestAxesDrawing() {
             50000.0,
             20000.0,
             70000.0,
-            50000.0,
-            90000.0,
+
+
+
         ),
         lineColor = Color.Blue,
         lineType = LineType.QUADRATIC_LINE,
@@ -38,8 +43,7 @@ fun TestAxesDrawing() {
         "Apr",
         "May",
         "Aug",
-        "Sep",
-        "Oct",
+
     )
 
     val lineParameters2 = LineParameters(
@@ -50,9 +54,7 @@ fun TestAxesDrawing() {
             30000.0,
             50000.0,
             20000.0,
-            90000.0,
-            10000.0,
-            90000.0,
+            30000.0,
         ),
         lineColor = Color.Red,
         lineType = LineType.QUADRATIC_LINE,
@@ -79,14 +81,33 @@ fun TestAxesDrawing() {
         Pair("Sep", 10000),
         Pair("Oct", 50000),
     )
+    var selectedText by remember { mutableStateOf("Month") }
+    Box(modifier = Modifier.padding(16.dp)){
+        Card(modifier = Modifier.wrapContentSize()
+            .background(MaterialTheme.colors.background),
+            shape = RoundedCornerShape(16.dp)
+        ){ Column(modifier = Modifier.width(1000.dp).padding(16.dp)) {
+                Row(horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                    ) {
+                    Text("Revenue & Sales", fontSize = 20.sp)
+                    CustomDropDownHeader(
+                        selectedText = selectedText,
+                        onSelectedTextChanged = { newSelectedText ->
+                            selectedText = newSelectedText
+                        }
+                    )
+                }
+                AxesDrawing(
+                    modifier = Modifier.height(400.dp).width(1000.dp)
+                        .align(Alignment.CenterHorizontally)
+                        .padding(top = 8.dp),
+                    linesParameters = chart.lines,
+                    xAxisData = chart.xAxisData,
+                )
+            }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        AxesDrawing(
-            modifier = Modifier.size(500.dp)
-                .align(Alignment.CenterHorizontally)
-                .padding(top = 24.dp),
-            linesParameters = chart.lines,
-            xAxisData = chart.xAxisData,
-        )
+        }
     }
 }

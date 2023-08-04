@@ -33,7 +33,7 @@ fun AxesDrawing(
     xAxisData: List<String> = ChartDefault.chart.xAxisData,
     animateChart: Boolean = true // Add the animateChart property and set a default value
 ) {
-    val spacing = 130f
+    val spacing = 100f
     val upperValue = remember {
         linesParameters.flatMap { it.data }.maxOrNull()?.plus(1.0) ?: 0.0
     }
@@ -84,7 +84,7 @@ fun AxesDrawing(
         val maxY = size.height - spacing
 
         // Draw background lines
-        (0..4).forEach { i ->
+        (0..5).forEach { i ->
             yAxis.add(size.height - spacing - i * size.height / 8f)
             val y = yAxis[i] + 12f
 
@@ -104,7 +104,7 @@ fun AxesDrawing(
         // Draw y-axis labels
         val priceRange = upperValue - lowerValue
         val priceStep = priceRange / 5f
-        (0..4).forEach { i ->
+        (0..5).forEach { i ->
             val yValue = lowerValue + priceStep * i
             val y = (size.height - spacing - i * size.height / 8f).coerceIn(minY, maxY)
 
@@ -201,7 +201,6 @@ fun AxesDrawing(
                         }
                     }
                 }
-
                 drawPath(
                     path = strokePath,
                     color = line.lineColor,
