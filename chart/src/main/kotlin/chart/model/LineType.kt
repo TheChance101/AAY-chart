@@ -1,4 +1,4 @@
-package model
+package chart.model
 
 enum class LineType {
     DEFAULT_LINE,

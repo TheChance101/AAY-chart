@@ -1,7 +1,6 @@
 package chart
 
 
-import ChartDefault
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
@@ -16,10 +15,10 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import model.BackGroundGrid
-import model.LineParameters
-import model.LineShadow
-import model.LineType
+import chart.model.BackGroundGrid
+import chart.model.LineParameters
+import chart.model.LineShadow
+import chart.model.LineType
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
