@@ -1,7 +1,7 @@
-package chart
+package linear
 
 import androidx.compose.ui.graphics.Color
-import chart.model.*
+import linear.model.*
 
 object ChartDefault {
 

@@ -1,4 +1,4 @@
-package chart.composables
+package linear.composables
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource

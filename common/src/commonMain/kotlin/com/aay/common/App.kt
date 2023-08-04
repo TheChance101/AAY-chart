@@ -1,7 +1,7 @@
 package com.aay.common
 
 import androidx.compose.runtime.Composable
-import chart.TestAxesDrawing
+import linear.TestAxesDrawing
 
 @Composable
 fun App() {

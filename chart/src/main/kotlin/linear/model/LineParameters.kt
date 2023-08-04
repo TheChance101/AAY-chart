@@ -1,4 +1,4 @@
-package chart.model
+package linear.model
 
 import androidx.compose.ui.graphics.Color
 
