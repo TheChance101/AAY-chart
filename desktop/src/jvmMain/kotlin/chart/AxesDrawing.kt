@@ -24,6 +24,8 @@ import model.LineType
 @OptIn(ExperimentalTextApi::class)
 @Composable
 fun AxesDrawing(
+//    dropdownList: List<String>,
+//    onClickDropDown:(String)->Unit,
     modifier: Modifier = Modifier,
     linesParameters: List<LineParameters> = ChartDefault.chart.lines,
     backGroundGrid: BackGroundGrid = ChartDefault.chart.backGroundGrid,
