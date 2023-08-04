@@ -50,18 +50,18 @@ fun TestAxesDrawing() {
         dataName = "revenue",
         data = listOf(
             50000.0,
-            40000.0,
-            30000.0,
+            70000.0,
+            50000.0,
+            60000.0,
             50000.0,
             20000.0,
-            30000.0,
         ),
         lineColor = Color.Red,
         lineType = LineType.QUADRATIC_LINE,
         lineShadow = LineShadow.BLANK
     )
 
-    val chart = Chart(
+    val chartMonth = Chart(
         lines = listOf(lineParameters, lineParameters2),
         backGroundGrid = BackGroundGrid.SHOW,
         backGroundColor = Color.White,
@@ -69,19 +69,109 @@ fun TestAxesDrawing() {
         yAxisLabel = "money",
         xAxisData = xAxisList
     )
+    val lineParameters3 = LineParameters(
+        dataName = "revenue",
+        data = listOf(
+            20000.0,
+            50000.0,
+            70000.0,
+            80000.0,
+            50000.0,
+            30000.0,
 
-    // for x or y this list?????
-    val revenueData = listOf(
-        Pair("Jan", 50000),
-        Pair("Feb", 40000),
-        Pair("Mar", 30000),
-        Pair("Apr", 50000),
-        Pair("May", 40000),
-        Pair("Aug", 20000),
-        Pair("Sep", 10000),
-        Pair("Oct", 50000),
+
+
+            ),
+        lineColor = Color.Blue,
+        lineType = LineType.QUADRATIC_LINE,
+        lineShadow = LineShadow.SHADOW
     )
+
+    val xAxisListYear = listOf(
+        "2015",
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+
+        )
+    val lineParameters4 = LineParameters(
+        dataName = "revenue",
+        data = listOf(
+            80000.0,
+            40000.0,
+            90000.0,
+            50000.0,
+            80000.0,
+            50000.0,
+        ),
+        lineColor = Color.Red,
+        lineType = LineType.QUADRATIC_LINE,
+        lineShadow = LineShadow.BLANK
+    )
+
+    val chartYear = Chart(
+        lines = listOf(lineParameters3, lineParameters4),
+        backGroundGrid = BackGroundGrid.SHOW,
+        backGroundColor = Color.White,
+        xAxisLabel = "Year",
+        yAxisLabel = "money",
+        xAxisData = xAxisListYear
+    )
+    val lineParameters6 = LineParameters(
+        dataName = "revenue",
+        data = listOf(
+            30000.0,
+            20000.0,
+            80000.0,
+            50000.0,
+            70000.0,
+            40000.0,
+
+
+
+            ),
+        lineColor = Color.Blue,
+        lineType = LineType.QUADRATIC_LINE,
+        lineShadow = LineShadow.SHADOW
+    )
+
+    val xAxisListWeek = listOf(
+        "week1",
+        "week2",
+        "week3",
+        "week4",
+        "week5",
+        "week6",
+
+        )
+    val lineParameters5 = LineParameters(
+        dataName = "revenue",
+        data = listOf(
+            50000.0,
+            20000.0,
+            30000.0,
+            80000.0,
+            80000.0,
+            40000.0,
+        ),
+        lineColor = Color.Red,
+        lineType = LineType.QUADRATIC_LINE,
+        lineShadow = LineShadow.BLANK
+    )
+
+    val chartWeak = Chart(
+        lines = listOf(lineParameters5, lineParameters6),
+        backGroundGrid = BackGroundGrid.SHOW,
+        backGroundColor = Color.White,
+        xAxisLabel = "Year",
+        yAxisLabel = "money",
+        xAxisData = xAxisListWeek
+    )
+
     var selectedText by remember { mutableStateOf("Month") }
+    var chartSelected by remember { mutableStateOf(chartMonth) }
     Box(modifier = Modifier.padding(16.dp)){
         Card(modifier = Modifier.wrapContentSize()
             .background(MaterialTheme.colors.background),
@@ -98,13 +188,16 @@ fun TestAxesDrawing() {
                             selectedText = newSelectedText
                         }
                     )
+                    chartSelected = when(selectedText){
+                        "Week"->chartWeak
+                        "Year"->chartYear
+                        else -> {chartMonth}
+                    }
                 }
                 AxesDrawing(
-                    modifier = Modifier.height(400.dp).width(1000.dp)
-                        .align(Alignment.CenterHorizontally)
-                        .padding(top = 8.dp),
-                    linesParameters = chart.lines,
-                    xAxisData = chart.xAxisData,
+                    modifier = Modifier.height(400.dp).width(1000.dp),
+                    linesParameters = chartSelected.lines,
+                    xAxisData = chartSelected.xAxisData,
                 )
             }
 
