@@ -52,8 +52,7 @@ fun AxesDrawing(
     LaunchedEffect(animateChart) {
         if (animateChart) {
             animatedProgress.animateTo(
-                targetValue = 1f,
-                animationSpec = tween(durationMillis = 1000, easing = LinearEasing)
+                targetValue = 1f, animationSpec = tween(durationMillis = 1000, easing = LinearEasing)
             )
         }
     }
@@ -67,12 +66,9 @@ fun AxesDrawing(
             // for x coordinate
             drawContext.canvas.nativeCanvas.apply {
                 drawText(
-                    textMeasurer = textMeasure, text = dataPoint,
-                    style = TextStyle(
-                        fontSize = 12.sp,
-                        color = Color.Gray
-                    ),
-                    topLeft = Offset(xLength, size.height / 1.07f)
+                    textMeasurer = textMeasure, text = dataPoint, style = TextStyle(
+                        fontSize = 12.sp, color = Color.Gray
+                    ), topLeft = Offset(xLength, size.height / 1.07f)
                 )
             }
         }
@@ -110,12 +106,10 @@ fun AxesDrawing(
 
             drawContext.canvas.nativeCanvas.apply {
                 drawText(
-                    textMeasurer = textMeasure, text = yValue.toInt().toString(),
-                    style = TextStyle(
+                    textMeasurer = textMeasure, text = yValue.toInt().toString(), style = TextStyle(
                         fontSize = 12.sp,
                         color = Color.Gray,
-                    ),
-                    topLeft = Offset(0f, y)
+                    ), topLeft = Offset(0f, y)
                 )
             }
         }
@@ -145,11 +139,8 @@ fun AxesDrawing(
                 }
 
                 drawPath(
-                    path = strokePathDefault,
-                    color = line.lineColor,
-                    style = Stroke(
-                        width = 3.dp.toPx(),
-                        cap = StrokeCap.Round
+                    path = strokePathDefault, color = line.lineColor, style = Stroke(
+                        width = 3.dp.toPx(), cap = StrokeCap.Round
                     )
                 )
 
@@ -161,13 +152,10 @@ fun AxesDrawing(
                     }
 
                     drawPath(
-                        path = fillPath,
-                        brush = Brush.verticalGradient(
+                        path = fillPath, brush = Brush.verticalGradient(
                             colors = listOf(
-                                line.lineColor.copy(alpha = .3f),
-                                Color.Transparent
-                            ),
-                            endY = size.height - spacing
+                                line.lineColor.copy(alpha = .3f), Color.Transparent
+                            ), endY = size.height - spacing
                         )
                     )
                 }
@@ -202,11 +190,8 @@ fun AxesDrawing(
                     }
                 }
                 drawPath(
-                    path = strokePath,
-                    color = line.lineColor,
-                    style = Stroke(
-                        width = 3.dp.toPx(),
-                        cap = StrokeCap.Round
+                    path = strokePath, color = line.lineColor, style = Stroke(
+                        width = 3.dp.toPx(), cap = StrokeCap.Round
                     )
                 )
 
@@ -218,13 +203,10 @@ fun AxesDrawing(
                     }
 
                     drawPath(
-                        path = fillPath,
-                        brush = Brush.verticalGradient(
+                        path = fillPath, brush = Brush.verticalGradient(
                             colors = listOf(
-                                line.lineColor.copy(alpha = .3f),
-                                Color.Transparent
-                            ),
-                            endY = size.height - spacing
+                                line.lineColor.copy(alpha = .3f), Color.Transparent
+                            ), endY = size.height - spacing
                         )
                     )
                 }

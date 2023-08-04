@@ -120,7 +120,7 @@ fun TestAxesDrawing() {
         xAxisData = xAxisListYear
     )
     val lineParameters6 = LineParameters(
-        dataName = "revenue",
+        dataName = "Earnings",
         data = listOf(
             30000.0,
             20000.0,
@@ -159,6 +159,9 @@ fun TestAxesDrawing() {
         lineType = LineType.QUADRATIC_LINE,
         lineShadow = LineShadow.BLANK
     )
+
+    val colorHeaderList = listOf(lineParameters5.lineColor,lineParameters6.lineColor)
+    val titleHeaderList = listOf(lineParameters5.dataName, lineParameters6.dataName)
 
     val chartWeak = Chart(
         lines = listOf(lineParameters5, lineParameters6),
@@ -207,9 +210,6 @@ fun TestAxesDrawing() {
                     }
                 }
             }
-
-            val colorHeaderList = listOf(Color.Red, Color.Blue)
-            val titleHeaderList = listOf("Revenue", "Earnings")
 
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(24.dp),
