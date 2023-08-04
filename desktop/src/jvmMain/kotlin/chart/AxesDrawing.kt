@@ -80,7 +80,7 @@ fun AxesDrawing(
         // Calculate the valid boundaries of the chart area
         val minX = spacing
         val maxX = size.width + xAxisData.size
-        val minY = spacing + 50
+        val minY = spacing
         val maxY = size.height - spacing
 
         // Draw background lines
