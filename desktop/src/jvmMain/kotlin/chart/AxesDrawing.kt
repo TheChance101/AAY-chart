@@ -86,7 +86,7 @@ fun AxesDrawing(
         // Draw background lines
         (0..5).forEach { i ->
             yAxis.add(size.height - spacing - i * size.height / 8f)
-            val y = yAxis[i] + 12f
+            val y = yAxis[i] + 15f
 
             // Ensure the line stays within the boundaries
             val xStart = (spacing - 10).coerceIn(minX, maxX)
