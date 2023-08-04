@@ -59,7 +59,7 @@ fun AxesDrawing(
     }
 
     Canvas(modifier = modifier) {
-        val spaceBetweenXes = (size.width - spacing) / (linesParameters[0].data.size - 1)
+        val spaceBetweenXes = (size.width - spacing) / xAxisData.size
         val barWidthPx = 0.2.dp.toPx()
 
         xAxisData.forEachIndexed { index, dataPoint ->
@@ -79,8 +79,8 @@ fun AxesDrawing(
 
         // Calculate the valid boundaries of the chart area
         val minX = spacing
-        val maxX = size.width - 55
-        val minY = spacing
+        val maxX = size.width + xAxisData.size
+        val minY = spacing + 50
         val maxY = size.height - spacing
 
         // Draw background lines
