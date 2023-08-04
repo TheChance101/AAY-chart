@@ -90,7 +90,7 @@ fun AxesDrawing(
 
             // Ensure the line stays within the boundaries
             val xStart = (spacing - 10).coerceIn(minX, maxX)
-            val xEnd = (size.width).coerceIn(minX, maxX - spacing)
+            val xEnd = (size.width).coerceIn(minX, maxX - spacing - 45)
 
             drawLine(
                 backGroundColor,
