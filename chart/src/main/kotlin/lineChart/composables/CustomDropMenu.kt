@@ -68,9 +68,3 @@ fun<T> CustomDropdown(
         }
     }
 }
-@Preview
-@Composable
-fun DropdownPreview(){
-    CustomDropdown<String>(options =listOf("2019","2020","2030"),
-        onOptionSelected ={} )
-}

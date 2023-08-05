@@ -1,4 +1,4 @@
-package linear
+package lineChart
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -16,8 +16,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import linear.composables.CustomDropDownHeader
-import linear.model.*
+import lineChart.composables.CustomDropDownHeader
+import lineChart.model.*
 
 @Composable
 fun TestAxesDrawing() {
@@ -227,7 +227,7 @@ fun TestAxesDrawing() {
                 }
             }
 
-            LinearChart(
+            LineChart(
                 modifier = Modifier.height(400.dp).width(1000.dp),
                 linesParameters = chartSelected.lines,
                 xAxisData = chartSelected.xAxisData,
