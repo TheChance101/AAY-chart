@@ -5,17 +5,18 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import linear.chart_components.xAxisDrawing
+import linear.chart_components.chartContainer
 import linear.model.BackGroundGrid
 import linear.model.LineParameters
 import linear.model.LineShadow
@@ -57,11 +58,17 @@ fun LinearChart(
         }
     }
 
-    Canvas(modifier = modifier) {
+    Canvas(modifier = modifier.fillMaxSize().clipToBounds()) {
         val spaceBetweenXes = (size.width - spacing) / xAxisData.size
         val barWidthPx = 0.2.dp.toPx()
 
-        xAxisDrawing(xAxisData,spacing,textMeasure)
+        chartContainer(
+            xAxisData = xAxisData,
+            spacing = spacing.dp,
+            textMeasure,
+            upperValue.toFloat(),
+            lowerValue.toFloat()
+        )
 
         // Calculate the valid boundaries of the chart area
         val minX = spacing
@@ -87,22 +94,6 @@ fun LinearChart(
             )
         }
 
-        // Draw y-axis labels
-        val priceRange = upperValue - lowerValue
-        val priceStep = priceRange / 5f
-        (0..5).forEach { i ->
-            val yValue = lowerValue + priceStep * i
-            val y = (size.height - spacing - i * size.height / 8f).coerceIn(minY, maxY)
-
-            drawContext.canvas.nativeCanvas.apply {
-                drawText(
-                    textMeasurer = textMeasure, text = yValue.toInt().toString(), style = TextStyle(
-                        fontSize = 12.sp,
-                        color = Color.Gray,
-                    ), topLeft = Offset(0f, y)
-                )
-            }
-        }
 
         // Lines drawing
         linesParameters.forEach { line ->
