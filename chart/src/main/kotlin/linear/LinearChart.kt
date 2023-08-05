@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import linear.chart_components.xAxisDrawing
 import linear.model.BackGroundGrid
 import linear.model.LineParameters
 import linear.model.LineShadow
@@ -60,17 +61,7 @@ fun LinearChart(
         val spaceBetweenXes = (size.width - spacing) / xAxisData.size
         val barWidthPx = 0.2.dp.toPx()
 
-        xAxisData.forEachIndexed { index, dataPoint ->
-            val xLength = spacing + index * spaceBetweenXes
-            // for x coordinate
-            drawContext.canvas.nativeCanvas.apply {
-                drawText(
-                    textMeasurer = textMeasure, text = dataPoint, style = TextStyle(
-                        fontSize = 12.sp, color = Color.Gray
-                    ), topLeft = Offset(xLength, size.height / 1.07f)
-                )
-            }
-        }
+        xAxisDrawing(xAxisData,spacing,textMeasure)
 
         // Calculate the valid boundaries of the chart area
         val minX = spacing
