@@ -30,6 +30,8 @@ fun<T> LinearChart(
     backGroundGrid: BackGroundGrid = LinerChartDefault.backGroundGrid,
     backGroundColor: Color = LinerChartDefault.backGroundColor,
     xAxisData: List<String> = LinerChartDefault.xAxisData,
+    dropdownItems:List<T>,
+    onClickDropDownItem:(T)->Unit,
     animateChart: Boolean = true // Add the animateChart property and set a default value
 ) {
     val spacing = 100f
