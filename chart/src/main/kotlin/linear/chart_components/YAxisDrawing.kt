@@ -8,7 +8,6 @@ import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -18,7 +17,7 @@ fun DrawScope.yAxisDrawing(upperValue : Float, lowerValue : Float,
 ){
     val spacing = 75.dp
     val dataRange = upperValue - lowerValue
-    val dataStep = dataRange.toFloat() / 5f
+    val dataStep = dataRange / 5f
     val minY = spacing
     val maxY = size.height - spacing.toPx()
 
