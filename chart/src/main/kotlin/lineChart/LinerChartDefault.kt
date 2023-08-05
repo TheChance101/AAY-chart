@@ -1,7 +1,7 @@
-package linear
+package lineChart
 
 import androidx.compose.ui.graphics.Color
-import linear.model.*
+import lineChart.model.*
 
 object LinerChartDefault {
 
