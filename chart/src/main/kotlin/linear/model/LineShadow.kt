@@ -1,4 +1,4 @@
-package model
+package linear.model
 
 enum class LineShadow {
     SHADOW,

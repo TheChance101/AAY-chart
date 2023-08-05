@@ -1,7 +1,6 @@
-package chart
+package linear
 
 
-import ChartDefault
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
@@ -16,14 +15,14 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import model.BackGroundGrid
-import model.LineParameters
-import model.LineShadow
-import model.LineType
+import linear.model.BackGroundGrid
+import linear.model.LineParameters
+import linear.model.LineShadow
+import linear.model.LineType
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
-fun AxesDrawing(
+fun LinearChart(
     modifier: Modifier = Modifier,
     linesParameters: List<LineParameters> = ChartDefault.chart.lines,
     backGroundGrid: BackGroundGrid = ChartDefault.chart.backGroundGrid,
