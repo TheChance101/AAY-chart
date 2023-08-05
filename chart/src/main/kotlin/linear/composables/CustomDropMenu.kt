@@ -16,7 +16,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CustomDropDownHeader(
-    selectedText: String, onSelectedTextChanged: (String) -> Unit = {}
+    selectedText: String,
+    onSelectedTextChanged: (String) -> Unit = {},
+
 ) {
     var expanded by remember { mutableStateOf(false) }
     val suggestions = listOf("Week", "Month", "Year")

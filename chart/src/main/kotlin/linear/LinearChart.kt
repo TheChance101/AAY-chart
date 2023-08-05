@@ -24,14 +24,12 @@ import linear.model.LineType
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
-fun LinearChart(
+fun<T> LinearChart(
     modifier: Modifier = Modifier,
-    linesParameters: List<LineParameters> = ChartDefault.chart.lines,
-    backGroundGrid: BackGroundGrid = ChartDefault.chart.backGroundGrid,
-    backGroundColor: Color = ChartDefault.chart.backGroundColor,
-    xAxisLabel: String = ChartDefault.chart.xAxisLabel,
-    yAxisLabel: String = ChartDefault.chart.yAxisLabel,
-    xAxisData: List<String> = ChartDefault.chart.xAxisData,
+    linesParameters: List<LineParameters> = LinerChartDefault.lineParameters,
+    backGroundGrid: BackGroundGrid = LinerChartDefault.backGroundGrid,
+    backGroundColor: Color = LinerChartDefault.backGroundColor,
+    xAxisData: List<String> = LinerChartDefault.xAxisData,
     animateChart: Boolean = true // Add the animateChart property and set a default value
 ) {
     val spacing = 100f
