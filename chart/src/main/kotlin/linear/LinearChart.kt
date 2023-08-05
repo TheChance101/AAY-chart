@@ -1,31 +1,30 @@
-package chart
+package linear
 
 
-import ChartDefault
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import model.BackGroundGrid
-import model.LineParameters
-import model.LineShadow
-import model.LineType
+import linear.chart_components.chartContainer
+import linear.model.BackGroundGrid
+import linear.model.LineParameters
+import linear.model.LineShadow
+import linear.model.LineType
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
-fun AxesDrawing(
-//    dropdownList: List<String>,
-//    onClickDropDown:(String)->Unit,
+fun LinearChart(
     modifier: Modifier = Modifier,
     linesParameters: List<LineParameters> = ChartDefault.chart.lines,
     backGroundGrid: BackGroundGrid = ChartDefault.chart.backGroundGrid,
@@ -59,21 +58,17 @@ fun AxesDrawing(
         }
     }
 
-    Canvas(modifier = modifier) {
+    Canvas(modifier = modifier.fillMaxSize().clipToBounds()) {
         val spaceBetweenXes = (size.width - spacing) / xAxisData.size
         val barWidthPx = 0.2.dp.toPx()
 
-        xAxisData.forEachIndexed { index, dataPoint ->
-            val xLength = spacing + index * spaceBetweenXes
-            // for x coordinate
-            drawContext.canvas.nativeCanvas.apply {
-                drawText(
-                    textMeasurer = textMeasure, text = dataPoint, style = TextStyle(
-                        fontSize = 12.sp, color = Color.Gray
-                    ), topLeft = Offset(xLength, size.height / 1.07f)
-                )
-            }
-        }
+        chartContainer(
+            xAxisData = xAxisData,
+            spacing = spacing.dp,
+            textMeasure,
+            upperValue.toFloat(),
+            lowerValue.toFloat()
+        )
 
         // Calculate the valid boundaries of the chart area
         val minX = spacing
@@ -99,22 +94,6 @@ fun AxesDrawing(
             )
         }
 
-        // Draw y-axis labels
-        val priceRange = upperValue - lowerValue
-        val priceStep = priceRange / 5f
-        (0..5).forEach { i ->
-            val yValue = lowerValue + priceStep * i
-            val y = (size.height - spacing - i * size.height / 8f).coerceIn(minY, maxY)
-
-            drawContext.canvas.nativeCanvas.apply {
-                drawText(
-                    textMeasurer = textMeasure, text = yValue.toInt().toString(), style = TextStyle(
-                        fontSize = 12.sp,
-                        color = Color.Gray,
-                    ), topLeft = Offset(0f, y)
-                )
-            }
-        }
 
         // Lines drawing
         linesParameters.forEach { line ->
