@@ -1,4 +1,4 @@
-package linear
+package lineChart
 
 
 import androidx.compose.animation.core.Animatable
@@ -16,21 +16,18 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.dp
-import linear.chart_components.chartContainer
-import linear.model.BackGroundGrid
-import linear.model.LineParameters
-import linear.model.LineShadow
-import linear.model.LineType
+import lineChart.chart_components.chartContainer
+import lineChart.model.BackGroundGrid
+import lineChart.model.LineParameters
+import lineChart.model.LineShadow
+import lineChart.model.LineType
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
-fun LinearChart(
+fun LineChart(
     modifier: Modifier = Modifier,
     linesParameters: List<LineParameters> = ChartDefault.chart.lines,
-    backGroundGrid: BackGroundGrid = ChartDefault.chart.backGroundGrid,
     backGroundColor: Color = ChartDefault.chart.backGroundColor,
-    xAxisLabel: String = ChartDefault.chart.xAxisLabel,
-    yAxisLabel: String = ChartDefault.chart.yAxisLabel,
     xAxisData: List<String> = ChartDefault.chart.xAxisData,
     animateChart: Boolean = true // Add the animateChart property and set a default value
 ) {
