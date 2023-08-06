@@ -38,12 +38,4 @@ fun <T> DrawScope.chartContainer(
         pathEffect = pathEffect
     )
 
-    linesDrawing(
-        lineParametersList = lineParametersList,
-        xAxisData = xAxisData,
-        ratioUpperValue = upperValue,
-        ratioLowerValue = lowerValue,
-        spacing = spacing,
-        animatedProgress = animatedProgress
-    )
 }
