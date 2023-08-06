@@ -21,22 +21,22 @@ fun AppPreview() {
     val testLineParameters: List<LineParameters> = listOf(
         LineParameters(
             dataName = "revenue",
-            data = listOf(1000.6, 2000.6, 6677.33, 99983.232, 99999.232),
+            data = listOf(1000.6, 2000.6, 6677.33, 99983.232, 11111.232),
             lineColor = Color.Blue,
             lineType = LineType.QUADRATIC_LINE,
             lineShadow = LineShadow.BLANK,
         ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(188900.6, 87100.6, 4854.33, 91111.232),
+            data = listOf(188900.6, 87100.6, 89900.33, 91111.232),
             lineColor = Color.Black,
             lineType = LineType.DEFAULT_LINE,
             lineShadow = LineShadow.SHADOW,
         ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(188900.6, 67788.6, 1111111.33, 91111.232),
-            lineColor = Color.Black,
+            data = listOf(188900.6, 67788.6, 1111111.33, 5555.232),
+            lineColor = Color.Red,
             lineType = LineType.DEFAULT_LINE,
             lineShadow = LineShadow.SHADOW,
         )

@@ -22,7 +22,6 @@ fun DrawScope.drawDefaultLineWithShadow(
     spaceBetweenXes: Dp,
     animatedProgress: Animatable<Float, AnimationVector1D>,
     xAxisSize: Int
-
 ) {
 
     val strokePathOfDefaultLine = drawLineAsQuadratic(

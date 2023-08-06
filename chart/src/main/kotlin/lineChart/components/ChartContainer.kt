@@ -32,5 +32,4 @@ fun <T> DrawScope.chartContainer(
         backgroundLineWidth = backgroundLineWidth,
         pathEffect = pathEffect
     )
-
 }
