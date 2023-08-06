@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
+import composables.LocalContentColor
 
 @Composable
 fun CustomText(
@@ -18,8 +19,8 @@ fun CustomText(
     maxLines: Int = Int.MAX_VALUE,
     onTextLayout: (TextLayoutResult) -> Unit = {},
     style: TextStyle = TextStyle.Default,
-    color: Color = Color.Unspecified,
-    ){
+    color: Color = Color.Unspecified
+) {
     val textColor = color.takeOrElse {
         style.color.takeOrElse {
             LocalContentColor.current

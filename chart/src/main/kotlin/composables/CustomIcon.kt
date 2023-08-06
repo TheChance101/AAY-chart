@@ -1,4 +1,4 @@
-package com.example.comcus.composables
+package composables
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size

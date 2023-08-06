@@ -1,4 +1,4 @@
-package lineChart.composables
+package composables
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.border
@@ -12,11 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.comcus.composables.CustomIcon
 import com.example.comcus.composables.CustomText
 
 @Composable
-fun<T> CustomDropdown(
+fun <T> CustomDropdown(
     options: List<T>,
     onOptionSelected: (T) -> Unit
 ) {
@@ -38,7 +37,7 @@ fun<T> CustomDropdown(
                 modifier = Modifier.align(Alignment.CenterStart)
             )
             CustomIcon(
-                painter = icon ,
+                painter = icon,
                 contentDescription = null,
                 modifier = Modifier.align(Alignment.CenterEnd)
             )
@@ -48,7 +47,7 @@ fun<T> CustomDropdown(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .border(1.dp, Color.Gray,RoundedCornerShape(8.dp))
+                    .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
             ) {
                 options.forEach { option ->
                     CustomText(
@@ -68,9 +67,10 @@ fun<T> CustomDropdown(
         }
     }
 }
+
 @Preview
 @Composable
-fun DropdownPreview(){
-    CustomDropdown<String>(options =listOf("2019","2020","2030"),
-        onOptionSelected ={} )
+fun DropdownPreview() {
+    CustomDropdown<String>(options = listOf("2019", "2020", "2030"),
+        onOptionSelected = {})
 }
