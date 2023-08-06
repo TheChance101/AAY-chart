@@ -8,8 +8,8 @@ import androidx.compose.ui.unit.Dp
 import lineChart.model.BackGroundGrid
 
 
-fun <T> DrawScope.backgroundLine(
-    backgroundLineCount: List<T>,
+fun DrawScope.backgroundLine(
+    xAxisDataSize: Int,
     isShowBackgroundLines: BackGroundGrid,
     spacing: Dp,
     backGroundColor: Color,
@@ -17,7 +17,7 @@ fun <T> DrawScope.backgroundLine(
 ) {
     // Calculate the valid boundaries of the chart area
     val minX = spacing.toPx()
-    val xAxisMaxValue = size.width + backgroundLineCount.size
+    val xAxisMaxValue = size.width + xAxisDataSize
 
     val yAxisList = mutableListOf<Float>()
     val pathEffect = PathEffect.dashPathEffect(floatArrayOf(16f, 16f), 0f)
