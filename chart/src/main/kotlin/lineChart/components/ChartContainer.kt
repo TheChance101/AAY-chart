@@ -4,6 +4,7 @@ package lineChart.components
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
@@ -21,6 +22,7 @@ fun <T> DrawScope.chartContainer(
     isShowBackgroundLines: BackGroundGrid,
     backGroundLineColor: Color,
     backgroundLineWidth: Float,
+    pathEffect: PathEffect,
     lineParametersList: List<LineParameters>,
     animatedProgress: Animatable<Float, AnimationVector1D>
 ) {
@@ -32,7 +34,8 @@ fun <T> DrawScope.chartContainer(
         isShowBackgroundLines = isShowBackgroundLines,
         spacing = spacing,
         backGroundColor = backGroundLineColor,
-        backgroundLineWidth = backgroundLineWidth
+        backgroundLineWidth = backgroundLineWidth,
+        pathEffect = pathEffect
     )
 
     linesDrawing(

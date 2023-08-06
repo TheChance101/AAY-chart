@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.unit.dp
 import lineChart.LineChart
 import lineChart.model.BackGroundGrid
@@ -21,7 +22,7 @@ fun AppPreview() {
     val testLineParameters: List<LineParameters> = listOf(
         LineParameters(
             dataName = "revenue",
-            data = listOf(1000.6, 2000.6, 6677.33, 99983.232,99999.232),
+            data = listOf(1000.6, 2000.6, 6677.33, 99983.232, 99999.232),
             lineColor = Color.Blue,
             lineType = LineType.QUADRATIC_LINE,
             lineShadow = LineShadow.BLANK,
@@ -42,7 +43,7 @@ fun AppPreview() {
             backGroundColor = Color.Blue,
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019"),
             showBackgroundGrid = BackGroundGrid.SHOW,
-            animateChart = true
+            animateChart = true,
         )
     }
 }

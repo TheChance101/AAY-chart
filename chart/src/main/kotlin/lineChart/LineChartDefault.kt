@@ -1,6 +1,7 @@
 package lineChart
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.unit.dp
 import lineChart.model.*
 
@@ -16,8 +17,9 @@ object LineChartDefault {
         )
     )
     val backGroundGrid = BackGroundGrid.SHOW
-    val backGroundColor= Color.Gray
-    val xAxisData= listOf("2015","2016","2017","2018","2019")
+    val backGroundColor = Color.Gray
+    val xAxisData = listOf("2015", "2016", "2017", "2018", "2019")
     const val ANIMATED_CHART = true
     val backgroundLineWidth = 1.dp
+    val pathEffect = PathEffect.dashPathEffect(floatArrayOf(1f, 1f), 0f)
 }

@@ -28,7 +28,8 @@ fun LineChart(
     xAxisData: List<String> = LineChartDefault.xAxisData,
     showBackgroundGrid: BackGroundGrid = LineChartDefault.backGroundGrid,
     barWidthPx: Dp = LineChartDefault.backgroundLineWidth,
-    animateChart: Boolean = LineChartDefault.ANIMATED_CHART // Add the animateChart property and set a default value
+    animateChart: Boolean = LineChartDefault.ANIMATED_CHART,
+    pathEffect: PathEffect = LineChartDefault.pathEffect
 ) {
     val spacing = 100f
     val upperValue = remember {
@@ -53,6 +54,7 @@ fun LineChart(
             isShowBackgroundLines = showBackgroundGrid,
             backgroundLineWidth = barWidthPx.toPx(),
             backGroundLineColor = backGroundColor,
+            pathEffect = pathEffect,
             lineParametersList = linesParameters,
             animatedProgress = animatedProgress
         )
