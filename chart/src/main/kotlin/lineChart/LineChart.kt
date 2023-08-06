@@ -21,7 +21,7 @@ import lineChart.model.LineParameters
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
-fun LineChart(
+internal fun LineChart(
     modifier: Modifier = Modifier,
     linesParameters: List<LineParameters> = LineChartDefault.lineParameters,
     backGroundColor: Color = LineChartDefault.backGroundColor,
@@ -32,16 +32,17 @@ fun LineChart(
     pathEffect: PathEffect = LineChartDefault.pathEffect
 ) {
     val spacing = 100f
+    val textMeasure = rememberTextMeasurer()
+
+    val animatedProgress = remember {
+        if (animateChart) Animatable(0f) else Animatable(1f)
+    }
     val upperValue = remember {
         linesParameters.flatMap { it.data }.maxOrNull()?.plus(1.0) ?: 0.0
     }
     val lowerValue = remember {
         linesParameters.flatMap { it.data }.minOrNull() ?: 0.0
     }
-
-    val textMeasure = rememberTextMeasurer()
-
-    val animatedProgress = remember { if (animateChart) Animatable(0f) else Animatable(1f) }
 
 
     Canvas(modifier = modifier.fillMaxSize().clipToBounds()) {
