@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.dp
 import lineChart.chart_components.chartContainer
+import lineChart.model.BackGroundGrid
 import lineChart.model.LineParameters
 import lineChart.model.LineShadow
 import lineChart.model.LineType
@@ -25,10 +26,11 @@ import lineChart.model.LineType
 @Composable
 fun LineChart(
     modifier: Modifier = Modifier,
-    linesParameters: List<LineParameters>,
-    backGroundColor: Color,
-    xAxisData: List<String>,
-    animateChart: Boolean = true // Add the animateChart property and set a default value
+    linesParameters: List<LineParameters> = LineChartDefault.lineParameters,
+    backGroundColor: Color= LineChartDefault.backGroundColor,
+    xAxisData: List<String> = LineChartDefault.xAxisData,
+    showBackgroundGrid: BackGroundGrid = LineChartDefault.backGroundGrid,
+    animateChart: Boolean = LineChartDefault.anmiteChart // Add the animateChart property and set a default value
 ) {
     val spacing = 100f
     val upperValue = remember {

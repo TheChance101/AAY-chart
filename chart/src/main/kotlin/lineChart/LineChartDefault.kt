@@ -5,11 +5,17 @@ import lineChart.model.*
 
 object LineChartDefault {
 
-    private val lineParameters: LineParameters = LineParameters(
-        dataName = "revenue",
-        data = emptyList(),
-        lineColor = Color.Blue,
-        lineType = LineType.QUADRATIC_LINE,
-        lineShadow = LineShadow.SHADOW,
+    val lineParameters: List<LineParameters> = listOf(
+        LineParameters(
+            dataName = "revenue",
+            data = emptyList(),
+            lineColor = Color.Blue,
+            lineType = LineType.QUADRATIC_LINE,
+            lineShadow = LineShadow.SHADOW,
+        )
     )
+    val backGroundGrid = BackGroundGrid.SHOW
+    val backGroundColor= Color.Transparent
+    val xAxisData= listOf("2015","2016","2017","2018","2019")
+    val anmiteChart = true
 }
