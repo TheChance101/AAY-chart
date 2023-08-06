@@ -5,5 +5,4 @@ import lineChart.LineChart
 
 @Composable
 fun App() {
-   LineChart()
 }

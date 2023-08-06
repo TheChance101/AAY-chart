@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.dp
-import lineChart.chart_components.chartContainer
+import lineChart.components.chartContainer
 import lineChart.model.BackGroundGrid
 import lineChart.model.LineParameters
 import lineChart.model.LineShadow
@@ -27,7 +27,7 @@ import lineChart.model.LineType
 fun LineChart(
     modifier: Modifier = Modifier,
     linesParameters: List<LineParameters> = LineChartDefault.lineParameters,
-    backGroundColor: Color= LineChartDefault.backGroundColor,
+    backGroundColor: Color = LineChartDefault.backGroundColor,
     xAxisData: List<String> = LineChartDefault.xAxisData,
     showBackgroundGrid: BackGroundGrid = LineChartDefault.backGroundGrid,
     animateChart: Boolean = LineChartDefault.anmiteChart // Add the animateChart property and set a default value
@@ -39,9 +39,6 @@ fun LineChart(
     val lowerValue = remember {
         linesParameters.flatMap { it.data }.minOrNull() ?: 0.0
     }
-
-    val yAxis = mutableListOf<Float>()
-    val pathEffect = PathEffect.dashPathEffect(floatArrayOf(16f, 16f), 0f)
 
     val textMeasure = rememberTextMeasurer()
 
@@ -58,42 +55,23 @@ fun LineChart(
 
     Canvas(modifier = modifier.fillMaxSize().clipToBounds()) {
         val spaceBetweenXes = (size.width - spacing) / xAxisData.size
-        val barWidthPx = 0.2.dp.toPx()
+        val barWidthPx = 4.dp.toPx()
 
         chartContainer(
             xAxisData = xAxisData,
             spacing = spacing.dp,
-            textMeasure,
-            upperValue.toFloat(),
-            lowerValue.toFloat()
+            textMeasure = textMeasure,
+            upperValue = upperValue.toFloat(),
+            lowerValue = lowerValue.toFloat(),
+            isShowBackgroundLines = showBackgroundGrid,
+            backgroundLineWidth = barWidthPx,
+            backGroundLineColor = backGroundColor
+
         )
 
         // Calculate the valid boundaries of the chart area
-        val minX = spacing
         val maxX = size.width + xAxisData.size
-        val minY = spacing
         val maxY = size.height - spacing
-
-        // Draw background lines
-      if (showBackgroundGrid == BackGroundGrid.SHOW){
-          (0..5).forEach { i ->
-              yAxis.add(size.height - spacing - i * size.height / 8f)
-              val y = yAxis[i] + 15f
-
-              // Ensure the line stays within the boundaries
-              val xStart = (spacing - 10).coerceIn(minX, maxX)
-              val xEnd = (size.width).coerceIn(minX, maxX - spacing - 45)
-
-              drawLine(
-                  backGroundColor,
-                  start = Offset(xStart, y),
-                  end = Offset(xEnd, y),
-                  strokeWidth = barWidthPx,
-                  pathEffect = pathEffect
-              )
-          }
-      }
-
 
         // Lines drawing
         linesParameters.forEach { line ->
@@ -108,8 +86,8 @@ fun LineChart(
                         val y1 = height - spacing - (ratio * height * animatedProgress.value).toFloat()
 
                         // Adjust the coordinates to stay within boundaries
-                        val xAdjusted = x1.coerceIn(minX, maxX - spacing)
-                        val yAdjusted = y1.coerceIn(minY, maxY)
+                        val xAdjusted = x1.coerceIn(spacing, maxX - spacing)
+                        val yAdjusted = y1.coerceIn(spacing, maxY)
 
                         if (i == 0) {
                             moveTo(xAdjusted, yAdjusted)
@@ -156,10 +134,10 @@ fun LineChart(
                         val y2 = height - spacing - (secondRatio * height * animatedProgress.value).toFloat()
 
                         // Adjust the coordinates to stay within boundaries
-                        val x1Adjusted = x1.coerceIn(minX, maxX - spacing)
-                        val y1Adjusted = y1.coerceIn(minY, maxY)
-                        val x2Adjusted = x2.coerceIn(minX, maxX - spacing)
-                        val y2Adjusted = y2.coerceIn(minY, maxY)
+                        val x1Adjusted = x1.coerceIn(spacing, maxX - spacing)
+                        val y1Adjusted = y1.coerceIn(spacing, maxY)
+                        val x2Adjusted = x2.coerceIn(spacing, maxX - spacing)
+                        val y2Adjusted = y2.coerceIn(spacing, maxY)
 
                         if (i == 0) {
                             moveTo(x1Adjusted, y1Adjusted)

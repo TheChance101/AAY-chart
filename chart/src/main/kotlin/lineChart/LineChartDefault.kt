@@ -15,7 +15,7 @@ object LineChartDefault {
         )
     )
     val backGroundGrid = BackGroundGrid.SHOW
-    val backGroundColor= Color.Transparent
+    val backGroundColor= Color.Gray
     val xAxisData= listOf("2015","2016","2017","2018","2019")
     val anmiteChart = true
 }
