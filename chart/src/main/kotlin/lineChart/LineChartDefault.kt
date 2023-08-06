@@ -11,7 +11,7 @@ object LineChartDefault {
             data = emptyList(),
             lineColor = Color.Blue,
             lineType = LineType.QUADRATIC_LINE,
-            lineShadow = LineShadow.SHADOW,
+            lineShadow = LineShadow.BLANK,
         )
     )
     val backGroundGrid = BackGroundGrid.SHOW
