@@ -1,9 +1,9 @@
 package com.aay.common
 
 import androidx.compose.runtime.Composable
-import lineChart.TestAxesDrawing
+import lineChart.LineChart
 
 @Composable
 fun App() {
-    TestAxesDrawing()
+   LineChart()
 }

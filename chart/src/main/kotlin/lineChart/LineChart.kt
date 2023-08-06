@@ -26,10 +26,11 @@ import lineChart.model.LineType
 @Composable
 fun LineChart(
     modifier: Modifier = Modifier,
-    linesParameters: List<LineParameters> = ChartDefault.chart.lines,
-    backGroundColor: Color = ChartDefault.chart.backGroundColor,
-    xAxisData: List<String> = ChartDefault.chart.xAxisData,
-    animateChart: Boolean = true // Add the animateChart property and set a default value
+    linesParameters: List<LineParameters> = LineChartDefault.lineParameters,
+    backGroundColor: Color= LineChartDefault.backGroundColor,
+    xAxisData: List<String> = LineChartDefault.xAxisData,
+    showBackgroundGrid: BackGroundGrid = LineChartDefault.backGroundGrid,
+    animateChart: Boolean = LineChartDefault.anmiteChart // Add the animateChart property and set a default value
 ) {
     val spacing = 100f
     val upperValue = remember {
@@ -74,22 +75,24 @@ fun LineChart(
         val maxY = size.height - spacing
 
         // Draw background lines
-        (0..5).forEach { i ->
-            yAxis.add(size.height - spacing - i * size.height / 8f)
-            val y = yAxis[i] + 15f
+      if (showBackgroundGrid == BackGroundGrid.SHOW){
+          (0..5).forEach { i ->
+              yAxis.add(size.height - spacing - i * size.height / 8f)
+              val y = yAxis[i] + 15f
 
-            // Ensure the line stays within the boundaries
-            val xStart = (spacing - 10).coerceIn(minX, maxX)
-            val xEnd = (size.width).coerceIn(minX, maxX - spacing - 45)
+              // Ensure the line stays within the boundaries
+              val xStart = (spacing - 10).coerceIn(minX, maxX)
+              val xEnd = (size.width).coerceIn(minX, maxX - spacing - 45)
 
-            drawLine(
-                backGroundColor,
-                start = Offset(xStart, y),
-                end = Offset(xEnd, y),
-                strokeWidth = barWidthPx,
-                pathEffect = pathEffect
-            )
-        }
+              drawLine(
+                  backGroundColor,
+                  start = Offset(xStart, y),
+                  end = Offset(xEnd, y),
+                  strokeWidth = barWidthPx,
+                  pathEffect = pathEffect
+              )
+          }
+      }
 
 
         // Lines drawing
