@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import lineChart.ChartDescription
 import lineChart.LineChart
 import lineChart.model.BackGroundGrid
 import lineChart.model.LineParameters
@@ -49,7 +50,7 @@ fun AppPreview() {
             backGroundColor = Color.Blue,
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019"),
             showBackgroundGrid = BackGroundGrid.SHOW,
-            animateChart = true,
+            animateChart = true
         )
     }
 }

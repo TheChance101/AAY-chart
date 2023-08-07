@@ -73,12 +73,12 @@ private fun DrawScope.drawLineAsDefault(
         val ratio = (info.toFloat() - lowerValue) / (upperValue - lowerValue)
 
         val startXPoint = spacing.toPx() + index * spaceBetweenXes.toPx()
-        val startyPoint = height - spacing - (ratio * height.toPx() * animatedProgress.value).toDp()
+        val startYPoint = height - spacing - (ratio * height.toPx() * animatedProgress.value).toDp()
 
 
         // Adjust the coordinates to stay within boundaries
         val xAdjusted = startXPoint.coerceIn(spacing.toPx(), maxX - spacing.toPx())
-        val yAdjusted = startyPoint.coerceIn(spacing, maxY.toDp())
+        val yAdjusted = startYPoint.coerceIn(spacing, maxY.toDp())
 
 
         if (index == 0) {
