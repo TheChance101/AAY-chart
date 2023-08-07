@@ -92,6 +92,7 @@ fun LineChart(
                     animatedProgress = animatedProgress,
                     xAxisSize = xAxisData.size
                 )
+
             }
         }
     }

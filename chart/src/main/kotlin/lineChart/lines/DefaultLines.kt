@@ -5,11 +5,9 @@ import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import drawPathLineWrapper
 import lineChart.model.LineParameters
 import lineChart.model.LineShadow
 
@@ -24,8 +22,8 @@ fun DrawScope.drawDefaultLineWithShadow(
     xAxisSize: Int
 ) {
 
-    val strokePathOfDefaultLine = drawLineAsQuadratic(
-        line = line,
+    val strokePathOfDefaultLine = drawLineAsDefault(
+        lineParameter = line,
         lowerValue = lowerValue,
         upperValue = upperValue,
         spacing = spacing,
@@ -52,8 +50,8 @@ fun DrawScope.drawDefaultLineWithShadow(
 }
 
 
-private fun DrawScope.drawLineAsQuadratic(
-    line: LineParameters,
+private fun DrawScope.drawLineAsDefault(
+    lineParameter: LineParameters,
     lowerValue: Float,
     upperValue: Float,
     spacing: Dp,
@@ -62,35 +60,32 @@ private fun DrawScope.drawLineAsQuadratic(
     xAxisSize: Int
 ) = Path().apply {
 
-    val maxY = size.height.toDp().toPx() - spacing.toPx()
-    val maxX = size.width + xAxisSize
     val height = size.height.toDp()
 
+    drawPathLineWrapper(
+        lineParameter = lineParameter,
+        spacing = spacing,
+        strokePath = this,
+        xAxisSize = xAxisSize
+    ) { lineParameter, index, maxX, maxY ->
 
-    line.data.indices.forEach { i ->
-        val info = line.data[i]
+        val info = lineParameter.data[index]
         val ratio = (info.toFloat() - lowerValue) / (upperValue - lowerValue)
 
-        val x1 = spacing.toPx() + i * spaceBetweenXes.toPx()
-        val y1 = height - spacing - (ratio * height.toPx() * animatedProgress.value).toDp()
+        val startXPoint = spacing.toPx() + index * spaceBetweenXes.toPx()
+        val startyPoint = height - spacing - (ratio * height.toPx() * animatedProgress.value).toDp()
 
 
         // Adjust the coordinates to stay within boundaries
-        val xAdjusted = x1.coerceIn(spacing.toPx(), maxX - spacing.toPx())
-        val yAdjusted = y1.coerceIn(spacing, maxY.toDp())
+        val xAdjusted = startXPoint.coerceIn(spacing.toPx(), maxX - spacing.toPx())
+        val yAdjusted = startyPoint.coerceIn(spacing, maxY.toDp())
 
 
-        if (i == 0) {
+        if (index == 0) {
             moveTo(xAdjusted, yAdjusted.toPx())
         } else {
             lineTo(xAdjusted, yAdjusted.toPx())
         }
     }
-
-    drawPath(
-        path = this, color = line.lineColor, style = Stroke(
-            width = 3.dp.toPx(), cap = StrokeCap.Round
-        )
-    )
 
 }
