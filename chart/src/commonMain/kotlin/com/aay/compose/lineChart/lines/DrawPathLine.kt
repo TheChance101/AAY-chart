@@ -14,14 +14,15 @@ import com.aay.compose.lineChart.model.LineParameters
 
 fun DrawScope.drawPathLineWrapper(
     lineParameter: LineParameters,
-    spacing: Dp,
     xAxisSize: Int,
     strokePath: Path,
     animatedProgress: Animatable<Float, AnimationVector1D>,
     function: (LineParameters, Int, Float, Float) -> Unit,
 ) {
+    val spacingX = (size.width/5f).dp
+    val spacingY = (size.height/5f).dp
     val maxX = size.width + xAxisSize
-    val maxY = size.height.toDp().toPx() - spacing.toPx()
+    val maxY = size.height.toDp().toPx() - spacingY.toPx()
 
     lineParameter.data.indices.forEach { index ->
         function(lineParameter, index, maxX, maxY)
