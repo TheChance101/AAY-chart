@@ -88,9 +88,9 @@ private fun DrawScope.drawLineAsQuadratic(
 
         // Adjust the coordinates to stay within boundaries
         val x1Adjusted = xFirstPoint.coerceAtMost(maxX - spacing.toPx()).coerceAtLeast(spacing.toPx())
-        val y1Adjusted = yFirstPoint.coerceAtMost(maxY.toDp()).coerceAtLeast(spacing)
+        val y1Adjusted = yFirstPoint.coerceAtMost(maxY.toDp()).coerceAtLeast((2 * spacing.toPx()).toDp())
         val x2Adjusted = xSecondPoint.coerceAtMost(maxX - spacing.toPx()).coerceAtLeast(spacing.toPx())
-        val y2Adjusted = ySecondPoint.coerceAtMost(maxY.toDp()).coerceAtLeast(spacing)
+        val y2Adjusted = ySecondPoint.coerceAtMost(maxY.toDp()).coerceAtLeast((2 * spacing.toPx()).toDp())
 
         if (index == 0) {
             moveTo(x1Adjusted, y1Adjusted.toPx())
