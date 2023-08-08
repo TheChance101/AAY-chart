@@ -27,10 +27,10 @@ fun DrawScope.backgroundLine(
     if (isShowBackgroundLines == BackGroundGrid.SHOW) {
         (0..5).forEach { i ->
             yAxisList.add(size.height - spacing.toPx() - i * size.height / 8f)
-            val yAlignmentValue = yAxisList[i] + 11.dp.toPx()
+            val yAlignmentValue = yAxisList[i] + 7.dp.toPx()
 
             // Ensure the line stays within the boundaries
-            val xStart = minX - 80
+            val xStart = minX - 24.dp.toPx()
             val xEnd = (size.width).coerceAtMost(xAxisMaxValue - spacing.toPx()).coerceAtLeast(minX)
 
             drawLine(
