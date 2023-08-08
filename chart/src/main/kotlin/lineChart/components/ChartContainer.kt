@@ -23,7 +23,7 @@ fun <T> DrawScope.chartContainer(
 ) {
 
     xAxisDrawing(xAxisData, spacing, textMeasure)
-    yAxisDrawing(upperValue, lowerValue, textMeasure)
+    yAxisDrawing(upperValue, lowerValue, textMeasure,spacing)
     backgroundLine(
         xAxisDataSize = xAxisData.size,
         isShowBackgroundLines = isShowBackgroundLines,

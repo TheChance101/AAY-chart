@@ -8,6 +8,8 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.coerceAtLeast
+import androidx.compose.ui.unit.coerceAtMost
 import drawPathLineWrapper
 import lineChart.model.LineParameters
 import lineChart.model.LineShadow
@@ -85,10 +87,10 @@ private fun DrawScope.drawLineAsQuadratic(
 
 
         // Adjust the coordinates to stay within boundaries
-        val x1Adjusted = xFirstPoint.coerceIn(spacing.toPx(), maxX - spacing.toPx())
-        val y1Adjusted = yFirstPoint.coerceIn(spacing, maxY.toDp())
-        val x2Adjusted = xSecondPoint.coerceIn(spacing.toPx(), maxX - spacing.toPx())
-        val y2Adjusted = ySecondPoint.coerceIn(spacing, maxY.toDp())
+        val x1Adjusted = xFirstPoint.coerceAtMost(maxX - spacing.toPx()).coerceAtLeast(spacing.toPx())
+        val y1Adjusted = yFirstPoint.coerceAtMost(maxY.toDp()).coerceAtLeast(spacing)
+        val x2Adjusted = xSecondPoint.coerceAtMost(maxX - spacing.toPx()).coerceAtLeast(spacing.toPx())
+        val y2Adjusted = ySecondPoint.coerceAtMost(maxY.toDp()).coerceAtLeast(spacing)
 
         if (index == 0) {
             moveTo(x1Adjusted, y1Adjusted.toPx())

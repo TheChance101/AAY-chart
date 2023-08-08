@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.coerceAtMost
 import drawPathLineWrapper
 import lineChart.model.LineParameters
 import lineChart.model.LineShadow
@@ -80,8 +81,8 @@ private fun DrawScope.drawLineAsDefault(
 
 
         // Adjust the coordinates to stay within boundaries
-        val xAdjusted = startXPoint.coerceIn(spacing.toPx(), maxX - spacing.toPx())
-        val yAdjusted = startYPoint.coerceIn(spacing, maxY.toDp())
+        val xAdjusted = startXPoint.coerceAtMost(maxX - spacing.toPx()).coerceAtLeast(spacing.toPx())
+        val yAdjusted = startYPoint.coerceAtMost( maxY.toDp()).coerceAtLeast(spacing)
 
 
         if (index == 0) {
