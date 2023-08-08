@@ -82,7 +82,7 @@ private fun DrawScope.drawLineAsDefault(
 
         // Adjust the coordinates to stay within boundaries
         val xAdjusted = startXPoint.coerceAtMost(maxX - spacing.toPx()).coerceAtLeast(spacing.toPx())
-        val yAdjusted = startYPoint.coerceAtMost( maxY.toDp()).coerceAtLeast(spacing)
+        val yAdjusted = startYPoint.coerceAtMost( maxY.toDp()).coerceAtLeast( (2 * spacing.toPx()).toDp())
 
 
         if (index == 0) {
