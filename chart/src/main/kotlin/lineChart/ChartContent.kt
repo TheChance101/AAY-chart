@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 import lineChart.components.chartContainer
 import lineChart.lines.drawDefaultLineWithShadow
 import lineChart.lines.drawQuarticLineWithShadow
@@ -93,11 +94,15 @@ internal fun ChartContent(
         }
     }
 
-
-    LaunchedEffect(animateChart) {
+    LaunchedEffect(linesParameters, animateChart) {
         if (animateChart) {
             animatedProgress.animateTo(
-                targetValue = 1f, animationSpec = tween(durationMillis = 1000, easing = LinearEasing)
+                targetValue = 0f,
+            )
+            delay(400)
+            animatedProgress.animateTo(
+                targetValue = 1f,
+                animationSpec = tween(durationMillis = 1000, easing = LinearEasing)
             )
         }
     }
