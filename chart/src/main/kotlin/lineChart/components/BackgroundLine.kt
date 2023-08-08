@@ -30,7 +30,7 @@ fun DrawScope.backgroundLine(
 
             // Ensure the line stays within the boundaries
             val xStart = minX - 80
-            val xEnd = (size.width).coerceIn(minX, xAxisMaxValue - spacing.toPx())
+            val xEnd = (size.width).coerceAtMost(xAxisMaxValue - spacing.toPx()).coerceAtLeast(minX)
 
             drawLine(
                 backGroundColor,

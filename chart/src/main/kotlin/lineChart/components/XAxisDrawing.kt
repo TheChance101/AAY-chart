@@ -18,7 +18,7 @@ fun <T> DrawScope.xAxisDrawing(xAxisData: List<T>, spacing: Dp , textMeasure : T
             drawText(
                 textMeasurer = textMeasure, text = dataPoint.toString(), style = TextStyle(
                     fontSize = 12.sp, color = Color.Gray
-                ), topLeft = Offset(xLength, size.height / 1.07f)
+                ), topLeft = Offset(xLength.coerceAtMost(size.width), size.height / 1.07f)
             )
         }
     }
