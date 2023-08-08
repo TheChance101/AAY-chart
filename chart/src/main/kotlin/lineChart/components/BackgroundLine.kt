@@ -12,13 +12,14 @@ import lineChart.model.BackGroundGrid
 fun DrawScope.backgroundLine(
     xAxisDataSize: Int,
     isShowBackgroundLines: BackGroundGrid,
-    spacing: Dp,
     backGroundColor: Color,
     backgroundLineWidth: Float,
     pathEffect: PathEffect
 ) {
     // Calculate the valid boundaries of the chart area
-    val minX = spacing.toPx()
+    val spacingX = (size.width/5f).dp
+    val spacingY = (size.height/5f).dp
+    val minX = spacingX.toPx()
     val xAxisMaxValue = size.width + xAxisDataSize
 
     val yAxisList = mutableListOf<Float>()
@@ -26,12 +27,12 @@ fun DrawScope.backgroundLine(
     // Draw background lines
     if (isShowBackgroundLines == BackGroundGrid.SHOW) {
         (0..5).forEach { i ->
-            yAxisList.add(size.height - spacing.toPx() - i * size.height / 8f)
+            yAxisList.add(size.height - spacingY.toPx() - i * size.height / 8f)
             val yAlignmentValue = yAxisList[i] + 7.dp.toPx()
 
             // Ensure the line stays within the boundaries
             val xStart = minX - 24.dp.toPx()
-            val xEnd = (size.width).coerceAtMost(xAxisMaxValue - spacing.toPx()).coerceAtLeast(minX)
+            val xEnd = (size.width).coerceAtMost(xAxisMaxValue - spacingX.toPx()).coerceAtLeast(minX)
 
             drawLine(
                 backGroundColor,

@@ -35,7 +35,7 @@ internal fun ChartContent(
     animateChart: Boolean,
     pathEffect: PathEffect
 ) {
-    val spacing = 100.dp
+
     val textMeasure = rememberTextMeasurer()
 
     val animatedProgress = remember {
@@ -52,7 +52,6 @@ internal fun ChartContent(
     Canvas(modifier = modifier.fillMaxSize().clipToBounds()) {
         chartContainer(
             xAxisData = xAxisData,
-            spacing = spacing,
             textMeasure = textMeasure,
             upperValue = upperValue.toFloat(),
             lowerValue = lowerValue.toFloat(),
@@ -63,7 +62,6 @@ internal fun ChartContent(
         )
 
 
-        val spaceBetweenXes = (size.width.toDp() - spacing) / xAxisData.size
 
         linesParameters.forEach { line ->
             if (line.lineType == LineType.DEFAULT_LINE) {
@@ -72,20 +70,15 @@ internal fun ChartContent(
                     line = line,
                     lowerValue = lowerValue.toFloat(),
                     upperValue = upperValue.toFloat(),
-                    spacing = spacing,
-                    spaceBetweenXes = spaceBetweenXes,
                     animatedProgress = animatedProgress,
                     xAxisSize = xAxisData.size
                 )
 
             } else {
-
                 drawQuarticLineWithShadow(
                     line = line,
                     lowerValue = lowerValue.toFloat(),
                     upperValue = upperValue.toFloat(),
-                    spacing = spacing,
-                    spaceBetweenXes = spaceBetweenXes,
                     animatedProgress = animatedProgress,
                     xAxisSize = xAxisData.size
                 )
