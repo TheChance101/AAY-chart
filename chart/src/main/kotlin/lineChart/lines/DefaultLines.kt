@@ -21,9 +21,9 @@ fun DrawScope.drawDefaultLineWithShadow(
     upperValue: Float,
     animatedProgress: Animatable<Float, AnimationVector1D>,
     xAxisSize: Int,
-    spacingX:Dp,
-    spacingY:Dp,
 ) {
+    val spacingX = (size.width/5f).dp
+    val spacingY = (size.height/5f).dp
     val spaceBetweenXes = (size.width.toDp() - spacingX) / xAxisSize
     val strokePathOfDefaultLine = drawLineAsDefault(
         lineParameter = line,
@@ -31,9 +31,7 @@ fun DrawScope.drawDefaultLineWithShadow(
         upperValue = upperValue,
         spaceBetweenXes = spaceBetweenXes,
         animatedProgress = animatedProgress,
-        xAxisSize = xAxisSize,
-        spacingX= spacingX,
-        spacingY =spacingY,
+        xAxisSize = xAxisSize
     )
 
     if (line.lineShadow == LineShadow.SHADOW) {
@@ -61,12 +59,12 @@ private fun DrawScope.drawLineAsDefault(
     upperValue: Float,
     spaceBetweenXes: Dp,
     animatedProgress: Animatable<Float, AnimationVector1D>,
-    xAxisSize: Int,
-    spacingX: Dp,
-    spacingY: Dp,
+    xAxisSize: Int
 ) = Path().apply {
 
     val height = size.height.toDp()
+    val spacingX = (size.width/5.dp.toPx()).dp
+    val spacingY = (size.height/5.dp.toPx()).dp
     drawPathLineWrapper(
         lineParameter = lineParameter,
         strokePath = this,

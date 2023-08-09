@@ -20,10 +20,9 @@ fun <T> DrawScope.chartContainer(
     backGroundLineColor: Color,
     backgroundLineWidth: Float,
     pathEffect: PathEffect,
-    spacingX:Dp,
-    spacingY:Dp,
 ) {
-
+    val spacingX = (size.width/5.dp.toPx()).dp
+    val spacingY = (size.height/5.dp.toPx()).dp
     xAxisDrawing(xAxisData, spacingX, textMeasure)
     yAxisDrawing(upperValue, lowerValue, textMeasure,spacingY)
     backgroundLine(
