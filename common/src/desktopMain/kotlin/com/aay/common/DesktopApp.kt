@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.unit.dp
 import lineChart.ChartDescription
 import lineChart.LineChart
@@ -50,7 +51,8 @@ fun AppPreview() {
             backGroundColor = Color.Blue,
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019"),
             showBackgroundGrid = BackGroundGrid.SHOW,
-            animateChart = true
+            animateChart = true,
+            pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f,11f),0f),
         )
     }
 }
