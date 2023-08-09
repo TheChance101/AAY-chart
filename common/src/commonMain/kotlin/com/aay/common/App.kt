@@ -18,28 +18,28 @@ fun App() {
     val testLineParameters: List<LineParameters> = listOf(
         LineParameters(
             dataName = "Earnings",
-            data = listOf(10.6, 8.6, 80.33, 91.232),
+            data = listOf(1000000.6, 8.6, 80.33, 91.232),
             lineColor = Color.Yellow,
             lineType = LineType.QUADRATIC_LINE,
             lineShadow = LineShadow.SHADOW,
         ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(18.6, 67.6, 11.33, 55.232),
+            data = listOf(180000.6, 67.6, 11.33, 55.232),
             lineColor = Color.Red,
             lineType = LineType.QUADRATIC_LINE,
             lineShadow = LineShadow.SHADOW,
         ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(50.6, 200.6, 1.33, 55.232),
+            data = listOf(40000.6, 200.6, 1.33, 55.232),
             lineColor = Color.Blue,
             lineType = LineType.QUADRATIC_LINE,
             lineShadow = LineShadow.SHADOW,
         ) ,
         LineParameters(
             dataName = "Earnings",
-            data = listOf(50.6, 20.6, 11.33, 55.232),
+            data = listOf(50000.6, 20.6, 11.33, 55.232),
             lineColor = Color.Green,
             lineType = LineType.QUADRATIC_LINE,
             lineShadow = LineShadow.SHADOW,
