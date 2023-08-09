@@ -1,4 +1,4 @@
-package lineChart.components
+package com.aay.compose.lineChart2.components
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color

@@ -1,6 +1,6 @@
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import com.aay.common.AppPreview
+import com.aay.compose.AppPreview
 
 
 fun main() = application {

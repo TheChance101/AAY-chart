@@ -14,6 +14,7 @@ repositories {
 dependencies {
     implementation(project(":common"))
     implementation("androidx.activity:activity-compose:1.5.0")
+    implementation(project(":chart2"))
 }
 
 android {

@@ -1,4 +1,4 @@
-package lineChart
+package com.aay.compose.lineChart2
 
 
 import androidx.compose.animation.core.Animatable
@@ -16,12 +16,11 @@ import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
-import lineChart.components.chartContainer
-import lineChart.lines.drawDefaultLineWithShadow
-import lineChart.lines.drawQuarticLineWithShadow
-import lineChart.model.BackGroundGrid
-import lineChart.model.LineParameters
-import lineChart.model.LineType
+import com.aay.compose.lineChart2.components.chartContainer
+import com.aay.compose.lineChart2.lines.drawDefaultLineWithShadow
+import com.aay.compose.lineChart2.model.BackGroundGrid
+import com.aay.compose.lineChart2.model.LineParameters
+import com.aay.compose.lineChart2.model.LineType
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
