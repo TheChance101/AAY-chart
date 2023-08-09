@@ -1,4 +1,4 @@
-package lineChart
+package com.aay.compose.lineChart
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
@@ -6,7 +6,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import lineChart.model.*
+import com.aay.compose.lineChart.model.BackGroundGrid
+import com.aay.compose.lineChart.model.LineParameters
+import com.aay.compose.lineChart.model.LineShadow
+import com.aay.compose.lineChart.model.LineType
 
 object LineChartDefault {
 

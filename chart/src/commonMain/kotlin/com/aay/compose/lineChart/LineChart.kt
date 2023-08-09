@@ -1,4 +1,4 @@
-package lineChart
+package com.aay.compose.lineChart
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
@@ -7,8 +7,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
-import lineChart.model.BackGroundGrid
-import lineChart.model.LineParameters
+import com.aay.compose.lineChart.model.BackGroundGrid
+import com.aay.compose.lineChart.model.LineParameters
 
 @Composable
 fun LineChart(

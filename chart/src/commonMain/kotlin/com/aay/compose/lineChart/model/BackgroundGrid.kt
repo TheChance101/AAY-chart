@@ -1,4 +1,4 @@
-package lineChart.model
+package com.aay.compose.lineChart.model
 
 enum class BackGroundGrid {
     SHOW,
