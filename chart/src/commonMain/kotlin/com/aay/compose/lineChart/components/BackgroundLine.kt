@@ -17,8 +17,8 @@ fun DrawScope.backgroundLine(
     pathEffect: PathEffect
 ) {
     // Calculate the valid boundaries of the chart area
-    val spacingX = (size.width/5f).dp
-    val spacingY = (size.height/5f).dp
+    val spacingX = (size.width/5.dp.toPx()).dp
+    val spacingY = (size.height/5.dp.toPx()).dp
     val minX = spacingX.toPx()
     val xAxisMaxValue = size.width + xAxisDataSize
 
@@ -27,7 +27,7 @@ fun DrawScope.backgroundLine(
     // Draw background lines
     if (isShowBackgroundLines == BackGroundGrid.SHOW) {
         (0..5).forEach { i ->
-            yAxisList.add(size.height - spacingY.toPx() - i * size.height / 8f)
+            yAxisList.add(size.height - spacingY.toPx() - i * size.height / 8.dp.toPx())
             val yAlignmentValue = yAxisList[i] + 7.dp.toPx()
 
             // Ensure the line stays within the boundaries

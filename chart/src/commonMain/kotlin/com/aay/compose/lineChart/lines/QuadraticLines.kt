@@ -61,8 +61,8 @@ private fun DrawScope.drawLineAsQuadratic(
     animatedProgress: Animatable<Float, AnimationVector1D>,
     xAxisSize: Int
 ) = Path().apply {
-    val spacingX = (size.width/5f).dp
-    val spacingY = (size.height/5f).dp
+    val spacingX = (size.width/5.dp.toPx()).dp
+    val spacingY = (size.height/5.dp.toPx()).dp
     var medX: Float
     var medY: Float
     val height = size.height.toDp()
