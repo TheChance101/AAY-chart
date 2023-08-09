@@ -18,7 +18,6 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(project(":common"))
-                implementation(project(":chart2"))
                 implementation(compose.desktop.currentOs)
             }
         }

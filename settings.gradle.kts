@@ -17,4 +17,4 @@ pluginManagement {
 
 rootProject.name = "AAY-Chart"
 
-include(":android", ":desktop", ":common", ":chart",":chart2")
+include(":android", ":desktop", ":common", ":chart")
