@@ -17,40 +17,40 @@ import com.aay.compose.lineChart.model.LineType
 fun App() {
     val testLineParameters: List<LineParameters> = listOf(
         LineParameters(
-            dataName = "revenue",
-            data = listOf(50.6, 200.6, 67.33, 93.232, 111.232),
-            lineColor = Color.Blue,
-            lineType = LineType.QUADRATIC_LINE,
-            lineShadow = LineShadow.BLANK,
-        ),
-        LineParameters(
             dataName = "Earnings",
-            data = listOf(188900.6, 87100.6, 89900.33, 91111.232),
-            lineColor = Color.Black,
-            lineType = LineType.DEFAULT_LINE,
+            data = listOf(10.6, 8.6, 80.33, 91.232),
+            lineColor = Color.Yellow,
+            lineType = LineType.QUADRATIC_LINE,
             lineShadow = LineShadow.SHADOW,
         ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(188900.6, 67788.6, 1111111.33, 5555.232),
+            data = listOf(18.6, 67.6, 11.33, 55.232),
             lineColor = Color.Red,
-            lineType = LineType.DEFAULT_LINE,
+            lineType = LineType.QUADRATIC_LINE,
             lineShadow = LineShadow.SHADOW,
         ),
         LineParameters(
-            dataName = "revenue",
-            data = listOf(50.6, 2055550.6, 67.33, 93.232, 111.232),
+            dataName = "Earnings",
+            data = listOf(50.6, 200.6, 1.33, 55.232),
             lineColor = Color.Blue,
             lineType = LineType.QUADRATIC_LINE,
-            lineShadow = LineShadow.BLANK,
-        ),
+            lineShadow = LineShadow.SHADOW,
+        ) ,
+        LineParameters(
+            dataName = "Earnings",
+            data = listOf(50.6, 20.6, 11.33, 55.232),
+            lineColor = Color.Green,
+            lineType = LineType.QUADRATIC_LINE,
+            lineShadow = LineShadow.SHADOW,
+        )
     )
 
     Box(Modifier.padding(24.dp)) {
         LineChart(
             modifier = Modifier.size(700.dp),
             linesParameters = testLineParameters,
-            backGroundColor = Color.Blue,
+            backGroundColor = Color.Gray,
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019"),
             showBackgroundGrid = BackGroundGrid.SHOW,
             animateChart = true

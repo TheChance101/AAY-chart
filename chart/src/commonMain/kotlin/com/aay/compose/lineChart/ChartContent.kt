@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import com.aay.compose.lineChart.components.chartContainer
 import com.aay.compose.lineChart.lines.drawDefaultLineWithShadow
+import com.aay.compose.lineChart.lines.drawQuarticLineWithShadow
 import com.aay.compose.lineChart.model.BackGroundGrid
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
@@ -79,15 +80,15 @@ internal fun ChartContent(
 
             } else {
 
-//                drawQuarticLineWithShadow(
-//                    line = line,
-//                    lowerValue = lowerValue.toFloat(),
-//                    upperValue = upperValue.toFloat(),
-//                    spacing = spacing,
-//                    spaceBetweenXes = spaceBetweenXes,
-//                    animatedProgress = animatedProgress,
-//                    xAxisSize = xAxisData.size
-//                )
+                drawQuarticLineWithShadow(
+                    line = line,
+                    lowerValue = lowerValue.toFloat(),
+                    upperValue = upperValue.toFloat(),
+                    spacing = spacing,
+                    spaceBetweenXes = spaceBetweenXes,
+                    animatedProgress = animatedProgress,
+                    xAxisSize = xAxisData.size
+                )
 
             }
         }
