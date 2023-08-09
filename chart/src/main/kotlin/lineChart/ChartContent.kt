@@ -5,7 +5,9 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -49,7 +51,14 @@ internal fun ChartContent(
     }
 
 
-    Canvas(modifier = modifier.fillMaxSize().clipToBounds()) {
+    Canvas(
+        modifier = modifier
+            .padding(8.dp)
+            .aspectRatio(3/2f)
+            .fillMaxSize()
+    ) {
+        val spacingX = (size.width/5f).dp
+        val spacingY = (size.height/5f).dp
         chartContainer(
             xAxisData = xAxisData,
             textMeasure = textMeasure,
@@ -59,9 +68,9 @@ internal fun ChartContent(
             backgroundLineWidth = barWidthPx.toPx(),
             backGroundLineColor = backGroundColor,
             pathEffect = pathEffect,
+            spacingX = spacingX,
+            spacingY = spacingY,
         )
-
-
 
         linesParameters.forEach { line ->
             if (line.lineType == LineType.DEFAULT_LINE) {
@@ -71,7 +80,9 @@ internal fun ChartContent(
                     lowerValue = lowerValue.toFloat(),
                     upperValue = upperValue.toFloat(),
                     animatedProgress = animatedProgress,
-                    xAxisSize = xAxisData.size
+                    xAxisSize = xAxisData.size,
+                    spacingX = spacingX,
+                    spacingY = spacingY,
                 )
 
             } else {

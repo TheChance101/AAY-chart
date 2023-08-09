@@ -1,6 +1,8 @@
 package lineChart
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,22 +25,22 @@ fun LineChart(
     descriptionStyle: TextStyle = LineChartDefault.descriptionDefaultStyle
 ) {
 
-    Column {
-
-        ChartDescription(
-            chartLineDetails = linesParameters,
-            descriptionStyle = descriptionStyle
-        )
-
-        ChartContent(
-            modifier = modifier,
-            linesParameters = linesParameters,
-            backGroundColor = backGroundColor,
-            xAxisData = xAxisData,
-            showBackgroundGrid = showBackgroundGrid,
-            barWidthPx = barWidthPx,
-            animateChart = animateChart,
-            pathEffect = pathEffect
-        )
+    Box(modifier = Modifier.fillMaxSize()){
+            Column {
+                ChartDescription(
+                    chartLineDetails = linesParameters,
+                    descriptionStyle = descriptionStyle
+                )
+                ChartContent(
+                    modifier = modifier,
+                    linesParameters = linesParameters,
+                    backGroundColor = backGroundColor,
+                    xAxisData = xAxisData,
+                    showBackgroundGrid = showBackgroundGrid,
+                    barWidthPx = barWidthPx,
+                    animateChart = animateChart,
+                    pathEffect = pathEffect
+                )
+            }
     }
 }
