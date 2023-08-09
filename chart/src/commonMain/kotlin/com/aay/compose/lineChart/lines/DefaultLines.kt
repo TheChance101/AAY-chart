@@ -10,9 +10,9 @@ import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.coerceAtMost
 import androidx.compose.ui.unit.dp
-import drawPathLineWrapper
-import lineChart.model.LineParameters
-import lineChart.model.LineShadow
+import com.aay.compose.lineChart.lines.drawPathLineWrapper
+import com.aay.compose.lineChart.model.LineParameters
+import com.aay.compose.lineChart.model.LineShadow
 
 
 fun DrawScope.drawDefaultLineWithShadow(

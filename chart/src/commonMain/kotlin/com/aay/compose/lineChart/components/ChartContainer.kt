@@ -6,9 +6,10 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import lineChart.model.BackGroundGrid
+import com.aay.compose.lineChart.components.xAxisDrawing
+import com.aay.compose.lineChart.components.yAxisDrawing
+import com.aay.compose.lineChart.model.BackGroundGrid
 
 @OptIn(ExperimentalTextApi::class)
 fun <T> DrawScope.chartContainer(

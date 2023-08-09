@@ -4,9 +4,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import lineChart.model.BackGroundGrid
+import com.aay.compose.lineChart.model.BackGroundGrid
 
 
 fun DrawScope.backgroundLine(
