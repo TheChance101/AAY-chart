@@ -17,8 +17,8 @@ fun DrawScope.drawPathLineWrapper(
     animatedProgress: Animatable<Float, AnimationVector1D>,
     function: (LineParameters, Int, Float, Float) -> Unit,
 ) {
-    val spacingX = (size.width/5f).dp
-    val spacingY = (size.height/5f).dp
+    val spacingX = (size.width/5.dp.toPx()).dp
+    val spacingY = (size.height/5.dp.toPx()).dp
     val maxX = size.width + xAxisSize
     val maxY = size.height.toDp().toPx() - spacingY.toPx()
 

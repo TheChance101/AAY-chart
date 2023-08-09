@@ -63,8 +63,8 @@ private fun DrawScope.drawLineAsDefault(
 ) = Path().apply {
 
     val height = size.height.toDp()
-    val spacingX = (size.width/5f).dp
-    val spacingY = (size.height/5f).dp
+    val spacingX = (size.width/5.dp.toPx()).dp
+    val spacingY = (size.height/5.dp.toPx()).dp
     drawPathLineWrapper(
         lineParameter = lineParameter,
         strokePath = this,
