@@ -19,7 +19,7 @@ fun ChartDescription(
     chartLineDetails: List<LineParameters> = emptyList(),
     descriptionStyle: TextStyle
 ) {
-    LazyRow(horizontalArrangement = Arrangement.spacedBy(24.dp)) {
+    LazyRow(horizontalArrangement = Arrangement.spacedBy(24.dp), modifier = Modifier.fillMaxWidth()) {
         items(chartLineDetails) { line ->
             Row(
                 horizontalArrangement = Arrangement.Center,

@@ -13,9 +13,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalTextApi::class)
-fun DrawScope.yAxisDrawing(upperValue : Float, lowerValue : Float,
-                                        textMeasure : TextMeasurer,spacing : Dp
-){
+fun DrawScope.yAxisDrawing(
+    upperValue: Dp, lowerValue: Dp,
+    textMeasure: TextMeasurer, spacing: Dp
+) {
     val dataRange = upperValue - lowerValue
     val dataStep = dataRange / 5.dp.toPx()
     val maxY = size.height - spacing.toPx()
@@ -26,7 +27,7 @@ fun DrawScope.yAxisDrawing(upperValue : Float, lowerValue : Float,
 
         drawContext.canvas.nativeCanvas.apply {
             drawText(
-                textMeasurer = textMeasure, text = yValue.toInt().toString(), style = TextStyle(
+                textMeasurer = textMeasure, text = yValue.toPx().toInt().toString(), style = TextStyle(
                     fontSize = 12.sp,
                     color = Color.Gray,
                 ), topLeft = Offset(0f, y)

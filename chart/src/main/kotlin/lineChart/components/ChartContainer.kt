@@ -14,15 +14,15 @@ import lineChart.model.BackGroundGrid
 fun <T> DrawScope.chartContainer(
     xAxisData: List<T>,
     textMeasure: TextMeasurer,
-    upperValue: Float,
-    lowerValue: Float,
+    upperValue: Dp,
+    lowerValue: Dp,
     isShowBackgroundLines: BackGroundGrid,
     backGroundLineColor: Color,
     backgroundLineWidth: Float,
     pathEffect: PathEffect,
+    spacingX:Dp,
+    spacingY:Dp,
 ) {
-    val spacingX = (size.width/5.dp.toPx()).dp
-    val spacingY = (size.height/5.dp.toPx()).dp
     xAxisDrawing(xAxisData, spacingX, textMeasure)
     yAxisDrawing(upperValue, lowerValue, textMeasure,spacingY)
     backgroundLine(
@@ -30,6 +30,8 @@ fun <T> DrawScope.chartContainer(
         isShowBackgroundLines = isShowBackgroundLines,
         backGroundColor = backGroundLineColor,
         backgroundLineWidth = backgroundLineWidth,
-        pathEffect = pathEffect
+        pathEffect = pathEffect,
+        spacingX=spacingX,
+        spacingY=spacingY,
     )
 }

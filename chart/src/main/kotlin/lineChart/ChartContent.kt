@@ -45,16 +45,13 @@ internal fun ChartContent(
     }
     val upperValue = remember {
         linesParameters.flatMap { it.data }.maxOrNull()?.plus(1.0) ?: 0.0
-    }
+    }.dp
     val lowerValue = remember {
         linesParameters.flatMap { it.data }.minOrNull() ?: 0.0
-    }
-
+    }.dp
 
     Canvas(
         modifier = modifier
-            .padding(8.dp)
-            .aspectRatio(3/2f)
             .fillMaxSize()
     ) {
         val spacingX = (size.width/5f).dp
@@ -62,14 +59,14 @@ internal fun ChartContent(
         chartContainer(
             xAxisData = xAxisData,
             textMeasure = textMeasure,
-            upperValue = upperValue.toFloat(),
-            lowerValue = lowerValue.toFloat(),
+            upperValue = upperValue,
+            lowerValue = lowerValue,
             isShowBackgroundLines = showBackgroundGrid,
             backgroundLineWidth = barWidthPx.toPx(),
             backGroundLineColor = backGroundColor,
             pathEffect = pathEffect,
-            spacingX = spacingX,
-            spacingY = spacingY,
+            spacingX=spacingX,
+            spacingY=spacingY,
         )
 
         linesParameters.forEach { line ->
@@ -77,21 +74,23 @@ internal fun ChartContent(
 
                 drawDefaultLineWithShadow(
                     line = line,
-                    lowerValue = lowerValue.toFloat(),
-                    upperValue = upperValue.toFloat(),
+                    lowerValue = lowerValue,
+                    upperValue = upperValue,
                     animatedProgress = animatedProgress,
                     xAxisSize = xAxisData.size,
-                    spacingX = spacingX,
-                    spacingY = spacingY,
+                    spacingX=spacingX,
+                    spacingY=spacingY,
                 )
 
             } else {
                 drawQuarticLineWithShadow(
                     line = line,
-                    lowerValue = lowerValue.toFloat(),
-                    upperValue = upperValue.toFloat(),
+                    lowerValue = lowerValue,
+                    upperValue = upperValue,
                     animatedProgress = animatedProgress,
-                    xAxisSize = xAxisData.size
+                    xAxisSize = xAxisData.size,
+                    spacingX=spacingX,
+                    spacingY=spacingY,
                 )
 
             }

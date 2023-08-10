@@ -30,14 +30,14 @@ fun AppPreview() {
         ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(188900.6, 87100.6, 89900.33, 91111.232),
+            data = listOf(18900.6, 87100.6, 89900.33, 9111.232,88584.0),
             lineColor = Color.Black,
             lineType = LineType.DEFAULT_LINE,
             lineShadow = LineShadow.SHADOW,
         ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(188900.6, 67788.6, 1111111.33, 5555.232),
+            data = listOf(18900.6, 67788.6, 11111.33, 5555.232,5050550.0),
             lineColor = Color.Red,
             lineType = LineType.DEFAULT_LINE,
             lineShadow = LineShadow.SHADOW,

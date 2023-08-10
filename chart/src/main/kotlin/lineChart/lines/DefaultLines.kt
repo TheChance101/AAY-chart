@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.coerceAtMost
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.times
 import drawPathLineWrapper
 import lineChart.model.LineParameters
 import lineChart.model.LineShadow
@@ -17,13 +18,13 @@ import lineChart.model.LineShadow
 
 fun DrawScope.drawDefaultLineWithShadow(
     line: LineParameters,
-    lowerValue: Float,
-    upperValue: Float,
+    lowerValue: Dp,
+    upperValue: Dp,
     animatedProgress: Animatable<Float, AnimationVector1D>,
     xAxisSize: Int,
+    spacingX:Dp,
+    spacingY:Dp,
 ) {
-    val spacingX = (size.width/5f).dp
-    val spacingY = (size.height/5f).dp
     val spaceBetweenXes = (size.width.toDp() - spacingX) / xAxisSize
     val strokePathOfDefaultLine = drawLineAsDefault(
         lineParameter = line,
@@ -31,7 +32,9 @@ fun DrawScope.drawDefaultLineWithShadow(
         upperValue = upperValue,
         spaceBetweenXes = spaceBetweenXes,
         animatedProgress = animatedProgress,
-        xAxisSize = xAxisSize
+        xAxisSize = xAxisSize,
+        spacingX =spacingX,
+        spacingY=spacingY,
     )
 
     if (line.lineShadow == LineShadow.SHADOW) {
@@ -55,39 +58,41 @@ fun DrawScope.drawDefaultLineWithShadow(
 
 private fun DrawScope.drawLineAsDefault(
     lineParameter: LineParameters,
-    lowerValue: Float,
-    upperValue: Float,
+    lowerValue: Dp,
+    upperValue: Dp,
     spaceBetweenXes: Dp,
     animatedProgress: Animatable<Float, AnimationVector1D>,
-    xAxisSize: Int
+    xAxisSize: Int,
+    spacingX: Dp,
+    spacingY: Dp,
 ) = Path().apply {
 
-    val height = size.height.toDp()
-    val spacingX = (size.width/5.dp.toPx()).dp
-    val spacingY = (size.height/5.dp.toPx()).dp
+    val height = size.height.toDp().toPx()
     drawPathLineWrapper(
         lineParameter = lineParameter,
         strokePath = this,
         xAxisSize = xAxisSize,
-        animatedProgress = animatedProgress
+        animatedProgress = animatedProgress,
+        spacingX = spacingX,
+        spacingY = spacingY,
     ) { lineParameter, index, maxX, maxY ->
 
         val info = lineParameter.data[index]
-        val ratio = (info.toFloat() - lowerValue) / (upperValue - lowerValue)
+        val ratio = (info.dp ) / (upperValue - lowerValue)
 
         val startXPoint = spacingX.toPx() + index * spaceBetweenXes.toPx()
-        val startYPoint = height - spacingY - (ratio * height.toPx() ).toDp()
+        val startYPoint = height - spacingY.toPx() - (ratio*maxY).toPx()
 
 
         // Adjust the coordinates to stay within boundaries
-        val xAdjusted = startXPoint.coerceAtMost(maxX - spacingX.toPx()).coerceAtLeast(spacingX.toPx())
-        val yAdjusted = startYPoint.coerceAtMost( maxY.toDp()).coerceAtLeast( (2 * spacingY.toPx()).toDp())
+        val xAdjusted = startXPoint.coerceAtMost(maxX.toPx() - spacingX.toPx()).coerceAtLeast(spacingX.toPx())
+        val yAdjusted = startYPoint.coerceAtMost( (maxY.toPx()-spacingY.toPx())).coerceAtLeast( (2 * spacingY.toPx()))
 
 
         if (index == 0) {
-            moveTo(xAdjusted, yAdjusted.toPx())
+            moveTo(startXPoint, startYPoint)
         } else {
-            lineTo(xAdjusted, yAdjusted.toPx())
+            lineTo(startXPoint, startYPoint)
         }
     }
 

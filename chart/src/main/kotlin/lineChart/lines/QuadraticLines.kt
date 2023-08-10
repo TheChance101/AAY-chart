@@ -7,23 +7,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.clipRect
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.coerceAtLeast
-import androidx.compose.ui.unit.coerceAtMost
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.*
 import drawPathLineWrapper
 import lineChart.model.LineParameters
 import lineChart.model.LineShadow
 
 fun DrawScope.drawQuarticLineWithShadow(
     line: LineParameters,
-    lowerValue: Float,
-    upperValue: Float,
+    lowerValue: Dp,
+    upperValue: Dp,
     animatedProgress: Animatable<Float, AnimationVector1D>,
-    xAxisSize: Int
+    xAxisSize: Int,
+    spacingX:Dp,
+    spacingY:Dp,
 ) {
-    val spacingX = (size.width/5f).dp
-    val spacingY = (size.height/5f).dp
     val spaceBetweenXes = (size.width.toDp() - spacingX) / xAxisSize
     val strokePathOfQuadraticLine = drawLineAsQuadratic(
         line = line,
@@ -31,7 +28,9 @@ fun DrawScope.drawQuarticLineWithShadow(
         upperValue = upperValue,
         spaceBetweenXes = spaceBetweenXes,
         animatedProgress = animatedProgress,
-        xAxisSize = xAxisSize
+        xAxisSize = xAxisSize,
+        spacingX=spacingX,
+        spacingY=spacingY,
     )
 
     if (line.lineShadow == LineShadow.SHADOW) {
@@ -55,14 +54,14 @@ fun DrawScope.drawQuarticLineWithShadow(
 
 private fun DrawScope.drawLineAsQuadratic(
     line: LineParameters,
-    lowerValue: Float,
-    upperValue: Float,
+    lowerValue: Dp,
+    upperValue: Dp,
     spaceBetweenXes: Dp,
     animatedProgress: Animatable<Float, AnimationVector1D>,
-    xAxisSize: Int
+    xAxisSize: Int,
+    spacingX:Dp,
+    spacingY: Dp,
 ) = Path().apply {
-    val spacingX = (size.width/5.dp.toPx()).dp
-    val spacingY = (size.height/5.dp.toPx()).dp
     var medX: Float
     var medY: Float
     val height = size.height.toDp()
@@ -70,32 +69,34 @@ private fun DrawScope.drawLineAsQuadratic(
         lineParameter = line,
         strokePath = this,
         xAxisSize = xAxisSize,
-        animatedProgress = animatedProgress
+        animatedProgress = animatedProgress,
+        spacingY = spacingY,
+        spacingX = spacingX,
     ) { lineParameter, index, maxX, maxY ->
 
         val nextInfo = lineParameter.data.getOrNull(index + 1) ?: lineParameter.data.last()
-        val firstRatio = (lineParameter.data[index].toFloat() - lowerValue) / (upperValue - lowerValue)
-        val secondRatio = (nextInfo.toFloat() - lowerValue) / (upperValue - lowerValue)
+        val firstRatio = (lineParameter.data[index] - lowerValue.toPx()) / (upperValue.toPx() - lowerValue.toPx())
+        val secondRatio = (nextInfo - lowerValue.toPx()) / (upperValue.toPx() - lowerValue.toPx())
 
         val xFirstPoint = spacingX.toPx() + index * spaceBetweenXes.toPx()
         val xSecondPoint = spacingX.toPx() + (index + 1) * spaceBetweenXes.toPx()
 
-        val yFirstPoint = height - spacingY - (firstRatio * height.toPx()).toDp()
-        val ySecondPoint = height - spacingY - (secondRatio * height.toPx()).toDp()
+        val yFirstPoint = height.toPx() - spacingY.toPx() - (firstRatio * height.toPx())
+        val ySecondPoint = height.toPx() - spacingY.toPx() - (secondRatio * height.toPx())
 
 
         // Adjust the coordinates to stay within boundaries
-        val x1Adjusted = xFirstPoint.coerceAtMost(maxX - spacingX.toPx()).coerceAtLeast(spacingX.toPx())
-        val y1Adjusted = yFirstPoint.coerceAtMost(maxY.toDp()).coerceAtLeast((2 * spacingY.toPx()).toDp())
-        val x2Adjusted = xSecondPoint.coerceAtMost(maxX - spacingX.toPx()).coerceAtLeast(spacingX.toPx())
-        val y2Adjusted = ySecondPoint.coerceAtMost(maxY.toDp()).coerceAtLeast((2 * spacingY.toPx()).toDp())
+        val x1Adjusted = xFirstPoint.coerceAtMost(maxX.toPx() - spacingX.toPx()).coerceAtLeast(spacingX.toPx())
+        val y1Adjusted = yFirstPoint.coerceAtMost(maxY.toPx().toDouble()).coerceAtLeast((2 * spacingY.toPx().toDouble()))
+        val x2Adjusted = xSecondPoint.coerceAtMost(maxX.toPx() - spacingX.toPx()).coerceAtLeast(spacingX.toPx())
+        val y2Adjusted = ySecondPoint.coerceAtMost(maxY.toPx().toDouble()).coerceAtLeast((2 * spacingY.toPx().toDouble()))
 
         if (index == 0) {
-            moveTo(x1Adjusted, y1Adjusted.toPx())
+            moveTo(x1Adjusted, y1Adjusted.toFloat())
         } else {
-            medX = (x1Adjusted + x2Adjusted) / 2f
-            medY = ((y1Adjusted + y2Adjusted) / 2f).toPx()
-            quadraticBezierTo(x1Adjusted, y1Adjusted.toPx(), medX, medY)
+            medX = ((x1Adjusted + x2Adjusted) / 2f).toDp().toPx()
+            medY = ((y1Adjusted + y2Adjusted) / 2f).toFloat()
+            quadraticBezierTo(x1Adjusted, y1Adjusted.toFloat(), medX, medY)
         }
     }
 
