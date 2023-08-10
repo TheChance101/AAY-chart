@@ -14,23 +14,23 @@ import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalTextApi::class)
 fun DrawScope.yAxisDrawing(
-    upperValue: Dp, lowerValue: Dp,
+    upperValue: Float, lowerValue: Float,
     textMeasure: TextMeasurer, spacing: Dp
 ) {
     val dataRange = upperValue - lowerValue
     val dataStep = dataRange / 5.dp.toPx()
     val maxY = size.height - spacing.toPx()
 
-    (0..5).forEach { i ->
+    (0..6).forEach { i ->
         val yValue = lowerValue + dataStep * i
-        val y = (size.height - spacing.toPx() - i * size.height / 8.dp.toPx()).coerceAtMost(maxY)
+        val y = (size.height - spacing.toPx() - i * size.height / 6.dp.toPx())
 
         drawContext.canvas.nativeCanvas.apply {
             drawText(
-                textMeasurer = textMeasure, text = yValue.toPx().toInt().toString(), style = TextStyle(
+                textMeasurer = textMeasure, text = yValue.toInt().toString(), style = TextStyle(
                     fontSize = 12.sp,
                     color = Color.Gray,
-                ), topLeft = Offset(0f, y)
+                ), topLeft = Offset(0f+(spacing/2).toPx(), y)
             )
         }
     }

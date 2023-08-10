@@ -14,8 +14,8 @@ import lineChart.model.BackGroundGrid
 fun <T> DrawScope.chartContainer(
     xAxisData: List<T>,
     textMeasure: TextMeasurer,
-    upperValue: Dp,
-    lowerValue: Dp,
+    upperValue: Float,
+    lowerValue: Float,
     isShowBackgroundLines: BackGroundGrid,
     backGroundLineColor: Color,
     backgroundLineWidth: Float,

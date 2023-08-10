@@ -19,10 +19,10 @@ fun DrawScope.drawPathLineWrapper(
     animatedProgress: Animatable<Float, AnimationVector1D>,
     spacingY:Dp,
     spacingX:Dp,
-    function: (LineParameters, Int, Dp, Dp) -> Unit,
+    function: (LineParameters, Int, Dp, Float) -> Unit,
 ) {
     val maxX = size.width.toDp() + xAxisSize*spacingX
-    val maxY = size.height.toDp() - spacingY.toPx().times(1.5.dp)
+    val maxY = size.height.toDp().toPx()
     lineParameter.data.indices.forEach { index ->
         function(lineParameter, index, maxX, maxY)
     }

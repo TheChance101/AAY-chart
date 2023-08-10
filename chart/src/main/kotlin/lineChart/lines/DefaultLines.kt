@@ -18,8 +18,8 @@ import lineChart.model.LineShadow
 
 fun DrawScope.drawDefaultLineWithShadow(
     line: LineParameters,
-    lowerValue: Dp,
-    upperValue: Dp,
+    lowerValue: Float,
+    upperValue: Float,
     animatedProgress: Animatable<Float, AnimationVector1D>,
     xAxisSize: Int,
     spacingX:Dp,
@@ -58,8 +58,8 @@ fun DrawScope.drawDefaultLineWithShadow(
 
 private fun DrawScope.drawLineAsDefault(
     lineParameter: LineParameters,
-    lowerValue: Dp,
-    upperValue: Dp,
+    lowerValue: Float,
+    upperValue: Float,
     spaceBetweenXes: Dp,
     animatedProgress: Animatable<Float, AnimationVector1D>,
     xAxisSize: Int,
@@ -67,7 +67,7 @@ private fun DrawScope.drawLineAsDefault(
     spacingY: Dp,
 ) = Path().apply {
 
-    val height = size.height.toDp().toPx()
+    val height = size.height.toDp()
     drawPathLineWrapper(
         lineParameter = lineParameter,
         strokePath = this,
@@ -78,21 +78,19 @@ private fun DrawScope.drawLineAsDefault(
     ) { lineParameter, index, maxX, maxY ->
 
         val info = lineParameter.data[index]
-        val ratio = (info.dp ) / (upperValue - lowerValue)
+        val ratio = (info-lowerValue ) / (upperValue - lowerValue)
+        val startXPoint = (spacingX.toPx()) +index * spaceBetweenXes.toPx()
+        val startYPoint = (height.toPx() - spacingY.toPx() - (ratio * (height.toPx()-spacingY.toPx())))
 
-        val startXPoint = spacingX.toPx() + index * spaceBetweenXes.toPx()
-        val startYPoint = height - spacingY.toPx() - (ratio*maxY).toPx()
-
-
-        // Adjust the coordinates to stay within boundaries
-        val xAdjusted = startXPoint.coerceAtMost(maxX.toPx() - spacingX.toPx()).coerceAtLeast(spacingX.toPx())
-        val yAdjusted = startYPoint.coerceAtMost( (maxY.toPx()-spacingY.toPx())).coerceAtLeast( (2 * spacingY.toPx()))
+//       // Adjust the coordinates to stay within boundaries
+//        val xAdjusted = startXPoint.coerceAtMost(maxX.toPx() - spacingX.toPx()).coerceAtLeast(spacingX.toPx())
+//        val yAdjusted = startYPoint.coerceAtMost( (maxY.plus(50.0))).coerceAtLeast( ( spacingY.toPx().toDouble()))
 
 
         if (index == 0) {
-            moveTo(startXPoint, startYPoint)
+            moveTo(startXPoint, startYPoint.toFloat())
         } else {
-            lineTo(startXPoint, startYPoint)
+            lineTo(startXPoint, startYPoint.toFloat())
         }
     }
 

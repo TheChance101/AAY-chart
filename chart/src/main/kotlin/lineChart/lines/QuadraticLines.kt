@@ -14,8 +14,8 @@ import lineChart.model.LineShadow
 
 fun DrawScope.drawQuarticLineWithShadow(
     line: LineParameters,
-    lowerValue: Dp,
-    upperValue: Dp,
+    lowerValue: Float,
+    upperValue: Float,
     animatedProgress: Animatable<Float, AnimationVector1D>,
     xAxisSize: Int,
     spacingX:Dp,
@@ -54,8 +54,8 @@ fun DrawScope.drawQuarticLineWithShadow(
 
 private fun DrawScope.drawLineAsQuadratic(
     line: LineParameters,
-    lowerValue: Dp,
-    upperValue: Dp,
+    lowerValue: Float,
+    upperValue: Float,
     spaceBetweenXes: Dp,
     animatedProgress: Animatable<Float, AnimationVector1D>,
     xAxisSize: Int,
@@ -75,8 +75,8 @@ private fun DrawScope.drawLineAsQuadratic(
     ) { lineParameter, index, maxX, maxY ->
 
         val nextInfo = lineParameter.data.getOrNull(index + 1) ?: lineParameter.data.last()
-        val firstRatio = (lineParameter.data[index] - lowerValue.toPx()) / (upperValue.toPx() - lowerValue.toPx())
-        val secondRatio = (nextInfo - lowerValue.toPx()) / (upperValue.toPx() - lowerValue.toPx())
+        val firstRatio = (lineParameter.data[index] - lowerValue) / (upperValue - lowerValue)
+        val secondRatio = (nextInfo - lowerValue) / (upperValue - lowerValue)
 
         val xFirstPoint = spacingX.toPx() + index * spaceBetweenXes.toPx()
         val xSecondPoint = spacingX.toPx() + (index + 1) * spaceBetweenXes.toPx()
@@ -87,9 +87,9 @@ private fun DrawScope.drawLineAsQuadratic(
 
         // Adjust the coordinates to stay within boundaries
         val x1Adjusted = xFirstPoint.coerceAtMost(maxX.toPx() - spacingX.toPx()).coerceAtLeast(spacingX.toPx())
-        val y1Adjusted = yFirstPoint.coerceAtMost(maxY.toPx().toDouble()).coerceAtLeast((2 * spacingY.toPx().toDouble()))
+        val y1Adjusted = yFirstPoint.coerceAtMost(maxY.toDouble()).coerceAtLeast((2 * spacingY.toPx().toDouble()))
         val x2Adjusted = xSecondPoint.coerceAtMost(maxX.toPx() - spacingX.toPx()).coerceAtLeast(spacingX.toPx())
-        val y2Adjusted = ySecondPoint.coerceAtMost(maxY.toPx().toDouble()).coerceAtLeast((2 * spacingY.toPx().toDouble()))
+        val y2Adjusted = ySecondPoint.coerceAtMost(maxY.toDouble()).coerceAtLeast((2 * spacingY.toPx().toDouble()))
 
         if (index == 0) {
             moveTo(x1Adjusted, y1Adjusted.toFloat())

@@ -8,6 +8,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -45,22 +46,22 @@ internal fun ChartContent(
     }
     val upperValue = remember {
         linesParameters.flatMap { it.data }.maxOrNull()?.plus(1.0) ?: 0.0
-    }.dp
+    }
     val lowerValue = remember {
         linesParameters.flatMap { it.data }.minOrNull() ?: 0.0
-    }.dp
+    }
 
     Canvas(
         modifier = modifier
             .fillMaxSize()
     ) {
-        val spacingX = (size.width/5f).dp
-        val spacingY = (size.height/5f).dp
+        val spacingX = (size.width/10f).dp
+        val spacingY = (size.height/10f).dp
         chartContainer(
             xAxisData = xAxisData,
             textMeasure = textMeasure,
-            upperValue = upperValue,
-            lowerValue = lowerValue,
+            upperValue = upperValue.toFloat(),
+            lowerValue = lowerValue.toFloat(),
             isShowBackgroundLines = showBackgroundGrid,
             backgroundLineWidth = barWidthPx.toPx(),
             backGroundLineColor = backGroundColor,
@@ -74,8 +75,8 @@ internal fun ChartContent(
 
                 drawDefaultLineWithShadow(
                     line = line,
-                    lowerValue = lowerValue,
-                    upperValue = upperValue,
+                    lowerValue = lowerValue.toFloat(),
+                    upperValue = upperValue.toFloat(),
                     animatedProgress = animatedProgress,
                     xAxisSize = xAxisData.size,
                     spacingX=spacingX,
@@ -85,8 +86,8 @@ internal fun ChartContent(
             } else {
                 drawQuarticLineWithShadow(
                     line = line,
-                    lowerValue = lowerValue,
-                    upperValue = upperValue,
+                    lowerValue = lowerValue.toFloat(),
+                    upperValue = upperValue.toFloat(),
                     animatedProgress = animatedProgress,
                     xAxisSize = xAxisData.size,
                     spacingX=spacingX,
