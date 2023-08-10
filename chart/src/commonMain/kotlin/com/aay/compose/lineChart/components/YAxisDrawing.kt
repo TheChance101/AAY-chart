@@ -22,7 +22,7 @@ fun DrawScope.yAxisDrawing(upperValue : Float, lowerValue : Float,
 
     (0..5).forEach { i ->
         val yValue = lowerValue + dataStep * i
-        val y = (size.height - spacing.toPx() - i * size.height / 8.dp.toPx()).coerceAtMost(maxY)
+        val y = (size.height - spacing.toPx() - i * size.height / 5.dp.toPx()).coerceAtMost(maxY)
 
         drawContext.canvas.nativeCanvas.apply {
             drawText(

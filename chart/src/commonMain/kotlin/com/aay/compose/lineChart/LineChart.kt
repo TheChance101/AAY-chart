@@ -1,5 +1,7 @@
 package com.aay.compose.lineChart
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,15 +32,17 @@ fun LineChart(
             descriptionStyle = descriptionStyle
         )
 
-        ChartContent(
-            modifier = modifier,
-            linesParameters = linesParameters,
-            backGroundColor = backGroundColor,
-            xAxisData = xAxisData,
-            showBackgroundGrid = showBackgroundGrid,
-            barWidthPx = barWidthPx,
-            animateChart = animateChart,
-            pathEffect = pathEffect
-        )
+       Box(modifier = Modifier.background(color = Color.Green.copy(0.5f))){
+           ChartContent(
+               modifier = modifier,
+               linesParameters = linesParameters,
+               backGroundColor = backGroundColor,
+               xAxisData = xAxisData,
+               showBackgroundGrid = showBackgroundGrid,
+               barWidthPx = barWidthPx,
+               animateChart = animateChart,
+               pathEffect = pathEffect
+           )
+       }
     }
 }

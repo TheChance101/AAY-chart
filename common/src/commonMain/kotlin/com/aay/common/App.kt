@@ -18,7 +18,7 @@ fun App() {
     val testLineParameters: List<LineParameters> = listOf(
         LineParameters(
             dataName = "Earnings",
-            data = listOf(10.6, 8.6, 80.33, 91.232),
+            data = listOf(10.6, 8.6, 80.33, 9.232),
             lineColor = Color.Yellow,
             lineType = LineType.QUADRATIC_LINE,
             lineShadow = LineShadow.SHADOW,
@@ -32,7 +32,7 @@ fun App() {
         ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(50.6, 200.6, 1.33, 55.232),
+            data = listOf(50.6, 10.6, 1.33, 55.232),
             lineColor = Color.Blue,
             lineType = LineType.QUADRATIC_LINE,
             lineShadow = LineShadow.SHADOW,
