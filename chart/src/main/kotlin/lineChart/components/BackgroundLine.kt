@@ -27,7 +27,7 @@ fun DrawScope.backgroundLine(
     // Draw background lines
     if (isShowBackgroundLines == BackGroundGrid.SHOW) {
         (0..6).forEach { i ->
-            yAxisList.add(size.height - spacingY.toPx() - i * size.height / 6.dp.toPx())
+            yAxisList.add((size.height.toDp() - spacingY - (i * size.height).toDp() / 7).toPx())
             val yAlignmentValue = yAxisList[i] + 5.dp.toPx()
 
             // Ensure the line stays within the boundaries

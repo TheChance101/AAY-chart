@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import lineChart.model.BackGroundGrid
 
 @OptIn(ExperimentalTextApi::class)

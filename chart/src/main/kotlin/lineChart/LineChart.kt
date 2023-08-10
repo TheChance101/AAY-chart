@@ -1,6 +1,5 @@
 package lineChart
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,26 +21,25 @@ fun LineChart(
     barWidthPx: Dp = LineChartDefault.backgroundLineWidth,
     animateChart: Boolean = LineChartDefault.ANIMATED_CHART,
     pathEffect: PathEffect = LineChartDefault.pathEffect,
-    descriptionStyle: TextStyle = LineChartDefault.descriptionDefaultStyle
+    descriptionStyle: TextStyle = LineChartDefault.descriptionDefaultStyle,
 ) {
 
-    Box(modifier = Modifier.fillMaxSize()){
-            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                ChartDescription(
-                    chartLineDetails = linesParameters,
-                    descriptionStyle = descriptionStyle
-                )
-                Box(modifier=Modifier.background(color = Color.Green.copy(alpha = 0.5f))){
-                ChartContent(
-                    modifier = modifier,
-                    linesParameters = linesParameters,
-                    backGroundColor = backGroundColor,
-                    xAxisData = xAxisData,
-                    showBackgroundGrid = showBackgroundGrid,
-                    barWidthPx = barWidthPx,
-                    animateChart = animateChart,
-                    pathEffect = pathEffect
-                )}
-            }
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            ChartDescription(
+                chartLineDetails = linesParameters,
+                descriptionStyle = descriptionStyle
+            )
+            ChartContent(
+                modifier = modifier,
+                linesParameters = linesParameters,
+                backGroundColor = backGroundColor,
+                xAxisData = xAxisData,
+                showBackgroundGrid = showBackgroundGrid,
+                barWidthPx = barWidthPx,
+                animateChart = animateChart,
+                pathEffect = pathEffect
+            )
+        }
     }
 }

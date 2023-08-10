@@ -9,28 +9,28 @@ import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.times
 
 @OptIn(ExperimentalTextApi::class)
 fun DrawScope.yAxisDrawing(
     upperValue: Float, lowerValue: Float,
-    textMeasure: TextMeasurer, spacing: Dp
+    textMeasure: TextMeasurer, spacing: Dp,
+
 ) {
     val dataRange = upperValue - lowerValue
-    val dataStep = dataRange / 5.dp.toPx()
-    val maxY = size.height - spacing.toPx()
+    val dataStep = dataRange / 6
 
     (0..6).forEach { i ->
         val yValue = lowerValue + dataStep * i
-        val y = (size.height - spacing.toPx() - i * size.height / 6.dp.toPx())
+        val y = (size.height.toDp() - spacing - i * size.height.toDp() / 7)
 
         drawContext.canvas.nativeCanvas.apply {
             drawText(
                 textMeasurer = textMeasure, text = yValue.toInt().toString(), style = TextStyle(
                     fontSize = 12.sp,
                     color = Color.Gray,
-                ), topLeft = Offset(0f+(spacing/2).toPx(), y)
+                ), topLeft = Offset((spacing/2).toPx(), y.toPx())
             )
         }
     }

@@ -8,9 +8,6 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.coerceAtMost
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.times
 import drawPathLineWrapper
 import lineChart.model.LineParameters
 import lineChart.model.LineShadow
@@ -22,8 +19,8 @@ fun DrawScope.drawDefaultLineWithShadow(
     upperValue: Float,
     animatedProgress: Animatable<Float, AnimationVector1D>,
     xAxisSize: Int,
-    spacingX:Dp,
-    spacingY:Dp,
+    spacingX: Dp,
+    spacingY: Dp,
 ) {
     val spaceBetweenXes = (size.width.toDp() - spacingX) / xAxisSize
     val strokePathOfDefaultLine = drawLineAsDefault(
@@ -32,9 +29,8 @@ fun DrawScope.drawDefaultLineWithShadow(
         upperValue = upperValue,
         spaceBetweenXes = spaceBetweenXes,
         animatedProgress = animatedProgress,
-        xAxisSize = xAxisSize,
-        spacingX =spacingX,
-        spacingY=spacingY,
+        spacingX = spacingX,
+        spacingY = spacingY,
     )
 
     if (line.lineShadow == LineShadow.SHADOW) {
@@ -62,7 +58,6 @@ private fun DrawScope.drawLineAsDefault(
     upperValue: Float,
     spaceBetweenXes: Dp,
     animatedProgress: Animatable<Float, AnimationVector1D>,
-    xAxisSize: Int,
     spacingX: Dp,
     spacingY: Dp,
 ) = Path().apply {
@@ -71,21 +66,14 @@ private fun DrawScope.drawLineAsDefault(
     drawPathLineWrapper(
         lineParameter = lineParameter,
         strokePath = this,
-        xAxisSize = xAxisSize,
         animatedProgress = animatedProgress,
-        spacingX = spacingX,
-        spacingY = spacingY,
-    ) { lineParameter, index, maxX, maxY ->
+    ) { lineParameter, index ->
 
         val info = lineParameter.data[index]
-        val ratio = (info-lowerValue ) / (upperValue - lowerValue)
-        val startXPoint = (spacingX.toPx()) +index * spaceBetweenXes.toPx()
-        val startYPoint = (height.toPx() - spacingY.toPx() - (ratio * (height.toPx()-spacingY.toPx())))
-
-//       // Adjust the coordinates to stay within boundaries
-//        val xAdjusted = startXPoint.coerceAtMost(maxX.toPx() - spacingX.toPx()).coerceAtLeast(spacingX.toPx())
-//        val yAdjusted = startYPoint.coerceAtMost( (maxY.plus(50.0))).coerceAtLeast( ( spacingY.toPx().toDouble()))
-
+        val ratio = (info - lowerValue) / (upperValue - lowerValue)
+        val startXPoint = (spacingX.toPx()) + index * spaceBetweenXes.toPx()
+        val startYPoint =
+            (height.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
 
         if (index == 0) {
             moveTo(startXPoint, startYPoint.toFloat())

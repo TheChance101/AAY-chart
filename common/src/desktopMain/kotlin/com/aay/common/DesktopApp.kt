@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.unit.dp
-import lineChart.ChartDescription
 import lineChart.LineChart
 import lineChart.model.BackGroundGrid
 import lineChart.model.LineParameters
@@ -23,7 +22,7 @@ fun AppPreview() {
     val testLineParameters: List<LineParameters> = listOf(
         LineParameters(
             dataName = "revenue",
-            data = listOf(0.0, 20.6, 66.33, 99.232, 11.232,50.0),
+            data = listOf(0.0, 20.6, 66.33, 200.0, 11.232,50.0),
             lineColor = Color.Blue,
             lineType = LineType.DEFAULT_LINE,
             lineShadow = LineShadow.BLANK,
