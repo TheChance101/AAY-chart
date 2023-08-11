@@ -1,6 +1,7 @@
 package com.aay.common
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -42,7 +43,7 @@ fun App() {
 
     Box(Modifier.padding(24.dp)) {
         LineChart(
-            modifier = Modifier.size(700.dp),
+            modifier = Modifier.height(250.dp),
             linesParameters = testLineParameters,
             backGroundColor = Color.Blue,
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020"),
