@@ -43,7 +43,7 @@ fun App() {
 
     Box(Modifier.padding(24.dp)) {
         LineChart(
-            modifier = Modifier.height(250.dp),
+            modifier = Modifier.height(350.dp),
             linesParameters = testLineParameters,
             backGroundColor = Color.Blue,
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020"),
