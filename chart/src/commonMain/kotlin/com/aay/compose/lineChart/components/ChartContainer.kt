@@ -1,4 +1,4 @@
-package lineChart.components
+package com.aay.compose.lineChart.components
 
 
 import androidx.compose.ui.graphics.Color
@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.unit.Dp
-import lineChart.model.BackGroundGrid
+import com.aay.compose.lineChart.model.BackGroundGrid
 
 @OptIn(ExperimentalTextApi::class)
 fun <T> DrawScope.chartContainer(
