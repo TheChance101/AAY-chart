@@ -32,7 +32,9 @@ internal fun ChartContent(
     showBackgroundGrid: BackGroundGrid,
     barWidthPx: Dp,
     animateChart: Boolean,
-    pathEffect: PathEffect
+    pathEffect: PathEffect,
+    yAxisStyle: TextStyle,
+    xAxisStyle: TextStyle
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -51,8 +53,10 @@ internal fun ChartContent(
         modifier = modifier
             .fillMaxSize()
     ) {
-        val spacingX = (size.width/10f).dp
-        val spacingY = (size.height/10f).dp
+
+        val spacingX = (size.width / 10f).dp
+        val spacingY = (size.height / 10f).dp
+
         chartContainer(
             xAxisData = xAxisData,
             textMeasure = textMeasure,
@@ -62,8 +66,10 @@ internal fun ChartContent(
             backgroundLineWidth = barWidthPx.toPx(),
             backGroundLineColor = backGroundColor,
             pathEffect = pathEffect,
-            spacingX=spacingX,
-            spacingY=spacingY,
+            spacingX = spacingX,
+            spacingY = spacingY,
+            yAxisStyle = yAxisStyle,
+            xAxisStyle = xAxisStyle
         )
 
         linesParameters.forEach { line ->
@@ -75,8 +81,8 @@ internal fun ChartContent(
                     upperValue = upperValue.toFloat(),
                     animatedProgress = animatedProgress,
                     xAxisSize = xAxisData.size,
-                    spacingX=spacingX,
-                    spacingY=spacingY,
+                    spacingX = spacingX,
+                    spacingY = spacingY,
                 )
 
             } else {
@@ -86,8 +92,8 @@ internal fun ChartContent(
                     upperValue = upperValue.toFloat(),
                     animatedProgress = animatedProgress,
                     xAxisSize = xAxisData.size,
-                    spacingX=spacingX,
-                    spacingY=spacingY,
+                    spacingX = spacingX,
+                    spacingY = spacingY,
                 )
 
             }

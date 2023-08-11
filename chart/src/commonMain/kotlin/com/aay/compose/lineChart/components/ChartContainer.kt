@@ -6,9 +6,9 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import com.aay.compose.lineChart.model.BackGroundGrid
-import lineChart.components.yAxisDrawing
 
 @OptIn(ExperimentalTextApi::class)
 fun <T> DrawScope.chartContainer(
@@ -22,9 +22,24 @@ fun <T> DrawScope.chartContainer(
     pathEffect: PathEffect,
     spacingX: Dp,
     spacingY: Dp,
+    yAxisStyle: TextStyle,
+    xAxisStyle: TextStyle
 ) {
-    xAxisDrawing(xAxisData, spacingX, textMeasure)
-    yAxisDrawing(upperValue, lowerValue, textMeasure, spacingY)
+    xAxisDrawing(
+        xAxisData = xAxisData,
+        spacing = spacingX,
+        textMeasure = textMeasure,
+        xAxisStyle = xAxisStyle
+    )
+
+    yAxisDrawing(
+        upperValue = upperValue,
+        lowerValue = lowerValue,
+        textMeasure = textMeasure,
+        spacing = spacingY,
+        yAxisStyle = yAxisStyle
+    )
+
     backgroundLine(
         xAxisDataSize = xAxisData.size,
         isShowBackgroundLines = isShowBackgroundLines,

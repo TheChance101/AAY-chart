@@ -1,5 +1,6 @@
 package com.aay.compose.lineChart
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.text.TextStyle
@@ -33,4 +34,11 @@ object LineChartDefault {
         fontSize = 14.sp,
         fontWeight = FontWeight.W400
     )
+
+    val headerArrangement = Arrangement.spacedBy(24.dp)
+    val axesStyle = TextStyle(
+        fontSize = 12.sp,
+        color = Color.Gray,
+    )
+
 }

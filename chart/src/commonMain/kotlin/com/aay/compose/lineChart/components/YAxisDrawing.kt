@@ -1,4 +1,4 @@
-package lineChart.components
+package com.aay.compose.lineChart.components
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.times
 fun DrawScope.yAxisDrawing(
     upperValue: Float, lowerValue: Float,
     textMeasure: TextMeasurer, spacing: Dp,
-
-    ) {
+    yAxisStyle: TextStyle,
+) {
     val dataRange = upperValue - lowerValue
     val dataStep = dataRange / 6
 
@@ -29,10 +29,7 @@ fun DrawScope.yAxisDrawing(
             drawText(
                 textMeasurer = textMeasure,
                 text = yValue.toLong().formatToThousandsMillionsBillions(),
-                style = TextStyle(
-                    fontSize = 12.sp,
-                    color = Color.Gray,
-                ),
+                style = yAxisStyle,
                 topLeft = Offset(0f, y.toPx())
             )
         }

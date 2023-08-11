@@ -15,11 +15,15 @@ import androidx.compose.ui.unit.dp
 import com.aay.compose.lineChart.model.LineParameters
 
 @Composable
-fun ChartDescription(
+internal fun ChartDescription(
     chartLineDetails: List<LineParameters> = emptyList(),
-    descriptionStyle: TextStyle
+    descriptionStyle: TextStyle,
+    horizontalArrangement: Arrangement.Horizontal = LineChartDefault.headerArrangement,
 ) {
-    LazyRow(horizontalArrangement = Arrangement.spacedBy(24.dp), modifier = Modifier.fillMaxWidth().padding(32.dp)) {
+    LazyRow(
+        horizontalArrangement = horizontalArrangement,
+        modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp)
+    ) {
         items(chartLineDetails) { line ->
             Row(
                 horizontalArrangement = Arrangement.Center,
