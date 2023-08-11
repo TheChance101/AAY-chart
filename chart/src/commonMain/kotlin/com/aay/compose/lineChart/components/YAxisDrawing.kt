@@ -17,7 +17,7 @@ fun DrawScope.yAxisDrawing(
     upperValue: Float, lowerValue: Float,
     textMeasure: TextMeasurer, spacing: Dp,
 
-) {
+    ) {
     val dataRange = upperValue - lowerValue
     val dataStep = dataRange / 6
 
@@ -27,12 +27,24 @@ fun DrawScope.yAxisDrawing(
 
         drawContext.canvas.nativeCanvas.apply {
             drawText(
-                textMeasurer = textMeasure, text = yValue.toInt().toString(), style = TextStyle(
+                textMeasurer = textMeasure,
+                text = yValue.toLong().formatToThousandsMillionsBillions(),
+                style = TextStyle(
                     fontSize = 12.sp,
                     color = Color.Gray,
-                ), topLeft = Offset(0f, y.toPx())
+                ),
+                topLeft = Offset(0f, y.toPx())
             )
         }
     }
 }
 
+private fun Long.formatToThousandsMillionsBillions(): String {
+    return when {
+        this < 1000 -> "$this"
+        this < 1000000 -> "${(this.toFloat() / 1000).toInt()}k"
+        this < 1000000000 -> "${(this.toFloat() / 1000000).toInt()}M"
+        this < 1000000000000 -> "${(this.toFloat() / 1000000000).toInt()}B"
+        else -> "${(this.toFloat() / 1000000000000).toInt()}T"
+    }
+}
