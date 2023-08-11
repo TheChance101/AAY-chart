@@ -1,5 +1,6 @@
 package com.aay.compose.lineChart
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,14 +25,14 @@ fun LineChart(
     descriptionStyle: TextStyle = LineChartDefault.descriptionDefaultStyle,
 ) {
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.wrapContentHeight()) {
         Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
             ChartDescription(
                 chartLineDetails = linesParameters,
                 descriptionStyle = descriptionStyle
             )
             ChartContent(
-                modifier = modifier,
+                modifier = modifier.aspectRatio(3/2f),
                 linesParameters = linesParameters,
                 backGroundColor = backGroundColor,
                 xAxisData = xAxisData,
