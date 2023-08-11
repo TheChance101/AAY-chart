@@ -5,26 +5,22 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import com.aay.compose.lineChart.components.chartContainer
-import com.aay.compose.lineChart.lines.drawDefaultLineWithShadow
-import com.aay.compose.lineChart.lines.drawQuarticLineWithShadow
 import com.aay.compose.lineChart.model.BackGroundGrid
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
+import com.aay.compose.lineChart.lines.drawDefaultLineWithShadow
+import com.aay.compose.lineChart.lines.drawQuarticLineWithShadow
 
 @OptIn(ExperimentalTextApi::class)
 @Composable

@@ -1,4 +1,4 @@
-package lineChart.lines
+package com.aay.compose.lineChart.lines
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
@@ -9,9 +9,8 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.times
-import drawPathLineWrapper
-import lineChart.model.LineParameters
-import lineChart.model.LineShadow
+import com.aay.compose.lineChart.model.LineParameters
+import com.aay.compose.lineChart.model.LineShadow
 
 
 fun DrawScope.drawDefaultLineWithShadow(
