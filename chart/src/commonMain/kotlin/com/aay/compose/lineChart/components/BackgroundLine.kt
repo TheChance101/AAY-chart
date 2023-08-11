@@ -12,30 +12,29 @@ import com.aay.compose.lineChart.model.BackGroundGrid
 fun DrawScope.backgroundLine(
     xAxisDataSize: Int,
     isShowBackgroundLines: BackGroundGrid,
-    spacing: Dp,
     backGroundColor: Color,
     backgroundLineWidth: Float,
-    pathEffect: PathEffect
+    pathEffect: PathEffect,
+    spacingX:Dp,
+    spacingY: Dp
 ) {
-    // Calculate the valid boundaries of the chart area
-    val minX = spacing.toPx()
+    val minX = spacingX.toPx()
     val xAxisMaxValue = size.width + xAxisDataSize
 
     val yAxisList = mutableListOf<Float>()
 
-    // Draw background lines
     if (isShowBackgroundLines == BackGroundGrid.SHOW) {
-        (0..5).forEach { i ->
-            yAxisList.add(size.height - spacing.toPx() - i * size.height / 8f)
-            val yAlignmentValue = yAxisList[i] + 7.dp.toPx()
+        (0..6).forEach { i ->
+            yAxisList.add((size.height.toDp() - spacingY - (i * size.height).toDp() / 7).toPx())
+            val yAlignmentValue = yAxisList[i] + 5.dp.toPx()
 
-            // Ensure the line stays within the boundaries
-            val xStart = minX
-            val xEnd = (size.width).coerceAtMost(xAxisMaxValue - spacing.toPx()).coerceAtLeast(minX)
+            val xEnd = (size.width).coerceAtMost(
+                xAxisMaxValue - spacingX.toPx().div(0.7.dp.toPx())
+            ).coerceAtLeast(minX)
 
             drawLine(
                 backGroundColor,
-                start = Offset(xStart, yAlignmentValue),
+                start = Offset(spacingX.toPx()/2, yAlignmentValue),
                 end = Offset(xEnd, yAlignmentValue),
                 strokeWidth = backgroundLineWidth,
                 pathEffect = pathEffect

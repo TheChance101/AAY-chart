@@ -8,11 +8,11 @@ import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.unit.Dp
 import com.aay.compose.lineChart.model.BackGroundGrid
+import lineChart.components.yAxisDrawing
 
 @OptIn(ExperimentalTextApi::class)
 fun <T> DrawScope.chartContainer(
     xAxisData: List<T>,
-    spacing: Dp,
     textMeasure: TextMeasurer,
     upperValue: Float,
     lowerValue: Float,
@@ -20,16 +20,18 @@ fun <T> DrawScope.chartContainer(
     backGroundLineColor: Color,
     backgroundLineWidth: Float,
     pathEffect: PathEffect,
+    spacingX: Dp,
+    spacingY: Dp,
 ) {
-
-    xAxisDrawing(xAxisData, spacing, textMeasure)
-    yAxisDrawing(upperValue, lowerValue, textMeasure,spacing)
+    xAxisDrawing(xAxisData, spacingX, textMeasure)
+    yAxisDrawing(upperValue, lowerValue, textMeasure, spacingY)
     backgroundLine(
         xAxisDataSize = xAxisData.size,
         isShowBackgroundLines = isShowBackgroundLines,
-        spacing = spacing,
         backGroundColor = backGroundLineColor,
         backgroundLineWidth = backgroundLineWidth,
-        pathEffect = pathEffect
+        pathEffect = pathEffect,
+        spacingX = spacingX,
+        spacingY = spacingY,
     )
 }

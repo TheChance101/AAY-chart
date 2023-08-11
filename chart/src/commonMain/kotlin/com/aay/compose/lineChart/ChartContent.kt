@@ -10,18 +10,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import com.aay.compose.lineChart.components.chartContainer
-import com.aay.compose.lineChart.lines.drawDefaultLineWithShadow
-import com.aay.compose.lineChart.lines.drawQuarticLineWithShadow
 import com.aay.compose.lineChart.model.BackGroundGrid
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
+import com.aay.compose.lineChart.lines.drawDefaultLineWithShadow
+import com.aay.compose.lineChart.lines.drawQuarticLineWithShadow
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
@@ -35,7 +34,7 @@ internal fun ChartContent(
     animateChart: Boolean,
     pathEffect: PathEffect
 ) {
-    val spacing = 100.dp
+
     val textMeasure = rememberTextMeasurer()
 
     val animatedProgress = remember {
@@ -48,11 +47,14 @@ internal fun ChartContent(
         linesParameters.flatMap { it.data }.minOrNull() ?: 0.0
     }
 
-
-    Canvas(modifier = modifier.fillMaxSize().clipToBounds()) {
+    Canvas(
+        modifier = modifier
+            .fillMaxSize()
+    ) {
+        val spacingX = (size.width/10f).dp
+        val spacingY = (size.height/10f).dp
         chartContainer(
             xAxisData = xAxisData,
-            spacing = spacing,
             textMeasure = textMeasure,
             upperValue = upperValue.toFloat(),
             lowerValue = lowerValue.toFloat(),
@@ -60,10 +62,9 @@ internal fun ChartContent(
             backgroundLineWidth = barWidthPx.toPx(),
             backGroundLineColor = backGroundColor,
             pathEffect = pathEffect,
+            spacingX=spacingX,
+            spacingY=spacingY,
         )
-
-
-        val spaceBetweenXes = (size.width.toDp() - spacing) / xAxisData.size
 
         linesParameters.forEach { line ->
             if (line.lineType == LineType.DEFAULT_LINE) {
@@ -72,22 +73,21 @@ internal fun ChartContent(
                     line = line,
                     lowerValue = lowerValue.toFloat(),
                     upperValue = upperValue.toFloat(),
-                    spacing = spacing,
-                    spaceBetweenXes = spaceBetweenXes,
                     animatedProgress = animatedProgress,
-                    xAxisSize = xAxisData.size
+                    xAxisSize = xAxisData.size,
+                    spacingX=spacingX,
+                    spacingY=spacingY,
                 )
 
             } else {
-
                 drawQuarticLineWithShadow(
                     line = line,
                     lowerValue = lowerValue.toFloat(),
                     upperValue = upperValue.toFloat(),
-                    spacing = spacing,
-                    spaceBetweenXes = spaceBetweenXes,
                     animatedProgress = animatedProgress,
-                    xAxisSize = xAxisData.size
+                    xAxisSize = xAxisData.size,
+                    spacingX=spacingX,
+                    spacingY=spacingY,
                 )
 
             }
