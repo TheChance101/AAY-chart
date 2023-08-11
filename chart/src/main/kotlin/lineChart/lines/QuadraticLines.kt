@@ -74,8 +74,8 @@ private fun DrawScope.drawLineAsQuadratic(
         val firstRatio = (info - lowerValue) / (upperValue - lowerValue)
         val secondRatio = (nextInfo - lowerValue) / (upperValue - lowerValue)
 
-        val xFirstPoint = spacingX + index * spaceBetweenXes
-        val xSecondPoint = spacingX + (index + 1) * spaceBetweenXes
+        val xFirstPoint = spacingX/2 + index * spaceBetweenXes
+        val xSecondPoint = spacingX/2 + (index + 1) * spaceBetweenXes
 
         val yFirstPoint = (height - spacingY - (firstRatio * (height-spacingY)))
         val ySecondPoint = (height - spacingY - (secondRatio * (height-spacingY)))

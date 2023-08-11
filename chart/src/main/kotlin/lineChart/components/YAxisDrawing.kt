@@ -30,7 +30,7 @@ fun DrawScope.yAxisDrawing(
                 textMeasurer = textMeasure, text = yValue.toInt().toString(), style = TextStyle(
                     fontSize = 12.sp,
                     color = Color.Gray,
-                ), topLeft = Offset((spacing/2).toPx(), y.toPx())
+                ), topLeft = Offset(0f, y.toPx())
             )
         }
     }

@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.times
 import drawPathLineWrapper
 import lineChart.model.LineParameters
 import lineChart.model.LineShadow
@@ -71,14 +72,14 @@ private fun DrawScope.drawLineAsDefault(
 
         val info = lineParameter.data[index]
         val ratio = (info - lowerValue) / (upperValue - lowerValue)
-        val startXPoint = (spacingX.toPx()) + index * spaceBetweenXes.toPx()
+        val startXPoint = (spacingX/2) + (index * spaceBetweenXes)
         val startYPoint =
             (height.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
 
         if (index == 0) {
-            moveTo(startXPoint, startYPoint.toFloat())
+            moveTo(startXPoint.toPx(), startYPoint.toFloat())
         } else {
-            lineTo(startXPoint, startYPoint.toFloat())
+            lineTo(startXPoint.toPx(), startYPoint.toFloat())
         }
     }
 

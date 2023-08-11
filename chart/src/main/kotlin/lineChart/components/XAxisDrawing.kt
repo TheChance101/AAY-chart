@@ -10,15 +10,19 @@ import androidx.compose.ui.unit.sp
 
 
 @OptIn(ExperimentalTextApi::class)
-fun <T> DrawScope.xAxisDrawing(xAxisData: List<T>, spacing: Dp , textMeasure : TextMeasurer) {
+fun <T> DrawScope.xAxisDrawing(xAxisData: List<T>, spacing: Dp, textMeasure: TextMeasurer) {
     val spaceBetweenXes = (size.width - spacing.toPx()) / xAxisData.size
+
     xAxisData.forEachIndexed { index, dataPoint ->
-        val xLength = spacing.toPx() + index * spaceBetweenXes
+        val xLength = (spacing / 2) + (index * spaceBetweenXes).toDp()
         drawContext.canvas.nativeCanvas.apply {
             drawText(
                 textMeasurer = textMeasure, text = dataPoint.toString(), style = TextStyle(
                     fontSize = 12.sp, color = Color.Gray
-                ), topLeft = Offset(xLength.coerceAtMost(size.width), size.height / 1.07f)
+                ), topLeft = Offset(
+                    xLength.coerceAtMost(size.width.toDp()).toPx(),
+                    size.height / 1.07f
+                )
             )
         }
     }
