@@ -9,7 +9,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aay.compose.lineChart.model.BackGroundGrid
 import com.aay.compose.lineChart.model.LineParameters
-import com.aay.compose.lineChart.model.LineShadow
 import com.aay.compose.lineChart.model.LineType
 
 object LineChartDefault {
@@ -20,12 +19,11 @@ object LineChartDefault {
             data = emptyList(),
             lineColor = Color.Blue,
             lineType = LineType.QUADRATIC_LINE,
-            lineShadow = LineShadow.BLANK,
+            lineShadow = true,
         )
     )
     val backGroundGrid = BackGroundGrid.SHOW
     val backGroundColor = Color.Gray
-    val xAxisData = listOf("2015", "2016", "2017", "2018", "2019")
     const val ANIMATED_CHART = true
     val backgroundLineWidth = 1.dp
     val pathEffect = PathEffect.dashPathEffect(floatArrayOf(1f, 1f), 0f)

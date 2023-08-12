@@ -11,7 +11,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import com.aay.compose.lineChart.model.LineParameters
-import com.aay.compose.lineChart.model.LineShadow
 
 
 fun DrawScope.drawDefaultLineWithShadow(
@@ -34,7 +33,7 @@ fun DrawScope.drawDefaultLineWithShadow(
         spacingY = spacingY,
     )
 
-    if (line.lineShadow == LineShadow.SHADOW) {
+    if (line.lineShadow) {
         val fillPath = strokePathOfDefaultLine.apply {
             lineTo((size.width.toDp()).toPx(), size.height - spacingY.toPx())
             lineTo(spacingX.toPx(), (size.height.toDp() - spacingY).toPx())

@@ -14,44 +14,33 @@ import androidx.compose.ui.unit.sp
 import com.aay.compose.lineChart.LineChart
 import com.aay.compose.lineChart.model.BackGroundGrid
 import com.aay.compose.lineChart.model.LineParameters
-import com.aay.compose.lineChart.model.LineShadow
 import com.aay.compose.lineChart.model.LineType
 import kotlinx.coroutines.delay
 
 @Composable
 fun App() {
 
-    var testValue by remember { mutableStateOf(3996940.0) }
-
-    LaunchedEffect(Unit){
-        while(true){
-            delay(1500)
-            testValue += 598_000_000.0
-        }
-    }
-
-
     val testLineParameters: List<LineParameters> = listOf(
         LineParameters(
             dataName = "revenue",
-            data = listOf(0.0, 20.6, 6888888886.33, testValue, 11000000.232, 50.0),
+            data = listOf(0.0, 20.6, 68888886.33, 9999.9, 11000000.232, 50.0),
             lineColor = Color.Blue,
             lineType = LineType.DEFAULT_LINE,
-            lineShadow = LineShadow.SHADOW,
+            lineShadow = true,
         ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(0.0, 16000.6, 40.33, 9100000000.232, 88.0, 30.0),
+            data = listOf(0.0, 16000.6, 40.33, 91000000.232, 88.0, 30.0),
             lineColor = Color.Black,
             lineType = LineType.QUADRATIC_LINE,
-            lineShadow = LineShadow.SHADOW,
+            lineShadow = true
         ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(0.0, 4000000000.0, 11.33, 55.232, 00.0, 100.0),
+            data = listOf(0.0, 4000.0, 11.33, 55.232, 00.0, 100.0),
             lineColor = Color.Red,
             lineType = LineType.QUADRATIC_LINE,
-            lineShadow = LineShadow.SHADOW,
+            lineShadow = false,
         )
     )
 

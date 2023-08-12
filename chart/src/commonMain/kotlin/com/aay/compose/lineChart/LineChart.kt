@@ -17,7 +17,7 @@ fun LineChart(
     modifier: Modifier = Modifier,
     linesParameters: List<LineParameters> = LineChartDefault.lineParameters,
     backGroundColor: Color = LineChartDefault.backGroundColor,
-    xAxisData: List<String> = LineChartDefault.xAxisData,
+    xAxisData: List<String> = emptyList(),
     showBackgroundGrid: BackGroundGrid = LineChartDefault.backGroundGrid,
     barWidthPx: Dp = LineChartDefault.backgroundLineWidth,
     animateChart: Boolean = LineChartDefault.ANIMATED_CHART,
@@ -34,7 +34,7 @@ fun LineChart(
                 descriptionStyle = descriptionStyle,
             )
             ChartContent(
-                modifier = modifier.aspectRatio(3 / 2f).background(Color.Green.copy(.5f)),
+                modifier = modifier.aspectRatio(3 / 2f),
                 linesParameters = linesParameters,
                 backGroundColor = backGroundColor,
                 xAxisData = xAxisData,

@@ -9,7 +9,6 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.unit.*
 import com.aay.compose.lineChart.model.LineParameters
-import com.aay.compose.lineChart.model.LineShadow
 
 fun DrawScope.drawQuarticLineWithShadow(
     line: LineParameters,
@@ -31,7 +30,7 @@ fun DrawScope.drawQuarticLineWithShadow(
         spacingY=spacingY,
     )
 
-    if (line.lineShadow == LineShadow.SHADOW) {
+    if (line.lineShadow) {
         val fillPath = strokePathOfQuadraticLine.apply {
             lineTo((size.width.toDp() - spaceBetweenXes).toPx(), (size.height.toDp() - spacingY).toPx())
             lineTo(spacingX.toPx(), (size.height.toDp() - spacingY).toPx())

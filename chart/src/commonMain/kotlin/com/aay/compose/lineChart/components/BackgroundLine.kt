@@ -8,7 +8,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.aay.compose.lineChart.model.BackGroundGrid
 
-
 fun DrawScope.backgroundLine(
     xAxisDataSize: Int,
     isShowBackgroundLines: BackGroundGrid,
