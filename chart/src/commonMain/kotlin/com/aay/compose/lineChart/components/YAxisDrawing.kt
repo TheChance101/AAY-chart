@@ -1,7 +1,6 @@
 package com.aay.compose.lineChart.components
 
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.text.ExperimentalTextApi
@@ -9,7 +8,6 @@ import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.times
 
 @OptIn(ExperimentalTextApi::class)
@@ -39,9 +37,9 @@ fun DrawScope.yAxisDrawing(
 private fun Long.formatToThousandsMillionsBillions(): String {
     return when {
         this < 1000 -> "$this"
-        this < 1000000 -> "${(this.toFloat() / 1000).toInt()}k"
-        this < 1000000000 -> "${(this.toFloat() / 1000000).toInt()}M"
-        this < 1000000000000 -> "${(this.toFloat() / 1000000000).toInt()}B"
-        else -> "${(this.toFloat() / 1000000000000).toInt()}T"
+        this < 1000000 -> "${String.format("%.1f", this.toFloat() / 1000)}k"
+        this < 1000000000 -> "${String.format("%.1f", this.toFloat() / 1000000)}M"
+        this < 1000000000000 -> "${String.format("%.1f", this.toFloat() / 1000000000)}B"
+        else -> "${String.format("%.1f", this.toFloat() / 1000000000000)}T"
     }
 }

@@ -9,7 +9,7 @@ fun checkIfDataValid(
     val data = linesParameters.map { it.data }
     data.forEach {
         if (it.size != xAxisData.size ){
-            throw Exception(" The data size of lines can't be bigger than the x-axis data")
+            throw Exception(" The data size of lines must be equal to the x-axis data size")
         }
         it.forEach {
             if (it < 0.0){
