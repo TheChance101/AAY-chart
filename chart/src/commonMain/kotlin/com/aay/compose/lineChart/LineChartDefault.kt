@@ -2,7 +2,6 @@ package com.aay.compose.lineChart
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -21,11 +20,11 @@ object LineChartDefault {
             lineShadow = true,
         )
     )
-    val backGroundGrid = true
+    const val backGroundGrid = true
     val backGroundColor = Color.Gray
     const val ANIMATED_CHART = true
     val backgroundLineWidth = 1.dp
-    val pathEffect = PathEffect.dashPathEffect(floatArrayOf(1f, 1f), 0f)
+    const val SHOW_BACKGROUND_WITH_SPACER = true
     val descriptionDefaultStyle = TextStyle(
         color = Color.Black,
         fontSize = 14.sp,

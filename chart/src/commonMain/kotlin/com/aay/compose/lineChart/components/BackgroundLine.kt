@@ -12,8 +12,8 @@ fun DrawScope.backgroundLine(
     isShowBackgroundLines: Boolean,
     backGroundColor: Color,
     backgroundLineWidth: Float,
-    pathEffect: PathEffect,
-    spacingX:Dp,
+    showGridWithSpacer: Boolean,
+    spacingX: Dp,
     spacingY: Dp
 ) {
     val minX = spacingX.toPx()
@@ -32,10 +32,15 @@ fun DrawScope.backgroundLine(
 
             drawLine(
                 backGroundColor,
-                start = Offset(spacingX.toPx()/2, yAlignmentValue),
+                start = Offset(spacingX.toPx() / 2, yAlignmentValue),
                 end = Offset(xEnd, yAlignmentValue),
                 strokeWidth = backgroundLineWidth,
-                pathEffect = pathEffect
+                pathEffect = PathEffect.dashPathEffect(
+                    if (showGridWithSpacer)
+                        floatArrayOf(16f, 16f)
+                    else floatArrayOf(1f, 1f),
+                    0f
+                )
             )
         }
     }

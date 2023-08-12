@@ -2,7 +2,6 @@ package com.aay.compose.lineChart.components
 
 
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
@@ -18,7 +17,7 @@ fun <T> DrawScope.chartContainer(
     isShowBackgroundLines: Boolean,
     backGroundLineColor: Color,
     backgroundLineWidth: Float,
-    pathEffect: PathEffect,
+    showGridWithSpacer: Boolean,
     spacingX: Dp,
     spacingY: Dp,
     yAxisStyle: TextStyle,
@@ -44,7 +43,7 @@ fun <T> DrawScope.chartContainer(
         isShowBackgroundLines = isShowBackgroundLines,
         backGroundColor = backGroundLineColor,
         backgroundLineWidth = backgroundLineWidth,
-        pathEffect = pathEffect,
+        showGridWithSpacer = showGridWithSpacer,
         spacingX = spacingX,
         spacingY = spacingY,
     )

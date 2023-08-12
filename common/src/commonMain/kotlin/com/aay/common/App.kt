@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -50,7 +49,7 @@ fun App() {
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020"),
             showBackgroundGrid = true,
             animateChart = true,
-            pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 11f), 0f),
+            showGridWithSpacer = true,
             yAxisStyle = TextStyle(
                 fontSize = 14.sp,
                 color = Color.Blue,

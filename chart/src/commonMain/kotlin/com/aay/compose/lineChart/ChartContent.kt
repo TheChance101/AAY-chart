@@ -32,7 +32,7 @@ internal fun ChartContent(
     showBackgroundGrid: Boolean,
     barWidthPx: Dp,
     animateChart: Boolean,
-    pathEffect: PathEffect,
+    showGridWithSpacer: Boolean,
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle
 ) {
@@ -65,7 +65,7 @@ internal fun ChartContent(
             isShowBackgroundLines = showBackgroundGrid,
             backgroundLineWidth = barWidthPx.toPx(),
             backGroundLineColor = backGroundColor,
-            pathEffect = pathEffect,
+            showGridWithSpacer = showGridWithSpacer,
             spacingX = spacingX,
             spacingY = spacingY,
             yAxisStyle = yAxisStyle,

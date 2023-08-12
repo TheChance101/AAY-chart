@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -19,7 +18,7 @@ fun LineChart(
     showBackgroundGrid: Boolean = LineChartDefault.backGroundGrid,
     barWidthPx: Dp = LineChartDefault.backgroundLineWidth,
     animateChart: Boolean = LineChartDefault.ANIMATED_CHART,
-    pathEffect: PathEffect = LineChartDefault.pathEffect,
+    showGridWithSpacer: Boolean = LineChartDefault.SHOW_BACKGROUND_WITH_SPACER,
     descriptionStyle: TextStyle = LineChartDefault.descriptionDefaultStyle,
     yAxisStyle: TextStyle = LineChartDefault.axesStyle,
     xAxisStyle: TextStyle = LineChartDefault.axesStyle
@@ -39,7 +38,7 @@ fun LineChart(
                 showBackgroundGrid = showBackgroundGrid,
                 barWidthPx = barWidthPx,
                 animateChart = animateChart,
-                pathEffect = pathEffect,
+                showGridWithSpacer = showGridWithSpacer,
                 yAxisStyle = yAxisStyle,
                 xAxisStyle = xAxisStyle
             )
