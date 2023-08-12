@@ -20,6 +20,7 @@ import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
 import com.aay.compose.lineChart.lines.drawDefaultLineWithShadow
 import com.aay.compose.lineChart.lines.drawQuarticLineWithShadow
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalTextApi::class)
@@ -43,10 +44,10 @@ internal fun ChartContent(
         if (animateChart) Animatable(0f) else Animatable(1f)
     }
     var upperValue by rememberSaveable {
-        mutableStateOf(linesParameters.flatMap { it.data }.maxOrNull()?.plus(1.0) ?: 0.0)
+        mutableStateOf(linesParameters.getUpperValue())
     }
     var lowerValue by rememberSaveable {
-        mutableStateOf(linesParameters.flatMap { it.data }.minOrNull() ?: 0.0)
+        mutableStateOf(linesParameters.getLowerValue())
     }
 
     Canvas(
@@ -54,8 +55,8 @@ internal fun ChartContent(
             .fillMaxSize()
     ) {
 
-        val spacingX = (size.width / 10f).dp
-        val spacingY = (size.height / 14f).dp
+        val spacingX = (size.width / 8.dp.toPx()).dp
+        val spacingY = (size.height / 8.dp.toPx()).dp
 
         chartContainer(
             xAxisData = xAxisData,
@@ -102,13 +103,10 @@ internal fun ChartContent(
 
     LaunchedEffect(linesParameters, animateChart) {
         if (animateChart) {
-            launch {
-                snapshotFlow {
-                    linesParameters
-                }.collect {
-                    upperValue = it.flatMap { item -> item.data }.maxOrNull()?.plus(1.0) ?: 0.0
-                    lowerValue = it.flatMap { item -> item.data }.minOrNull() ?: 0.0
-                }
+
+            collectToSnapShotFlow(linesParameters) {
+                upperValue = it.getUpperValue()
+                lowerValue = it.getLowerValue()
             }
 
             delay(400)
@@ -119,3 +117,25 @@ internal fun ChartContent(
         }
     }
 }
+
+private fun List<LineParameters>.getUpperValue(): Double {
+    return this.flatMap { item -> item.data }.maxOrNull()?.plus(1.0) ?: 0.0
+}
+
+private fun List<LineParameters>.getLowerValue(): Double {
+    return this.flatMap { item -> item.data }.minOrNull() ?: 0.0
+}
+
+private fun CoroutineScope.collectToSnapShotFlow(
+    linesParameters: List<LineParameters>,
+    makeUpdateData: (List<LineParameters>) -> Unit
+) {
+    this.launch {
+        snapshotFlow {
+            linesParameters
+        }.collect {
+            makeUpdateData(it)
+        }
+    }
+}
+
