@@ -14,8 +14,8 @@ fun <T> DrawScope.chartContainer(
     textMeasure: TextMeasurer,
     upperValue: Float,
     lowerValue: Float,
-    isShowBackgroundLines: Boolean,
-    backGroundLineColor: Color,
+    isShowGrid: Boolean,
+    gridColor: Color,
     backgroundLineWidth: Float,
     showGridWithSpacer: Boolean,
     spacingX: Dp,
@@ -38,10 +38,10 @@ fun <T> DrawScope.chartContainer(
         yAxisStyle = yAxisStyle
     )
 
-    backgroundLine(
+    grid(
         xAxisDataSize = xAxisData.size,
-        isShowBackgroundLines = isShowBackgroundLines,
-        backGroundColor = backGroundLineColor,
+        isShowGrid = isShowGrid,
+        gridColor = gridColor,
         backgroundLineWidth = backgroundLineWidth,
         showGridWithSpacer = showGridWithSpacer,
         spacingX = spacingX,

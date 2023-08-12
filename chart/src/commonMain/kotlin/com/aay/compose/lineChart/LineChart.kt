@@ -13,9 +13,9 @@ import com.aay.compose.lineChart.model.LineParameters
 fun LineChart(
     modifier: Modifier = Modifier,
     linesParameters: List<LineParameters> = LineChartDefault.lineParameters,
-    backGroundColor: Color = LineChartDefault.backGroundColor,
+    gridColor: Color = LineChartDefault.gridColor,
     xAxisData: List<String> = emptyList(),
-    showBackgroundGrid: Boolean = LineChartDefault.backGroundGrid,
+    isShowGrid: Boolean = LineChartDefault.IS_SHOW_GRID,
     barWidthPx: Dp = LineChartDefault.backgroundLineWidth,
     animateChart: Boolean = LineChartDefault.ANIMATED_CHART,
     showGridWithSpacer: Boolean = LineChartDefault.SHOW_BACKGROUND_WITH_SPACER,
@@ -33,9 +33,9 @@ fun LineChart(
             ChartContent(
                 modifier = modifier.aspectRatio(3 / 2f),
                 linesParameters = linesParameters,
-                backGroundColor = backGroundColor,
+                gridColor = gridColor,
                 xAxisData = xAxisData,
-                showBackgroundGrid = showBackgroundGrid,
+                isShowGrid = isShowGrid,
                 barWidthPx = barWidthPx,
                 animateChart = animateChart,
                 showGridWithSpacer = showGridWithSpacer,

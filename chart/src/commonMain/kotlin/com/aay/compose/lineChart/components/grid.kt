@@ -7,10 +7,10 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-fun DrawScope.backgroundLine(
+fun DrawScope.grid(
     xAxisDataSize: Int,
-    isShowBackgroundLines: Boolean,
-    backGroundColor: Color,
+    isShowGrid: Boolean,
+    gridColor: Color,
     backgroundLineWidth: Float,
     showGridWithSpacer: Boolean,
     spacingX: Dp,
@@ -21,7 +21,7 @@ fun DrawScope.backgroundLine(
 
     val yAxisList = mutableListOf<Float>()
 
-    if (isShowBackgroundLines) {
+    if (isShowGrid) {
         (0..6).forEach { i ->
             yAxisList.add((size.height.toDp() - spacingY - (i * size.height).toDp() / 7).toPx())
             val yAlignmentValue = yAxisList[i] + 5.dp.toPx()
@@ -31,7 +31,7 @@ fun DrawScope.backgroundLine(
             ).coerceAtLeast(minX)
 
             drawLine(
-                backGroundColor,
+                gridColor,
                 start = Offset(spacingX.toPx() / 2, yAlignmentValue),
                 end = Offset(xEnd, yAlignmentValue),
                 strokeWidth = backgroundLineWidth,

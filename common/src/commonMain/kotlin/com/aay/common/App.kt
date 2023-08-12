@@ -45,9 +45,9 @@ fun App() {
         LineChart(
             modifier = Modifier.fillMaxSize(),
             linesParameters = testLineParameters,
-            backGroundColor = Color.Blue,
+            gridColor = Color.Blue,
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020"),
-            showBackgroundGrid = true,
+            isShowGrid = true,
             animateChart = true,
             showGridWithSpacer = true,
             yAxisStyle = TextStyle(
