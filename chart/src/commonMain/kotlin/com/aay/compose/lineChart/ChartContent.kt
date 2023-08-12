@@ -6,9 +6,8 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.*
@@ -21,6 +20,8 @@ import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
 import com.aay.compose.lineChart.lines.drawDefaultLineWithShadow
 import com.aay.compose.lineChart.lines.drawQuarticLineWithShadow
+import kotlinx.coroutines.launch
+import org.jetbrains.skia.impl.Log
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
@@ -42,11 +43,11 @@ internal fun ChartContent(
     val animatedProgress = remember {
         if (animateChart) Animatable(0f) else Animatable(1f)
     }
-    val upperValue = remember {
-        linesParameters.flatMap { it.data }.maxOrNull()?.plus(1.0) ?: 0.0
+    var upperValue by rememberSaveable {
+        mutableStateOf(linesParameters.flatMap { it.data }.maxOrNull()?.plus(1.0) ?: 0.0)
     }
-    val lowerValue = remember {
-        linesParameters.flatMap { it.data }.minOrNull() ?: 0.0
+    var lowerValue by rememberSaveable {
+        mutableStateOf(linesParameters.flatMap { it.data }.minOrNull() ?: 0.0)
     }
 
     Canvas(
@@ -54,8 +55,8 @@ internal fun ChartContent(
             .fillMaxSize()
     ) {
 
-        val spacingX = (size.width / 10f).dp
-        val spacingY = (size.height / 10f).dp
+        val spacingX = (size.width / 10.dp.toPx()).dp
+        val spacingY = (size.height / 10.dp.toPx()).dp
 
         chartContainer(
             xAxisData = xAxisData,
@@ -102,9 +103,16 @@ internal fun ChartContent(
 
     LaunchedEffect(linesParameters, animateChart) {
         if (animateChart) {
-            animatedProgress.animateTo(
-                targetValue = 0f,
-            )
+            launch {
+                snapshotFlow {
+                    linesParameters
+                }.collect {
+                    upperValue = it.flatMap { item -> item.data }.maxOrNull()?.plus(1.0) ?: 0.0
+                    lowerValue = it.flatMap { item -> item.data }.minOrNull() ?: 0.0
+                }
+            }
+
+
             delay(400)
             animatedProgress.animateTo(
                 targetValue = 1f,

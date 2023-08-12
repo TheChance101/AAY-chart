@@ -3,7 +3,7 @@ package com.aay.common
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
@@ -16,13 +16,25 @@ import com.aay.compose.lineChart.model.BackGroundGrid
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineShadow
 import com.aay.compose.lineChart.model.LineType
+import kotlinx.coroutines.delay
 
 @Composable
 fun App() {
+
+    var testValue by remember { mutableStateOf(3996940.0) }
+
+    LaunchedEffect(Unit){
+        while(true){
+            delay(1500)
+            testValue += 598_000_000.0
+        }
+    }
+
+
     val testLineParameters: List<LineParameters> = listOf(
         LineParameters(
             dataName = "revenue",
-            data = listOf(0.0, 20.6, 6888888886.33, 20000000.0, 11000000.232, 50.0),
+            data = listOf(0.0, 20.6, 6888888886.33, testValue, 11000000.232, 50.0),
             lineColor = Color.Blue,
             lineType = LineType.DEFAULT_LINE,
             lineShadow = LineShadow.BLANK,
