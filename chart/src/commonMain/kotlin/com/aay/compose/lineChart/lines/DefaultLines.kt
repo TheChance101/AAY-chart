@@ -35,7 +35,7 @@ fun DrawScope.drawDefaultLineWithShadow(
 
     if (line.lineShadow == LineShadow.SHADOW) {
         val fillPath = strokePathOfDefaultLine.apply {
-            lineTo((size.width.toDp() - spaceBetweenXes).toPx(), size.height - spacingY.toPx())
+            lineTo((size.width.toDp()).toPx(), size.height - spacingY.toPx())
             lineTo(spacingX.toPx(), (size.height.toDp() - spacingY).toPx())
             close()
         }
@@ -44,7 +44,7 @@ fun DrawScope.drawDefaultLineWithShadow(
                 path = fillPath, brush = Brush.verticalGradient(
                     colors = listOf(
                         line.lineColor.copy(alpha = .3f), Color.Transparent
-                    ), endY = (size.height.toDp() - spacingY).toPx()
+                    ), endY = (size.height.toDp() - spacingY).toPx() // for shadow height inside line
                 )
             )
         }
@@ -71,9 +71,9 @@ private fun DrawScope.drawLineAsDefault(
 
         val info = lineParameter.data[index]
         val ratio = (info - lowerValue) / (upperValue - lowerValue)
-        val startXPoint = (spacingX/2) + (index * spaceBetweenXes)
+        val startXPoint = (spacingX / 2) + (index * spaceBetweenXes)
         val startYPoint =
-            (height.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
+            (height.toPx() + 10 - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
 
         if (index == 0) {
             moveTo(startXPoint.toPx(), startYPoint.toFloat())

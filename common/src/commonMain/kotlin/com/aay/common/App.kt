@@ -1,7 +1,7 @@
 package com.aay.common
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -37,7 +37,7 @@ fun App() {
             data = listOf(0.0, 20.6, 6888888886.33, testValue, 11000000.232, 50.0),
             lineColor = Color.Blue,
             lineType = LineType.DEFAULT_LINE,
-            lineShadow = LineShadow.BLANK,
+            lineShadow = LineShadow.SHADOW,
         ),
         LineParameters(
             dataName = "Earnings",
@@ -57,7 +57,7 @@ fun App() {
 
     Box(Modifier.padding(24.dp)) {
         LineChart(
-            modifier = Modifier.height(350.dp),
+            modifier = Modifier.fillMaxSize(),
             linesParameters = testLineParameters,
             backGroundColor = Color.Blue,
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020"),

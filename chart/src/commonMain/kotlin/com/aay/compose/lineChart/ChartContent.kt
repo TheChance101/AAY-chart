@@ -21,7 +21,6 @@ import com.aay.compose.lineChart.model.LineType
 import com.aay.compose.lineChart.lines.drawDefaultLineWithShadow
 import com.aay.compose.lineChart.lines.drawQuarticLineWithShadow
 import kotlinx.coroutines.launch
-import org.jetbrains.skia.impl.Log
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
@@ -55,8 +54,8 @@ internal fun ChartContent(
             .fillMaxSize()
     ) {
 
-        val spacingX = (size.width / 10.dp.toPx()).dp
-        val spacingY = (size.height / 10.dp.toPx()).dp
+        val spacingX = (size.width / 10f).dp
+        val spacingY = (size.height / 14f).dp
 
         chartContainer(
             xAxisData = xAxisData,
@@ -111,7 +110,6 @@ internal fun ChartContent(
                     lowerValue = it.flatMap { item -> item.data }.minOrNull() ?: 0.0
                 }
             }
-
 
             delay(400)
             animatedProgress.animateTo(
