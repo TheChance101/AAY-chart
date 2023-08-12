@@ -7,6 +7,6 @@ data class LineParameters(
     val data: List<Double>,
     val lineColor: Color,
     val lineType: LineType,
-    val lineShadow: LineShadow,
+    val lineShadow: Boolean,
 )
 

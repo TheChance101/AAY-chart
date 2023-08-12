@@ -6,16 +6,14 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.aay.compose.lineChart.model.BackGroundGrid
 
-
-fun DrawScope.backgroundLine(
+fun DrawScope.grid(
     xAxisDataSize: Int,
-    isShowBackgroundLines: BackGroundGrid,
-    backGroundColor: Color,
+    isShowGrid: Boolean,
+    gridColor: Color,
     backgroundLineWidth: Float,
-    pathEffect: PathEffect,
-    spacingX:Dp,
+    showGridWithSpacer: Boolean,
+    spacingX: Dp,
     spacingY: Dp
 ) {
     val minX = spacingX.toPx()
@@ -23,7 +21,7 @@ fun DrawScope.backgroundLine(
 
     val yAxisList = mutableListOf<Float>()
 
-    if (isShowBackgroundLines == BackGroundGrid.SHOW) {
+    if (isShowGrid) {
         (0..6).forEach { i ->
             yAxisList.add((size.height.toDp() - spacingY - (i * size.height).toDp() / 7).toPx())
             val yAlignmentValue = yAxisList[i] + 5.dp.toPx()
@@ -33,11 +31,16 @@ fun DrawScope.backgroundLine(
             ).coerceAtLeast(minX)
 
             drawLine(
-                backGroundColor,
-                start = Offset(spacingX.toPx()/2, yAlignmentValue),
+                gridColor,
+                start = Offset(spacingX.toPx() / 2, yAlignmentValue),
                 end = Offset(xEnd, yAlignmentValue),
                 strokeWidth = backgroundLineWidth,
-                pathEffect = pathEffect
+                pathEffect = PathEffect.dashPathEffect(
+                    if (showGridWithSpacer)
+                        floatArrayOf(16f, 16f)
+                    else floatArrayOf(1f, 1f),
+                    0f
+                )
             )
         }
     }

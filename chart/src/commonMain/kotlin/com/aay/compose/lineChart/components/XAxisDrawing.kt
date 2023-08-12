@@ -6,7 +6,6 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
 
-
 @OptIn(ExperimentalTextApi::class)
 fun <T> DrawScope.xAxisDrawing(
     xAxisData: List<T>,

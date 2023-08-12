@@ -2,13 +2,11 @@ package com.aay.compose.lineChart.components
 
 
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
-import com.aay.compose.lineChart.model.BackGroundGrid
 
 @OptIn(ExperimentalTextApi::class)
 fun <T> DrawScope.chartContainer(
@@ -16,10 +14,10 @@ fun <T> DrawScope.chartContainer(
     textMeasure: TextMeasurer,
     upperValue: Float,
     lowerValue: Float,
-    isShowBackgroundLines: BackGroundGrid,
-    backGroundLineColor: Color,
+    isShowGrid: Boolean,
+    gridColor: Color,
     backgroundLineWidth: Float,
-    pathEffect: PathEffect,
+    showGridWithSpacer: Boolean,
     spacingX: Dp,
     spacingY: Dp,
     yAxisStyle: TextStyle,
@@ -40,12 +38,12 @@ fun <T> DrawScope.chartContainer(
         yAxisStyle = yAxisStyle
     )
 
-    backgroundLine(
+    grid(
         xAxisDataSize = xAxisData.size,
-        isShowBackgroundLines = isShowBackgroundLines,
-        backGroundColor = backGroundLineColor,
+        isShowGrid = isShowGrid,
+        gridColor = gridColor,
         backgroundLineWidth = backgroundLineWidth,
-        pathEffect = pathEffect,
+        showGridWithSpacer = showGridWithSpacer,
         spacingX = spacingX,
         spacingY = spacingY,
     )
