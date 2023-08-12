@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import com.aay.compose.lineChart.components.chartContainer
-import com.aay.compose.lineChart.model.BackGroundGrid
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
 import com.aay.compose.lineChart.lines.drawDefaultLineWithShadow
@@ -30,7 +29,7 @@ internal fun ChartContent(
     linesParameters: List<LineParameters>,
     backGroundColor: Color,
     xAxisData: List<String>,
-    showBackgroundGrid: BackGroundGrid,
+    showBackgroundGrid: Boolean,
     barWidthPx: Dp,
     animateChart: Boolean,
     pathEffect: PathEffect,

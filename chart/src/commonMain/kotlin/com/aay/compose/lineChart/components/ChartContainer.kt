@@ -8,7 +8,6 @@ import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
-import com.aay.compose.lineChart.model.BackGroundGrid
 
 @OptIn(ExperimentalTextApi::class)
 fun <T> DrawScope.chartContainer(
@@ -16,7 +15,7 @@ fun <T> DrawScope.chartContainer(
     textMeasure: TextMeasurer,
     upperValue: Float,
     lowerValue: Float,
-    isShowBackgroundLines: BackGroundGrid,
+    isShowBackgroundLines: Boolean,
     backGroundLineColor: Color,
     backgroundLineWidth: Float,
     pathEffect: PathEffect,

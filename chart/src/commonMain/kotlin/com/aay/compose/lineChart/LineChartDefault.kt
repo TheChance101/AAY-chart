@@ -7,7 +7,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.aay.compose.lineChart.model.BackGroundGrid
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
 
@@ -22,7 +21,7 @@ object LineChartDefault {
             lineShadow = true,
         )
     )
-    val backGroundGrid = BackGroundGrid.SHOW
+    val backGroundGrid = true
     val backGroundColor = Color.Gray
     const val ANIMATED_CHART = true
     val backgroundLineWidth = 1.dp

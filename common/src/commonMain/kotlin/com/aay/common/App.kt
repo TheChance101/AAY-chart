@@ -12,10 +12,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aay.compose.lineChart.LineChart
-import com.aay.compose.lineChart.model.BackGroundGrid
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
-import kotlinx.coroutines.delay
 
 @Composable
 fun App() {
@@ -50,7 +48,7 @@ fun App() {
             linesParameters = testLineParameters,
             backGroundColor = Color.Blue,
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020"),
-            showBackgroundGrid = BackGroundGrid.SHOW,
+            showBackgroundGrid = true,
             animateChart = true,
             pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 11f), 0f),
             yAxisStyle = TextStyle(

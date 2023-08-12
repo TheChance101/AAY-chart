@@ -1,6 +1,5 @@
 package com.aay.compose.lineChart
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,7 +8,6 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.aay.compose.lineChart.model.BackGroundGrid
 import com.aay.compose.lineChart.model.LineParameters
 
 @Composable
@@ -18,7 +16,7 @@ fun LineChart(
     linesParameters: List<LineParameters> = LineChartDefault.lineParameters,
     backGroundColor: Color = LineChartDefault.backGroundColor,
     xAxisData: List<String> = emptyList(),
-    showBackgroundGrid: BackGroundGrid = LineChartDefault.backGroundGrid,
+    showBackgroundGrid: Boolean = LineChartDefault.backGroundGrid,
     barWidthPx: Dp = LineChartDefault.backgroundLineWidth,
     animateChart: Boolean = LineChartDefault.ANIMATED_CHART,
     pathEffect: PathEffect = LineChartDefault.pathEffect,

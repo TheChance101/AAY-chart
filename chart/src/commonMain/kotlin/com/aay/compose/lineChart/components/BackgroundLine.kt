@@ -6,11 +6,10 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.aay.compose.lineChart.model.BackGroundGrid
 
 fun DrawScope.backgroundLine(
     xAxisDataSize: Int,
-    isShowBackgroundLines: BackGroundGrid,
+    isShowBackgroundLines: Boolean,
     backGroundColor: Color,
     backgroundLineWidth: Float,
     pathEffect: PathEffect,
@@ -22,7 +21,7 @@ fun DrawScope.backgroundLine(
 
     val yAxisList = mutableListOf<Float>()
 
-    if (isShowBackgroundLines == BackGroundGrid.SHOW) {
+    if (isShowBackgroundLines) {
         (0..6).forEach { i ->
             yAxisList.add((size.height.toDp() - spacingY - (i * size.height).toDp() / 7).toPx())
             val yAlignmentValue = yAxisList[i] + 5.dp.toPx()
