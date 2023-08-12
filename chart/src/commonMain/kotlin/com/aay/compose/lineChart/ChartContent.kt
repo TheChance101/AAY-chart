@@ -34,7 +34,7 @@ internal fun ChartContent(
     animateChart: Boolean,
     pathEffect: PathEffect,
     yAxisStyle: TextStyle,
-    xAxisStyle: TextStyle
+    xAxisStyle: TextStyle,
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -48,6 +48,8 @@ internal fun ChartContent(
     val lowerValue = remember {
         linesParameters.flatMap { it.data }.minOrNull() ?: 0.0
     }
+
+    checkIfDataValid(xAxisData, linesParameters)
 
     Canvas(
         modifier = modifier
