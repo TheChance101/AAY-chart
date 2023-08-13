@@ -1,8 +1,10 @@
 package com.aay.common
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,7 +38,7 @@ fun App() {
             dataName = "Earnings",
             data = listOf(0.0, 4000.0, 11.33, 55.232, 00.0, 100.0),
             lineColor = Color.Red,
-            lineType = LineType.QUADRATIC_LINE,
+            lineType = LineType.DEFAULT_LINE,
             lineShadow = false,
         )
     )

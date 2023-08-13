@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalTextApi::class)
 fun <T> DrawScope.xAxisDrawing(
@@ -16,7 +17,7 @@ fun <T> DrawScope.xAxisDrawing(
     val spaceBetweenXes = (size.width - spacing.toPx()) / xAxisData.size
 
     xAxisData.forEachIndexed { index, dataPoint ->
-        val xLength = (spacing / 2) + (index * spaceBetweenXes).toDp()
+        val xLength = (spacing+30.dp / 2) + (index * spaceBetweenXes).toDp()
         drawContext.canvas.nativeCanvas.apply {
             drawText(
                 textMeasurer = textMeasure,

@@ -1,12 +1,16 @@
 package com.aay.compose.lineChart.components
 
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalTextApi::class)
 fun <T> DrawScope.chartContainer(
@@ -23,6 +27,7 @@ fun <T> DrawScope.chartContainer(
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle
 ) {
+
     xAxisDrawing(
         xAxisData = xAxisData,
         spacing = spacingX,

@@ -1,5 +1,6 @@
 package com.aay.compose.lineChart
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,17 +22,21 @@ fun LineChart(
     showGridWithSpacer: Boolean = LineChartDefault.SHOW_BACKGROUND_WITH_SPACER,
     descriptionStyle: TextStyle = LineChartDefault.descriptionDefaultStyle,
     yAxisStyle: TextStyle = LineChartDefault.axesStyle,
-    xAxisStyle: TextStyle = LineChartDefault.axesStyle
+    xAxisStyle: TextStyle = LineChartDefault.axesStyle,
+    chartRatio: Float = LineChartDefault.chartRatio
 ) {
 
-    Box(modifier = Modifier.wrapContentHeight()) {
-        Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+    Box(modifier.wrapContentHeight()) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             ChartDescription(
                 chartLineDetails = linesParameters,
                 descriptionStyle = descriptionStyle,
             )
+
             ChartContent(
-                modifier = modifier.aspectRatio(3 / 2f),
+                modifier = if (chartRatio == 0f) Modifier.wrapContentSize()
+                else Modifier.aspectRatio(chartRatio)
+                    .fillMaxSize(),
                 linesParameters = linesParameters,
                 gridColor = gridColor,
                 xAxisData = xAxisData,
