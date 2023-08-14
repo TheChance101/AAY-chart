@@ -1,4 +1,4 @@
-package com.aay.compose.lineChart
+package com.aay.compose.barChart
 
 
 import androidx.compose.animation.core.Animatable
@@ -15,19 +15,15 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import com.aay.compose.baseComponents.baseChartContainer
-import com.aay.compose.lineChart.lines.drawDefaultLineWithShadow
-import com.aay.compose.lineChart.lines.drawQuarticLineWithShadow
-import com.aay.compose.lineChart.model.LineParameters
-import com.aay.compose.lineChart.model.LineType
-import com.aay.compose.utils.checkIfDataValid
+import com.aay.compose.barChart.model.BarParameters
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
-internal fun ChartContent(
+internal fun BarChartContent(
     modifier: Modifier,
-    linesParameters: List<LineParameters>,
+    linesParameters: List<BarParameters>,
     gridColor: Color,
     xAxisData: List<String>,
     isShowGrid: Boolean,
@@ -49,7 +45,6 @@ internal fun ChartContent(
     var lowerValue by rememberSaveable {
         mutableStateOf(linesParameters.getLowerValue())
     }
-    checkIfDataValid(xAxisData, linesParameters)
 
     Canvas(
         modifier = modifier
@@ -74,33 +69,10 @@ internal fun ChartContent(
             xAxisStyle = xAxisStyle
         )
 
-        linesParameters.forEach { line ->
-            if (line.lineType == LineType.DEFAULT_LINE) {
+        //todo: draw bars here
 
-               drawDefaultLineWithShadow(
-                    line = line,
-                    lowerValue = lowerValue.toFloat(),
-                    upperValue = upperValue.toFloat(),
-                    animatedProgress = animatedProgress,
-                    xAxisSize = xAxisData.size,
-                    spacingX = spacingX,
-                    spacingY = spacingY,
-                )
-
-            } else {
-                drawQuarticLineWithShadow(
-                    line = line,
-                    lowerValue = lowerValue.toFloat(),
-                    upperValue = upperValue.toFloat(),
-                    animatedProgress = animatedProgress,
-                    xAxisSize = xAxisData.size,
-                    spacingX = spacingX,
-                    spacingY = spacingY,
-                )
-
-            }
-        }
     }
+
 
     LaunchedEffect(linesParameters, animateChart) {
         if (animateChart) {
@@ -119,17 +91,17 @@ internal fun ChartContent(
     }
 }
 
-private fun List<LineParameters>.getUpperValue(): Double {
+private fun List<BarParameters>.getUpperValue(): Double {
     return this.flatMap { item -> item.data }.maxOrNull()?.plus(1.0) ?: 0.0
 }
 
-private fun List<LineParameters>.getLowerValue(): Double {
+private fun List<BarParameters>.getLowerValue(): Double {
     return this.flatMap { item -> item.data }.minOrNull() ?: 0.0
 }
 
 private fun CoroutineScope.collectToSnapShotFlow(
-    linesParameters: List<LineParameters>,
-    makeUpdateData: (List<LineParameters>) -> Unit
+    linesParameters: List<BarParameters>,
+    makeUpdateData: (List<BarParameters>) -> Unit
 ) {
     this.launch {
         snapshotFlow {
