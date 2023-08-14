@@ -25,6 +25,7 @@ object LineChartDefault {
     const val ANIMATED_CHART = true
     val backgroundLineWidth = 1.dp
     const val SHOW_BACKGROUND_WITH_SPACER = true
+    const val chartRatio =0f
     val descriptionDefaultStyle = TextStyle(
         color = Color.Black,
         fontSize = 14.sp,

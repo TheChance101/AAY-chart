@@ -5,10 +5,15 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
@@ -48,7 +53,6 @@ internal fun ChartContent(
     var lowerValue by rememberSaveable {
         mutableStateOf(linesParameters.getLowerValue())
     }
-
     checkIfDataValid(xAxisData, linesParameters)
 
     Canvas(
@@ -56,7 +60,7 @@ internal fun ChartContent(
             .fillMaxSize()
     ) {
 
-        val spacingX = (size.width / 8.dp.toPx()).dp
+        val spacingX = (size.width / 18.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
 
         chartContainer(

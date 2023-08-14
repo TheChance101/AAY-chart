@@ -26,14 +26,14 @@ fun DrawScope.grid(
             yAxisList.add((size.height.toDp() - spacingY - (i * size.height).toDp() / 7).toPx())
             val yAlignmentValue = yAxisList[i] + 5.dp.toPx()
 
-            val xEnd = (size.width).coerceAtMost(
+            val xEnd = (size.width-(spacingX.toPx())).coerceAtMost(
                 xAxisMaxValue - spacingX.toPx().div(0.7.dp.toPx())
             ).coerceAtLeast(minX)
 
             drawLine(
                 gridColor,
-                start = Offset(spacingX.toPx() / 2, yAlignmentValue),
-                end = Offset(xEnd, yAlignmentValue),
+                start = Offset(spacingX.toPx()+30.dp.toPx() / 2, yAlignmentValue),
+                end = Offset(xAxisMaxValue, yAlignmentValue),
                 strokeWidth = backgroundLineWidth,
                 pathEffect = PathEffect.dashPathEffect(
                     if (showGridWithSpacer)

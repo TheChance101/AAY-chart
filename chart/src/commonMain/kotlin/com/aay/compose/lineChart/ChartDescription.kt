@@ -22,7 +22,7 @@ internal fun ChartDescription(
 ) {
     LazyRow(
         horizontalArrangement = horizontalArrangement,
-        modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp)
+        modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
     ) {
         items(chartLineDetails) { line ->
             Row(
