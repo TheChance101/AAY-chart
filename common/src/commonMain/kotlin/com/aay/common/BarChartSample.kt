@@ -23,12 +23,12 @@ fun BarChartSample() {
             lineColor = Color.Blue,
         ),
         BarParameters(
-            dataName = "revenue",
+            dataName = "Customers",
             data = listOf(0.0, 20.6, 444.33, 9999.9, 876.232, 50.0),
             lineColor = Color.Red,
         ),
         BarParameters(
-            dataName = "revenue",
+            dataName = "Shop",
             data = listOf(0.0, 20.6, 98.33, 9999.9, 2222.232, 50.0),
             lineColor = Color.Cyan,
         ),
@@ -37,7 +37,7 @@ fun BarChartSample() {
     Box(Modifier.padding(24.dp)) {
         BarChart(
             modifier = Modifier.fillMaxSize(),
-            linesParameters = testBarParameters,
+            chartParameters = testBarParameters,
             gridColor = Color.Blue,
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020"),
             isShowGrid = true,

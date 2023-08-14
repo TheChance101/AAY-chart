@@ -1,42 +1,61 @@
 package com.aay.compose.barChart
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.aay.compose.barChart.model.BarParameters
+import com.aay.compose.baseComponents.ChartDescription
+import com.aay.compose.utils.ChartDefaultValues
 
 @Composable
 fun BarChart(
     modifier: Modifier = Modifier,
-    linesParameters: List<BarParameters> = BarChartDefault.barParameters,
-    gridColor: Color = BarChartDefault.gridColor,
+    chartParameters: List<BarParameters> = ChartDefaultValues.barParameters,
+    gridColor: Color = ChartDefaultValues.gridColor,
     xAxisData: List<String> = emptyList(),
-    isShowGrid: Boolean = BarChartDefault.IS_SHOW_GRID,
-    barWidthPx: Dp = BarChartDefault.backgroundLineWidth,
-    animateChart: Boolean = BarChartDefault.ANIMATED_CHART,
-    showGridWithSpacer: Boolean = BarChartDefault.SHOW_BACKGROUND_WITH_SPACER,
-    descriptionStyle: TextStyle = BarChartDefault.descriptionDefaultStyle,
-    yAxisStyle: TextStyle = BarChartDefault.axesStyle,
-    xAxisStyle: TextStyle = BarChartDefault.axesStyle,
-    chartRatio: Float = BarChartDefault.chartRatio
+    isShowGrid: Boolean = ChartDefaultValues.IS_SHOW_GRID,
+    barWidthPx: Dp = ChartDefaultValues.backgroundLineWidth,
+    animateChart: Boolean = ChartDefaultValues.ANIMATED_CHART,
+    showGridWithSpacer: Boolean = ChartDefaultValues.SHOW_BACKGROUND_WITH_SPACER,
+    descriptionStyle: TextStyle = ChartDefaultValues.descriptionDefaultStyle,
+    yAxisStyle: TextStyle = ChartDefaultValues.axesStyle,
+    xAxisStyle: TextStyle = ChartDefaultValues.axesStyle,
+    chartRatio: Float = ChartDefaultValues.chartRatio,
+    horizontalArrangement: Arrangement.Horizontal = ChartDefaultValues.headerArrangement,
 ) {
 
     Box(modifier.wrapContentHeight()) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            ChartDescription(
-                chartLineDetails = linesParameters,
-                descriptionStyle = descriptionStyle,
-            )
+            LazyRow(
+                horizontalArrangement = horizontalArrangement,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp)
+            ) {
+
+                items(chartParameters) { details ->
+                    ChartDescription(
+                        chartColor = details.lineColor,
+                        chartName = details.dataName,
+                        descriptionStyle = descriptionStyle,
+                    )
+                }
+            }
 
             BarChartContent(
                 modifier = if (chartRatio == 0f) Modifier.wrapContentSize()
                 else Modifier.aspectRatio(chartRatio)
                     .fillMaxSize(),
-                linesParameters = linesParameters,
+                linesParameters = chartParameters,
                 gridColor = gridColor,
                 xAxisData = xAxisData,
                 isShowGrid = isShowGrid,

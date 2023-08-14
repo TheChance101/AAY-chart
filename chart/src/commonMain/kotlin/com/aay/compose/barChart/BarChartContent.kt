@@ -69,7 +69,10 @@ internal fun BarChartContent(
             xAxisStyle = xAxisStyle
         )
 
+        //todo: draw bars here
+
     }
+
 
     LaunchedEffect(linesParameters, animateChart) {
         if (animateChart) {
