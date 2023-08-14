@@ -29,7 +29,7 @@ fun App() {
         ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(0.0, 16000.6, 40.33, 91000000.232, 88.0, 30.0),
+            data = listOf(0.0, 61000000.232, 71000000.232, 91000000.232, 51000000.232, 30.0),
             lineColor = Color.Black,
             lineType = LineType.QUADRATIC_LINE,
             lineShadow = true
