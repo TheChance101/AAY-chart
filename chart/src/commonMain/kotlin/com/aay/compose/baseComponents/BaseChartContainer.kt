@@ -1,19 +1,15 @@
-package com.aay.compose.lineChart.components
+package com.aay.compose.baseComponents
 
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalTextApi::class)
-fun <T> DrawScope.chartContainer(
+fun <T> DrawScope.baseChartContainer(
     xAxisData: List<T>,
     textMeasure: TextMeasurer,
     upperValue: Float,
@@ -28,7 +24,7 @@ fun <T> DrawScope.chartContainer(
     xAxisStyle: TextStyle
 ) {
 
-    xAxisDrawing(
+   xAxisDrawing(
         xAxisData = xAxisData,
         spacing = spacingX,
         textMeasure = textMeasure,

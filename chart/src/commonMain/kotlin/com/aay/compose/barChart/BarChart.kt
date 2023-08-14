@@ -1,4 +1,4 @@
-package com.aay.compose.lineChart
+package com.aay.compose.barChart
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -7,22 +7,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.aay.compose.lineChart.model.LineParameters
+import com.aay.compose.barChart.model.BarParameters
 
 @Composable
-fun LineChart(
+fun BarChart(
     modifier: Modifier = Modifier,
-    linesParameters: List<LineParameters> = LineChartDefault.lineParameters,
-    gridColor: Color = LineChartDefault.gridColor,
+    linesParameters: List<BarParameters> = BarChartDefault.barParameters,
+    gridColor: Color = BarChartDefault.gridColor,
     xAxisData: List<String> = emptyList(),
-    isShowGrid: Boolean = LineChartDefault.IS_SHOW_GRID,
-    barWidthPx: Dp = LineChartDefault.backgroundLineWidth,
-    animateChart: Boolean = LineChartDefault.ANIMATED_CHART,
-    showGridWithSpacer: Boolean = LineChartDefault.SHOW_BACKGROUND_WITH_SPACER,
-    descriptionStyle: TextStyle = LineChartDefault.descriptionDefaultStyle,
-    yAxisStyle: TextStyle = LineChartDefault.axesStyle,
-    xAxisStyle: TextStyle = LineChartDefault.axesStyle,
-    chartRatio: Float = LineChartDefault.chartRatio
+    isShowGrid: Boolean = BarChartDefault.IS_SHOW_GRID,
+    barWidthPx: Dp = BarChartDefault.backgroundLineWidth,
+    animateChart: Boolean = BarChartDefault.ANIMATED_CHART,
+    showGridWithSpacer: Boolean = BarChartDefault.SHOW_BACKGROUND_WITH_SPACER,
+    descriptionStyle: TextStyle = BarChartDefault.descriptionDefaultStyle,
+    yAxisStyle: TextStyle = BarChartDefault.axesStyle,
+    xAxisStyle: TextStyle = BarChartDefault.axesStyle,
+    chartRatio: Float = BarChartDefault.chartRatio
 ) {
 
     Box(modifier.wrapContentHeight()) {
@@ -32,7 +32,7 @@ fun LineChart(
                 descriptionStyle = descriptionStyle,
             )
 
-            ChartContent(
+            BarChartContent(
                 modifier = if (chartRatio == 0f) Modifier.wrapContentSize()
                 else Modifier.aspectRatio(chartRatio)
                     .fillMaxSize(),

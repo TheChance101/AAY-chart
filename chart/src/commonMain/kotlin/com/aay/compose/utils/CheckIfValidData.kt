@@ -1,4 +1,4 @@
-package com.aay.compose.lineChart
+package com.aay.compose.utils
 
 import com.aay.compose.lineChart.model.LineParameters
 
