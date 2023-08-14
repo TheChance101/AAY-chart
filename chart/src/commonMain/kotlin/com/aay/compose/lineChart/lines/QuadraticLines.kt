@@ -75,15 +75,15 @@ private fun DrawScope.drawLineAsQuadratic(
         val xFirstPoint = (spacingX+80.dp / 2) + index * spaceBetweenXes
         val xSecondPoint = (spacingX+80.dp / 2)+ (index + 1) * spaceBetweenXes
 
-        val yFirstPoint = (height - spacingY - (firstRatio * (height-spacingY)))
-        val ySecondPoint = (height - spacingY - (secondRatio * (height-spacingY)))
+        val yFirstPoint = (height - spacingY - (firstRatio * (height-(spacingY*1.2f))))
+        val ySecondPoint = (height - spacingY - (secondRatio * (height-(spacingY*1.2f))))
 
         if (index == 0) {
             moveTo(xFirstPoint.toPx(), yFirstPoint.toPx())
         } else {
             medX = ((xFirstPoint + xSecondPoint) / 2f).toPx()
             medY = ((yFirstPoint + ySecondPoint) / 2f).toPx()
-            quadraticBezierTo(xFirstPoint.toPx(), yFirstPoint.toPx(), medX, medY)
+            cubicTo(medX,yFirstPoint.toPx(),medX,ySecondPoint.toPx(),xSecondPoint.toPx(),ySecondPoint.toPx())
         }
     }
 
