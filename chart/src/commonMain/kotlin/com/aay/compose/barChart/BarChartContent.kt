@@ -1,22 +1,23 @@
 package com.aay.compose.barChart
 
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.coerceAtMost
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.delay
 import com.aay.compose.baseComponents.baseChartContainer
 import com.aay.compose.barChart.model.BarParameters
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalTextApi::class)
@@ -71,6 +72,25 @@ internal fun BarChartContent(
 
         //todo: draw bars here
 
+        linesParameters.forEach { bar ->
+            bar.data.forEach { index ->
+                val length = (spacingX + 30.dp / 2) + (index.dp)
+
+                drawRect(
+                    brush = Brush.verticalGradient(listOf(bar.lineColor, Color.Red)),
+                    topLeft = Offset(
+                        length.coerceAtMost(size.width.toDp()).toPx(),
+                        size.height - (size.height / 1.07f)
+                    ),
+                    size = Size(
+                        width = 50f,
+                        height = (index.toFloat() / upperValue).toFloat() * (size.height - spacingY.toPx())
+                    )
+                )
+
+
+            }
+        }
     }
 
 

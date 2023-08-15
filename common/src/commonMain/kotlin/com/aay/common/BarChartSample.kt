@@ -27,11 +27,6 @@ fun BarChartSample() {
             data = listOf(0.0, 20.6, 444.33, 9999.9, 876.232, 50.0),
             lineColor = Color.Red,
         ),
-        BarParameters(
-            dataName = "Shop",
-            data = listOf(0.0, 20.6, 98.33, 9999.9, 2222.232, 50.0),
-            lineColor = Color.Cyan,
-        ),
     )
 
     Box(Modifier.padding(24.dp)) {
