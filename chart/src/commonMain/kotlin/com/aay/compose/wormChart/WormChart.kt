@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.times
 import com.aay.compose.wormChart.components.wormCircle
 import com.aay.compose.wormChart.components.wormLine
 import kotlin.math.roundToInt
@@ -28,15 +29,14 @@ fun WormChart(
         Canvas(
             modifier = Modifier.aspectRatio(3/2f).align(Alignment.Center)
         ) {
-            val chartWidth = size.width - 100.dp.toPx()
+            val chartWidth = size.width.toDp() - 100.dp
             val spacePerDataPoint = chartWidth / (data.size - 1)
-            val centerY = size.height / 2
-            val lastX = size.width - (100.dp.toPx() + (data.size - 1) * spacePerDataPoint)
-            val lastY =
-                centerY - ((data.last() - lowerValue) / (upperValue - lowerValue) * centerY).toFloat()
+            val centerY = (size.height / 2).toDp()
+            val lastX = size.width.toDp() - (100.dp + (data.size - 1) * spacePerDataPoint)
+            val lastY = centerY - ((data.last() - lowerValue) / (upperValue - lowerValue) * centerY)
 
-            wormLine(data, centerY, lowerValue, upperValue, lastX, lastY,color)
-            wormCircle(lastX, lastY,color)
+            wormLine(data, centerY.toPx(), lowerValue, upperValue, lastX.toPx(), lastY.toPx(),color)
+            wormCircle(lastX.toPx(), lastY.toPx(),color)
         }
     }
 }
