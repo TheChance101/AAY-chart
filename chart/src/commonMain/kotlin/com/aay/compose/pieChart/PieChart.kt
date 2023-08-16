@@ -116,7 +116,7 @@ fun PieChart(
                 // draw inner circle in pie chart
                 drawCircle(
                     color = Color.Gray,
-                    radius = size.minDimension.dp.toPx() / 2.5.dp.toPx(),
+                    radius = size.minDimension.dp.toPx() / 3.dp.toPx(),
                     style = Stroke(1.dp.toPx(), cap = StrokeCap.Round)
                 )
 
@@ -128,7 +128,7 @@ fun PieChart(
                         lastValue,
                         value,
                         useCenter = false,
-                        style = Stroke(size.maxDimension / 4.dp.toPx(), cap = StrokeCap.Butt),
+                        style = Stroke(size.maxDimension.dp.toPx() / 4.dp.toPx(), cap = StrokeCap.Butt),
                     )
                     lastValue += value
                 }
@@ -136,7 +136,7 @@ fun PieChart(
                 // draw outer circle in pi chart
                 drawCircle(
                     color = Color.Gray,
-                    radius = size.minDimension.dp.toPx() / 1.7.dp.toPx(),
+                    radius = size.minDimension.dp.toPx() / 1.5.dp.toPx(),
                     style = Stroke(1.dp.toPx(), cap = StrokeCap.Round)
                 )
             }
