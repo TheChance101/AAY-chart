@@ -14,6 +14,7 @@ fun DrawScope.wormLine(
     upperValue: Int,
     lastX: Float,
     lastY: Float,
+    color: Color
 ) {
     val chartWidth = size.width - 100.dp.toPx()
     val spacePerDataPoint = chartWidth / (data.size - 1)
@@ -50,7 +51,7 @@ fun DrawScope.wormLine(
 
     drawPath(
         path = path,
-        color = Color.Red,
+        color = color,
         style = Stroke(
             width = 2.dp.toPx(),
             cap = StrokeCap.Round

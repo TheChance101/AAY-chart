@@ -6,9 +6,9 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.dp
 
 
-fun DrawScope.wormCircle(x: Float, y: Float) {
+fun DrawScope.wormCircle(x: Float, y: Float,color: Color) {
     drawCircle(
-        color = Color.Red,
+        color = color,
         radius = 5.dp.toPx(),
         center = Offset(x, y)
     )

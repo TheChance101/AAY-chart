@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.aay.compose.wormChart.components.wormCircle
 import com.aay.compose.wormChart.components.wormLine
@@ -17,7 +18,8 @@ import kotlin.math.roundToInt
 @Composable
 fun WormChart(
     data: List<Double>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    color: Color = Color.Red
 ) {
     val upperValue = remember { (data.maxOfOrNull { it }?.plus(1))?.roundToInt() ?: 0 }
     val lowerValue = remember { (data.minOfOrNull { it }?.toInt() ?: 0) }
@@ -33,8 +35,8 @@ fun WormChart(
             val lastY =
                 centerY - ((data.last() - lowerValue) / (upperValue - lowerValue) * centerY).toFloat()
 
-            wormLine(data, centerY, lowerValue, upperValue, lastX, lastY)
-            wormCircle(lastX, lastY)
+            wormLine(data, centerY, lowerValue, upperValue, lastX, lastY,color)
+            wormCircle(lastX, lastY,color)
         }
     }
 }
