@@ -19,13 +19,23 @@ fun BarChartSample() {
     val testBarParameters: List<BarParameters> = listOf(
         BarParameters(
             dataName = "revenue",
-            data = listOf(0.0, 20.6, 68886.33, 9999.9, 1000.232, 50.0),
-            lineColor = Color.Blue,
+            data = listOf(50.0, 70.6, 90.33, 70.9, 20.232, 90.0),
+            barColor = Color.Blue,
         ),
         BarParameters(
-            dataName = "Customers",
-            data = listOf(0.0, 20.6, 444.33, 9999.9, 876.232, 50.0),
-            lineColor = Color.Red,
+            dataName = "total",
+            data = listOf(90.0, 50.6, 30.33, 40.9, 60.232, 70.0),
+            barColor = Color.Red,
+        ),
+        BarParameters(
+            dataName = "total",
+            data = listOf(30.0, 10.6, 70.33, 55.9, 80.232, 66.0),
+            barColor = Color.Black,
+        ),
+        BarParameters(
+            dataName = "total",
+            data = listOf(77.0, 20.6, 44.33, 99.9, 50.232, 22.0),
+            barColor = Color.Cyan,
         ),
     )
 
@@ -46,7 +56,8 @@ fun BarChartSample() {
                 fontSize = 14.sp,
                 color = Color.Blue.copy(alpha = 0.5f),
                 fontWeight = FontWeight.W400
-            )
+            ),
+            barWidthPx = 10.dp
         )
     }
 }

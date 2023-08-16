@@ -14,6 +14,7 @@ import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.coerceAtMost
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.times
 import com.aay.compose.baseComponents.baseChartContainer
 import com.aay.compose.barChart.model.BarParameters
 import kotlinx.coroutines.CoroutineScope
@@ -24,7 +25,7 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun BarChartContent(
     modifier: Modifier,
-    linesParameters: List<BarParameters>,
+    barsParameters: List<BarParameters>,
     gridColor: Color,
     xAxisData: List<String>,
     isShowGrid: Boolean,
@@ -33,6 +34,7 @@ internal fun BarChartContent(
     showGridWithSpacer: Boolean,
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
+    backgroundLineWidth:Float,
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -41,10 +43,10 @@ internal fun BarChartContent(
         if (animateChart) Animatable(0f) else Animatable(1f)
     }
     var upperValue by rememberSaveable {
-        mutableStateOf(linesParameters.getUpperValue())
+        mutableStateOf(barsParameters.getUpperValue())
     }
     var lowerValue by rememberSaveable {
-        mutableStateOf(linesParameters.getLowerValue())
+        mutableStateOf(barsParameters.getLowerValue())
     }
 
     Canvas(
@@ -54,14 +56,13 @@ internal fun BarChartContent(
 
         val spacingX = (size.width / 18.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
-
         baseChartContainer(
             xAxisData = xAxisData,
             textMeasure = textMeasure,
             upperValue = upperValue.toFloat(),
             lowerValue = lowerValue.toFloat(),
             isShowGrid = isShowGrid,
-            backgroundLineWidth = barWidthPx.toPx(),
+            backgroundLineWidth = backgroundLineWidth,
             gridColor = gridColor,
             showGridWithSpacer = showGridWithSpacer,
             spacingX = spacingX,
@@ -72,32 +73,32 @@ internal fun BarChartContent(
 
         //todo: draw bars here
 
-        linesParameters.forEach { bar ->
-            bar.data.forEach { index ->
-                val length = (spacingX + 30.dp / 2) + (index.dp)
-
+        barsParameters.forEachIndexed { barIndex,bar ->
+            bar.data.forEachIndexed{ index,data ->
+                val ratio = ((data.toFloat()-lowerValue)/ upperValue).toFloat()
+                val barLength =  ratio * (size.height.toDp().toPx() - (spacingY.toPx()/4f))
+                val xAxisLength = ((spacingX*1.5f) + (index*((size.width.toDp() - spacingX) / xAxisData.size)))+(barIndex*(barWidthPx+(barWidthPx/2)))
                 drawRect(
-                    brush = Brush.verticalGradient(listOf(bar.lineColor, Color.Red)),
+                    brush = Brush.verticalGradient(listOf(bar.barColor,bar.barColor)),
                     topLeft = Offset(
-                        length.coerceAtMost(size.width.toDp()).toPx(),
-                        size.height - (size.height / 1.07f)
+                        xAxisLength.coerceAtMost(size.width.toDp()).toPx(),
+                        (size.height.toDp().toPx()+5.dp.toPx()- spacingY.toPx() - barLength)
                     ),
                     size = Size(
-                        width = 50f,
-                        height = (index.toFloat() / upperValue).toFloat() * (size.height - spacingY.toPx())
-                    )
+                        width = barWidthPx.toPx(),
+                        height = (barLength)
+                    ),
                 )
-
 
             }
         }
     }
 
 
-    LaunchedEffect(linesParameters, animateChart) {
+    LaunchedEffect(barsParameters, animateChart) {
         if (animateChart) {
 
-            collectToSnapShotFlow(linesParameters) {
+            collectToSnapShotFlow(barsParameters) {
                 upperValue = it.getUpperValue()
                 lowerValue = it.getLowerValue()
             }

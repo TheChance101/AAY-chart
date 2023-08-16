@@ -26,7 +26,7 @@ object ChartDefaultValues {
         BarParameters(
             dataName = "revenue",
             data = emptyList(),
-            lineColor = Color.Blue,
+            barColor = Color.Blue,
         )
     )
 
