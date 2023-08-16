@@ -13,15 +13,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.geometry.center
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.DrawStyle
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.text.ExperimentalTextApi
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.drawText
-import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.coerceAtMost
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aay.compose.baseComponents.ChartDescription
@@ -31,28 +34,34 @@ import java.awt.SystemColor.text
 @OptIn(ExperimentalTextApi::class)
 @Composable
 fun PieChart(
-    pieParts: List<PiePart>,
     modifier: Modifier = Modifier,
+    pieParts: List<PiePart>,
+    centerTitle: String = "",
     animDuration: Int = 1000,
-    chartBarWidth: Dp,
     radiusOuter: Dp,
 ) {
+
     var totalSum = 0.0f
     pieParts.forEach {
         totalSum += it.data
     }
+
     val textMeasure = rememberTextMeasurer()
+    val textLayoutResult: TextLayoutResult = textMeasure.measure(text = AnnotatedString(centerTitle))
+    val textSize = textLayoutResult.size
+
+
     val floatValue = mutableListOf<Float>()
     pieParts.forEachIndexed { index, part ->
         floatValue.add(index, 360 * part.data / totalSum)
     }
 
     var animationPlayed by remember { mutableStateOf(false) }
+    var lastValue = -90f
 
-    var lastValue = 0f
     // it is the diameter value of the Pie
     val animateSize by animateFloatAsState(
-        targetValue = if (animationPlayed) radiusOuter.value * 2f else 0f,
+        targetValue = if (animationPlayed) radiusOuter.value else 0f,
         animationSpec = tween(
             durationMillis = animDuration,
             delayMillis = 0,
@@ -61,7 +70,7 @@ fun PieChart(
     )
 
     // if you want to stabilize the Pie Chart you can use value -90f
-    // 90f is used to complete 1/4 of the rotation
+    // -90f is used to complete 1/4 of the rotation
     val animateRotation by animateFloatAsState(
         targetValue = if (animationPlayed) 90f * 11f else 0f,
         animationSpec = tween(
@@ -77,34 +86,41 @@ fun PieChart(
     }
 
     Column(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        modifier = modifier.wrapContentSize().padding(16.dp),
+        verticalArrangement = Arrangement.Center,
     ) {
         // Pie Chart using Canvas Arc
         Box(
-            modifier = Modifier.size(animateSize.dp).padding(36.dp),
-            contentAlignment = Alignment.Center
+            modifier = Modifier.size(radiusOuter).background(Color.Green.copy(alpha = .5f)),
         ) {
             Canvas(
-                modifier = Modifier
-                    .rotate(animateRotation)
-                    .size(radiusOuter * 2f)
-                    .background(Color.Magenta)
+                modifier = Modifier.fillMaxSize()
+
             ) {
 
                 val canvasWidth = size.width
                 val canvasHeight = size.height
-                val x = (canvasWidth ) / 2
-                val y = (canvasHeight ) / 2
+
                 drawContext.canvas.nativeCanvas.apply {
                     drawText(
                         textMeasurer = textMeasure,
-                        text = " dataPoint",
+                        text = centerTitle.take(15),
                         style = TextStyle.Default,
-                        topLeft = Offset(x,y)
+                        topLeft = Offset(
+                            (canvasWidth - textSize.width) / 2f,
+                            (canvasHeight - textSize.height) / 2f
+                        ),
                     )
                 }
+
+                // draw inner circle in pie chart
+                drawCircle(
+                    color = Color.Gray,
+                    radius = size.minDimension / 1.3.dp.toPx(),
+                    style = Stroke(1.dp.toPx(), cap = StrokeCap.Round)
+                )
+
+
                 // draw each Arc for each data entry in Pie Chart
                 floatValue.forEachIndexed { index, value ->
                     drawArc(
@@ -112,17 +128,24 @@ fun PieChart(
                         lastValue,
                         value,
                         useCenter = false,
-                        style = Stroke(chartBarWidth.toPx(), cap = StrokeCap.Butt)
+                        style = Stroke(size.maxDimension / 4.dp.toPx(), cap = StrokeCap.Butt),
                     )
                     lastValue += value
                 }
+
+                // draw outer circle in pi chart
+                drawCircle(
+                    color = Color.Gray,
+                    radius = size.minDimension / 0.85.dp.toPx(),
+                    style = Stroke(1.dp.toPx(), cap = StrokeCap.Round)
+                )
             }
         }
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(24.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
+                .padding(bottom = 16.dp, top = 32.dp),
         ) {
 
             items(pieParts) { details ->
@@ -133,7 +156,6 @@ fun PieChart(
                 )
             }
         }
-
     }
 
 }
