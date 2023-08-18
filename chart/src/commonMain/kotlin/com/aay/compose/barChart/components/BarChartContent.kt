@@ -52,7 +52,7 @@ internal fun BarChartContent(
 
     Canvas(
         modifier = modifier
-            .fillMaxSize().background(Color.Red.copy(alpha = .5f))
+            .fillMaxSize()
     ) {
 
         val spacingX = (size.width / 18.dp.toPx()).dp
