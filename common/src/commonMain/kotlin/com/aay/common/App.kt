@@ -9,5 +9,7 @@ fun App() {
 //    LineChartSample()
 
     /** Sample of Bar Chart **/
-    BarChartSample()
+//    BarChartSample()
+    /** sample of Worm Chart **/
+    WormChartSample()
 }
