@@ -13,77 +13,36 @@ fun PieChartSample() {
 
     val testPieChartData: List<PieChartData> = listOf(
         PieChartData(
-            partName = "revenue",
+            partName = "Amnah.a",
             data = 500f,
-            color = Color.Black,
+            color = Color(0xFFF2BD00),
         ),
         PieChartData(
-            partName = "Earnings",
+            partName = "Amnah",
+            data = 700f,
+            color = Color(0xFF81BE88),
+        ),
+        PieChartData(
+            partName = "Mohammed",
             data = 500f,
-            color = Color.Blue,
+            color = Color(0xFFFF7F50),
         ),
         PieChartData(
-            partName = "Earnings",
+            partName = "Yassen",
             data = 500f,
-            color = Color.Red,
+            color = Color(0xFF81BE88),
         ),
         PieChartData(
-            partName = "Earnings",
-            data = 500f,
-            color = Color.Magenta,
-        ),
-        PieChartData(
-            partName = "Earnings",
-            data = 500f,
-            color = Color.Green,
-        ),
-        PieChartData(
-            partName = "Earnings",
-            data = 300f,
-            color = Color.Magenta,
-        ),
-        PieChartData(
-            partName = "Earnings",
-            data = 200f,
-            color = Color.Green,
-        ),
-        PieChartData(
-            partName = "Earnings",
-            data = 900f,
-            color = Color.Green,
-        ),
-        PieChartData(
-            partName = "Earnings",
-            data = 60f,
-            color = Color.Magenta,
-        ),
-        PieChartData(
-            partName = "Earnings",
+            partName = "Andrew",
             data = 600f,
-            color = Color.Green,
+            color = Color.Magenta.copy(alpha = .5f),
         ),
-        PieChartData(
-            partName = "Earnings",
-            data = 500f,
-            color = Color.Green,
-        ),
-        PieChartData(
-            partName = "Earnings",
-            data = 100f,
-            color = Color.Magenta,
-        ),
-        PieChartData(
-            partName = "Earnings",
-            data = 900f,
-            color = Color.Green,
-        ),
-
     )
 
     PieChart(
         modifier = Modifier.wrapContentSize(),
         pieChartData = testPieChartData,
-        centerTitle = "Orders orders",
+        centerTitle = "Orders",
         radiusOuter = 200.dp
     )
 

@@ -81,7 +81,7 @@ fun PieChart(
 
                 // draw inner circle in pie chart
                 draPieCircle(
-                    circleColor = Color.Gray,
+                    circleColor = Color.Gray.copy(alpha = .5f),
                     radiusRatioCircle = 3.dp.toPx()
                 )
 
@@ -94,7 +94,7 @@ fun PieChart(
 
                 // draw outer circle in pie chart
                 draPieCircle(
-                    circleColor = Color.Gray,
+                    circleColor = Color.Gray.copy(alpha = .5f),
                     radiusRatioCircle = 1.5.dp.toPx()
                 )
             }
