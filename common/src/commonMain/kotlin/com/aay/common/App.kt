@@ -6,10 +6,9 @@ import androidx.compose.runtime.*
 fun App() {
 
     /** Sample of Line Chart **/
-//    LineChartSample()
-
+    LineChartSample()
     /** Sample of Bar Chart **/
 //    BarChartSample()
     /** sample of Worm Chart **/
-    WormChartSample()
+//    WormChartSample()
 }

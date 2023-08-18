@@ -20,23 +20,23 @@ fun LineChartSample() {
     val testLineParameters: List<LineParameters> = listOf(
         LineParameters(
             dataName = "revenue",
-            data = listOf(0.0, 20.6, 68888886.33, 9999.9, 11000000.232, 50.0),
-            lineColor = Color.Blue,
-            lineType = LineType.DEFAULT_LINE,
+            data = listOf(0.0, 20.6, 75.33, 90.9, 45.232, 50.0),
+            lineColor = Color.Gray,
+            lineType = LineType.QUADRATIC_LINE,
             lineShadow = true,
         ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(0.0, 16000.6, 40.33, 91000000.232, 88.0, 30.0),
-            lineColor = Color.Black,
+            data = listOf(0.0, 16.6, 40.33, 86.232, 88.0, 30.0),
+            lineColor = Color(0xFFFF7F50),
             lineType = LineType.QUADRATIC_LINE,
             lineShadow = true
         ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(0.0, 4000.0, 11.33, 55.232, 00.0, 100.0),
+            data = listOf(0.0, 40.0, 11.33, 55.232, 00.0, 100.0),
             lineColor = Color.Red,
-            lineType = LineType.DEFAULT_LINE,
+            lineType = LineType.QUADRATIC_LINE,
             lineShadow = false,
         )
     )
@@ -45,18 +45,18 @@ fun LineChartSample() {
         LineChart(
             modifier = Modifier.fillMaxSize(),
             linesParameters = testLineParameters,
-            gridColor = Color.Blue,
+            gridColor = Color.LightGray.copy(alpha = .5f),
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020"),
             isShowGrid = true,
             animateChart = true,
             showGridWithSpacer = true,
             yAxisStyle = TextStyle(
                 fontSize = 14.sp,
-                color = Color.Blue,
+                color = Color.Gray,
             ),
             xAxisStyle = TextStyle(
                 fontSize = 14.sp,
-                color = Color.Blue.copy(alpha = 0.5f),
+                color = Color.Gray,
                 fontWeight = FontWeight.W400
             )
         )
