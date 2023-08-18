@@ -18,40 +18,47 @@ fun BarChartSample() {
 
     val testBarParameters: List<BarParameters> = listOf(
         BarParameters(
-            dataName = "revenue",
-            data = listOf(0.0, 20.6, 68886.33, 9999.9, 1000.232, 50.0),
-            lineColor = Color.Blue,
+            dataName = "Revenue",
+            data = listOf(50.0, 70.6, 90.33, 70.9, 20.232, 90.0),
+            barColor = Color(0xFFF2BD00),
         ),
         BarParameters(
             dataName = "Customers",
-            data = listOf(0.0, 20.6, 444.33, 9999.9, 876.232, 50.0),
-            lineColor = Color.Red,
+            data = listOf(77.0, 20.6, 44.33, 99.9, 50.232, 22.0),
+            barColor = Color.Blue.copy(alpha = .5f),
         ),
         BarParameters(
-            dataName = "Shop",
-            data = listOf(0.0, 20.6, 98.33, 9999.9, 2222.232, 50.0),
-            lineColor = Color.Cyan,
+            dataName = "Completed",
+            data = listOf(90.0, 50.6, 30.33, 40.9, 60.232, 70.0),
+            barColor = Color(0xFF81BE88),
         ),
+        BarParameters(
+            dataName = "Sales",
+            data = listOf(30.0, 10.6, 20.33, 55.9, 40.232, 66.0),
+            barColor = Color(0xFFFF7F50),
+        ),
+
     )
 
     Box(Modifier.padding(24.dp)) {
         BarChart(
             modifier = Modifier.fillMaxSize(),
             chartParameters = testBarParameters,
-            gridColor = Color.Blue,
+            gridColor = Color.DarkGray,
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020"),
             isShowGrid = true,
             animateChart = true,
             showGridWithSpacer = true,
             yAxisStyle = TextStyle(
                 fontSize = 14.sp,
-                color = Color.Blue,
+                color = Color.DarkGray,
             ),
             xAxisStyle = TextStyle(
                 fontSize = 14.sp,
-                color = Color.Blue.copy(alpha = 0.5f),
+                color = Color.DarkGray,
                 fontWeight = FontWeight.W400
-            )
+            ),
+            barWidthPx = 15.dp
         )
     }
 }
