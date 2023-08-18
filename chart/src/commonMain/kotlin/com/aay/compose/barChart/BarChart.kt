@@ -1,17 +1,15 @@
 package com.aay.compose.barChart
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.aay.compose.barChart.components.BarChartContent
 import com.aay.compose.barChart.model.BarParameters
 import com.aay.compose.baseComponents.ChartDescription
 import com.aay.compose.utils.ChartDefaultValues
@@ -31,6 +29,8 @@ fun BarChart(
     xAxisStyle: TextStyle = ChartDefaultValues.axesStyle,
     chartRatio: Float = ChartDefaultValues.chartRatio,
     horizontalArrangement: Arrangement.Horizontal = ChartDefaultValues.headerArrangement,
+    backgroundLineWidth:Float=ChartDefaultValues.backgroundLineWidth.value
+
 ) {
 
     Box(modifier.wrapContentHeight()) {
@@ -44,7 +44,7 @@ fun BarChart(
 
                 items(chartParameters) { details ->
                     ChartDescription(
-                        chartColor = details.lineColor,
+                        chartColor = details.barColor,
                         chartName = details.dataName,
                         descriptionStyle = descriptionStyle,
                     )
@@ -55,7 +55,7 @@ fun BarChart(
                 modifier = if (chartRatio == 0f) Modifier.wrapContentSize()
                 else Modifier.aspectRatio(chartRatio)
                     .fillMaxSize(),
-                linesParameters = chartParameters,
+                barsParameters = chartParameters,
                 gridColor = gridColor,
                 xAxisData = xAxisData,
                 isShowGrid = isShowGrid,
@@ -63,7 +63,8 @@ fun BarChart(
                 animateChart = animateChart,
                 showGridWithSpacer = showGridWithSpacer,
                 yAxisStyle = yAxisStyle,
-                xAxisStyle = xAxisStyle
+                xAxisStyle = xAxisStyle,
+                backgroundLineWidth = backgroundLineWidth,
             )
         }
     }

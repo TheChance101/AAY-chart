@@ -1,29 +1,32 @@
-package com.aay.compose.barChart
+package com.aay.compose.barChart.components
 
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.coerceAtMost
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.delay
+import androidx.compose.ui.unit.times
 import com.aay.compose.baseComponents.baseChartContainer
 import com.aay.compose.barChart.model.BarParameters
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
 internal fun BarChartContent(
     modifier: Modifier,
-    linesParameters: List<BarParameters>,
+    barsParameters: List<BarParameters>,
     gridColor: Color,
     xAxisData: List<String>,
     isShowGrid: Boolean,
@@ -32,6 +35,7 @@ internal fun BarChartContent(
     showGridWithSpacer: Boolean,
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
+    backgroundLineWidth: Float,
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -40,10 +44,10 @@ internal fun BarChartContent(
         if (animateChart) Animatable(0f) else Animatable(1f)
     }
     var upperValue by rememberSaveable {
-        mutableStateOf(linesParameters.getUpperValue())
+        mutableStateOf(barsParameters.getUpperValue())
     }
     var lowerValue by rememberSaveable {
-        mutableStateOf(linesParameters.getLowerValue())
+        mutableStateOf(barsParameters.getLowerValue())
     }
 
     Canvas(
@@ -60,7 +64,7 @@ internal fun BarChartContent(
             upperValue = upperValue.toFloat(),
             lowerValue = lowerValue.toFloat(),
             isShowGrid = isShowGrid,
-            backgroundLineWidth = barWidthPx.toPx(),
+            backgroundLineWidth = backgroundLineWidth,
             gridColor = gridColor,
             showGridWithSpacer = showGridWithSpacer,
             spacingX = spacingX,
@@ -69,15 +73,22 @@ internal fun BarChartContent(
             xAxisStyle = xAxisStyle
         )
 
-        //todo: draw bars here
-
+        drawBarGroups(
+            barsParameters = barsParameters,
+            upperValue = upperValue,
+            lowerValue = lowerValue,
+            spacingX = spacingX,
+            spacingY = spacingY,
+            xAxisData = xAxisData,
+            barWidthPx = barWidthPx
+        )
     }
 
 
-    LaunchedEffect(linesParameters, animateChart) {
+    LaunchedEffect(barsParameters, animateChart) {
         if (animateChart) {
 
-            collectToSnapShotFlow(linesParameters) {
+            collectToSnapShotFlow(barsParameters) {
                 upperValue = it.getUpperValue()
                 lowerValue = it.getLowerValue()
             }
