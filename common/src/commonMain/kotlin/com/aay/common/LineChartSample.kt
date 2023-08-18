@@ -29,13 +29,13 @@ fun LineChartSample() {
             dataName = "Earnings",
             data = listOf(0.0, 16.6, 40.33, 86.232, 88.0, 30.0),
             lineColor = Color(0xFFFF7F50),
-            lineType = LineType.QUADRATIC_LINE,
+            lineType = LineType.DEFAULT_LINE,
             lineShadow = true
         ),
         LineParameters(
             dataName = "Earnings",
             data = listOf(0.0, 40.0, 11.33, 55.232, 00.0, 100.0),
-            lineColor = Color.Red,
+            lineColor = Color(0xFF81BE88),
             lineType = LineType.QUADRATIC_LINE,
             lineShadow = false,
         )
