@@ -1,8 +1,9 @@
-package com.aay.compose.barChart
+package com.aay.compose.barChart.components
 
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -34,7 +35,7 @@ internal fun BarChartContent(
     showGridWithSpacer: Boolean,
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
-    backgroundLineWidth:Float,
+    backgroundLineWidth: Float,
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -51,11 +52,12 @@ internal fun BarChartContent(
 
     Canvas(
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxSize().background(Color.Red.copy(alpha = .5f))
     ) {
 
         val spacingX = (size.width / 18.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
+
         baseChartContainer(
             xAxisData = xAxisData,
             textMeasure = textMeasure,
@@ -71,27 +73,15 @@ internal fun BarChartContent(
             xAxisStyle = xAxisStyle
         )
 
-        //todo: draw bars here
-
-        barsParameters.forEachIndexed { barIndex,bar ->
-            bar.data.forEachIndexed{ index,data ->
-                val ratio = ((data.toFloat()-lowerValue)/ upperValue).toFloat()
-                val barLength =  ratio * (size.height.toDp().toPx() - (spacingY.toPx()/4f))
-                val xAxisLength = ((spacingX*1.5f) + (index*((size.width.toDp() - spacingX) / xAxisData.size)))+(barIndex*(barWidthPx+(barWidthPx/2)))
-                drawRect(
-                    brush = Brush.verticalGradient(listOf(bar.barColor,bar.barColor)),
-                    topLeft = Offset(
-                        xAxisLength.coerceAtMost(size.width.toDp()).toPx(),
-                        (size.height.toDp().toPx()+5.dp.toPx()- spacingY.toPx() - barLength)
-                    ),
-                    size = Size(
-                        width = barWidthPx.toPx(),
-                        height = (barLength)
-                    ),
-                )
-
-            }
-        }
+        drawBarGroups(
+            barsParameters = barsParameters,
+            upperValue = upperValue,
+            lowerValue = lowerValue,
+            spacingX = spacingX,
+            spacingY = spacingY,
+            xAxisData = xAxisData,
+            barWidthPx = barWidthPx
+        )
     }
 
 

@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.aay.compose.barChart.components.BarChartContent
 import com.aay.compose.barChart.model.BarParameters
 import com.aay.compose.baseComponents.ChartDescription
 import com.aay.compose.utils.ChartDefaultValues
