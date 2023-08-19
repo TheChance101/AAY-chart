@@ -32,7 +32,7 @@ fun DrawScope.drawQuarticLineWithShadow(
 
     if (line.lineShadow) {
         val fillPath = strokePathOfQuadraticLine.apply {
-            lineTo((size.width.toDp() - spaceBetweenXes).toPx(), (size.height.toDp() - spacingY).toPx())
+            lineTo((size.width.toDp() + spaceBetweenXes).toPx(), (size.height.toDp() - spacingY).toPx())
             lineTo(spacingX.toPx(), (size.height.toDp() - spacingY).toPx())
             close()
         }
