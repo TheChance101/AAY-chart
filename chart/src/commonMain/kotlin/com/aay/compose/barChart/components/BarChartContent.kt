@@ -3,19 +3,14 @@ package com.aay.compose.barChart.components
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.coerceAtMost
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.times
 import com.aay.compose.baseComponents.baseChartContainer
 import com.aay.compose.barChart.model.BarParameters
 import kotlinx.coroutines.CoroutineScope
@@ -43,6 +38,9 @@ internal fun BarChartContent(
     val animatedProgress = remember {
         if (animateChart) Animatable(0f) else Animatable(1f)
     }
+
+    val progress = animatedProgress.value
+
     var upperValue by rememberSaveable {
         mutableStateOf(barsParameters.getUpperValue())
     }

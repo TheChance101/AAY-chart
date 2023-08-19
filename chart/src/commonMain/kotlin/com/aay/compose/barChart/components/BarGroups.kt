@@ -31,8 +31,8 @@ internal fun DrawScope.drawBarGroups(
 
         bar.data.forEachIndexed { index, data ->
             val ratio = (((data.toFloat() - lowerValue) / (upperValue)) / 0.56.dp.toPx()).toFloat()
-            val barLength = ratio * (height- (spacingY.toPx() / 4f))
-            val xAxisLength = ((spacingX * 1.5f) + (index * ((width - spacingX) / xAxisData.size)))
+            val barLength = ratio * (height- (spacingY.toPx() / 4.dp.toPx()))
+            val xAxisLength = ((spacingX * 0.6.dp.toPx()) + (index * ((width - spacingX) / xAxisData.size)))
             val lengthWithRatio = xAxisLength + (barIndex * (barWidthPx + (barWidthPx / 2)))
 
             drawRect(
