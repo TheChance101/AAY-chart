@@ -2,11 +2,7 @@ package com.aay.compose.barChart.components
 
 import androidx.compose.ui.geometry.*
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.DrawStyle
-import androidx.compose.ui.graphics.drawscope.Fill
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.coerceAtMost
 import androidx.compose.ui.unit.dp
@@ -30,7 +26,7 @@ internal fun DrawScope.drawBarGroups(
 
 
         bar.data.forEachIndexed { index, data ->
-            val ratio = (((data.toFloat() - lowerValue) / (upperValue)) / 0.56.dp.toPx()).toFloat()
+            val ratio = (((data.toFloat() - lowerValue) / (upperValue)) / 1.12.dp.toPx()).dp.toPx()
             val barLength = ratio * (height- (spacingY.toPx() / 4.dp.toPx()))
             val xAxisLength = ((spacingX * 0.6.dp.toPx()) + (index * ((width - spacingX) / xAxisData.size)))
             val lengthWithRatio = xAxisLength + (barIndex * (barWidthPx + (barWidthPx / 2)))

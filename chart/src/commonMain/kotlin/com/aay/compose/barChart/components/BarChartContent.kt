@@ -35,7 +35,7 @@ internal fun BarChartContent(
 
     val textMeasure = rememberTextMeasurer()
 
-    val animatedProgress = remember {
+    val animatedProgress =  remember(barsParameters) {
         if (animateChart) Animatable(0f) else Animatable(1f)
     }
 
