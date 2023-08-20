@@ -47,5 +47,6 @@ object ChartDefaultValues {
         fontSize = 12.sp,
         color = Color.Gray,
     )
+    const val yAxisRange = 6
 
 }

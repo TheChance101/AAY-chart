@@ -15,14 +15,14 @@ fun DrawScope.yAxisDrawing(
     upperValue: Float, lowerValue: Float,
     textMeasure: TextMeasurer, spacing: Dp,
     yAxisStyle: TextStyle,
+    yAxisRange : Int
 ) {
     val dataRange = upperValue - lowerValue
-    val dataStep = dataRange / 6
+    val dataStep = dataRange / yAxisRange
 
-    (0..6).forEach { i ->
-        val yValue = lowerValue + dataStep * i
-        val y = (size.height.toDp() - spacing - i * size.height.toDp() / 7)
-
+    (0..yAxisRange).forEach { i ->
+        val yValue = 0 + dataStep * i
+        val y = (size.height.toDp()  - spacing  - i * size.height.toDp() /(yAxisRange+1))
         drawContext.canvas.nativeCanvas.apply {
             drawText(
                 textMeasurer = textMeasure,
