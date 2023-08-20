@@ -36,7 +36,7 @@ fun LineChartSample() {
             dataName = "Earnings",
             data = listOf(1.0, 40.0, 11.33, 55.232,1.0, 100.0),
             lineColor = Color(0xFF81BE88),
-            lineType = LineType.QUADRATIC_LINE,
+            lineType = LineType.DEFAULT_LINE,
             lineShadow = false,
         )
     )
