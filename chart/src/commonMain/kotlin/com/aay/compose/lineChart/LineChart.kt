@@ -1,6 +1,5 @@
 package com.aay.compose.lineChart
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -28,7 +27,8 @@ fun LineChart(
     yAxisStyle: TextStyle = ChartDefaultValues.axesStyle,
     xAxisStyle: TextStyle = ChartDefaultValues.axesStyle,
     chartRatio: Float = ChartDefaultValues.chartRatio,
-    horizontalArrangement: Arrangement.Horizontal = ChartDefaultValues.headerArrangement
+    horizontalArrangement: Arrangement.Horizontal = ChartDefaultValues.headerArrangement,
+    yAxisRange : Int = ChartDefaultValues.yAxisRange
 ) {
 
     Box(modifier.wrapContentHeight()) {
@@ -37,7 +37,7 @@ fun LineChart(
                 horizontalArrangement = horizontalArrangement,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 16.dp)
+                    .padding(bottom = 24.dp)
             ) {
 
                 items(linesParameters) { details ->
@@ -48,9 +48,10 @@ fun LineChart(
                     )
                 }
             }
+
             ChartContent(
-                modifier = if (chartRatio == 0f) Modifier.wrapContentSize()
-                else Modifier.aspectRatio(chartRatio)
+                modifier = if (chartRatio == 0f) Modifier.padding(top = 16.dp).wrapContentSize()
+                else Modifier.padding(top = 16.dp).aspectRatio(chartRatio)
                     .fillMaxSize(),
                 linesParameters = linesParameters,
                 gridColor = gridColor,
@@ -60,7 +61,8 @@ fun LineChart(
                 animateChart = animateChart,
                 showGridWithSpacer = showGridWithSpacer,
                 yAxisStyle = yAxisStyle,
-                xAxisStyle = xAxisStyle
+                xAxisStyle = xAxisStyle,
+                yAxisRange = yAxisRange
             )
         }
     }
