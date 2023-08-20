@@ -14,7 +14,8 @@ fun DrawScope.grid(
     backgroundLineWidth: Float,
     showGridWithSpacer: Boolean,
     spacingX: Dp,
-    spacingY: Dp
+    spacingY: Dp,
+    yAxisRange : Int
 ) {
     val minX = spacingX.toPx()
     val xAxisMaxValue = size.width + xAxisDataSize
@@ -22,8 +23,8 @@ fun DrawScope.grid(
     val yAxisList = mutableListOf<Float>()
 
     if (isShowGrid) {
-        (0..6).forEach { i ->
-            yAxisList.add((size.height.toDp() - spacingY - (i * size.height).toDp() / 7).toPx())
+        (0..yAxisRange).forEach { i ->
+            yAxisList.add((size.height.toDp() - spacingY - (i * size.height).toDp() / (yAxisRange+1)).toPx())
             val yAlignmentValue = yAxisList[i] + 5.dp.toPx()
 
             val xEnd = (size.width-(spacingX.toPx())).coerceAtMost(
