@@ -16,8 +16,8 @@ fun DrawScope.drawQuarticLineWithShadow(
     upperValue: Float,
     animatedProgress: Animatable<Float, AnimationVector1D>,
     xAxisSize: Int,
-    spacingX:Dp,
-    spacingY:Dp,
+    spacingX: Dp,
+    spacingY: Dp,
 ) {
     val spaceBetweenXes = (size.width.toDp() - spacingX) / xAxisSize
     val strokePathOfQuadraticLine = drawLineAsQuadratic(
@@ -26,13 +26,13 @@ fun DrawScope.drawQuarticLineWithShadow(
         upperValue = upperValue,
         spaceBetweenXes = spaceBetweenXes,
         animatedProgress = animatedProgress,
-        spacingX=spacingX,
-        spacingY=spacingY,
+        spacingX = spacingX,
+        spacingY = spacingY,
     )
 
     if (line.lineShadow) {
         val fillPath = strokePathOfQuadraticLine.apply {
-            lineTo((size.width.toDp() + spaceBetweenXes).toPx(), (size.height.toDp() - spacingY).toPx())
+            lineTo(size.width.toDp().toPx(), size.height - spacingY.toPx())
             lineTo(spacingX.toPx(), (size.height.toDp() - spacingY).toPx())
             close()
         }
@@ -55,7 +55,7 @@ private fun DrawScope.drawLineAsQuadratic(
     upperValue: Float,
     spaceBetweenXes: Dp,
     animatedProgress: Animatable<Float, AnimationVector1D>,
-    spacingX:Dp,
+    spacingX: Dp,
     spacingY: Dp,
 ) = Path().apply {
     var medX: Float
@@ -65,25 +65,25 @@ private fun DrawScope.drawLineAsQuadratic(
         lineParameter = line,
         strokePath = this,
         animatedProgress = animatedProgress,
-    ) { lineParameter, index->
+    ) { lineParameter, index ->
 
         val info = lineParameter.data[index]
         val nextInfo = lineParameter.data.getOrNull(index + 1) ?: lineParameter.data.last()
         val firstRatio = (info - lowerValue) / (upperValue - lowerValue)
         val secondRatio = (nextInfo - lowerValue) / (upperValue - lowerValue)
 
-        val xFirstPoint = (spacingX+80.dp / 2) + index * spaceBetweenXes
-        val xSecondPoint = (spacingX+80.dp / 2)+ (index + 1) * spaceBetweenXes
+        val xFirstPoint = (spacingX + 50.dp / 2) + index * spaceBetweenXes
+        val xSecondPoint = (spacingX + 50.dp / 2) + (index + 1) * spaceBetweenXes
 
-        val yFirstPoint = (height - spacingY - (firstRatio * (height-(spacingY*1.2f))))
-        val ySecondPoint = (height - spacingY - (secondRatio * (height-(spacingY*1.2f))))
+        val yFirstPoint = (height + 5.dp - spacingY - (firstRatio * (height - (spacingY * 1.2f))))
+        val ySecondPoint = (height + 5.dp - spacingY - (secondRatio * (height - (spacingY * 1.2f))))
 
         if (index == 0) {
             moveTo(xFirstPoint.toPx(), yFirstPoint.toPx())
         } else {
-            medX = ((xFirstPoint + xSecondPoint) / 2f).toPx()
-            medY = ((yFirstPoint + ySecondPoint) / 2f).toPx()
-            cubicTo(medX,yFirstPoint.toPx(),medX,ySecondPoint.toPx(),xSecondPoint.toPx(),ySecondPoint.toPx())
+            medX = ((xFirstPoint + xSecondPoint) / 1.0.dp.toPx()).toPx()
+            medY = ((yFirstPoint + ySecondPoint) / 1.0.dp.toPx()).toPx()
+            cubicTo(medX, yFirstPoint.toPx(), medX, ySecondPoint.toPx(), xSecondPoint.toPx(), ySecondPoint.toPx())
         }
     }
 
