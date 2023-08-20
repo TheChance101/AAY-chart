@@ -36,6 +36,7 @@ internal fun ChartContent(
     showGridWithSpacer: Boolean,
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
+    yAxisRange : Int
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -71,7 +72,8 @@ internal fun ChartContent(
             spacingX = spacingX,
             spacingY = spacingY,
             yAxisStyle = yAxisStyle,
-            xAxisStyle = xAxisStyle
+            xAxisStyle = xAxisStyle,
+            yAxisRange = yAxisRange
         )
 
         linesParameters.forEach { line ->

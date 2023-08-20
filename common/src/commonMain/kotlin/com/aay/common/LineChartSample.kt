@@ -20,23 +20,23 @@ fun LineChartSample() {
     val testLineParameters: List<LineParameters> = listOf(
         LineParameters(
             dataName = "revenue",
-            data = listOf(0.0, 20.6, 75.33, 100.0, 45.232, 50.0),
+            data = listOf(1.0, 20.6, 75.33, 90.9, 45.232, 50.0),
             lineColor = Color.Gray,
             lineType = LineType.QUADRATIC_LINE,
             lineShadow = true,
         ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(0.0, 20.6, 75.33, 100.0, 45.232, 50.0),
+            data = listOf(1.0, 16.6, 40.33, 86.232, 88.0, 30.0),
             lineColor = Color(0xFFFF7F50),
-            lineType = LineType.QUADRATIC_LINE,
+            lineType = LineType.DEFAULT_LINE,
             lineShadow = true
         ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(0.0, 20.6, 75.33, 100.0, 45.232, 50.0),
+            data = listOf(1.0, 40.0, 11.33, 55.232,1.0, 100.0),
             lineColor = Color(0xFF81BE88),
-            lineType = LineType.DEFAULT_LINE,
+            lineType = LineType.QUADRATIC_LINE,
             lineShadow = false,
         )
     )
@@ -58,7 +58,9 @@ fun LineChartSample() {
                 fontSize = 14.sp,
                 color = Color.Gray,
                 fontWeight = FontWeight.W400
-            )
+            ),
+            yAxisRange = 14
+
         )
     }
 }
