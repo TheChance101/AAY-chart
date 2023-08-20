@@ -59,6 +59,8 @@ internal fun ChartContent(
 
         val spacingX = (size.width / 18.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
+        val chartHeight = size.height.dp - spacingY
+        val chartWidth = size.width.dp - spacingX
 
         baseChartContainer(
             xAxisData = xAxisData,
@@ -73,7 +75,8 @@ internal fun ChartContent(
             spacingY = spacingY,
             yAxisStyle = yAxisStyle,
             xAxisStyle = xAxisStyle,
-            yAxisRange = yAxisRange
+            yAxisRange = yAxisRange,
+            chartHeight = chartHeight
         )
 
         linesParameters.forEach { line ->

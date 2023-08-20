@@ -22,7 +22,8 @@ fun <T> DrawScope.baseChartContainer(
     spacingY: Dp,
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
-    yAxisRange : Int
+    yAxisRange : Int,
+    chartHeight : Dp,
 ) {
 
    xAxisDrawing(
@@ -38,7 +39,8 @@ fun <T> DrawScope.baseChartContainer(
         textMeasure = textMeasure,
         spacing = spacingY,
         yAxisStyle = yAxisStyle,
-        yAxisRange = yAxisRange
+        yAxisRange = yAxisRange,
+        chartHeight = chartHeight
     )
 
     grid(

@@ -27,7 +27,7 @@ fun LineChartSample() {
         ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(1.0, 16.6, 40.33, 86.232, 88.0, 30.0),
+            data = listOf(1.0, 16.6, 40.33, 86.232, 100.0, 30.0),
             lineColor = Color(0xFFFF7F50),
             lineType = LineType.DEFAULT_LINE,
             lineShadow = true
@@ -59,7 +59,7 @@ fun LineChartSample() {
                 color = Color.Gray,
                 fontWeight = FontWeight.W400
             ),
-            yAxisRange = 14
+            yAxisRange = 20
 
         )
     }

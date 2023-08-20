@@ -8,21 +8,24 @@ import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 
 @OptIn(ExperimentalTextApi::class)
 fun DrawScope.yAxisDrawing(
     upperValue: Float, lowerValue: Float,
-    textMeasure: TextMeasurer, spacing: Dp,
+    textMeasure: TextMeasurer,
+    spacing: Dp,
     yAxisStyle: TextStyle,
-    yAxisRange : Int
+    yAxisRange : Int,
+    chartHeight : Dp
 ) {
     val dataRange = upperValue - lowerValue
     val dataStep = dataRange / yAxisRange
 
     (0..yAxisRange).forEach { i ->
         val yValue = 0 + dataStep * i
-        val y = (size.height.toDp()  - spacing  - i * size.height.toDp() /(yAxisRange+1))
+        val y = (size.height.toDp()  - spacing  - i * (size.height.toDp()-spacing) /(yAxisRange))
         drawContext.canvas.nativeCanvas.apply {
             drawText(
                 textMeasurer = textMeasure,

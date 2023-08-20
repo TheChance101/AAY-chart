@@ -75,11 +75,14 @@ private fun DrawScope.drawLineAsQuadratic(
         val xFirstPoint = (spacingX+80.dp / 2) + index * spaceBetweenXes
         val xSecondPoint = (spacingX+80.dp / 2)+ (index + 1) * spaceBetweenXes
 
-        val yFirstPoint = (height.toPx() + 5.dp.toPx() - spacingY.toPx() - (firstRatio * (height.toPx()-(spacingY.toPx()*1.2f))))
-        val ySecondPoint = (height.toPx() + 5.dp.toPx()- spacingY.toPx() - (secondRatio * (height.toPx()-(spacingY.toPx()*1.2f))))
+        val yFirstPoint = (height.toPx() + 5.dp.toPx() - spacingY.toPx() - (firstRatio * (size.height.toDp()-spacingY).toPx()))
+        val ySecondPoint = (height.toPx() + 5.dp.toPx()- spacingY.toPx() - (secondRatio * (size.height.toDp()-spacingY).toPx()))
 
         if (index == 0) {
             moveTo(xFirstPoint.toPx(), yFirstPoint.toFloat())
+            medX = ((xFirstPoint + xSecondPoint) / 2f).toPx()
+            medY = ((yFirstPoint + ySecondPoint).toFloat() / 2f)
+            cubicTo(medX,yFirstPoint.toFloat(),medX,ySecondPoint.toFloat(),xSecondPoint.toPx(),ySecondPoint.toFloat())
         } else {
             medX = ((xFirstPoint + xSecondPoint) / 2f).toPx()
             medY = ((yFirstPoint + ySecondPoint).toFloat() / 2f)
