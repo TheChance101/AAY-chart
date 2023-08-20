@@ -28,7 +28,7 @@ fun LineChart(
     xAxisStyle: TextStyle = ChartDefaultValues.axesStyle,
     chartRatio: Float = ChartDefaultValues.chartRatio,
     horizontalArrangement: Arrangement.Horizontal = ChartDefaultValues.headerArrangement,
-    yAxisRange : Int = ChartDefaultValues.yAxisRange
+    yAxisRange: Int = ChartDefaultValues.yAxisRange
 ) {
 
     Box(modifier.wrapContentHeight()) {

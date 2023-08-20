@@ -71,7 +71,7 @@ private fun DrawScope.drawLineAsDefault(
 
         val info = lineParameter.data[index]
         val ratio = (info - lowerValue) / (upperValue - lowerValue)
-        val startXPoint = (spacingX+80.dp / 2) + (index * spaceBetweenXes)
+        val startXPoint = (spacingX + 80.dp / 2) + (index * spaceBetweenXes)
         val startYPoint =
             (height.toPx() + 5.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
 

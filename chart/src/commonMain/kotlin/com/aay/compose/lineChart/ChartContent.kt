@@ -36,7 +36,7 @@ internal fun ChartContent(
     showGridWithSpacer: Boolean,
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
-    yAxisRange : Int
+    yAxisRange: Int
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -82,7 +82,7 @@ internal fun ChartContent(
         linesParameters.forEach { line ->
             if (line.lineType == LineType.DEFAULT_LINE) {
 
-               drawDefaultLineWithShadow(
+                drawDefaultLineWithShadow(
                     line = line,
                     lowerValue = lowerValue.toFloat(),
                     upperValue = upperValue.toFloat(),

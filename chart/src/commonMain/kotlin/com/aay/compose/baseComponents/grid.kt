@@ -16,7 +16,7 @@ fun DrawScope.grid(
     showGridWithSpacer: Boolean,
     spacingX: Dp,
     spacingY: Dp,
-    yAxisRange : Int
+    yAxisRange: Int
 ) {
     val minX = spacingX.toPx()
     val xAxisMaxValue = size.width + xAxisDataSize
@@ -24,17 +24,19 @@ fun DrawScope.grid(
     val yAxisList = mutableListOf<Float>()
 
     if (isShowGrid) {
-        (0..yAxisRange+1).forEach { i ->
-            yAxisList.add(size.height.toDp().toPx()  - spacingY.toPx()  - i * (size.height.toDp()-spacingY).toPx() /(yAxisRange))
+        (0..yAxisRange + 1).forEach { i ->
+            yAxisList.add(
+                size.height.toDp().toPx() - spacingY.toPx() - i * (size.height.toDp() - spacingY).toPx() / (yAxisRange)
+            )
             val yAlignmentValue = yAxisList[i] + 5.dp.toPx()
 
-            val xEnd = (size.width-(spacingX.toPx())).coerceAtMost(
+            val xEnd = (size.width - (spacingX.toPx())).coerceAtMost(
                 xAxisMaxValue - spacingX.toPx().div(0.7.dp.toPx())
             ).coerceAtLeast(minX)
 
             drawLine(
                 gridColor,
-                start = Offset(spacingX.toPx()+30.dp.toPx() / 2, yAlignmentValue),
+                start = Offset(spacingX.toPx() + 30.dp.toPx() / 2, yAlignmentValue),
                 end = Offset(xAxisMaxValue, yAlignmentValue),
                 strokeWidth = backgroundLineWidth,
                 pathEffect = PathEffect.dashPathEffect(
