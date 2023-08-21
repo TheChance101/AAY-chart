@@ -12,8 +12,12 @@ fun <T> DrawScope.xAxisDrawing(
     xAxisData: List<T>,
     spacing: Dp,
     textMeasure: TextMeasurer,
-    xAxisStyle: TextStyle
+    xAxisStyle: TextStyle,
+    specialChart : Boolean
 ) {
+    if (specialChart){
+        return
+    }
     val spaceBetweenXes = (size.width - spacing.toPx()) / xAxisData.size
 
     xAxisData.forEachIndexed { index, dataPoint ->

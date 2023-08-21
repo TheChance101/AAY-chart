@@ -19,7 +19,11 @@ fun DrawScope.yAxisDrawing(
     yAxisStyle: TextStyle,
     yAxisRange : Int,
     chartHeight : Dp
+    specialChart : Boolean
 ) {
+    if (specialChart){
+        return
+    }
     val dataRange = upperValue - lowerValue
     val dataStep = dataRange / yAxisRange
 

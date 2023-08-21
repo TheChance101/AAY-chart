@@ -20,7 +20,7 @@ fun LineChartSample() {
     val testLineParameters: List<LineParameters> = listOf(
         LineParameters(
             dataName = "revenue",
-            data = listOf(1.0, 20.6, 75.33, 90.9, 45.232, 50.0),
+            data = listOf(10000.0, 15020000.6, 80000.33, 0.0, 90000.232, 0.0,50.0),
             lineColor = Color.Gray,
             lineType = LineType.QUADRATIC_LINE,
             lineShadow = true,
@@ -38,7 +38,21 @@ fun LineChartSample() {
             lineColor = Color(0xFF81BE88),
             lineType = LineType.QUADRATIC_LINE,
             lineShadow = false,
-        )
+        ),
+//        LineParameters(
+//            dataName = "Earnings",
+//            data = listOf(1.0, 16.6, 40.33, 86.232, 88.0, 30.0),
+//            lineColor = Color(0xFFFF7F50),
+//            lineType = LineType.DEFAULT_LINE,
+//            lineShadow = true
+//        ),
+//        LineParameters(
+//            dataName = "Earnings",
+//            data = listOf(1.0, 40.0, 11.33, 55.232,1.0, 100.0),
+//            lineColor = Color(0xFF81BE88),
+//            lineType = LineType.QUADRATIC_LINE,
+//            lineShadow = false,
+//        )
     )
 
     Box(Modifier.padding(24.dp)) {
@@ -46,8 +60,7 @@ fun LineChartSample() {
             modifier = Modifier.fillMaxSize(),
             linesParameters = testLineParameters,
             gridColor = Color.LightGray.copy(alpha = .5f),
-            xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020"),
-            isShowGrid = true,
+            xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020","2021"),
             animateChart = true,
             showGridWithSpacer = true,
             yAxisStyle = TextStyle(
@@ -59,8 +72,8 @@ fun LineChartSample() {
                 color = Color.Gray,
                 fontWeight = FontWeight.W400
             ),
-            yAxisRange = 20
-
+            yAxisRange = 14,
+            oneLineChart = true
         )
     }
 }
