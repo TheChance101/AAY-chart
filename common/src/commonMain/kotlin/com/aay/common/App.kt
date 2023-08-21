@@ -14,6 +14,4 @@ fun App() {
     /** Sample of Pie Chart **/
 //    PieChartSample()
 
-    /** sample of Worm Chart **/
-//    WormChartSample()
 }

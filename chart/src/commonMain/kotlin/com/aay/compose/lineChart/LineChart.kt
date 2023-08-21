@@ -28,7 +28,10 @@ fun LineChart(
     xAxisStyle: TextStyle = ChartDefaultValues.axesStyle,
     chartRatio: Float = ChartDefaultValues.chartRatio,
     horizontalArrangement: Arrangement.Horizontal = ChartDefaultValues.headerArrangement,
-    yAxisRange : Int = ChartDefaultValues.yAxisRange
+    yAxisRange : Int = ChartDefaultValues.yAxisRange,
+    showXAxis : Boolean = ChartDefaultValues.showXAxis,
+    showYAxis : Boolean = ChartDefaultValues.showyAxis,
+    oneLineChart : Boolean = ChartDefaultValues.specialChart
 ) {
 
     Box(modifier.wrapContentHeight()) {
@@ -62,7 +65,10 @@ fun LineChart(
                 showGridWithSpacer = showGridWithSpacer,
                 yAxisStyle = yAxisStyle,
                 xAxisStyle = xAxisStyle,
-                yAxisRange = yAxisRange
+                yAxisRange = yAxisRange,
+                showXAxis = showXAxis,
+                showYAxis = showYAxis,
+                specialChart = oneLineChart
             )
         }
     }

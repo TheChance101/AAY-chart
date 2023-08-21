@@ -31,7 +31,8 @@ fun BarChart(
     horizontalArrangement: Arrangement.Horizontal = ChartDefaultValues.headerArrangement,
     backgroundLineWidth: Float = ChartDefaultValues.backgroundLineWidth.value,
     yAxisRange: Int = ChartDefaultValues.yAxisRange,
-
+    showXAxis : Boolean = ChartDefaultValues.showXAxis,
+    showYAxis: Boolean = ChartDefaultValues.showyAxis
     ) {
 
     Box(modifier.wrapContentHeight()) {
@@ -66,7 +67,9 @@ fun BarChart(
                 yAxisStyle = yAxisStyle,
                 xAxisStyle = xAxisStyle,
                 backgroundLineWidth = backgroundLineWidth,
-                yAxisRange = yAxisRange
+                yAxisRange = yAxisRange,
+                showXAxis = showXAxis,
+                showYAxis = showYAxis
             )
         }
     }

@@ -31,7 +31,9 @@ internal fun BarChartContent(
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
     backgroundLineWidth: Float,
-    yAxisRange : Int
+    yAxisRange : Int,
+    showXAxis : Boolean,
+    showYAxis : Boolean,
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -70,7 +72,9 @@ internal fun BarChartContent(
             spacingY = spacingY,
             yAxisStyle = yAxisStyle,
             xAxisStyle = xAxisStyle,
-            yAxisRange = yAxisRange
+            yAxisRange = yAxisRange,
+            showXAxis = showXAxis,
+            showYAxis = showYAxis,
         )
 
         drawBarGroups(

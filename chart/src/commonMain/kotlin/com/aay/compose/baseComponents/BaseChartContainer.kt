@@ -22,24 +22,32 @@ fun <T> DrawScope.baseChartContainer(
     spacingY: Dp,
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
-    yAxisRange : Int
+    yAxisRange : Int,
+    showXAxis : Boolean,
+    showYAxis : Boolean,
+    specialChart : Boolean = false
 ) {
+  if(showXAxis) {
+      xAxisDrawing(
+          xAxisData = xAxisData,
+          spacing = spacingX,
+          textMeasure = textMeasure,
+          xAxisStyle = xAxisStyle,
+          specialChart = specialChart
+      )
+  }
 
-   xAxisDrawing(
-        xAxisData = xAxisData,
-        spacing = spacingX,
-        textMeasure = textMeasure,
-        xAxisStyle = xAxisStyle
-    )
-
-    yAxisDrawing(
-        upperValue = upperValue,
-        lowerValue = lowerValue,
-        textMeasure = textMeasure,
-        spacing = spacingY,
-        yAxisStyle = yAxisStyle,
-        yAxisRange = yAxisRange
-    )
+    if (showYAxis) {
+        yAxisDrawing(
+            upperValue = upperValue,
+            lowerValue = lowerValue,
+            textMeasure = textMeasure,
+            spacing = spacingY,
+            yAxisStyle = yAxisStyle,
+            yAxisRange = yAxisRange,
+            specialChart = specialChart
+        )
+    }
 
     grid(
         xAxisDataSize = xAxisData.size,
@@ -49,6 +57,7 @@ fun <T> DrawScope.baseChartContainer(
         showGridWithSpacer = showGridWithSpacer,
         spacingX = spacingX,
         spacingY = spacingY,
-        yAxisRange
+        yAxisRange = yAxisRange ,
+        specialChart = specialChart
     )
 }
