@@ -81,7 +81,8 @@ internal fun ChartContent(
             yAxisRange = yAxisRange,
             showXAxis  = showXAxis,
             showYAxis = showYAxis,
-            specialChart = specialChart
+            specialChart = specialChart,
+            chartHeight = chartHeight
         )
 
         if (specialChart){
