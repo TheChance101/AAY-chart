@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.times
 
 fun DrawScope.grid(
     xAxisDataSize: Int,
@@ -27,17 +28,19 @@ fun DrawScope.grid(
     val yAxisList = mutableListOf<Float>()
 
     if (isShowGrid) {
-        (0..yAxisRange).forEach { i ->
-            yAxisList.add((size.height.toDp() - spacingY - (i * size.height).toDp() / (yAxisRange+1)).toPx())
+        (0..yAxisRange + 1).forEach { i ->
+            yAxisList.add(
+                size.height.toDp().toPx() - spacingY.toPx() - i * (size.height.toDp() - spacingY).toPx() / (yAxisRange)
+            )
             val yAlignmentValue = yAxisList[i] + 5.dp.toPx()
 
-            val xEnd = (size.width-(spacingX.toPx())).coerceAtMost(
+            val xEnd = (size.width - (spacingX.toPx())).coerceAtMost(
                 xAxisMaxValue - spacingX.toPx().div(0.7.dp.toPx())
             ).coerceAtLeast(minX)
 
             drawLine(
                 gridColor,
-                start = Offset(spacingX.toPx()+30.dp.toPx() / 2, yAlignmentValue),
+                start = Offset(spacingX.toPx() + 30.dp.toPx() / 2, yAlignmentValue),
                 end = Offset(xAxisMaxValue, yAlignmentValue),
                 strokeWidth = backgroundLineWidth,
                 pathEffect = PathEffect.dashPathEffect(

@@ -58,6 +58,8 @@ internal fun BarChartContent(
 
         val spacingX = (size.width / 18.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
+        val chartHeight = size.height.dp - spacingY
+        val chartWidth = size.width.dp - spacingX
 
         baseChartContainer(
             xAxisData = xAxisData,
@@ -73,6 +75,7 @@ internal fun BarChartContent(
             yAxisStyle = yAxisStyle,
             xAxisStyle = xAxisStyle,
             yAxisRange = yAxisRange,
+            chartHeight = chartHeight,
             showXAxis = showXAxis,
             showYAxis = showYAxis,
         )

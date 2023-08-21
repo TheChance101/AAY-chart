@@ -25,6 +25,20 @@ fun LineChartSample() {
             lineType = LineType.QUADRATIC_LINE,
             lineShadow = true,
         ),
+        LineParameters(
+            dataName = "Earnings",
+            data = listOf(1.0, 16.6, 40.33, 86.232, 100.0, 30.0),
+            lineColor = Color(0xFFFF7F50),
+            lineType = LineType.DEFAULT_LINE,
+            lineShadow = true
+        ),
+        LineParameters(
+            dataName = "Earnings",
+            data = listOf(1.0, 40.0, 11.33, 55.232,1.0, 100.0),
+            lineColor = Color(0xFF81BE88),
+            lineType = LineType.QUADRATIC_LINE,
+            lineShadow = false,
+        ),
 //        LineParameters(
 //            dataName = "Earnings",
 //            data = listOf(1.0, 16.6, 40.33, 86.232, 88.0, 30.0),
@@ -60,7 +74,6 @@ fun LineChartSample() {
             ),
             yAxisRange = 14,
             oneLineChart = true
-
         )
     }
 }

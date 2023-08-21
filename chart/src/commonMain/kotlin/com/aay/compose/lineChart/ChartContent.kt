@@ -39,7 +39,7 @@ internal fun ChartContent(
     yAxisRange : Int,
     showXAxis : Boolean,
     showYAxis : Boolean,
-    specialChart : Boolean
+    specialChart : Boolean,
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -62,6 +62,8 @@ internal fun ChartContent(
 
         val spacingX = (size.width / 18.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
+        val chartHeight = size.height.dp - spacingY
+        val chartWidth = size.width.dp - spacingX
 
         baseChartContainer(
             xAxisData = xAxisData,
@@ -79,7 +81,8 @@ internal fun ChartContent(
             yAxisRange = yAxisRange,
             showXAxis  = showXAxis,
             showYAxis = showYAxis,
-            specialChart = specialChart
+            specialChart = specialChart,
+            chartHeight = chartHeight
         )
 
         if (specialChart){

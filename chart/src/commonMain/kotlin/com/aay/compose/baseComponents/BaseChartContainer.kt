@@ -23,6 +23,7 @@ fun <T> DrawScope.baseChartContainer(
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
     yAxisRange : Int,
+    chartHeight : Dp,
     showXAxis : Boolean,
     showYAxis : Boolean,
     specialChart : Boolean = false
