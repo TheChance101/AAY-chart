@@ -36,7 +36,10 @@ internal fun ChartContent(
     showGridWithSpacer: Boolean,
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
-    yAxisRange : Int
+    yAxisRange : Int,
+    showXAxis : Boolean,
+    showYAxis : Boolean,
+    specialChart : Boolean
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -73,23 +76,17 @@ internal fun ChartContent(
             spacingY = spacingY,
             yAxisStyle = yAxisStyle,
             xAxisStyle = xAxisStyle,
-            yAxisRange = yAxisRange
+            yAxisRange = yAxisRange,
+            showXAxis  = showXAxis,
+            showYAxis = showYAxis,
+            specialChart = specialChart
         )
 
-        linesParameters.forEach { line ->
-            if (line.lineType == LineType.DEFAULT_LINE) {
-
-               drawDefaultLineWithShadow(
-                    line = line,
-                    lowerValue = lowerValue.toFloat(),
-                    upperValue = upperValue.toFloat(),
-                    animatedProgress = animatedProgress,
-                    xAxisSize = xAxisData.size,
-                    spacingX = spacingX,
-                    spacingY = spacingY,
-                )
-
-            } else {
+        if (specialChart){
+            if (linesParameters.size >= 2){
+                throw Exception("Special case must contain just one line")
+            }
+            linesParameters.forEach { line ->
                 drawQuarticLineWithShadow(
                     line = line,
                     lowerValue = lowerValue.toFloat(),
@@ -98,8 +95,37 @@ internal fun ChartContent(
                     xAxisSize = xAxisData.size,
                     spacingX = spacingX,
                     spacingY = spacingY,
+                    specialChart = specialChart
                 )
 
+            }
+        }else {
+            linesParameters.forEach { line ->
+                if (line.lineType == LineType.DEFAULT_LINE) {
+
+                    drawDefaultLineWithShadow(
+                        line = line,
+                        lowerValue = lowerValue.toFloat(),
+                        upperValue = upperValue.toFloat(),
+                        animatedProgress = animatedProgress,
+                        xAxisSize = xAxisData.size,
+                        spacingX = spacingX,
+                        spacingY = spacingY,
+                    )
+
+                } else {
+                    drawQuarticLineWithShadow(
+                        line = line,
+                        lowerValue = lowerValue.toFloat(),
+                        upperValue = upperValue.toFloat(),
+                        animatedProgress = animatedProgress,
+                        xAxisSize = xAxisData.size,
+                        spacingX = spacingX,
+                        spacingY = spacingY,
+                        specialChart = specialChart
+                    )
+
+                }
             }
         }
     }

@@ -48,5 +48,8 @@ object ChartDefaultValues {
         color = Color.Gray,
     )
     const val yAxisRange = 6
+    const val specialChart = false
+    const val showXAxis = true
+    const val showyAxis = true
 
 }

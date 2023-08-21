@@ -18,6 +18,7 @@ fun DrawScope.drawQuarticLineWithShadow(
     xAxisSize: Int,
     spacingX:Dp,
     spacingY:Dp,
+    specialChart : Boolean
 ) {
     val spaceBetweenXes = (size.width.toDp() - spacingX) / xAxisSize
     val strokePathOfQuadraticLine = drawLineAsQuadratic(
@@ -28,9 +29,10 @@ fun DrawScope.drawQuarticLineWithShadow(
         animatedProgress = animatedProgress,
         spacingX=spacingX,
         spacingY=spacingY,
+        specialChart = specialChart
     )
 
-    if (line.lineShadow) {
+    if (line.lineShadow && !specialChart) {
         val fillPath = strokePathOfQuadraticLine.apply {
             lineTo((size.width.toDp() + spaceBetweenXes).toPx(), (size.height.toDp() - spacingY).toPx())
             lineTo(spacingX.toPx(), (size.height.toDp() - spacingY).toPx())
@@ -57,6 +59,7 @@ private fun DrawScope.drawLineAsQuadratic(
     animatedProgress: Animatable<Float, AnimationVector1D>,
     spacingX:Dp,
     spacingY: Dp,
+    specialChart: Boolean
 ) = Path().apply {
     var medX: Float
     var medY: Float
@@ -80,10 +83,16 @@ private fun DrawScope.drawLineAsQuadratic(
 
         if (index == 0) {
             moveTo(xFirstPoint.toPx(), yFirstPoint.toFloat())
+            medX = ((xFirstPoint + xSecondPoint) / 2f).toPx()
+            medY = ((yFirstPoint + ySecondPoint).toFloat() / 2f)
+            cubicTo(medX,yFirstPoint.toFloat(),medX,ySecondPoint.toFloat(),xSecondPoint.toPx(),ySecondPoint.toFloat())
         } else {
             medX = ((xFirstPoint + xSecondPoint) / 2f).toPx()
             medY = ((yFirstPoint + ySecondPoint).toFloat() / 2f)
             cubicTo(medX,yFirstPoint.toFloat(),medX,ySecondPoint.toFloat(),xSecondPoint.toPx(),ySecondPoint.toFloat())
+        }
+        if (index == 0 && specialChart) {
+            chartCircle(xFirstPoint.toPx() , yFirstPoint.toFloat() , color = lineParameter.lineColor,animatedProgress)
         }
     }
 

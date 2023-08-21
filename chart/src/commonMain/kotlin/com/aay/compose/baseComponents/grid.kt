@@ -15,8 +15,12 @@ fun DrawScope.grid(
     showGridWithSpacer: Boolean,
     spacingX: Dp,
     spacingY: Dp,
-    yAxisRange : Int
+    yAxisRange : Int,
+    specialChart : Boolean
 ) {
+    if (specialChart){
+        return
+    }
     val minX = spacingX.toPx()
     val xAxisMaxValue = size.width + xAxisDataSize
 
