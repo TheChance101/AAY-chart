@@ -42,8 +42,6 @@ internal fun BarChartContent(
         if (animateChart) Animatable(0f) else Animatable(1f)
     }
 
-    val progress = animatedProgress.value
-
     var upperValue by rememberSaveable {
         mutableStateOf(barsParameters.getUpperValue())
     }
@@ -59,7 +57,6 @@ internal fun BarChartContent(
         val spacingX = (size.width / 18.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
         val chartHeight = size.height.dp - spacingY
-        val chartWidth = size.width.dp - spacingX
 
         baseChartContainer(
             xAxisData = xAxisData,
