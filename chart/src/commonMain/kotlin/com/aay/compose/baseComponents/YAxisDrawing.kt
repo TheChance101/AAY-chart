@@ -18,7 +18,6 @@ fun DrawScope.yAxisDrawing(
     spacing: Dp,
     yAxisStyle: TextStyle,
     yAxisRange : Int,
-    chartHeight : Dp
     specialChart : Boolean
 ) {
     if (specialChart){
