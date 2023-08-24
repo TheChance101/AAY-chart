@@ -12,7 +12,7 @@ internal fun DrawScope.draPieCircle(
 ) {
     drawCircle(
         color = circleColor,
-        radius = size.minDimension.dp.toPx() / radiusRatioCircle,
+        radius = radiusRatioCircle,
         style = Stroke(1.dp.toPx(), cap = StrokeCap.Round)
     )
 }
