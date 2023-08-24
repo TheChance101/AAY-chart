@@ -16,7 +16,7 @@ fun getRadarConfig(size: Size, numLines: Int, scalarSteps: Int): RadarChartConfi
 
     val center = Offset(size.width / 2, size.height / 2)
     val angleBetweenLines = 2 * PI / numLines
-    val netRadius = (size.minDimension / 2) - 20f
+    val netRadius = (size.minDimension / 2) - 30f
     val labelRadius = (size.minDimension / 2)
     val angleOfFirstLine = 0 * angleBetweenLines
     val offsetAngle = -PI / 2 - angleOfFirstLine
@@ -54,3 +54,40 @@ private fun getCircumferencePointOffset(
     center.x + radius * cos(angle).toFloat(),
     center.y + radius * sin(angle).toFloat()
 )
+
+
+fun getPolygonShapeEndPoints(
+    values2: List<Double>,
+    values: List<Double>,
+    radius: Float,
+    scalarValue: Double,
+    center: Offset
+): List<List<Offset>> {
+    val scalarShapeEndPoints = mutableListOf<Offset>()
+    val scalarShapeEndPoints2 = mutableListOf<Offset>()
+    val angleBetweenLines = 2 * PI / values.size
+    for (index in values.indices) {
+        val angleOfFirstLine = 0 * angleBetweenLines
+        val offsetAngle = -PI / 2 - angleOfFirstLine
+        val angle = index * angleBetweenLines + offsetAngle
+        val polygonRadius = radius - (radius / 5)
+
+        val value = values[index]
+        val value2 = values2[index]
+        val scalarRadius = (value / scalarValue) * polygonRadius
+        val scalarRadius2 = (value2 / scalarValue) * polygonRadius
+        val scalarShapeEndPoint = getCircumferencePointOffset(center, scalarRadius.toFloat(), angle)
+        val scalarShapeEndPoint2 = getCircumferencePointOffset(center, scalarRadius2.toFloat(), angle)
+        scalarShapeEndPoints.add(scalarShapeEndPoint)
+        scalarShapeEndPoints2.add(scalarShapeEndPoint2)
+    }
+    return listOf(scalarShapeEndPoints, scalarShapeEndPoints2)
+
+}
+
+
+
+
+
+
+

@@ -12,7 +12,7 @@ fun DrawScope.drawRadarNet(config: RadarChartConfig) {
 
     for (endpoint in endPoints) {
         drawLine(
-            color = Color.Gray,
+            color = Color(0xffD3CFD3),
             start = center,
             end = endpoint,
             strokeWidth = 2f,
@@ -20,7 +20,7 @@ fun DrawScope.drawRadarNet(config: RadarChartConfig) {
         )
         for (index in nextStartPoints.indices) {
             drawLine(
-                color = Color.Gray,
+                color = Color(0xffD3CFD3),
                 start = nextStartPoints[index],
                 end = nextEndPoints[index],
                 strokeWidth = 2f,

@@ -7,6 +7,8 @@ import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalTextApi::class)
@@ -17,22 +19,23 @@ fun DrawScope.drawAxisData(
     scalarValue: Double,
     scalarSteps: Int
 ) {
-
     val labelsEndPoints = radarChartConfig.labelsPoints
     val nextStartPoints = radarChartConfig.scalarPoints.toMutableList()
     nextStartPoints.add(0, center)
     nextStartPoints.removeAt(nextStartPoints.size - 1)
 
     val scalarStep = scalarValue / (scalarSteps - 1)
-    val textVerticalOffset = 10.toDp().toPx()
+    val textVerticalOffset = 14.toDp().toPx()
 
     for (step in 0 until scalarSteps) {
         drawText(
             textMeasurer = textMeasurer,
-            text = (scalarStep * step).toString(),
+            text = (scalarStep * step).toInt().toString() + "$",
             style = TextStyle(
                 color = Color.Black,
-                fontSize = 8.sp
+                fontFamily = FontFamily.Serif,
+                fontWeight = FontWeight.Medium,
+                fontSize = 16.sp
             ),
             topLeft = Offset(
                 nextStartPoints[step].x,
@@ -47,7 +50,9 @@ fun DrawScope.drawAxisData(
             text = radarLabels[line],
             style = TextStyle(
                 color = Color.Black,
-                fontSize = 12.sp
+                fontFamily = FontFamily.Serif,
+                fontWeight = FontWeight.Medium,
+                fontSize = 14.sp
             ),
             topLeft = Offset(
                 labelsEndPoints[line].x - 10.toDp().toPx(),
