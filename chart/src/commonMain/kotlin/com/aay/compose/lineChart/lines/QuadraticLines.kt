@@ -2,18 +2,23 @@ package com.aay.compose.lineChart.lines
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.text.ExperimentalTextApi
+import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import com.aay.compose.lineChart.model.LineParameters
-import kotlin.math.hypot
+import com.aay.compose.utils.clickedOnThisPoint
 
+private var lastClickedPoint: Pair<Float, Float>? = null
+
+@OptIn(ExperimentalTextApi::class)
 fun DrawScope.drawQuarticLineWithShadow(
     line: LineParameters,
     lowerValue: Float,
@@ -23,7 +28,8 @@ fun DrawScope.drawQuarticLineWithShadow(
     spacingX: Dp,
     spacingY: Dp,
     specialChart: Boolean,
-    clickedPoints: MutableList<Pair<Float, Float>>, // Add this parameter
+    clickedPoints: MutableList<Pair<Float, Float>>,
+    textMeasurer: TextMeasurer,
 ) {
 
     val spaceBetweenXes = (size.width.toDp() - spacingX) / xAxisSize
@@ -36,7 +42,8 @@ fun DrawScope.drawQuarticLineWithShadow(
         spacingX = spacingX,
         spacingY = spacingY,
         specialChart = specialChart,
-        clickedPoints = clickedPoints, // Pass the clicked points list
+        clickedPoints = clickedPoints,
+        textMeasurer = textMeasurer
     )
 
     if (line.lineShadow && !specialChart) {
@@ -57,7 +64,8 @@ fun DrawScope.drawQuarticLineWithShadow(
     }
 }
 
-private fun DrawScope.drawLineAsQuadratic(
+@OptIn(ExperimentalTextApi::class)
+fun DrawScope.drawLineAsQuadratic(
     line: LineParameters,
     lowerValue: Float,
     upperValue: Float,
@@ -66,10 +74,12 @@ private fun DrawScope.drawLineAsQuadratic(
     spacingX: Dp,
     spacingY: Dp,
     specialChart: Boolean,
-    clickedPoints: MutableList<Pair<Float, Float>>, // Add this parameter
+    clickedPoints: MutableList<Pair<Float, Float>>,
+    textMeasurer: TextMeasurer,
 ) = Path().apply {
     var medX: Float
     val height = size.height.toDp()
+
     drawPathLineWrapper(
         lineParameter = line,
         strokePath = this,
@@ -97,15 +107,26 @@ private fun DrawScope.drawLineAsQuadratic(
                 - (secondRatio * (size.height.toDp() - spacingY).toPx())
                 )
 
-        val tolerance = 20.dp.toPx() // Adjust this value as needed
-        val clickedOnThisPoint = clickedPoints.any {
-            val xDiff = it.first - xFirstPoint.toPx()
-            val yDiff = it.second - yFirstPoint
-            val distance = hypot(xDiff.toDouble(), yDiff)
-            distance <= tolerance
+        val tolerance = 20.dp.toPx()
+        val savedClicks =
+            clickedOnThisPoint(clickedPoints, xFirstPoint.toPx(), yFirstPoint, tolerance)
+        if (savedClicks) {
+            if (lastClickedPoint != null) {
+                clickedPoints.clear()
+                lastClickedPoint = null
+            } else {
+                lastClickedPoint = Pair(xFirstPoint.toPx(), yFirstPoint.toFloat())
+                chartCircle(
+                    xFirstPoint.toPx(),
+                    yFirstPoint.toFloat(),
+                    line.lineColor,
+                    animatedProgress,
+                    Stroke(width = 2.dp.toPx())
+                )
+                chartRectangleWithText(xFirstPoint, yFirstPoint, line.lineColor, textMeasurer, info)
+            }
 
         }
-
 
         if (index == 0) {
             moveTo(xFirstPoint.toPx(), yFirstPoint.toFloat())
@@ -118,14 +139,6 @@ private fun DrawScope.drawLineAsQuadratic(
                 xSecondPoint.toPx(),
                 ySecondPoint.toFloat()
             )
-            if (clickedOnThisPoint) {
-                drawCircle(
-                    color = line.lineColor,
-                    radius = 5.dp.toPx(),
-                    center = Offset(xFirstPoint.toPx(), yFirstPoint.toFloat())
-                )
-            }
-
         } else {
             medX = ((xFirstPoint + xSecondPoint) / 2f).toPx()
             cubicTo(
@@ -136,20 +149,17 @@ private fun DrawScope.drawLineAsQuadratic(
                 xSecondPoint.toPx(),
                 ySecondPoint.toFloat()
             )
-            if (clickedOnThisPoint) {
-                drawCircle(
-                    color = line.lineColor,
-                    radius = 5.dp.toPx(),
-                    center = Offset(xFirstPoint.toPx(), yFirstPoint.toFloat())
-                )
-            }
         }
-        if (index == 0 && specialChart) {
-            chartCircle(xFirstPoint.toPx(), yFirstPoint.toFloat(), color = lineParameter.lineColor, animatedProgress)
-        }
-        println(clickedOnThisPoint)
-    }
 
+        if (index == 0 && specialChart) {
+            chartCircle(
+                xFirstPoint.toPx(),
+                yFirstPoint.toFloat(),
+                color = lineParameter.lineColor,
+                animatedProgress = animatedProgress,
+            )
+        }
+    }
 }
 
 private fun checkLastIndex(data: List<Double>, index: Int): Int {

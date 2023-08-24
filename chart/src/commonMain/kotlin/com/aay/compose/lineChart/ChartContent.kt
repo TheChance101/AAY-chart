@@ -42,7 +42,7 @@ internal fun ChartContent(
     showXAxis : Boolean,
     showYAxis : Boolean,
     specialChart : Boolean,
-    onChartClick: (Float, Float) -> Unit, // Add this callback
+    onChartClick: (Float, Float) -> Unit,
     clickedPoints : MutableList<Pair<Float, Float>>
 
 ) {
@@ -111,10 +111,14 @@ internal fun ChartContent(
                     spacingY = spacingY,
                     specialChart = specialChart,
                     clickedPoints  = clickedPoints,
+                    textMeasure
                 )
 
             }
         }else {
+            if (linesParameters.size >= 2){
+                clickedPoints.clear()
+            }
             linesParameters.forEach { line ->
                 if (line.lineType == LineType.DEFAULT_LINE) {
 
@@ -126,7 +130,8 @@ internal fun ChartContent(
                         xAxisSize = xAxisData.size,
                         spacingX = spacingX,
                         spacingY = spacingY,
-                        clickedPoints = clickedPoints
+                        clickedPoints = clickedPoints,
+                        textMeasure = textMeasure
                     )
 
                 } else {
@@ -140,6 +145,7 @@ internal fun ChartContent(
                         spacingY = spacingY,
                         specialChart = specialChart,
                         clickedPoints  = clickedPoints,
+                        textMeasure
                     )
 
                 }

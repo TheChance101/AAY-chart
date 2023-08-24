@@ -2,19 +2,23 @@ package com.aay.compose.lineChart.lines
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.text.ExperimentalTextApi
+import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import com.aay.compose.lineChart.model.LineParameters
-import kotlin.math.hypot
+import com.aay.compose.utils.clickedOnThisPoint
 
+private var lastClickedPoint: Pair<Float, Float>? = null
 
+@OptIn(ExperimentalTextApi::class)
 fun DrawScope.drawDefaultLineWithShadow(
     line: LineParameters,
     lowerValue: Float,
@@ -23,8 +27,10 @@ fun DrawScope.drawDefaultLineWithShadow(
     xAxisSize: Int,
     spacingX: Dp,
     spacingY: Dp,
-    clickedPoints: MutableList<Pair<Float, Float>>, // Add this parameter
+    clickedPoints: MutableList<Pair<Float, Float>>,
+    textMeasure: TextMeasurer,
 ) {
+
     val spaceBetweenXes = (size.width.toDp() - spacingX) / xAxisSize
     val strokePathOfDefaultLine = drawLineAsDefault(
         lineParameter = line,
@@ -34,7 +40,8 @@ fun DrawScope.drawDefaultLineWithShadow(
         animatedProgress = animatedProgress,
         spacingX = spacingX,
         spacingY = spacingY,
-        clickedPoints = clickedPoints, // Pass the clicked points list
+        clickedPoints = clickedPoints,
+        textMeasure = textMeasure
     )
 
     if (line.lineShadow) {
@@ -54,7 +61,7 @@ fun DrawScope.drawDefaultLineWithShadow(
     }
 }
 
-
+@OptIn(ExperimentalTextApi::class)
 private fun DrawScope.drawLineAsDefault(
     lineParameter: LineParameters,
     lowerValue: Float,
@@ -63,8 +70,10 @@ private fun DrawScope.drawLineAsDefault(
     animatedProgress: Animatable<Float, AnimationVector1D>,
     spacingX: Dp,
     spacingY: Dp,
-    clickedPoints: MutableList<Pair<Float, Float>>, // Add this parameter
+    clickedPoints: MutableList<Pair<Float, Float>>,
+    textMeasure: TextMeasurer,
 ) = Path().apply {
+
     val height = size.height.toDp()
     drawPathLineWrapper(
         lineParameter = lineParameter,
@@ -79,32 +88,36 @@ private fun DrawScope.drawLineAsDefault(
         val startYPoint =
             (height.toPx() + 5.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
 
-        val tolerance = 20.dp.toPx() // Adjust this value as needed
-        val clickedOnThisPoint = clickedPoints.any {
-            val xDiff = it.first - startXPoint.toPx()
-            val yDiff = it.second - startYPoint
-            val distance = hypot(xDiff.toDouble(), yDiff)
-            distance <= tolerance
+        val tolerance = 20.dp.toPx()
+        val savedClicks =
+            clickedOnThisPoint(clickedPoints, startYPoint.toFloat(), startYPoint, tolerance)
+        if (savedClicks) {
+            if (lastClickedPoint != null) {
+                clickedPoints.clear()
+                lastClickedPoint = null
+            } else {
+                lastClickedPoint = Pair(startXPoint.toPx(), startYPoint.toFloat())
+                chartCircle(
+                    x = startXPoint.toPx(),
+                    y = startYPoint.toFloat(),
+                    color = lineParameter.lineColor,
+                    animatedProgress = animatedProgress,
+                    Stroke(width = 2.dp.toPx())
+                )
+                chartRectangleWithText(
+                    startXPoint,
+                    startYPoint,
+                    lineParameter.lineColor,
+                    textMeasure,
+                    info
+                )
+            }
         }
 
         if (index == 0) {
             moveTo(startXPoint.toPx(), startYPoint.toFloat())
-            if (clickedOnThisPoint) {
-                drawCircle(
-                    color = lineParameter.lineColor,
-                    radius = 5.dp.toPx(),
-                    center = Offset(startXPoint.toPx(), startYPoint.toFloat())
-                )
-            }
         } else {
             lineTo(startXPoint.toPx(), startYPoint.toFloat())
-            if (clickedOnThisPoint) {
-                drawCircle(
-                    color = lineParameter.lineColor,
-                    radius = 5.dp.toPx(),
-                    center = Offset(startXPoint.toPx(), startYPoint.toFloat())
-                )
-            }
         }
     }
 }

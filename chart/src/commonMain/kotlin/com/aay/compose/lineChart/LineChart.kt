@@ -30,10 +30,10 @@ fun LineChart(
     xAxisStyle: TextStyle = ChartDefaultValues.axesStyle,
     chartRatio: Float = ChartDefaultValues.chartRatio,
     horizontalArrangement: Arrangement.Horizontal = ChartDefaultValues.headerArrangement,
-    yAxisRange : Int = ChartDefaultValues.yAxisRange,
-    showXAxis : Boolean = ChartDefaultValues.showXAxis,
-    showYAxis : Boolean = ChartDefaultValues.showyAxis,
-    oneLineChart : Boolean = ChartDefaultValues.specialChart
+    yAxisRange: Int = ChartDefaultValues.yAxisRange,
+    showXAxis: Boolean = ChartDefaultValues.showXAxis,
+    showYAxis: Boolean = ChartDefaultValues.showyAxis,
+    oneLineChart: Boolean = ChartDefaultValues.specialChart,
 ) {
     val clickedPoints = remember { mutableStateListOf<Pair<Float, Float>>() }
 
@@ -73,10 +73,6 @@ fun LineChart(
                 showYAxis = showYAxis,
                 specialChart = oneLineChart,
                 onChartClick = { x, y ->
-                    // Handle the chart click event here
-                    // Calculate the data values corresponding to the clicked coordinates (x, y)
-                    // Draw the circle using the drawCircle function with the calculated coordinates
-                    println("this is $x and this is $y ")
                     clickedPoints.add(x to y)
                 },
 

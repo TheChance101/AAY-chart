@@ -18,27 +18,27 @@ import com.aay.compose.lineChart.model.LineType
 fun LineChartSample() {
 
     val testLineParameters: List<LineParameters> = listOf(
-        LineParameters(
-            dataName = "revenue",
-            data = listOf(100.0, 20.6, 50.33, 40.0, 100.232, 300.0),
-            lineColor = Color.Gray,
-            lineType = LineType.DEFAULT_LINE,
-            lineShadow = false,
-        ),
 //        LineParameters(
-//            dataName = "Earnings",
-//            data = listOf(100.0, 80.6, 40.33, 86.232, 88.0, 300.0),
-//            lineColor = Color(0xFFFF7F50),
+//            dataName = "revenue",
+//            data = listOf(100.0, 20.6, 50.33, 40.0, 100.232, 300.0),
+//            lineColor = Color.Gray,
 //            lineType = LineType.DEFAULT_LINE,
-//            lineShadow = true
+//            lineShadow = false,
 //        ),
         LineParameters(
             dataName = "Earnings",
-            data = listOf(1.0, 40.0, 11.33, 55.232,1.0, 100.0),
-            lineColor = Color(0xFF81BE88),
+            data = listOf(100.0, 80.6, 40.33, 86.232, 88.0, 300.0),
+            lineColor = Color(0xFFFF7F50),
             lineType = LineType.QUADRATIC_LINE,
-            lineShadow = false,
-        )
+            lineShadow = true
+        ),
+//        LineParameters(
+//            dataName = "Earnings",
+//            data = listOf(1.0, 40.0, 11.33, 55.232,1.0, 100.0),
+//            lineColor = Color(0xFF81BE88),
+//            lineType = LineType.QUADRATIC_LINE,
+//            lineShadow = false,
+//        )
     )
 
     Box(Modifier.padding(24.dp)) {
@@ -59,7 +59,6 @@ fun LineChartSample() {
                 fontWeight = FontWeight.W400
             ),
             yAxisRange = 14,
-            oneLineChart = false
         )
     }
 }
