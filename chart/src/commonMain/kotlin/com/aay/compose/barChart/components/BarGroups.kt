@@ -20,15 +20,14 @@ internal fun DrawScope.drawBarGroups(
 ) {
 
     val height = size.height.toDp().toPx()
-    val width = size.width.toDp()
+    val width = 800.dp
 
     barsParameters.forEachIndexed { barIndex, bar ->
-
 
         bar.data.forEachIndexed { index, data ->
             val ratio = (((data.toFloat() - lowerValue) / (upperValue)) / 1.12.dp.toPx()).dp.toPx()
             val barLength = ratio * (height- (spacingY.toPx() / 4.dp.toPx()))
-            val xAxisLength = ((spacingX * 0.6.dp.toPx()) + (index * ((width - spacingX) / xAxisData.size)))
+            val xAxisLength = ( (index * ((width - 20.dp) / xAxisData.size)))
             val lengthWithRatio = xAxisLength + (barIndex * (barWidthPx + (barWidthPx / 2)))
 
             drawRect(

@@ -3,8 +3,12 @@ package com.aay.compose.barChart.components
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
@@ -32,15 +36,15 @@ internal fun BarChartContent(
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
     backgroundLineWidth: Float,
-    yAxisRange : Int,
-    showXAxis : Boolean,
-    showYAxis : Boolean,
+    yAxisRange: Int,
+    showXAxis: Boolean,
+    showYAxis: Boolean,
     gridOrientation: Orientation
 ) {
 
     val textMeasure = rememberTextMeasurer()
 
-    val animatedProgress =  remember(barsParameters) {
+    val animatedProgress = remember(barsParameters) {
         if (animateChart) Animatable(0f) else Animatable(1f)
     }
 
@@ -51,42 +55,65 @@ internal fun BarChartContent(
         mutableStateOf(barsParameters.getLowerValue())
     }
 
-    Canvas(
-        modifier = modifier
-            .fillMaxSize()
-    ) {
+    var with by remember { mutableStateOf(1000.dp) }
 
-        val spacingX = (size.width / 18.dp.toPx()).dp
-        val spacingY = (size.height / 8.dp.toPx()).dp
+    Box {
 
-        baseChartContainer(
-            xAxisData = xAxisData,
-            textMeasure = textMeasure,
-            upperValue = upperValue.toFloat(),
-            lowerValue = lowerValue.toFloat(),
-            isShowGrid = isShowGrid,
-            backgroundLineWidth = backgroundLineWidth,
-            gridColor = gridColor,
-            showGridWithSpacer = showGridWithSpacer,
-            spacingX = spacingX,
-            spacingY = spacingY,
-            yAxisStyle = yAxisStyle,
-            xAxisStyle = xAxisStyle,
-            yAxisRange = yAxisRange,
-            showXAxis = showXAxis,
-            showYAxis = showYAxis,
-            gridOrientation = gridOrientation
-        )
+        Canvas(
+            modifier = modifier
+                .fillMaxSize()
+        ) {
 
-        drawBarGroups(
-            barsParameters = barsParameters,
-            upperValue = upperValue,
-            lowerValue = lowerValue,
-            spacingX = spacingX,
-            spacingY = spacingY,
-            xAxisData = xAxisData,
-            barWidthPx = barWidthPx
-        )
+            val spacingX = (size.width / 18.dp.toPx()).dp
+            val spacingY = (size.height / 8.dp.toPx()).dp
+
+            baseChartContainer(
+                xAxisData = xAxisData,
+                textMeasure = textMeasure,
+                upperValue = upperValue.toFloat(),
+                lowerValue = lowerValue.toFloat(),
+                isShowGrid = isShowGrid,
+                backgroundLineWidth = backgroundLineWidth,
+                gridColor = gridColor,
+                showGridWithSpacer = showGridWithSpacer,
+                spacingX = spacingX,
+                spacingY = spacingY,
+                yAxisStyle = yAxisStyle,
+                xAxisStyle = xAxisStyle,
+                yAxisRange = yAxisRange,
+                showXAxis = showXAxis,
+                showYAxis = showYAxis,
+                gridOrientation = gridOrientation
+            )
+        }
+
+
+        //todo: this box show have a width like in x-axis
+        //todo: x-axis space should take the width from group bar width
+        Box(
+            modifier = Modifier
+                .padding(start = 55.dp)
+                .fillMaxSize().horizontalScroll(rememberScrollState())
+        ) {
+
+            Canvas(
+                modifier.width(with).fillMaxHeight()
+
+            ) {
+                val spacingX = (size.width / 18.dp.toPx()).dp
+                val spacingY = (size.height / 8.dp.toPx()).dp
+
+                drawBarGroups(
+                    barsParameters = barsParameters,
+                    upperValue = upperValue,
+                    lowerValue = lowerValue,
+                    spacingX = spacingX,
+                    spacingY = spacingY,
+                    xAxisData = xAxisData,
+                    barWidthPx = barWidthPx
+                )
+            }
+        }
     }
 
 
