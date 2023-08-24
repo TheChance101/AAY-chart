@@ -22,16 +22,16 @@ fun LineChartSample() {
             dataName = "revenue",
             data = listOf(100.0, 20.6, 50.33, 40.0, 100.232, 300.0),
             lineColor = Color.Gray,
-            lineType = LineType.QUADRATIC_LINE,
+            lineType = LineType.DEFAULT_LINE,
             lineShadow = false,
         ),
-        LineParameters(
-            dataName = "Earnings",
-            data = listOf(100.0, 80.6, 40.33, 86.232, 88.0, 300.0),
-            lineColor = Color(0xFFFF7F50),
-            lineType = LineType.DEFAULT_LINE,
-            lineShadow = true
-        ),
+//        LineParameters(
+//            dataName = "Earnings",
+//            data = listOf(100.0, 80.6, 40.33, 86.232, 88.0, 300.0),
+//            lineColor = Color(0xFFFF7F50),
+//            lineType = LineType.DEFAULT_LINE,
+//            lineShadow = true
+//        ),
         LineParameters(
             dataName = "Earnings",
             data = listOf(1.0, 40.0, 11.33, 55.232,1.0, 100.0),
