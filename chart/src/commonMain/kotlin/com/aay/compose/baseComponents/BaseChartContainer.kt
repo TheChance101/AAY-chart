@@ -1,6 +1,7 @@
 package com.aay.compose.baseComponents
 
 
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.ExperimentalTextApi
@@ -23,10 +24,10 @@ fun <T> DrawScope.baseChartContainer(
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
     yAxisRange : Int,
-    chartHeight : Dp,
     showXAxis : Boolean,
     showYAxis : Boolean,
-    specialChart : Boolean = false
+    specialChart : Boolean = false,
+    gridOrientation: Orientation
 ) {
   if(showXAxis) {
       xAxisDrawing(
@@ -59,6 +60,7 @@ fun <T> DrawScope.baseChartContainer(
         spacingX = spacingX,
         spacingY = spacingY,
         yAxisRange = yAxisRange ,
-        specialChart = specialChart
+        specialChart = specialChart,
+        gridOrientation = gridOrientation
     )
 }

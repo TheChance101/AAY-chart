@@ -3,6 +3,7 @@ package com.aay.compose.barChart.components
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -34,6 +35,7 @@ internal fun BarChartContent(
     yAxisRange : Int,
     showXAxis : Boolean,
     showYAxis : Boolean,
+    gridOrientation: Orientation
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -56,7 +58,6 @@ internal fun BarChartContent(
 
         val spacingX = (size.width / 18.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
-        val chartHeight = size.height.dp - spacingY
 
         baseChartContainer(
             xAxisData = xAxisData,
@@ -72,9 +73,9 @@ internal fun BarChartContent(
             yAxisStyle = yAxisStyle,
             xAxisStyle = xAxisStyle,
             yAxisRange = yAxisRange,
-            chartHeight = chartHeight,
             showXAxis = showXAxis,
             showYAxis = showYAxis,
+            gridOrientation = gridOrientation
         )
 
         drawBarGroups(

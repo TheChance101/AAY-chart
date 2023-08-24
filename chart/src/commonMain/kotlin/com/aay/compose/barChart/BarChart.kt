@@ -1,5 +1,6 @@
 package com.aay.compose.barChart
 
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -31,9 +32,10 @@ fun BarChart(
     horizontalArrangement: Arrangement.Horizontal = ChartDefaultValues.headerArrangement,
     backgroundLineWidth: Float = ChartDefaultValues.backgroundLineWidth.value,
     yAxisRange: Int = ChartDefaultValues.yAxisRange,
-    showXAxis : Boolean = ChartDefaultValues.showXAxis,
-    showYAxis: Boolean = ChartDefaultValues.showyAxis
-    ) {
+    showXAxis: Boolean = ChartDefaultValues.showXAxis,
+    showYAxis: Boolean = ChartDefaultValues.showyAxis,
+    gridOrientation: Orientation = ChartDefaultValues.gridOrientation
+) {
 
     Box(modifier.wrapContentHeight()) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -69,7 +71,8 @@ fun BarChart(
                 backgroundLineWidth = backgroundLineWidth,
                 yAxisRange = yAxisRange,
                 showXAxis = showXAxis,
-                showYAxis = showYAxis
+                showYAxis = showYAxis,
+                gridOrientation = gridOrientation
             )
         }
     }

@@ -20,7 +20,7 @@ fun DrawScope.drawQuarticLineWithShadow(
     spacingY: Dp,
     specialChart: Boolean,
 ) {
-    val spaceBetweenXes = (size.width.toDp() - spacingX) / xAxisSize
+    val spaceBetweenXes = 100.dp
     val strokePathOfQuadraticLine = drawLineAsQuadratic(
         line = line,
         lowerValue = lowerValue,
@@ -34,8 +34,8 @@ fun DrawScope.drawQuarticLineWithShadow(
 
     if (line.lineShadow && !specialChart) {
         val fillPath = strokePathOfQuadraticLine.apply {
-            lineTo(size.width - spaceBetweenXes.toPx() + 32.dp.toPx(), size.height)
-            lineTo(spacingX.toPx() + 25.dp.toPx(), size.height)
+            lineTo((spaceBetweenXes.toPx() * line.data.size) - 20.dp.toPx(), size.height)
+            lineTo(spaceBetweenXes.toPx() - 20.dp.toPx(), size.height)
             close()
         }
         clipRect(right = size.width * animatedProgress.value) {
@@ -74,8 +74,8 @@ private fun DrawScope.drawLineAsQuadratic(
         val firstRatio = (info - lowerValue) / (upperValue - lowerValue)
         val secondRatio = (nextInfo - lowerValue) / (upperValue - lowerValue)
 
-        val xFirstPoint = (spacingX + 50.dp / 0.8.dp.toPx()) + index * spaceBetweenXes
-        val xSecondPoint = (spacingX + 50.dp / 0.8.dp.toPx()) + (
+        val xFirstPoint = (spaceBetweenXes - 20.dp) + index * spaceBetweenXes
+        val xSecondPoint = (spaceBetweenXes - 20.dp) + (
                 index + checkLastIndex(lineParameter.data, index)
                 ) * spaceBetweenXes
 

@@ -1,5 +1,6 @@
 package com.aay.compose.lineChart
 
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -31,7 +32,8 @@ fun LineChart(
     yAxisRange : Int = ChartDefaultValues.yAxisRange,
     showXAxis : Boolean = ChartDefaultValues.showXAxis,
     showYAxis : Boolean = ChartDefaultValues.showyAxis,
-    oneLineChart : Boolean = ChartDefaultValues.specialChart
+    oneLineChart : Boolean = ChartDefaultValues.specialChart,
+    gridOrientation: Orientation = ChartDefaultValues.gridOrientation
 ) {
 
     Box(modifier.wrapContentHeight()) {
@@ -68,7 +70,8 @@ fun LineChart(
                 yAxisRange = yAxisRange,
                 showXAxis = showXAxis,
                 showYAxis = showYAxis,
-                specialChart = oneLineChart
+                specialChart = oneLineChart,
+                gridOrientation = gridOrientation
             )
         }
     }

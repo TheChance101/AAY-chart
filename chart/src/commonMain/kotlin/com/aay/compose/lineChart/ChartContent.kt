@@ -5,6 +5,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -40,6 +41,7 @@ internal fun ChartContent(
     showXAxis : Boolean,
     showYAxis : Boolean,
     specialChart : Boolean,
+    gridOrientation: Orientation
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -62,8 +64,6 @@ internal fun ChartContent(
 
         val spacingX = (size.width / 18.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
-        val chartHeight = size.height.dp - spacingY
-        val chartWidth = size.width.dp - spacingX
 
         baseChartContainer(
             xAxisData = xAxisData,
@@ -82,7 +82,7 @@ internal fun ChartContent(
             showXAxis  = showXAxis,
             showYAxis = showYAxis,
             specialChart = specialChart,
-            chartHeight = chartHeight
+            gridOrientation = gridOrientation
         )
 
         if (specialChart){

@@ -1,5 +1,6 @@
 package com.aay.compose.utils
 
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -51,5 +52,7 @@ object ChartDefaultValues {
     const val specialChart = false
     const val showXAxis = true
     const val showyAxis = true
+
+    val gridOrientation = Orientation.Vertical
 
 }
