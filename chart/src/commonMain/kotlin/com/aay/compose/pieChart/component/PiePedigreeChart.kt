@@ -102,7 +102,7 @@ internal fun DrawScope.drawPedigreeChart(
                 drawText(
                     textMeasurer = textMeasure,
                     text = "${getPartRatio(pieValueWithRatio, index)}%",
-                    style = TextStyle.Default.copy(fontSize = 16.sp),
+                    style = TextStyle.Default.copy(fontSize = 12.sp),
                     topLeft = Offset(textOffset.x,textOffset.y-20.dp.toPx()) ,
                     overflow = TextOverflow.Visible
                 )
