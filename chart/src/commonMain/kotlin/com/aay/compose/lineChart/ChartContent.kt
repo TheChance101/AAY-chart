@@ -17,11 +17,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import com.aay.compose.baseComponents.baseChartContainer
-import com.aay.compose.lineChart.lines.drawDefaultLineWithShadow
+import com.aay.compose.lineChart.components.drawDefaultLineWithShadow
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
 import com.aay.compose.utils.checkIfDataValid
-import com.aay.compose.lineChart.lines.drawQuarticLineWithShadow
+import com.aay.compose.lineChart.components.drawQuarticLineWithShadow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

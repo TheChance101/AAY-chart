@@ -1,4 +1,4 @@
-package com.aay.compose.lineChart.lines
+package com.aay.compose.lineChart.components
 
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
