@@ -43,7 +43,6 @@ fun PieChartSample() {
         modifier = Modifier.wrapContentSize(),
         pieChartData = testPieChartData,
         centerTitle = "Orders",
-        radiusOuter = 200.dp
     )
 
 }

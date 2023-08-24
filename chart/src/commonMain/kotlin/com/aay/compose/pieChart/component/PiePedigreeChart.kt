@@ -35,7 +35,7 @@ internal fun DrawScope.drawPedigreeChart(
         .coerceAtMost(size.width / 2)
     var startArc = -90F
     var startArcWithoutAnimation = -90f
-    val arcWidth = (size.minDimension.dp.toPx() * 0.13f).coerceAtMost(minValue / 2)
+    val arcWidth = (size.minDimension.dp.toPx() * 0.13f).coerceAtMost(minValue / 4)
     val width = size.height
     val radius = width / 2f
     val outerCircularRadius = (minValue / 2) + (arcWidth / 1.2f)
@@ -97,12 +97,13 @@ internal fun DrawScope.drawPedigreeChart(
             draPieCircle(
                 circleColor = Color.Gray, radiusRatioCircle = (minValue / 2) - (arcWidth / 1.2f)
             )
+            val textOffset =getOffsetByRegion(regionSign, lineEnd.x, secondLineEnd.y, arcWidth)
             drawContext.canvas.nativeCanvas.apply {
                 drawText(
                     textMeasurer = textMeasure,
-                    text = "${getPartRatio(pieValueWithRatio, index).toInt()}%",
+                    text = "${getPartRatio(pieValueWithRatio, index)}%",
                     style = TextStyle.Default.copy(fontSize = 16.sp),
-                    topLeft = getOffsetByRegion(regionSign, lineEnd.x, secondLineEnd.y, arcWidth),
+                    topLeft = Offset(textOffset.x,textOffset.y-20.dp.toPx()) ,
                     overflow = TextOverflow.Visible
                 )
             }
@@ -128,9 +129,9 @@ private fun getPartRatio(pieValueWithRatio: List<Float>, index: Int): Int {
 
 private fun getOffsetByRegion(regionSign: Int, x: Float, y: Float, arcWidth: Float): Offset {
     return if (regionSign == 1) {
-        Offset(x + arcWidth / 4, y - 25.dp.value)
+        Offset(x + arcWidth / 4, y )
     } else {
-        Offset(x - arcWidth / 1.2f, y - 25.dp.value)
+        Offset(x - arcWidth , y )
     }
 }
 
