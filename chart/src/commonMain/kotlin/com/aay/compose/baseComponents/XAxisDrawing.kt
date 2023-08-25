@@ -36,3 +36,34 @@ fun <T> DrawScope.xAxisDrawing(
         }
     }
 }
+@OptIn(ExperimentalTextApi::class)
+fun <T> DrawScope.xAxisDrawing(
+    xAxisData: List<T>,
+    spacing: Dp,
+    textMeasure: TextMeasurer,
+    xAxisStyle: TextStyle,
+    specialChart: Boolean,
+    xRegionWidth:Float,
+    xRegionWidthWithoutSpacing: Float,
+) {
+    if (specialChart) {
+        return
+    }
+    val spaceBetweenXes = 100.dp.toPx()
+
+    xAxisData.forEachIndexed { index, dataPoint ->
+        val xLength = spaceBetweenXes + (index * xRegionWidth)
+        drawContext.canvas.nativeCanvas.apply {
+            drawText(
+                textMeasurer = textMeasure,
+                text = dataPoint.toString(),
+                style = xAxisStyle,
+                maxLines = 1,
+                topLeft = Offset(
+                    xLength.coerceAtMost(size.width),
+                    size.height / 1.07f
+                )
+            )
+        }
+    }
+}

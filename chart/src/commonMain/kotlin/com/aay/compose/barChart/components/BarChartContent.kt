@@ -25,7 +25,6 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalTextApi::class)
 @Composable
 internal fun BarChartContent(
-    modifier: Modifier,
     barsParameters: List<BarParameters>,
     gridColor: Color,
     xAxisData: List<String>,
@@ -39,7 +38,8 @@ internal fun BarChartContent(
     yAxisRange: Int,
     showXAxis: Boolean,
     showYAxis: Boolean,
-    gridOrientation: Orientation
+    gridOrientation: Orientation,
+    boxSize:Dp,
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -55,17 +55,25 @@ internal fun BarChartContent(
         mutableStateOf(barsParameters.getLowerValue())
     }
 
-    var with by remember { mutableStateOf(1000.dp) }
-
-    Box {
+    var maxWidth by remember { mutableStateOf(0f) }
+    var barWidth by remember { mutableStateOf(0f) }
+    var xRegionWidthWithoutSpacing by remember { mutableStateOf(0f) }
+    var xRegionWidth by remember { mutableStateOf(0f) }
+    var spaceBetweenBars by remember { mutableStateOf(0f) }
+    Box(modifier = Modifier.size(boxSize)) {
 
         Canvas(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
         ) {
 
-            val spacingX = (size.width / 18.dp.toPx()).dp
-            val spacingY = (size.height / 8.dp.toPx()).dp
+            val spacingX = (boxSize / 18.dp.toPx())
+            val spacingY = (boxSize / 8.dp.toPx())
+            spaceBetweenBars = (boxSize.toPx() / 22.dp.toPx())
+            xRegionWidth = (boxSize.toPx()/5)
+            xRegionWidthWithoutSpacing = xRegionWidth-spacingX.toPx()
+            barWidth= xRegionWidthWithoutSpacing/barsParameters.size-spaceBetweenBars
+            maxWidth= xRegionWidth * xAxisData.size
 
             baseChartContainer(
                 xAxisData = xAxisData,
@@ -83,7 +91,10 @@ internal fun BarChartContent(
                 yAxisRange = yAxisRange,
                 showXAxis = showXAxis,
                 showYAxis = showYAxis,
-                gridOrientation = gridOrientation
+                gridOrientation = gridOrientation,
+                xRegionWidth = xRegionWidth,
+                xRegionWidthWithoutSpacing = xRegionWidthWithoutSpacing,
+                isFromBarChart = true,
             )
         }
 
@@ -97,7 +108,7 @@ internal fun BarChartContent(
         ) {
 
             Canvas(
-                modifier.width(with).fillMaxHeight()
+                Modifier.width(maxWidth.dp).fillMaxHeight()
 
             ) {
                 val spacingX = (size.width / 18.dp.toPx()).dp
@@ -110,7 +121,12 @@ internal fun BarChartContent(
                     spacingX = spacingX,
                     spacingY = spacingY,
                     xAxisData = xAxisData,
-                    barWidthPx = barWidthPx
+                    barWidthPx = barWidthPx,
+                    barWidth = barWidth,
+                    xRegionWidth = xRegionWidth,
+                    xRegionWidthWithoutSpacing = xRegionWidthWithoutSpacing,
+                    spaceBetweenBars = spaceBetweenBars
+
                 )
             }
         }

@@ -82,7 +82,10 @@ internal fun ChartContent(
             showXAxis  = showXAxis,
             showYAxis = showYAxis,
             specialChart = specialChart,
-            gridOrientation = gridOrientation
+            gridOrientation = gridOrientation,
+            xRegionWidth = 0f,
+            xRegionWidthWithoutSpacing = 0f,
+            isFromBarChart= false,
         )
 
         if (specialChart){

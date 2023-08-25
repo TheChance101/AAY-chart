@@ -1,8 +1,10 @@
 package com.aay.common
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,9 +42,8 @@ fun BarChartSample() {
 
     )
 
-    Box(Modifier.padding(24.dp)) {
+    Box(Modifier.padding(24.dp).background(Color.Blue.copy(0.5f)).wrapContentSize()) {
         BarChart(
-            modifier = Modifier.fillMaxSize(),
             chartParameters = testBarParameters,
             gridColor = Color.DarkGray,
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020"),
@@ -58,7 +59,8 @@ fun BarChartSample() {
                 color = Color.DarkGray,
                 fontWeight = FontWeight.W400
             ),
-            barWidthPx = 15.dp
+            barWidthPx = 15.dp,
+            boxSize = 500.dp
         )
     }
 }

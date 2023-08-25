@@ -23,21 +23,36 @@ fun <T> DrawScope.baseChartContainer(
     spacingY: Dp,
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
-    yAxisRange : Int,
-    showXAxis : Boolean,
-    showYAxis : Boolean,
-    specialChart : Boolean = false,
-    gridOrientation: Orientation
+    yAxisRange: Int,
+    showXAxis: Boolean,
+    showYAxis: Boolean,
+    specialChart: Boolean = false,
+    gridOrientation: Orientation,
+    xRegionWidth: Float,
+    xRegionWidthWithoutSpacing: Float,
+    isFromBarChart: Boolean,
 ) {
-  if(showXAxis) {
-      xAxisDrawing(
-          xAxisData = xAxisData,
-          spacing = spacingX,
-          textMeasure = textMeasure,
-          xAxisStyle = xAxisStyle,
-          specialChart = specialChart
-      )
-  }
+    if (showXAxis) {
+        if (isFromBarChart) {
+            xAxisDrawing(
+                xAxisData = xAxisData,
+                spacing = spacingX,
+                textMeasure = textMeasure,
+                xAxisStyle = xAxisStyle,
+                specialChart = specialChart,
+                xRegionWidth = xRegionWidth,
+                xRegionWidthWithoutSpacing = xRegionWidthWithoutSpacing,
+            )
+        }else{
+            xAxisDrawing(
+                xAxisData = xAxisData,
+                spacing = spacingX,
+                textMeasure = textMeasure,
+                xAxisStyle = xAxisStyle,
+                specialChart = specialChart,
+            )
+        }
+    }
 
     if (showYAxis) {
         yAxisDrawing(
@@ -59,7 +74,7 @@ fun <T> DrawScope.baseChartContainer(
         showGridWithSpacer = showGridWithSpacer,
         spacingX = spacingX,
         spacingY = spacingY,
-        yAxisRange = yAxisRange ,
+        yAxisRange = yAxisRange,
         specialChart = specialChart,
         gridOrientation = gridOrientation
     )

@@ -17,7 +17,6 @@ import com.aay.compose.utils.ChartDefaultValues
 
 @Composable
 fun BarChart(
-    modifier: Modifier = Modifier,
     chartParameters: List<BarParameters> = ChartDefaultValues.barParameters,
     gridColor: Color = ChartDefaultValues.gridColor,
     xAxisData: List<String> = emptyList(),
@@ -34,10 +33,11 @@ fun BarChart(
     yAxisRange: Int = ChartDefaultValues.yAxisRange,
     showXAxis: Boolean = ChartDefaultValues.showXAxis,
     showYAxis: Boolean = ChartDefaultValues.showyAxis,
-    gridOrientation: Orientation = ChartDefaultValues.gridOrientation
+    gridOrientation: Orientation = ChartDefaultValues.gridOrientation,
+    boxSize:Dp
 ) {
 
-    Box(modifier.wrapContentHeight()) {
+    Box(Modifier.wrapContentHeight().width(boxSize)) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             LazyRow(
                 horizontalArrangement = horizontalArrangement,
@@ -56,9 +56,6 @@ fun BarChart(
             }
 
             BarChartContent(
-                modifier = if (chartRatio == 0f) Modifier.wrapContentSize()
-                else Modifier.aspectRatio(chartRatio)
-                    .fillMaxSize(),
                 barsParameters = chartParameters,
                 gridColor = gridColor,
                 xAxisData = xAxisData,
@@ -72,7 +69,8 @@ fun BarChart(
                 yAxisRange = yAxisRange,
                 showXAxis = showXAxis,
                 showYAxis = showYAxis,
-                gridOrientation = gridOrientation
+                gridOrientation = gridOrientation,
+                boxSize =boxSize,
             )
         }
     }
