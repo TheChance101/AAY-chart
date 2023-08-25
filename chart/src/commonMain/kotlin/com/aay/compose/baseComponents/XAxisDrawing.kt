@@ -21,7 +21,7 @@ fun <T> DrawScope.xAxisDrawing(
     val spaceBetweenXes = (size.width - spacing.toPx()) / xAxisData.size
 
     xAxisData.forEachIndexed { index, dataPoint ->
-        val xLength = (spacing + 30.dp / 2) + (index * spaceBetweenXes).toDp()
+        val xLength = (spacing + 60.dp / 2) + (index * spaceBetweenXes).toDp()
         drawContext.canvas.nativeCanvas.apply {
             drawText(
                 textMeasurer = textMeasure,
