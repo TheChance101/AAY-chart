@@ -9,9 +9,9 @@ fun App() {
 //    LineChartSample()
 
     /** Sample of Bar Chart **/
-    BarChartSample()
+//    BarChartSample()
 
     /** Sample of Pie Chart **/
-//    PieChartSample()
+    PieChartSample()
 
 }

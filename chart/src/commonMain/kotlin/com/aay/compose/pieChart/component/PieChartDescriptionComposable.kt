@@ -1,9 +1,6 @@
 package com.aay.compose.pieChart.component
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -16,13 +13,14 @@ import com.aay.compose.pieChart.model.PieChartData
 @Composable
 internal fun PieChartDescriptionComposable(
     pieChartData: List<PieChartData>,
-    descriptionStyle: TextStyle = TextStyle.Default
+    descriptionStyle: TextStyle = TextStyle.Default,
+    modifier: Modifier=Modifier
 ) {
 
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(24.dp),
-        modifier = Modifier
-            .wrapContentSize()
+        modifier = modifier
+            .fillMaxSize()
             .padding(bottom = 16.dp, top = 50.dp),
         contentPadding = PaddingValues(16.dp)
     ) {

@@ -27,7 +27,7 @@ fun DrawScope.grid(
     val yAxisList = mutableListOf<Float>()
 
     if (isShowGrid) {
-        (0..yAxisRange + 1).forEach { i ->
+        (0..yAxisRange ).forEach { i ->
             yAxisList.add(
                 size.height.toDp().toPx() - spacingY.toPx() - i * (size.height.toDp() - spacingY).toPx() / (yAxisRange)
             )
