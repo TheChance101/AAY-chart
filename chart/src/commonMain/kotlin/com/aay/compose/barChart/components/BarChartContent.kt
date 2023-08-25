@@ -3,9 +3,7 @@ package com.aay.compose.barChart.components
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -41,7 +39,7 @@ internal fun BarChartContent(
     showXAxis: Boolean,
     showYAxis: Boolean,
     gridOrientation: Orientation,
-    boxSize:Dp,
+    boxSize: Dp,
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -62,6 +60,7 @@ internal fun BarChartContent(
     var xRegionWidthWithoutSpacing by remember { mutableStateOf(0f) }
     var xRegionWidth by remember { mutableStateOf(0f) }
     var spaceBetweenBars by remember { mutableStateOf(0f) }
+
     Box(modifier = Modifier.size(boxSize)) {
 
         Canvas(
@@ -71,11 +70,11 @@ internal fun BarChartContent(
 
             val spacingX = (boxSize / 18)
             val spacingY = (boxSize / 8)
-            spaceBetweenBars = (boxSize.toPx() /1000)
-            xRegionWidth = (boxSize.toPx()/5)
-            xRegionWidthWithoutSpacing = xRegionWidth-(spacingX.toPx())
-            barWidth= (xRegionWidthWithoutSpacing/barsParameters.size)-spaceBetweenBars
-            maxWidth= xRegionWidth * xAxisData.size
+            spaceBetweenBars = (boxSize.toPx() / 1000)
+            xRegionWidth = (boxSize.toPx() / 5)
+            xRegionWidthWithoutSpacing = xRegionWidth - (spacingX.toPx())
+            barWidth = (xRegionWidthWithoutSpacing / barsParameters.size) - spaceBetweenBars
+            maxWidth = xRegionWidth * xAxisData.size
 
             baseChartContainer(
                 xAxisData = xAxisData,
@@ -123,11 +122,11 @@ internal fun BarChartContent(
                     spacingX = spacingX,
                     spacingY = spacingY,
                     xAxisData = xAxisData,
-                    barWidthPx = barWidthPx,
                     barWidth = barWidth,
                     xRegionWidth = xRegionWidth,
                     xRegionWidthWithoutSpacing = xRegionWidthWithoutSpacing,
-                    spaceBetweenBars = spaceBetweenBars
+                    spaceBetweenBars = spaceBetweenBars,
+                    maxWidth = maxWidth.dp
 
                 )
                 xAxisDrawing(
