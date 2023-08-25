@@ -104,7 +104,7 @@ internal fun BarChartContent(
         //todo: x-axis space should take the width from group bar width
         Box(
             modifier = Modifier
-                .padding(start = 55.dp)
+                .padding(start = 55.dp, bottom = 30.dp)
                 .fillMaxSize().horizontalScroll(rememberScrollState())
         ) {
 
