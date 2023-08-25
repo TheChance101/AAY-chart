@@ -34,10 +34,10 @@ fun PieChart(
     var totalSum = 0.0f
     val pieValueWithRatio = mutableListOf<Float>()
     pieChartData.forEach {
-        totalSum += it.data
+        totalSum += it.data.toFloat()
     }
     pieChartData.forEachIndexed { index, part ->
-        pieValueWithRatio.add(index, 360 * part.data / totalSum)
+        pieValueWithRatio.add(index, 360 * part.data.toFloat() / totalSum)
     }
 
 
@@ -47,7 +47,7 @@ fun PieChart(
     )
     val textSize = textLayoutResult.size
 
-    checkIfDataIsNegative(data = pieChartData.map { it.data.toDouble() })
+    checkIfDataIsNegative(data = pieChartData.map { it.data })
     val transitionProgress = remember(pieValueWithRatio) { Animatable(initialValue = 0F) }
 
     LaunchedEffect(pieChartData) {

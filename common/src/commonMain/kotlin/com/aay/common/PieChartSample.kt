@@ -15,27 +15,27 @@ fun PieChartSample() {
     val testPieChartData: List<PieChartData> = listOf(
         PieChartData(
             partName = "Aziza",
-            data = 500f,
+            data = 500.0,
             color = Color(0xFFF2BD00),
         ),
         PieChartData(
             partName = "Amnah",
-            data = 700f,
+            data = 700.0,
             color = Color(0xFF81BE88),
         ),
         PieChartData(
             partName = "Mohammed",
-            data = 500f,
+            data = 500.0,
             color = Color(0xFFFF7F50),
         ),
         PieChartData(
             partName = "Yassen",
-            data = 500f,
+            data = 500.0,
             color = Color(0xFF81BE88),
         ),
         PieChartData(
             partName = "Andrew",
-            data = 600f,
+            data = 600.0,
             color = Color.Yellow.copy(alpha = .5f),
         ),
     )
