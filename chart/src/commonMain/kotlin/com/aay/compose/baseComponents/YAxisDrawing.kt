@@ -26,9 +26,9 @@ fun DrawScope.yAxisDrawing(
     val dataRange = upperValue - lowerValue
     val dataStep = dataRange / yAxisRange
 
-    (0..yAxisRange).forEach { i ->
+    (0..yAxisRange + 1).forEach { i ->
         val yValue = lowerValue + dataStep * i
-        val y = (size.height.toDp() - spacing - i * (size.height.toDp() - spacing) / (yAxisRange - 1))
+        val y = (size.height.toDp() - spacing - i * (size.height.toDp() - spacing) / (yAxisRange))
         drawContext.canvas.nativeCanvas.apply {
             drawText(
                 textMeasurer = textMeasure,
