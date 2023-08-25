@@ -5,21 +5,23 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import com.aay.compose.baseComponents.baseChartContainer
-import com.aay.compose.lineChart.lines.drawDefaultLineWithShadow
-import com.aay.compose.lineChart.lines.drawQuarticLineWithShadow
+import com.aay.compose.lineChart.components.drawDefaultLineWithShadow
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
 import com.aay.compose.utils.checkIfDataValid
+import com.aay.compose.lineChart.components.drawQuarticLineWithShadow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -40,6 +42,9 @@ internal fun ChartContent(
     showXAxis : Boolean,
     showYAxis : Boolean,
     specialChart : Boolean,
+    onChartClick: (Float, Float) -> Unit,
+    clickedPoints : MutableList<Pair<Float, Float>>
+
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -58,12 +63,18 @@ internal fun ChartContent(
     Canvas(
         modifier = modifier
             .fillMaxSize()
+            .pointerInput(Unit) {
+                detectTapGestures { offset ->
+                    onChartClick(offset.x, offset.y)
+                }
+            }
     ) {
+
+
 
         val spacingX = (size.width / 18.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
         val chartHeight = size.height.dp - spacingY
-        val chartWidth = size.width.dp - spacingX
 
         baseChartContainer(
             xAxisData = xAxisData,
@@ -98,11 +109,16 @@ internal fun ChartContent(
                     xAxisSize = xAxisData.size,
                     spacingX = spacingX,
                     spacingY = spacingY,
-                    specialChart = specialChart
+                    specialChart = specialChart,
+                    clickedPoints  = clickedPoints,
+                    textMeasure
                 )
 
             }
         }else {
+            if (linesParameters.size >= 2){
+                clickedPoints.clear()
+            }
             linesParameters.forEach { line ->
                 if (line.lineType == LineType.DEFAULT_LINE) {
 
@@ -114,6 +130,8 @@ internal fun ChartContent(
                         xAxisSize = xAxisData.size,
                         spacingX = spacingX,
                         spacingY = spacingY,
+                        clickedPoints = clickedPoints,
+                        textMeasure = textMeasure
                     )
 
                 } else {
@@ -125,12 +143,15 @@ internal fun ChartContent(
                         xAxisSize = xAxisData.size,
                         spacingX = spacingX,
                         spacingY = spacingY,
-                        specialChart = specialChart
+                        specialChart = specialChart,
+                        clickedPoints  = clickedPoints,
+                        textMeasure
                     )
 
                 }
             }
         }
+
     }
 
     LaunchedEffect(linesParameters, animateChart) {

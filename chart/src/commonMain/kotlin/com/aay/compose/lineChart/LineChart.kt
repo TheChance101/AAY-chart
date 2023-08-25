@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -28,11 +30,12 @@ fun LineChart(
     xAxisStyle: TextStyle = ChartDefaultValues.axesStyle,
     chartRatio: Float = ChartDefaultValues.chartRatio,
     horizontalArrangement: Arrangement.Horizontal = ChartDefaultValues.headerArrangement,
-    yAxisRange : Int = ChartDefaultValues.yAxisRange,
-    showXAxis : Boolean = ChartDefaultValues.showXAxis,
-    showYAxis : Boolean = ChartDefaultValues.showyAxis,
-    oneLineChart : Boolean = ChartDefaultValues.specialChart
+    yAxisRange: Int = ChartDefaultValues.yAxisRange,
+    showXAxis: Boolean = ChartDefaultValues.showXAxis,
+    showYAxis: Boolean = ChartDefaultValues.showyAxis,
+    oneLineChart: Boolean = ChartDefaultValues.specialChart,
 ) {
+    val clickedPoints = remember { mutableStateListOf<Pair<Float, Float>>() }
 
     Box(modifier.wrapContentHeight()) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -68,7 +71,12 @@ fun LineChart(
                 yAxisRange = yAxisRange,
                 showXAxis = showXAxis,
                 showYAxis = showYAxis,
-                specialChart = oneLineChart
+                specialChart = oneLineChart,
+                onChartClick = { x, y ->
+                    clickedPoints.add(x to y)
+                },
+
+                clickedPoints = clickedPoints,
             )
         }
     }
