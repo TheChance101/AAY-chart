@@ -23,14 +23,14 @@ fun RadarChartSample() {
         color = Color.Black,
         fontFamily = FontFamily.Serif,
         fontWeight = FontWeight.Medium,
-        fontSize = 12.sp
+        fontSize = 10.sp
     )
 
     val scalarValuesStyle = TextStyle(
         color = Color.Black,
         fontFamily = FontFamily.Serif,
         fontWeight = FontWeight.Medium,
-        fontSize = 16.sp
+        fontSize = 10.sp
     )
 
     RadarChart(
