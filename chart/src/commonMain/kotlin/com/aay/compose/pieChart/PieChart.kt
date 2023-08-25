@@ -14,6 +14,7 @@ import com.aay.compose.pieChart.component.PieChartDescriptionComposable
 import com.aay.compose.pieChart.component.drawCenterText
 import com.aay.compose.pieChart.component.drawPedigreeChart
 import com.aay.compose.pieChart.model.PieChartData
+import com.aay.compose.utils.checkIfDataIsNegative
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
@@ -25,18 +26,18 @@ fun PieChart(
     animation: AnimationSpec<Float> = TweenSpec(durationMillis = 3000),
     descriptionStyle: TextStyle = TextStyle.Default,
     testRatioStyle: TextStyle = TextStyle.Default.copy(fontSize = 12.sp),
-    outerCircularColor: Color = Color.Blue,
-    innerCircularColor: Color = Color.Blue,
-    ratioLineColor: Color = Color.Blue
+    outerCircularColor: Color = Color.Gray,
+    innerCircularColor: Color = Color.Gray,
+    ratioLineColor: Color = Color.Gray
 ) {
 
     var totalSum = 0.0f
     val pieValueWithRatio = mutableListOf<Float>()
     pieChartData.forEach {
-        totalSum += it.data
+        totalSum += it.data.toFloat()
     }
     pieChartData.forEachIndexed { index, part ->
-        pieValueWithRatio.add(index, 360 * part.data / totalSum)
+        pieValueWithRatio.add(index, 360 * part.data.toFloat() / totalSum)
     }
 
 
@@ -46,7 +47,7 @@ fun PieChart(
     )
     val textSize = textLayoutResult.size
 
-
+    checkIfDataIsNegative(data = pieChartData.map { it.data })
     val transitionProgress = remember(pieValueWithRatio) { Animatable(initialValue = 0F) }
 
     LaunchedEffect(pieChartData) {

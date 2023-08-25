@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.aay.compose.pieChart.model.PieChartData
 import kotlin.math.cos
 import kotlin.math.min
+import kotlin.math.roundToInt
 import kotlin.math.sin
 
 @OptIn(ExperimentalTextApi::class)
@@ -46,13 +47,13 @@ internal fun DrawScope.drawPedigreeChart(
     pieValueWithRatio.forEachIndexed { index, value ->
 
         val arcWithAnimation = calculateAngle(
-            dataLength = pieChartData[index].data,
+            dataLength = pieChartData[index].data.toFloat(),
             totalLength = totalSum,
             progress = transitionProgress.value
         )
 
         val arcWithoutAnimation = calculateAngle(
-            dataLength = pieChartData[index].data, totalLength = totalSum
+            dataLength = pieChartData[index].data.toFloat(), totalLength = totalSum
         )
 
         val angleInRadians = (startArcWithoutAnimation + arcWithoutAnimation / 2).degreeToAngle
@@ -144,7 +145,7 @@ private fun calculateAngle(dataLength: Float, totalLength: Float): Float =
     -360F * dataLength / totalLength
 
 private fun getPartRatio(pieValueWithRatio: List<Float>, index: Int): Int {
-    return (pieValueWithRatio[index].toDouble() / 360.0 * 100).toInt()
+    return (pieValueWithRatio[index].toDouble() / 360.0 * 100).roundToInt()
 }
 
 private fun getOffsetByRegion(regionSign: Int, x: Float, y: Float, arcWidth: Float): Offset {

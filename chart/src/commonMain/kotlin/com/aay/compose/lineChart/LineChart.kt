@@ -21,7 +21,7 @@ fun LineChart(
     linesParameters: List<LineParameters> = ChartDefaultValues.lineParameters,
     gridColor: Color = ChartDefaultValues.gridColor,
     xAxisData: List<String> = emptyList(),
-    isShowGrid: Boolean = ChartDefaultValues.IS_SHOW_GRID,
+    isGrid: Boolean = ChartDefaultValues.IS_SHOW_GRID,
     barWidthPx: Dp = ChartDefaultValues.backgroundLineWidth,
     animateChart: Boolean = ChartDefaultValues.ANIMATED_CHART,
     showGridWithSpacer: Boolean = ChartDefaultValues.SHOW_BACKGROUND_WITH_SPACER,
@@ -49,7 +49,7 @@ fun LineChart(
                 items(linesParameters) { details ->
                     ChartDescription(
                         chartColor = details.lineColor,
-                        chartName = details.dataName,
+                        chartName = details.label,
                         descriptionStyle = descriptionStyle,
                     )
                 }
@@ -62,7 +62,7 @@ fun LineChart(
                 linesParameters = linesParameters,
                 gridColor = gridColor,
                 xAxisData = xAxisData,
-                isShowGrid = isShowGrid,
+                isShowGrid = isGrid,
                 barWidthPx = barWidthPx,
                 animateChart = animateChart,
                 showGridWithSpacer = showGridWithSpacer,
