@@ -69,6 +69,6 @@ fun RadarChartSample() {
                     borderStrokeCap = StrokeCap.Butt
                 )
             )
-        ),
+        )
     )
 }
