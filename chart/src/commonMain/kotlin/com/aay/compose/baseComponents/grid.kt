@@ -8,7 +8,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 fun DrawScope.grid(
-    xAxisDataSize: Int,
     isShowGrid: Boolean,
     gridColor: Color,
     backgroundLineWidth: Float,
@@ -21,21 +20,17 @@ fun DrawScope.grid(
     if (specialChart){
         return
     }
-    val minX = spacingX.toPx()
-    val xAxisMaxValue = size.width + xAxisDataSize
+    val xAxisMaxValue = size.width - spacingX.toPx()
 
     val yAxisList = mutableListOf<Float>()
 
     if (isShowGrid) {
-        (0..yAxisRange + 1).forEach { i ->
+        (0..yAxisRange ).forEach { i ->
             yAxisList.add(
                 size.height.toDp().toPx() - spacingY.toPx() - i * (size.height.toDp() - spacingY).toPx() / (yAxisRange)
             )
             val yAlignmentValue = yAxisList[i] + 5.dp.toPx()
 
-            val xEnd = (size.width - (spacingX.toPx())).coerceAtMost(
-                xAxisMaxValue - spacingX.toPx().div(0.7.dp.toPx())
-            ).coerceAtLeast(minX)
 
             drawLine(
                 gridColor,
