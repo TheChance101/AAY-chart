@@ -90,7 +90,9 @@ private fun DrawScope.drawLineAsDefault(
 
         val tolerance = 20.dp.toPx()
         val savedClicks =
-            clickedOnThisPoint(clickedPoints, startYPoint.toFloat(), startYPoint, tolerance)
+            clickedOnThisPoint(clickedPoints, startXPoint.toPx(), startYPoint, tolerance)
+
+
         if (savedClicks) {
             if (lastClickedPoint != null) {
                 clickedPoints.clear()
