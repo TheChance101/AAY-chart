@@ -1,4 +1,4 @@
-package com.aay.compose.radarChart
+package com.aay.compose.radarChart.model
 
 import androidx.compose.ui.geometry.Offset
 

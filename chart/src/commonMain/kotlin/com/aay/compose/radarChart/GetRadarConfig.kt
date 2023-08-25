@@ -2,6 +2,7 @@ package com.aay.compose.radarChart
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import com.aay.compose.radarChart.model.RadarChartConfig
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
