@@ -14,6 +14,7 @@ import com.aay.compose.pieChart.component.PieChartDescriptionComposable
 import com.aay.compose.pieChart.component.drawCenterText
 import com.aay.compose.pieChart.component.drawPedigreeChart
 import com.aay.compose.pieChart.model.PieChartData
+import com.aay.compose.utils.checkIfDataIsNegative
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
@@ -46,7 +47,7 @@ fun PieChart(
     )
     val textSize = textLayoutResult.size
 
-
+    checkIfDataIsNegative(data = pieChartData.map { it.data.toDouble() })
     val transitionProgress = remember(pieValueWithRatio) { Animatable(initialValue = 0F) }
 
     LaunchedEffect(pieChartData) {
