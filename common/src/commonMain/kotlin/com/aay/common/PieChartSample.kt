@@ -36,7 +36,7 @@ fun PieChartSample() {
         PieChartData(
             partName = "Andrew",
             data = 600.0,
-            color = Color.Yellow.copy(alpha = .5f),
+            color = Color.Magenta.copy(alpha = .5f),
         ),
     )
 
