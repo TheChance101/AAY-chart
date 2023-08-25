@@ -12,6 +12,6 @@ fun App() {
 //    BarChartSample()
 
     /** Sample of Pie Chart **/
-//    PieChartSample()
+    PieChartSample()
 
 }

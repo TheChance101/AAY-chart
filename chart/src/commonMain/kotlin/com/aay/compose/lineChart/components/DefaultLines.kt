@@ -46,8 +46,8 @@ fun DrawScope.drawDefaultLineWithShadow(
 
     if (line.lineShadow) {
         val fillPath = strokePathOfDefaultLine.apply {
-            lineTo(size.width - spaceBetweenXes.toPx() + 32.dp.toPx(), size.height)
-            lineTo(spacingX.toPx() + 25.dp.toPx(), size.height)
+            lineTo(size.width - spaceBetweenXes.toPx() + 40.dp.toPx(), size.height)
+            lineTo(spacingX.toPx()*2, size.height)
             close()
         }
         clipRect(right = size.width * animatedProgress.value) {
