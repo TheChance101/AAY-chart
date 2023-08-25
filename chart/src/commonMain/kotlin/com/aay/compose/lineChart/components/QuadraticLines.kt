@@ -49,7 +49,7 @@ fun DrawScope.drawQuarticLineWithShadow(
     if (line.lineShadow && !specialChart) {
         val fillPath = strokePathOfQuadraticLine.apply {
             lineTo(size.width - spaceBetweenXes.toPx() + 40.dp.toPx(), size.height)
-            lineTo(spacingX.toPx() *2, size.height)
+            lineTo(spacingX.toPx() * 2, size.height)
             close()
         }
         clipRect(right = size.width * animatedProgress.value) {
@@ -116,14 +116,15 @@ fun DrawScope.drawLineAsQuadratic(
                 lastClickedPoint = null
             } else {
                 lastClickedPoint = Pair(xFirstPoint.toPx(), yFirstPoint.toFloat())
-                chartCircle(
-                    xFirstPoint.toPx(),
-                    yFirstPoint.toFloat(),
-                    line.lineColor,
-                    animatedProgress,
-                    Stroke(width = 2.dp.toPx())
+                circleWithRectAndText(
+                    x = xFirstPoint,
+                    y = yFirstPoint,
+                    textMeasure = textMeasurer,
+                    info = info ,
+                    stroke = Stroke(width = 2.dp.toPx()),
+                    line = line,
+                    animatedProgress = animatedProgress
                 )
-                chartRectangleWithText(xFirstPoint, yFirstPoint, line.lineColor, textMeasurer, info)
             }
 
         }

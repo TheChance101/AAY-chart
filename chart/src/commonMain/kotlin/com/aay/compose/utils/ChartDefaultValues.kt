@@ -14,7 +14,7 @@ object ChartDefaultValues {
 
     val lineParameters: List<LineParameters> = listOf(
         LineParameters(
-            dataName = "revenue",
+            label = "revenue",
             data = emptyList(),
             lineColor = Color.Blue,
             lineType = LineType.QUADRATIC_LINE,

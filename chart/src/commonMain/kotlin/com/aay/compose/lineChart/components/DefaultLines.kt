@@ -47,14 +47,14 @@ fun DrawScope.drawDefaultLineWithShadow(
     if (line.lineShadow) {
         val fillPath = strokePathOfDefaultLine.apply {
             lineTo(size.width - spaceBetweenXes.toPx() + 40.dp.toPx(), size.height)
-            lineTo(spacingX.toPx()*2, size.height)
+            lineTo(spacingX.toPx() * 2, size.height)
             close()
         }
         clipRect(right = size.width * animatedProgress.value) {
             drawPath(
                 path = fillPath, brush = Brush.verticalGradient(
                     colors = listOf(line.lineColor.copy(alpha = .3f), Color.Transparent),
-                    endY = (size.height.toDp() - spacingY).toPx() // for shadow height inside line
+                    endY = (size.height.toDp() - spacingY).toPx()
                 )
             )
         }
@@ -89,8 +89,7 @@ private fun DrawScope.drawLineAsDefault(
             (height.toPx() + 5.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
 
         val tolerance = 20.dp.toPx()
-        val savedClicks =
-            clickedOnThisPoint(clickedPoints, startXPoint.toPx(), startYPoint, tolerance)
+        val savedClicks = clickedOnThisPoint(clickedPoints, startXPoint.toPx(), startYPoint, tolerance)
 
 
         if (savedClicks) {
@@ -99,19 +98,14 @@ private fun DrawScope.drawLineAsDefault(
                 lastClickedPoint = null
             } else {
                 lastClickedPoint = Pair(startXPoint.toPx(), startYPoint.toFloat())
-                chartCircle(
-                    x = startXPoint.toPx(),
-                    y = startYPoint.toFloat(),
-                    color = lineParameter.lineColor,
-                    animatedProgress = animatedProgress,
-                    Stroke(width = 2.dp.toPx())
-                )
-                chartRectangleWithText(
-                    startXPoint,
-                    startYPoint,
-                    lineParameter.lineColor,
-                    textMeasure,
-                    info
+                circleWithRectAndText(
+                    x = startXPoint,
+                    y = startYPoint,
+                    textMeasure = textMeasure,
+                    info = info,
+                    stroke = Stroke(width = 2.dp.toPx()),
+                    line = lineParameter,
+                    animatedProgress = animatedProgress
                 )
             }
         }

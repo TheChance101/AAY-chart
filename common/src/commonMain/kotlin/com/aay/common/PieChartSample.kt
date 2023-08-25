@@ -14,7 +14,7 @@ fun PieChartSample() {
 
     val testPieChartData: List<PieChartData> = listOf(
         PieChartData(
-            partName = "Amnah.a",
+            partName = "Aziza",
             data = 500f,
             color = Color(0xFFF2BD00),
         ),
@@ -36,7 +36,7 @@ fun PieChartSample() {
         PieChartData(
             partName = "Andrew",
             data = 600f,
-            color = Color.Magenta.copy(alpha = .5f),
+            color = Color.Yellow.copy(alpha = .5f),
         ),
     )
 
@@ -44,7 +44,10 @@ fun PieChartSample() {
         modifier = Modifier.width(550.dp).height(550.dp),
         pieChartData = testPieChartData,
         centerTitle = "Orders",
-        centerTitleStyle = TextStyle(color = Color.Blue)
+        centerTitleStyle = TextStyle(color = Color.Gray),
+        outerCircularColor = Color.LightGray,
+        innerCircularColor = Color.LightGray,
+        ratioLineColor = Color.Red
     )
 
 }

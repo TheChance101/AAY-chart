@@ -25,9 +25,9 @@ fun PieChart(
     animation: AnimationSpec<Float> = TweenSpec(durationMillis = 3000),
     descriptionStyle: TextStyle = TextStyle.Default,
     testRatioStyle: TextStyle = TextStyle.Default.copy(fontSize = 12.sp),
-    outerCircularColor: Color = Color.Blue,
-    innerCircularColor: Color = Color.Blue,
-    ratioLineColor: Color = Color.Blue
+    outerCircularColor: Color = Color.Gray,
+    innerCircularColor: Color = Color.Gray,
+    ratioLineColor: Color = Color.Gray
 ) {
 
     var totalSum = 0.0f

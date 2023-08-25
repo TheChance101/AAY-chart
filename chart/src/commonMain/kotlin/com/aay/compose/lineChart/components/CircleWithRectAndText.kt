@@ -1,5 +1,7 @@
 package com.aay.compose.lineChart.components
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
@@ -16,12 +18,28 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.utils.formatToThousandsMillionsBillions
 
 @OptIn(ExperimentalTextApi::class)
-fun DrawScope.chartRectangleWithText(
-    x: Dp , y: Double , color: Color , textMeasurer: TextMeasurer , infoText : Double
-){
+fun DrawScope.circleWithRectAndText(
+    animatedProgress: Animatable<Float, AnimationVector1D>,
+    textMeasure: TextMeasurer,
+    info: Double,
+    stroke: Stroke,
+    line: LineParameters,
+    x: Dp,
+    y: Double,
+) {
+    chartCircle(x.toPx(), y.toFloat(), line.lineColor, animatedProgress, stroke)
+    chartRectangleWithText(x, y, line.lineColor, textMeasure, info)
+}
+
+
+ @OptIn(ExperimentalTextApi::class)
+private fun DrawScope.chartRectangleWithText(
+    x: Dp, y: Double, color: Color, textMeasurer: TextMeasurer, infoText: Double,
+) {
     val rectSize = Size(50.dp.toPx(), 30.dp.toPx())
     val rectTopLeft = Offset(
         x.toPx() - rectSize.width / 2,
@@ -39,7 +57,7 @@ fun DrawScope.chartRectangleWithText(
 
     val textOffset = Offset(
         rectTopLeft.x + rectSize.width / 2 - textLayoutResult.size.width / 2,
-        rectTopLeft.y + rectSize.height / 4 + textLayoutResult.size.height / 2 // Adjust this line
+        rectTopLeft.y + rectSize.height / 4 + textLayoutResult.size.height / 2
     )
 
     drawRoundRect(
@@ -58,7 +76,5 @@ fun DrawScope.chartRectangleWithText(
             topLeft = textOffset
         )
     }
-
-
 
 }
