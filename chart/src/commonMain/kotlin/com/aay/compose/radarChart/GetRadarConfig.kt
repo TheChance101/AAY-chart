@@ -6,7 +6,7 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-fun getRadarConfig(size: Size, numLines: Int, scalarSteps: Int): RadarChartConfig {
+fun getRadarConfig(netRadius: Float, size: Size, numLines: Int, scalarSteps: Int): RadarChartConfig {
 
     val endPoints = mutableListOf<Offset>()
     val nextStartPoints = mutableListOf<Offset>()
@@ -16,11 +16,9 @@ fun getRadarConfig(size: Size, numLines: Int, scalarSteps: Int): RadarChartConfi
 
     val center = Offset(size.width / 2, size.height / 2)
     val angleBetweenLines = 2 * PI / numLines
-    val netRadius = (size.minDimension / 2) - 30f
     val labelRadius = (size.minDimension / 2)
     val angleOfFirstLine = 0 * angleBetweenLines
     val offsetAngle = -PI / 2 - angleOfFirstLine
-
 
     for (lineIndex in 0 until numLines) {
         val angle = lineIndex * angleBetweenLines + offsetAngle
@@ -57,14 +55,12 @@ private fun getCircumferencePointOffset(
 
 
 fun getPolygonShapeEndPoints(
-    values2: List<Double>,
     values: List<Double>,
     radius: Float,
     scalarValue: Double,
     center: Offset
-): List<List<Offset>> {
+): List<Offset> {
     val scalarShapeEndPoints = mutableListOf<Offset>()
-    val scalarShapeEndPoints2 = mutableListOf<Offset>()
     val angleBetweenLines = 2 * PI / values.size
     for (index in values.indices) {
         val angleOfFirstLine = 0 * angleBetweenLines
@@ -73,15 +69,11 @@ fun getPolygonShapeEndPoints(
         val polygonRadius = radius - (radius / 5)
 
         val value = values[index]
-        val value2 = values2[index]
         val scalarRadius = (value / scalarValue) * polygonRadius
-        val scalarRadius2 = (value2 / scalarValue) * polygonRadius
         val scalarShapeEndPoint = getCircumferencePointOffset(center, scalarRadius.toFloat(), angle)
-        val scalarShapeEndPoint2 = getCircumferencePointOffset(center, scalarRadius2.toFloat(), angle)
         scalarShapeEndPoints.add(scalarShapeEndPoint)
-        scalarShapeEndPoints2.add(scalarShapeEndPoint2)
     }
-    return listOf(scalarShapeEndPoints, scalarShapeEndPoints2)
+    return scalarShapeEndPoints
 
 }
 

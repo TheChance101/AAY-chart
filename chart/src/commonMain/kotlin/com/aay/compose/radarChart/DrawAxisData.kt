@@ -1,23 +1,22 @@
 package com.aay.compose.radarChart
 
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalTextApi::class)
 fun DrawScope.drawAxisData(
+    labelsStyle: TextStyle,
+    scalarValuesStyle: TextStyle,
     textMeasurer: TextMeasurer,
     radarChartConfig: RadarChartConfig,
     radarLabels: List<String>,
     scalarValue: Double,
-    scalarSteps: Int
+    scalarSteps: Int,
+    unit: String
 ) {
     val labelsEndPoints = radarChartConfig.labelsPoints
     val nextStartPoints = radarChartConfig.scalarPoints.toMutableList()
@@ -25,20 +24,15 @@ fun DrawScope.drawAxisData(
     nextStartPoints.removeAt(nextStartPoints.size - 1)
 
     val scalarStep = scalarValue / (scalarSteps - 1)
-    val textVerticalOffset = 14.toDp().toPx()
+    val textVerticalOffset = 20.toDp().toPx()
 
     for (step in 0 until scalarSteps) {
         drawText(
             textMeasurer = textMeasurer,
-            text = (scalarStep * step).toInt().toString() + "$",
-            style = TextStyle(
-                color = Color.Black,
-                fontFamily = FontFamily.Serif,
-                fontWeight = FontWeight.Medium,
-                fontSize = 16.sp
-            ),
+            text = (scalarStep * step).toString() + " " + unit,
+            style = scalarValuesStyle,
             topLeft = Offset(
-                nextStartPoints[step].x,
+                nextStartPoints[step].x + 5.toDp().toPx(),
                 nextStartPoints[step].y - textVerticalOffset
             )
         )
@@ -48,16 +42,12 @@ fun DrawScope.drawAxisData(
         drawText(
             textMeasurer = textMeasurer,
             text = radarLabels[line],
-            style = TextStyle(
-                color = Color.Black,
-                fontFamily = FontFamily.Serif,
-                fontWeight = FontWeight.Medium,
-                fontSize = 14.sp
-            ),
+            style = labelsStyle,
             topLeft = Offset(
-                labelsEndPoints[line].x - 10.toDp().toPx(),
+                labelsEndPoints[line].x,
                 labelsEndPoints[line].y
             )
         )
     }
+
 }
