@@ -1,6 +1,6 @@
 package com.aay.common
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 
 @Composable
 fun App() {
@@ -14,4 +14,6 @@ fun App() {
     /** Sample of Pie Chart **/
     PieChartSample()
 
+    /** Sample of Radar Chart **/
+    RadarChartSample()
 }
