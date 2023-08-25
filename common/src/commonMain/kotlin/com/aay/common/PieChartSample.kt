@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.aay.compose.pieChart.PieChart
 import com.aay.compose.pieChart.model.PieChartData
@@ -40,9 +41,10 @@ fun PieChartSample() {
     )
 
     PieChart(
-        modifier = Modifier.wrapContentSize(),
+        modifier = Modifier.width(550.dp).height(550.dp),
         pieChartData = testPieChartData,
         centerTitle = "Orders",
+        centerTitleStyle = TextStyle(color = Color.Blue)
     )
 
 }
