@@ -27,7 +27,7 @@ fun BarChartSample() {
         BarParameters(
             dataName = "Customers",
             data = listOf(77.0, 20.6, 44.33, 10.9, 50.232, 22.0),
-            barColor = Color.Blue.copy(alpha = .5f),
+            barColor = Color.Red,
         ),
         BarParameters(
             dataName = "Completed",
