@@ -33,17 +33,7 @@ fun <T> DrawScope.baseChartContainer(
     isFromBarChart: Boolean,
 ) {
     if (showXAxis) {
-        if (isFromBarChart) {
-            xAxisDrawing(
-                xAxisData = xAxisData,
-                spacing = spacingX,
-                textMeasure = textMeasure,
-                xAxisStyle = xAxisStyle,
-                specialChart = specialChart,
-                xRegionWidth = xRegionWidth,
-                xRegionWidthWithoutSpacing = xRegionWidthWithoutSpacing,
-            )
-        }else{
+        if (!isFromBarChart) {
             xAxisDrawing(
                 xAxisData = xAxisData,
                 spacing = spacingX,
@@ -76,6 +66,7 @@ fun <T> DrawScope.baseChartContainer(
         spacingY = spacingY,
         yAxisRange = yAxisRange,
         specialChart = specialChart,
-        gridOrientation = gridOrientation
+        gridOrientation = gridOrientation,
+        isFromBarChart = isFromBarChart
     )
 }

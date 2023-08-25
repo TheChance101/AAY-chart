@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.aay.compose.baseComponents.baseChartContainer
 import com.aay.compose.barChart.model.BarParameters
+import com.aay.compose.baseComponents.xAxisDrawing
+import com.aay.compose.utils.ChartDefaultValues.specialChart
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -67,12 +69,12 @@ internal fun BarChartContent(
                 .fillMaxSize()
         ) {
 
-            val spacingX = (boxSize / 18.dp.toPx())
-            val spacingY = (boxSize / 8.dp.toPx())
-            spaceBetweenBars = (boxSize.toPx() / 22.dp.toPx())
+            val spacingX = (boxSize / 18)
+            val spacingY = (boxSize / 8)
+            spaceBetweenBars = (boxSize.toPx() /1000)
             xRegionWidth = (boxSize.toPx()/5)
-            xRegionWidthWithoutSpacing = xRegionWidth-spacingX.toPx()
-            barWidth= xRegionWidthWithoutSpacing/barsParameters.size-spaceBetweenBars
+            xRegionWidthWithoutSpacing = xRegionWidth-(spacingX.toPx())
+            barWidth= (xRegionWidthWithoutSpacing/barsParameters.size)-spaceBetweenBars
             maxWidth= xRegionWidth * xAxisData.size
 
             baseChartContainer(
@@ -127,6 +129,15 @@ internal fun BarChartContent(
                     xRegionWidthWithoutSpacing = xRegionWidthWithoutSpacing,
                     spaceBetweenBars = spaceBetweenBars
 
+                )
+                xAxisDrawing(
+                    xAxisData = xAxisData,
+                    spacing = spacingX,
+                    textMeasure = textMeasure,
+                    xAxisStyle = xAxisStyle,
+                    specialChart = specialChart,
+                    xRegionWidth = xRegionWidth,
+                    xRegionWidthWithoutSpacing = xRegionWidthWithoutSpacing,
                 )
             }
         }

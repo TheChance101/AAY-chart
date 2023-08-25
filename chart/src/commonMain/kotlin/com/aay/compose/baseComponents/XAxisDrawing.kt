@@ -18,7 +18,7 @@ fun <T> DrawScope.xAxisDrawing(
     if (specialChart) {
         return
     }
-    val spaceBetweenXes = 100.dp.toPx()
+    val spaceBetweenXes = (size.width - spacing.toPx()) / xAxisData.size
 
     xAxisData.forEachIndexed { index, dataPoint ->
         val xLength = (spaceBetweenXes - 30.dp.toPx()) + (index * spaceBetweenXes)
@@ -49,10 +49,9 @@ fun <T> DrawScope.xAxisDrawing(
     if (specialChart) {
         return
     }
-    val spaceBetweenXes = 100.dp.toPx()
 
     xAxisData.forEachIndexed { index, dataPoint ->
-        val xLength = spaceBetweenXes + (index * xRegionWidth)
+        val xLength = spacing.toPx()/2 + (index * xRegionWidth)
         drawContext.canvas.nativeCanvas.apply {
             drawText(
                 textMeasurer = textMeasure,

@@ -19,9 +19,11 @@ fun DrawScope.grid(
     spacingY: Dp,
     yAxisRange: Int,
     specialChart: Boolean,
-    gridOrientation: Orientation
+    gridOrientation: Orientation,
+    isFromBarChart: Boolean,
 ) {
-    val spaceBetweenXes = 100.dp.toPx()
+    val spaceBetweenXes = if (isFromBarChart) 100.dp.toPx()
+    else (size.width - spacingX.toPx()) / xAxisDataSize
 
     if (specialChart) {
         return

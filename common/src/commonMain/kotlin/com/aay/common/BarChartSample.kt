@@ -37,9 +37,18 @@ fun BarChartSample() {
         BarParameters(
             dataName = "Sales",
             data = listOf(30.0, 10.6, 20.33, 55.9, 40.232, 66.0),
-            barColor = Color(0xFFFF7F50),
+            barColor = Color.Black,
         ),
-
+        BarParameters(
+            dataName = "Completed",
+            data = listOf(90.0, 50.6, 30.33, 40.9, 60.232, 70.0),
+            barColor = Color.Blue,
+        ),
+        BarParameters(
+            dataName = "Completed",
+            data = listOf(90.0, 50.6, 30.33, 40.9, 60.232, 70.0),
+            barColor = Color.White,
+        ),
     )
 
     Box(Modifier.padding(24.dp).background(Color.Blue.copy(0.5f)).wrapContentSize()) {
@@ -60,7 +69,7 @@ fun BarChartSample() {
                 fontWeight = FontWeight.W400
             ),
             barWidthPx = 15.dp,
-            boxSize = 500.dp
+            boxSize = 700.dp
         )
     }
 }

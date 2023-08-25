@@ -31,14 +31,14 @@ internal fun DrawScope.drawBarGroups(
         bar.data.forEachIndexed { index, data ->
             val ratio = (((data.toFloat() - lowerValue) / (upperValue)) / 1.12.dp.toPx()).dp.toPx()
             val barLength = ratio * (height- (spacingY.toPx() / 4.dp.toPx()))
-            val xAxisLength = ( (index * (xRegionWidthWithoutSpacing / xAxisData.size)))
-            val lengthWithRatio = xAxisLength.dp + (barIndex * (barWidth.dp + spaceBetweenBars.toDp()))
+            val xAxisLength = ( (barIndex * (xRegionWidth / xAxisData.size)))
+            val lengthWithRatio = xAxisLength.dp + (index * xRegionWidthWithoutSpacing.dp)
 
             drawRect(
                 brush = Brush.verticalGradient(listOf(bar.barColor, bar.barColor)),
                 topLeft = Offset(
                     lengthWithRatio.coerceAtMost(width).toPx(),
-                    (height + 5.dp.toPx() - spacingY.toPx() - barLength)
+                    (height  - spacingY.toPx() - barLength)
                 ),
                 size = Size(
                     width = barWidth,

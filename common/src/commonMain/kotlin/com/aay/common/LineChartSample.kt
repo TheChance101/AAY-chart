@@ -38,7 +38,7 @@ fun LineChartSample() {
 
     Box(Modifier.padding(24.dp)) {
         LineChart(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.size(500.dp),
             linesParameters = testLineParameters,
             gridColor = Color.DarkGray,
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020", "2030", "2050", "2002"),
