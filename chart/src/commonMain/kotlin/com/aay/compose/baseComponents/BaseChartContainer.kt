@@ -51,7 +51,6 @@ fun <T> DrawScope.baseChartContainer(
     }
 
     grid(
-        xAxisDataSize = xAxisData.size,
         isShowGrid = isShowGrid,
         gridColor = gridColor,
         backgroundLineWidth = backgroundLineWidth,
