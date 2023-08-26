@@ -22,12 +22,10 @@ fun DrawScope.grid(
     gridOrientation: Orientation,
     isFromBarChart: Boolean,
 ) {
-    val spaceBetweenXes = if (isFromBarChart) 100.dp.toPx()
-    else (size.width - spacingX.toPx()) / xAxisDataSize
-
-    if (specialChart) {
+    if (specialChart){
         return
     }
+    val xAxisMaxValue = size.width - spacingX.toPx()
     val xAxisMaxValue = if (gridOrientation == Orientation.Vertical)
         size.width + xAxisDataSize
     else
@@ -36,6 +34,11 @@ fun DrawScope.grid(
 
 
     if (isShowGrid) {
+        (0..yAxisRange ).forEach { i ->
+            yAxisList.add(
+                size.height.toDp().toPx() - spacingY.toPx() - i * (size.height.toDp() - spacingY).toPx() / (yAxisRange)
+            )
+            val yAlignmentValue = yAxisList[i] + 5.dp.toPx()
         if (gridOrientation == Orientation.Vertical) {
             val yAxisList = mutableListOf<Float>()
 

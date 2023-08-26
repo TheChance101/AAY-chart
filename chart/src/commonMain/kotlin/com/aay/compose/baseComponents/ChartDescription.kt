@@ -18,10 +18,7 @@ internal fun ChartDescription(
     chartName: String,
     descriptionStyle: TextStyle,
 ) {
-    Row(
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
         Box(
             modifier = Modifier
                 .clip(CircleShape)

@@ -9,6 +9,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.times
+import com.aay.compose.utils.formatToThousandsMillionsBillions
 
 
 @OptIn(ExperimentalTextApi::class)
@@ -42,7 +43,7 @@ fun DrawScope.yAxisDrawing(
 
 private fun Long.formatToThousandsMillionsBillions(): String {
     return when {
-        this < 1000 -> "$this"
+        this < 1000 -> "${this.toFloat()}"
         this < 1000000 -> "${String.format("%.1f", this.toFloat() / 1000)}k"
         this < 1000000000 -> "${String.format("%.1f", this.toFloat() / 1000000)}M"
         this < 1000000000000 -> "${String.format("%.1f", this.toFloat() / 1000000000)}B"

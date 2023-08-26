@@ -6,13 +6,19 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.text.ExperimentalTextApi
+import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import com.aay.compose.lineChart.model.LineParameters
+import com.aay.compose.utils.clickedOnThisPoint
 
+private var lastClickedPoint: Pair<Float, Float>? = null
 
+@OptIn(ExperimentalTextApi::class)
 fun DrawScope.drawDefaultLineWithShadow(
     line: LineParameters,
     lowerValue: Float,
@@ -21,6 +27,8 @@ fun DrawScope.drawDefaultLineWithShadow(
     xAxisSize: Int,
     spacingX: Dp,
     spacingY: Dp,
+    clickedPoints: MutableList<Pair<Float, Float>>,
+    textMeasure: TextMeasurer,
 ) {
     val spaceBetweenXes = 100.dp
     val strokePathOfDefaultLine = drawLineAsDefault(
@@ -31,27 +39,28 @@ fun DrawScope.drawDefaultLineWithShadow(
         animatedProgress = animatedProgress,
         spacingX = spacingX,
         spacingY = spacingY,
+        clickedPoints = clickedPoints,
+        textMeasure = textMeasure
     )
 
     if (line.lineShadow) {
         val fillPath = strokePathOfDefaultLine.apply {
-            lineTo((spaceBetweenXes.toPx() * line.data.size) - 20.dp.toPx(), size.height)
-            lineTo(spaceBetweenXes.toPx() - 20.dp.toPx(), size.height)
+            lineTo(size.width - spaceBetweenXes.toPx() + 40.dp.toPx(), size.height)
+            lineTo(spacingX.toPx() * 2, size.height)
             close()
         }
         clipRect(right = size.width * animatedProgress.value) {
             drawPath(
                 path = fillPath, brush = Brush.verticalGradient(
-                    colors = listOf(
-                        line.lineColor.copy(alpha = .3f), Color.Transparent
-                    ), endY = (size.height.toDp() - spacingY).toPx() // for shadow height inside line
+                    colors = listOf(line.lineColor.copy(alpha = .3f), Color.Transparent),
+                    endY = (size.height.toDp() - spacingY).toPx()
                 )
             )
         }
     }
 }
 
-
+@OptIn(ExperimentalTextApi::class)
 private fun DrawScope.drawLineAsDefault(
     lineParameter: LineParameters,
     lowerValue: Float,
@@ -60,6 +69,8 @@ private fun DrawScope.drawLineAsDefault(
     animatedProgress: Animatable<Float, AnimationVector1D>,
     spacingX: Dp,
     spacingY: Dp,
+    clickedPoints: MutableList<Pair<Float, Float>>,
+    textMeasure: TextMeasurer,
 ) = Path().apply {
 
     val height = size.height.toDp()
@@ -75,11 +86,32 @@ private fun DrawScope.drawLineAsDefault(
         val startYPoint =
             (height.toPx() + 5.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
 
+        val tolerance = 20.dp.toPx()
+        val savedClicks = clickedOnThisPoint(clickedPoints, startXPoint.toPx(), startYPoint, tolerance)
+
+
+        if (savedClicks) {
+            if (lastClickedPoint != null) {
+                clickedPoints.clear()
+                lastClickedPoint = null
+            } else {
+                lastClickedPoint = Pair(startXPoint.toPx(), startYPoint.toFloat())
+                circleWithRectAndText(
+                    x = startXPoint,
+                    y = startYPoint,
+                    textMeasure = textMeasure,
+                    info = info,
+                    stroke = Stroke(width = 2.dp.toPx()),
+                    line = lineParameter,
+                    animatedProgress = animatedProgress
+                )
+            }
+        }
+
         if (index == 0) {
             moveTo(startXPoint.toPx(), startYPoint.toFloat())
         } else {
             lineTo(startXPoint.toPx(), startYPoint.toFloat())
         }
     }
-
 }

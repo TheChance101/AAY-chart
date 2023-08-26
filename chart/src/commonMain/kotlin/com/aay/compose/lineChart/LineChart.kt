@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -20,7 +22,7 @@ fun LineChart(
     linesParameters: List<LineParameters> = ChartDefaultValues.lineParameters,
     gridColor: Color = ChartDefaultValues.gridColor,
     xAxisData: List<String> = emptyList(),
-    isShowGrid: Boolean = ChartDefaultValues.IS_SHOW_GRID,
+    isGrid: Boolean = ChartDefaultValues.IS_SHOW_GRID,
     barWidthPx: Dp = ChartDefaultValues.backgroundLineWidth,
     animateChart: Boolean = ChartDefaultValues.ANIMATED_CHART,
     showGridWithSpacer: Boolean = ChartDefaultValues.SHOW_BACKGROUND_WITH_SPACER,
@@ -35,6 +37,7 @@ fun LineChart(
     oneLineChart : Boolean = ChartDefaultValues.specialChart,
     gridOrientation: Orientation = ChartDefaultValues.gridOrientation
 ) {
+    val clickedPoints = remember { mutableStateListOf<Pair<Float, Float>>() }
 
     Box(modifier.wrapContentHeight()) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -48,7 +51,7 @@ fun LineChart(
                 items(linesParameters) { details ->
                     ChartDescription(
                         chartColor = details.lineColor,
-                        chartName = details.dataName,
+                        chartName = details.label,
                         descriptionStyle = descriptionStyle,
                     )
                 }
@@ -61,7 +64,7 @@ fun LineChart(
                 linesParameters = linesParameters,
                 gridColor = gridColor,
                 xAxisData = xAxisData,
-                isShowGrid = isShowGrid,
+                isShowGrid = isGrid,
                 barWidthPx = barWidthPx,
                 animateChart = animateChart,
                 showGridWithSpacer = showGridWithSpacer,
@@ -71,7 +74,12 @@ fun LineChart(
                 showXAxis = showXAxis,
                 showYAxis = showYAxis,
                 specialChart = oneLineChart,
-                gridOrientation = gridOrientation
+                gridOrientation = gridOrientation,
+                onChartClick = { x, y ->
+                    clickedPoints.add(x to y)
+                },
+
+                clickedPoints = clickedPoints,
             )
         }
     }
