@@ -37,7 +37,7 @@ fun BarChart(
     boxSize:Dp
 ) {
 
-    Box(Modifier.wrapContentHeight().width(boxSize)) {
+    Box(Modifier.wrapContentHeight()) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             LazyRow(
                 horizontalArrangement = horizontalArrangement,

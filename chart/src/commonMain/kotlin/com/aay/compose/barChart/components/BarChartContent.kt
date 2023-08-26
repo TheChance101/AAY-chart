@@ -56,12 +56,13 @@ internal fun BarChartContent(
     }
 
     var maxWidth by remember { mutableStateOf(0f) }
+    var maxHeight by remember { mutableStateOf(0f) }
     var barWidth by remember { mutableStateOf(0f) }
     var xRegionWidthWithoutSpacing by remember { mutableStateOf(0f) }
     var xRegionWidth by remember { mutableStateOf(0f) }
     var spaceBetweenBars by remember { mutableStateOf(0f) }
 
-    Box(modifier = Modifier.size(boxSize)) {
+    Box(modifier = Modifier.fillMaxSize()) {
 
         Canvas(
             modifier = Modifier
@@ -75,6 +76,7 @@ internal fun BarChartContent(
             xRegionWidthWithoutSpacing = xRegionWidth - (spacingX.toPx())
             barWidth = (xRegionWidthWithoutSpacing / barsParameters.size) - spaceBetweenBars
             maxWidth = xRegionWidth * xAxisData.size
+            maxHeight = size.height - spacingY.toPx()  + 10.dp.toPx()
 
             baseChartContainer(
                 xAxisData = xAxisData,
@@ -99,12 +101,9 @@ internal fun BarChartContent(
             )
         }
 
-
-        //todo: this box show have a width like in x-axis
-        //todo: x-axis space should take the width from group bar width
         Box(
             modifier = Modifier
-                .padding(start = 55.dp, bottom = 30.dp)
+                .padding(start = 55.dp)
                 .fillMaxSize().horizontalScroll(rememberScrollState())
         ) {
 
@@ -120,23 +119,25 @@ internal fun BarChartContent(
                     upperValue = upperValue,
                     lowerValue = lowerValue,
                     spacingX = spacingX,
-                    spacingY = spacingY,
+                    spacingY = maxHeight.dp,
                     xAxisData = xAxisData,
                     barWidth = barWidth,
                     xRegionWidth = xRegionWidth,
                     xRegionWidthWithoutSpacing = xRegionWidthWithoutSpacing,
                     spaceBetweenBars = spaceBetweenBars,
-                    maxWidth = maxWidth.dp
-
+                    maxWidth = maxWidth.dp,
+                    height = maxHeight.dp
                 )
+
                 xAxisDrawing(
                     xAxisData = xAxisData,
-                    spacing = spacingX,
                     textMeasure = textMeasure,
                     xAxisStyle = xAxisStyle,
                     specialChart = specialChart,
-                    xRegionWidth = xRegionWidth,
+                    barWidth = barWidth,
                     xRegionWidthWithoutSpacing = xRegionWidthWithoutSpacing,
+                    height = maxHeight.dp,
+                    barSize = barsParameters.size
                 )
             }
         }

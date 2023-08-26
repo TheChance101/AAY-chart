@@ -5,7 +5,10 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.coerceAtMost
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.times
+import kotlin.math.pow
 
 @OptIn(ExperimentalTextApi::class)
 fun <T> DrawScope.xAxisDrawing(
@@ -36,22 +39,31 @@ fun <T> DrawScope.xAxisDrawing(
         }
     }
 }
+
 @OptIn(ExperimentalTextApi::class)
 fun <T> DrawScope.xAxisDrawing(
     xAxisData: List<T>,
-    spacing: Dp,
+    height: Dp,
     textMeasure: TextMeasurer,
     xAxisStyle: TextStyle,
     specialChart: Boolean,
-    xRegionWidth:Float,
+    barWidth: Float,
     xRegionWidthWithoutSpacing: Float,
+    barSize: Int,
 ) {
     if (specialChart) {
         return
     }
 
+    println("xRegionWidth -------- ${barWidth.dp.toPx()}")
+    println("xRegionWidthWithoutSpacing -------- ${xRegionWidthWithoutSpacing.dp.toPx()}")
+
     xAxisData.forEachIndexed { index, dataPoint ->
-        val xLength = spacing.toPx() + (index * (xRegionWidth+(spacing.toPx()/1.7f)))
+
+//        val xLength = (barWidth / xAxisData.size) * xRegionWidthWithoutSpacing * index
+        val xLength = ((barWidth * barSize) + (30.dp.toPx() * barSize)) * index
+
+
         drawContext.canvas.nativeCanvas.apply {
             drawText(
                 textMeasurer = textMeasure,
@@ -60,7 +72,7 @@ fun <T> DrawScope.xAxisDrawing(
                 maxLines = 1,
                 topLeft = Offset(
                     xLength.coerceAtMost(size.width),
-                    size.height / 1.07f
+                    height.value + 20.dp.toPx()
                 )
             )
         }

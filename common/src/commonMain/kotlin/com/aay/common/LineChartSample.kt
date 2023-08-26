@@ -38,7 +38,7 @@ fun LineChartSample() {
 
     Box(Modifier.padding(24.dp)) {
         LineChart(
-            modifier = Modifier.size(500.dp),
+            modifier = Modifier.fillMaxSize(),
             linesParameters = testLineParameters,
             gridColor = Color.DarkGray,
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020", "2030", "2050", "2002"),
@@ -55,7 +55,7 @@ fun LineChartSample() {
             ),
             yAxisRange = 14,
             oneLineChart = false,
-            gridOrientation = Orientation.Horizontal
+            gridOrientation = Orientation.Vertical
         )
     }
 }
