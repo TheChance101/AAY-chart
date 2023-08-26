@@ -46,7 +46,7 @@ private fun DrawScope.chartRectangleWithText(
         y.toFloat() - rectSize.height * 1.5.toFloat()
     )
     val rectBounds = Rect(rectTopLeft, rectSize)
-    val text = "Value:${infoText.toLong().formatToThousandsMillionsBillions()}"
+    val text = "Value:${infoText.toFloat().formatToThousandsMillionsBillions()}"
 
     val textStyle = TextStyle(fontSize = 8.sp, color = Color.Black)
 

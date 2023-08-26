@@ -46,8 +46,8 @@ fun DrawScope.drawDefaultLineWithShadow(
 
     if (line.lineShadow) {
         val fillPath = strokePathOfDefaultLine.apply {
-            lineTo(size.width - spaceBetweenXes.toPx() + 40.dp.toPx(), size.height)
-            lineTo(spacingX.toPx() * 2, size.height)
+            lineTo(size.width - spaceBetweenXes.toPx() + 40.dp.toPx(), size.height * 10)
+            lineTo(spacingX.toPx() * 2, size.height * 10)
             close()
         }
         clipRect(right = size.width * animatedProgress.value) {
@@ -84,9 +84,9 @@ private fun DrawScope.drawLineAsDefault(
 
         val info = lineParameter.data[index]
         val ratio = (info - lowerValue) / (upperValue - lowerValue)
-        val startXPoint = (spacingX + 50.dp / 0.8.dp.toPx()) + (index * spaceBetweenXes)
+        val startXPoint = (spacingX + 40.dp  / 0.8.dp.toPx()) + (index * spaceBetweenXes)
         val startYPoint =
-            (height.toPx() + 5.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
+            (height.toPx() + 11.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
 
         val tolerance = 20.dp.toPx()
         val savedClicks = clickedOnThisPoint(clickedPoints, startXPoint.toPx(), startYPoint, tolerance)
