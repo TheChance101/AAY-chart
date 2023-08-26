@@ -38,7 +38,7 @@ fun BarChartSample() {
         ),
     )
 
-    Box(Modifier.padding(24.dp).background(Color.Blue.copy(0.5f)).wrapContentSize()) {
+    Box(Modifier.padding(24.dp).wrapContentSize()) {
         BarChart(
             chartParameters = testBarParameters,
             gridColor = Color.DarkGray,

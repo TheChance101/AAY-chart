@@ -20,26 +20,26 @@ internal fun DrawScope.drawBarGroups(
     spaceBetweenBars: Float,
     maxWidth: Dp,
     height: Dp,
+    spacingY:Dp,
 ) {
 
     barsParameters.forEachIndexed { barIndex, bar ->
+        val xAxisLength = barIndex * (xRegionWidth / xAxisData.size)
 
         bar.data.forEachIndexed { index, data ->
-            val ratio = (((data.toFloat() - lowerValue) / (upperValue)) / 1.40.dp.toPx()).dp.toPx()
-            val barLength = ratio * (height.toPx() - (height.toPx() / 4.dp.toPx()))
+            val ratio = (data.toFloat() - lowerValue) / (upperValue-lowerValue)
+            val barLength = ratio * (height- (spacingY*1.16.dp.toPx() ))
 
-            val xAxisLength = barIndex * (xRegionWidthWithoutSpacing / xAxisData.size)
             val lengthWithRatio = xAxisLength.dp + (index * xRegionWidth.dp)
-
             drawRect(
                 brush = Brush.verticalGradient(listOf(bar.barColor, bar.barColor)),
                 topLeft = Offset(
                     lengthWithRatio.coerceAtMost(maxWidth).toPx(),
-                    (height.value - barLength)
+                    (height.value  - barLength.toPx())
                 ),
                 size = Size(
                     width = barWidth,
-                    height = barLength
+                    height = barLength.toPx()
                 ),
             )
         }

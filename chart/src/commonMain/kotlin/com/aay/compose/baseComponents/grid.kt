@@ -31,8 +31,6 @@ fun DrawScope.grid(
     else
         size.height - spacingY.toPx() + 5.dp.toPx()
 
-
-
     if (isShowGrid) {
         val yAxisList = mutableListOf<Float>()
 

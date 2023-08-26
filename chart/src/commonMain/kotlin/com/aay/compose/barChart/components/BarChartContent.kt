@@ -3,6 +3,7 @@ package com.aay.compose.barChart.components
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
@@ -66,7 +67,7 @@ internal fun BarChartContent(
 
         Canvas(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxSize().background(Color.Cyan.copy(0.5f))
         ) {
 
             val spacingX = (boxSize / 18)
@@ -108,7 +109,7 @@ internal fun BarChartContent(
         ) {
 
             Canvas(
-                Modifier.width(maxWidth.dp).fillMaxHeight()
+                Modifier.width(maxWidth.dp).fillMaxHeight().background(Color.Blue.copy(0.5f))
 
             ) {
                 val spacingX = (size.width / 18.dp.toPx()).dp
@@ -123,7 +124,8 @@ internal fun BarChartContent(
                     xRegionWidthWithoutSpacing = xRegionWidthWithoutSpacing,
                     spaceBetweenBars = spaceBetweenBars,
                     maxWidth = maxWidth.dp,
-                    height = maxHeight.dp
+                    height = maxHeight.dp,
+                    spacingY = (size.height/8).dp
                 )
 
                 xAxisDrawing(
