@@ -20,7 +20,7 @@ fun DrawScope.grid(
     if (specialChart){
         return
     }
-    val xAxisMaxValue = size.width - spacingX.toPx()
+    val xAxisMaxValue = size.width
 
     val yAxisList = mutableListOf<Float>()
 
