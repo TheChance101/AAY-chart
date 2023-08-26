@@ -32,7 +32,7 @@ fun DrawScope.drawQuarticLineWithShadow(
     textMeasurer: TextMeasurer,
 ) {
 
-    val spaceBetweenXes = (size.width.toDp() - spacingX) / xAxisSize
+    val spaceBetweenXes = (size.width.toDp() - spacingX) / (xAxisSize - .8).toFloat()
     val strokePathOfQuadraticLine = drawLineAsQuadratic(
         line = line,
         lowerValue = lowerValue,
@@ -48,8 +48,8 @@ fun DrawScope.drawQuarticLineWithShadow(
 
     if (line.lineShadow && !specialChart) {
         val fillPath = strokePathOfQuadraticLine.apply {
-            lineTo(size.width - spaceBetweenXes.toPx() + 40.dp.toPx(), size.height)
-            lineTo(spacingX.toPx() * 2, size.height)
+            lineTo(size.width - spaceBetweenXes.toPx() + 40.dp.toPx(), size.height * 40)
+            lineTo(spacingX.toPx() * 2, size.height * 40)
             close()
         }
         clipRect(right = size.width * animatedProgress.value) {
@@ -91,18 +91,18 @@ fun DrawScope.drawLineAsQuadratic(
         val firstRatio = (info - lowerValue) / (upperValue - lowerValue)
         val secondRatio = (nextInfo - lowerValue) / (upperValue - lowerValue)
 
-        val xFirstPoint = (spacingX + 50.dp / 0.8.dp.toPx()) + index * spaceBetweenXes
-        val xSecondPoint = (spacingX + 50.dp / 0.8.dp.toPx()) + (
+        val xFirstPoint = (spacingX  + 40.dp / 0.8.dp.toPx()) + index * spaceBetweenXes
+        val xSecondPoint = (spacingX + 40.dp  / 0.8.dp.toPx()) + (
                 index + checkLastIndex(lineParameter.data, index)
                 ) * spaceBetweenXes
 
         val yFirstPoint = (height.toPx()
-                + 5.dp.toPx()
+                + 12.dp.toPx()
                 - spacingY.toPx()
                 - (firstRatio * (size.height.toDp() - spacingY).toPx())
                 )
         val ySecondPoint = (height.toPx()
-                + 5.dp.toPx()
+                + 12.dp.toPx()
                 - spacingY.toPx()
                 - (secondRatio * (size.height.toDp() - spacingY).toPx())
                 )
@@ -120,7 +120,7 @@ fun DrawScope.drawLineAsQuadratic(
                     x = xFirstPoint,
                     y = yFirstPoint,
                     textMeasure = textMeasurer,
-                    info = info ,
+                    info = info,
                     stroke = Stroke(width = 2.dp.toPx()),
                     line = line,
                     animatedProgress = animatedProgress

@@ -20,7 +20,7 @@ fun DrawScope.grid(
     if (specialChart){
         return
     }
-    val xAxisMaxValue = size.width - spacingX.toPx()
+    val xAxisMaxValue = size.width
 
     val yAxisList = mutableListOf<Float>()
 
@@ -29,12 +29,12 @@ fun DrawScope.grid(
             yAxisList.add(
                 size.height.toDp().toPx() - spacingY.toPx() - i * (size.height.toDp() - spacingY).toPx() / (yAxisRange)
             )
-            val yAlignmentValue = yAxisList[i] + 5.dp.toPx()
+            val yAlignmentValue = yAxisList[i] + 9.dp.toPx()
 
 
             drawLine(
                 gridColor,
-                start = Offset(spacingX.toPx() + 30.dp.toPx() / 2, yAlignmentValue),
+                start = Offset(spacingX.toPx() + 38.dp.toPx(), yAlignmentValue),
                 end = Offset(xAxisMaxValue, yAlignmentValue),
                 strokeWidth = backgroundLineWidth,
                 pathEffect = PathEffect.dashPathEffect(
