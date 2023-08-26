@@ -11,10 +11,12 @@ import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aay.compose.pieChart.component.PieChartDescriptionComposable
+import com.aay.compose.pieChart.component.draPieCircle
 import com.aay.compose.pieChart.component.drawCenterText
 import com.aay.compose.pieChart.component.drawPedigreeChart
 import com.aay.compose.pieChart.model.PieChartData
 import com.aay.compose.utils.checkIfDataIsNegative
+import kotlin.math.min
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
@@ -65,6 +67,10 @@ fun PieChart(
                 .drawBehind {
                     val canvasWidth = size.width
                     val canvasHeight = size.height
+                    val minValue = min(canvasWidth, canvasHeight)
+                        .coerceAtMost(canvasHeight / 2)
+                        .coerceAtMost(canvasWidth / 2)
+                    val arcWidth = (size.minDimension.dp.toPx() * 0.13f).coerceAtMost(minValue / 4)
 
                     drawCenterText(
                         textMeasure = textMeasure,
@@ -82,9 +88,19 @@ fun PieChart(
                         transitionProgress = transitionProgress,
                         textMeasure = textMeasure,
                         textRatioStyle =testRatioStyle,
-                        innerCircularColor = innerCircularColor,
-                        outerCircularColor = outerCircularColor,
-                        ratioLineColor = ratioLineColor
+                        ratioLineColor = ratioLineColor,
+                        arcWidth = arcWidth,
+                        minValue = minValue
+                    )
+                    //draw outer circle
+                    draPieCircle(
+                        circleColor = outerCircularColor,
+                        radiusRatioCircle = (minValue / 2) + (arcWidth / 1.5f)
+                    )
+                    //draw inner circle
+                    draPieCircle(
+                        circleColor = innerCircularColor,
+                        radiusRatioCircle = (minValue / 2) - (arcWidth / 1.5f)
                     )
 
                 }
