@@ -66,6 +66,7 @@ fun <T> DrawScope.baseChartContainer(
         yAxisRange = yAxisRange,
         specialChart = specialChart,
         gridOrientation = gridOrientation,
-        isFromBarChart = isFromBarChart
+        isFromBarChart = isFromBarChart,
+        xAxisDataSize = xAxisData.size
     )
 }

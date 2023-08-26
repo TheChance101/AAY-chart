@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.times
 
 fun DrawScope.grid(
     xAxisDataSize: Int,
@@ -22,32 +21,30 @@ fun DrawScope.grid(
     gridOrientation: Orientation,
     isFromBarChart: Boolean,
 ) {
-    if (specialChart){
+    if (specialChart) {
         return
     }
-    val xAxisMaxValue = size.width - spacingX.toPx()
+
+    val spaceBetweenXes = 100.dp.toPx()
     val xAxisMaxValue = if (gridOrientation == Orientation.Vertical)
         size.width + xAxisDataSize
     else
-        size.height - spacingY.toPx()  + 10.dp.toPx()
+        size.height - spacingY.toPx() + 5.dp.toPx()
 
 
 
     if (isShowGrid) {
-        (0..yAxisRange ).forEach { i ->
-            yAxisList.add(
-                size.height.toDp().toPx() - spacingY.toPx() - i * (size.height.toDp() - spacingY).toPx() / (yAxisRange)
-            )
-            val yAlignmentValue = yAxisList[i] + 5.dp.toPx()
+        val yAxisList = mutableListOf<Float>()
+
         if (gridOrientation == Orientation.Vertical) {
-            val yAxisList = mutableListOf<Float>()
 
             (0..yAxisRange).forEach { i ->
                 yAxisList.add(
                     size.height.toDp()
                         .toPx() - spacingY.toPx() - i * (size.height.toDp() - spacingY).toPx() / (yAxisRange)
                 )
-                val yAlignmentValue = yAxisList[i] + 5.dp.toPx()
+
+                val yAlignmentValue = yAxisList[i] + 10.dp.toPx()
 
                 drawLine(
                     gridColor,
@@ -62,8 +59,6 @@ fun DrawScope.grid(
             }
 
         } else {
-            val yAxisList = mutableListOf<Float>()
-
             (0 until xAxisDataSize).forEach { i ->
                 yAxisList.add(
                     (spaceBetweenXes - 20.dp.toPx()) + (i * spaceBetweenXes)

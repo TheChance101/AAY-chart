@@ -1,4 +1,4 @@
-package com.aay.compose.lineChart.lines
+package com.aay.compose.lineChart.components
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D

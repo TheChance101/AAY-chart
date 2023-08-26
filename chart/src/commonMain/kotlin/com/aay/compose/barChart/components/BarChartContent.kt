@@ -112,14 +112,11 @@ internal fun BarChartContent(
 
             ) {
                 val spacingX = (size.width / 18.dp.toPx()).dp
-                val spacingY = (size.height / 8.dp.toPx()).dp
 
                 drawBarGroups(
                     barsParameters = barsParameters,
                     upperValue = upperValue,
                     lowerValue = lowerValue,
-                    spacingX = spacingX,
-                    spacingY = maxHeight.dp,
                     xAxisData = xAxisData,
                     barWidth = barWidth,
                     xRegionWidth = xRegionWidth,

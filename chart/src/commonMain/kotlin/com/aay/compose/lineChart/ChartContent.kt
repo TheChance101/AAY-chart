@@ -18,11 +18,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import com.aay.compose.baseComponents.baseChartContainer
-import com.aay.compose.lineChart.components.drawDefaultLineWithShadow
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
 import com.aay.compose.utils.checkIfDataValid
 import com.aay.compose.lineChart.components.drawQuarticLineWithShadow
+import com.aay.compose.lineChart.components.drawDefaultLineWithShadow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -39,13 +39,13 @@ internal fun ChartContent(
     showGridWithSpacer: Boolean,
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
-    yAxisRange : Int,
-    showXAxis : Boolean,
-    showYAxis : Boolean,
-    specialChart : Boolean,
+    yAxisRange: Int,
+    showXAxis: Boolean,
+    showYAxis: Boolean,
+    specialChart: Boolean,
     onChartClick: (Float, Float) -> Unit,
-    clickedPoints : MutableList<Pair<Float, Float>>
-
+    clickedPoints: MutableList<Pair<Float, Float>>,
+    gridOrientation: Orientation
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -73,7 +73,6 @@ internal fun ChartContent(
 
         val spacingX = (size.width / 18.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
-        val chartHeight = size.height.dp - spacingY
 
         baseChartContainer(
             xAxisData = xAxisData,
@@ -89,17 +88,17 @@ internal fun ChartContent(
             yAxisStyle = yAxisStyle,
             xAxisStyle = xAxisStyle,
             yAxisRange = yAxisRange,
-            showXAxis  = showXAxis,
+            showXAxis = showXAxis,
             showYAxis = showYAxis,
             specialChart = specialChart,
             gridOrientation = gridOrientation,
             xRegionWidth = 0f,
             xRegionWidthWithoutSpacing = 0f,
-            isFromBarChart= false,
+            isFromBarChart = false,
         )
 
-        if (specialChart){
-            if (linesParameters.size >= 2){
+        if (specialChart) {
+            if (linesParameters.size >= 2) {
                 throw Exception("Special case must contain just one line")
             }
             linesParameters.forEach { line ->
@@ -112,13 +111,13 @@ internal fun ChartContent(
                     spacingX = spacingX,
                     spacingY = spacingY,
                     specialChart = specialChart,
-                    clickedPoints  = clickedPoints,
+                    clickedPoints = clickedPoints,
                     textMeasure
                 )
 
             }
-        }else {
-            if (linesParameters.size >= 2){
+        } else {
+            if (linesParameters.size >= 2) {
                 clickedPoints.clear()
             }
             linesParameters.forEach { line ->
@@ -146,7 +145,7 @@ internal fun ChartContent(
                         spacingX = spacingX,
                         spacingY = spacingY,
                         specialChart = specialChart,
-                        clickedPoints  = clickedPoints,
+                        clickedPoints = clickedPoints,
                         textMeasure
                     )
 

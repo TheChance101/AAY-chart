@@ -18,12 +18,12 @@ fun BarChartSample() {
     val testBarParameters: List<BarParameters> = listOf(
         BarParameters(
             dataName = "Revenue",
-            data = listOf(50.0, 70.6),
+            data = listOf(50.0, 70.6, 40.9, 60.232, 70.0, 40.2),
             barColor = Color(0xFFF2BD00),
         ),
         BarParameters(
             dataName = "Customers",
-            data = listOf(77.0, 20.9),
+            data = listOf(77.0, 20.9, 40.9, 60.232, 70.0, 24.8),
             barColor = Color.Red,
         ),
         BarParameters(
@@ -42,7 +42,7 @@ fun BarChartSample() {
         BarChart(
             chartParameters = testBarParameters,
             gridColor = Color.DarkGray,
-            xAxisData = listOf("2015", "2016", "2017", "2018"),
+            xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020"),
             isShowGrid = true,
             animateChart = true,
             showGridWithSpacer = true,
