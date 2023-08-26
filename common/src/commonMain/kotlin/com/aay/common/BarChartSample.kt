@@ -26,33 +26,23 @@ fun BarChartSample() {
             data = listOf(77.0, 20.9),
             barColor = Color.Red,
         ),
-//        BarParameters(
-//            dataName = "Completed",
-//            data = listOf(90.0, 50.6, 30.33, 40.9, 60.232, 70.0),
-//            barColor = Color(0xFF81BE88),
-//        ),
-//        BarParameters(
-//            dataName = "Sales",
-//            data = listOf(30.0, 10.6, 20.33, 55.9, 40.232, 66.0),
-//            barColor = Color.Black,
-//        ),
-//        BarParameters(
-//            dataName = "Completed",
-//            data = listOf(90.0, 50.6, 30.33, 40.9, 60.232, 70.0),
-//            barColor = Color.Blue,
-//        ),
-//        BarParameters(
-//            dataName = "Completed",
-//            data = listOf(90.0, 50.6, 30.33, 40.9, 60.232, 70.0),
-//            barColor = Color.White,
-//        ),
+        BarParameters(
+            dataName = "Completed",
+            data = listOf(40.0, 50.6, 30.33, 40.9, 60.232, 70.0),
+            barColor = Color.Blue,
+        ),
+        BarParameters(
+            dataName = "Completed",
+            data = listOf(90.0, 50.6, 30.33, 40.9, 60.232, 70.0),
+            barColor = Color.White,
+        ),
     )
 
     Box(Modifier.padding(24.dp).background(Color.Blue.copy(0.5f)).wrapContentSize()) {
         BarChart(
             chartParameters = testBarParameters,
             gridColor = Color.DarkGray,
-            xAxisData = listOf("2015", "2016"),
+            xAxisData = listOf("2015", "2016", "2017", "2018"),
             isShowGrid = true,
             animateChart = true,
             showGridWithSpacer = true,
