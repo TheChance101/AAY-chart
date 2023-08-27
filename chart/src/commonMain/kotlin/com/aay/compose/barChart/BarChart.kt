@@ -34,10 +34,7 @@ fun BarChart(
     showXAxis: Boolean = ChartDefaultValues.showXAxis,
     showYAxis: Boolean = ChartDefaultValues.showyAxis,
     gridOrientation: Orientation = ChartDefaultValues.gridOrientation,
-    boxSize:Dp
 ) {
-
-    Box(Modifier.wrapContentHeight()) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             LazyRow(
                 horizontalArrangement = horizontalArrangement,
@@ -70,8 +67,6 @@ fun BarChart(
                 showXAxis = showXAxis,
                 showYAxis = showYAxis,
                 gridOrientation = gridOrientation,
-                boxSize =boxSize,
             )
         }
-    }
 }

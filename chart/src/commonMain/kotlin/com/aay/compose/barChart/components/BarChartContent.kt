@@ -12,6 +12,8 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -40,7 +42,6 @@ internal fun BarChartContent(
     showXAxis: Boolean,
     showYAxis: Boolean,
     gridOrientation: Orientation,
-    boxSize: Dp,
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -62,22 +63,34 @@ internal fun BarChartContent(
     var xRegionWidthWithoutSpacing by remember { mutableStateOf(0f) }
     var xRegionWidth by remember { mutableStateOf(0f) }
     var spaceBetweenBars by remember { mutableStateOf(0f) }
+    //initial height set at 0.dp
+    var boxWidth by remember { mutableStateOf(0.dp) }
+    var boxHeight by remember { mutableStateOf(0.dp) }
+    // get local density from composable
+    val density = LocalDensity.current
 
-    Box(modifier = Modifier.fillMaxSize()) {
 
+    Box(modifier = Modifier.fillMaxSize().onGloballyPositioned {
+        boxWidth = with(density) {
+            it.size.width.toDp()
+        }
+        boxHeight = with(density) {
+            it.size.height.toDp()
+        }
+    }
+    ) {
         Canvas(
-            modifier = Modifier
-                .fillMaxSize().background(Color.Cyan.copy(0.5f))
+            modifier = Modifier.fillMaxSize().background(Color.Cyan.copy(0.5f))
         ) {
 
-            val spacingX = (boxSize / 18)
-            val spacingY = (boxSize / 8)
-            spaceBetweenBars = (boxSize.toPx() / 1000)
-            xRegionWidth = (boxSize.toPx() / 5)
+            val spacingX = (boxWidth / 18)
+            val spacingY = (boxWidth / 8)
+            spaceBetweenBars = (boxWidth.toPx() / 1000)
+            xRegionWidth = (boxWidth.toPx() / 5)
             xRegionWidthWithoutSpacing = xRegionWidth - (spacingX.toPx())
             barWidth = (xRegionWidthWithoutSpacing / barsParameters.size) - spaceBetweenBars
             maxWidth = xRegionWidth * xAxisData.size
-            maxHeight = size.height - spacingY.toPx()  + 10.dp.toPx()
+            maxHeight = size.height - spacingY.toPx() + 10.dp.toPx()
 
             baseChartContainer(
                 xAxisData = xAxisData,
@@ -103,9 +116,7 @@ internal fun BarChartContent(
         }
 
         Box(
-            modifier = Modifier
-                .padding(start = 55.dp)
-                .fillMaxSize().horizontalScroll(rememberScrollState())
+            modifier = Modifier.padding(start = 55.dp).fillMaxSize().horizontalScroll(rememberScrollState())
         ) {
 
             Canvas(
@@ -152,8 +163,7 @@ internal fun BarChartContent(
 
             delay(400)
             animatedProgress.animateTo(
-                targetValue = 1f,
-                animationSpec = tween(durationMillis = 1000, easing = LinearEasing)
+                targetValue = 1f, animationSpec = tween(durationMillis = 1000, easing = LinearEasing)
             )
         }
     }
@@ -168,8 +178,7 @@ private fun List<BarParameters>.getLowerValue(): Double {
 }
 
 private fun CoroutineScope.collectToSnapShotFlow(
-    linesParameters: List<BarParameters>,
-    makeUpdateData: (List<BarParameters>) -> Unit
+    linesParameters: List<BarParameters>, makeUpdateData: (List<BarParameters>) -> Unit
 ) {
     this.launch {
         snapshotFlow {

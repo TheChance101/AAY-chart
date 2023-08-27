@@ -55,7 +55,6 @@ fun BarChartSample() {
                 fontWeight = FontWeight.W400
             ),
             barWidthPx = 5.dp,
-            boxSize = 700.dp
         )
     }
 }
