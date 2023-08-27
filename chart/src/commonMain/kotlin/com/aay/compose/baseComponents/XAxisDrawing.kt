@@ -6,10 +6,7 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.aay.compose.barChart.model.BarParameters
-import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.utils.formatToThousandsMillionsBillions
-import kotlin.math.roundToInt
 
 @OptIn(ExperimentalTextApi::class)
 fun <T> DrawScope.xAxisDrawing(
@@ -30,19 +27,12 @@ fun <T> DrawScope.xAxisDrawing(
         val textLayoutResult = textMeasure.measure(
             text = AnnotatedString(xAxisData[index].toString()),
         ).size.width
-//        val yDataWidth :MutableList<Int> = emptyList<Int>().toMutableList()
-//        val yAxisData = linesParameters.flatMap { it.data }
-//        yAxisData.forEachIndexed { i ,value ->
-//            yDataWidth[i] = textMeasure.measure(
-//                text = AnnotatedString(value.toString()),
-//            ).size.width
-//        }
 
         val startSpace = (spacing) + (textLayoutResult).dp
         val spaceBetweenXes = (size.width - startSpace.toPx()) / (xAxisData.size - 1)
 
-        val xLength = (yTextLayoutResult.dp) + (index * spaceBetweenXes).toDp()
-        println(yTextLayoutResult)
+        val xLength = (yTextLayoutResult.toDp()) + (index * spaceBetweenXes).toDp()
+
         drawContext.canvas.nativeCanvas.apply {
             drawText(
                 textMeasurer = textMeasure,

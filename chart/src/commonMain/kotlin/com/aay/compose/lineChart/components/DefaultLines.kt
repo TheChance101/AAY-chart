@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.times
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.utils.clickedOnThisPoint
 import com.aay.compose.utils.formatToThousandsMillionsBillions
-import kotlin.math.roundToInt
 
 private var lastClickedPoint: Pair<Float, Float>? = null
 
@@ -27,7 +26,6 @@ fun DrawScope.drawDefaultLineWithShadow(
     lowerValue: Float,
     upperValue: Float,
     animatedProgress: Animatable<Float, AnimationVector1D>,
-    xAxisSize: Int,
     spacingX: Dp,
     spacingY: Dp,
     clickedPoints: MutableList<Pair<Float, Float>>,
@@ -101,9 +99,9 @@ private fun DrawScope.drawLineAsDefault(
 
         val info = lineParameter.data[index]
         val ratio = (info - lowerValue) / (upperValue - lowerValue)
-        val startXPoint = (yTextLayoutResult.dp) + (index * spaceBetweenXes)
+        val startXPoint = (yTextLayoutResult.toDp()) + (index * spaceBetweenXes)
         val startYPoint =
-            (height.toPx() + 14.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
+            (height.toPx() + 11.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
 
         val tolerance = 20.dp.toPx()
         val savedClicks =

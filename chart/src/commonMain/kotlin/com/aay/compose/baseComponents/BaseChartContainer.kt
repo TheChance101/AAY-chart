@@ -56,7 +56,6 @@ fun <T> DrawScope.baseChartContainer(
         gridColor = gridColor,
         backgroundLineWidth = backgroundLineWidth,
         showGridWithSpacer = showGridWithSpacer,
-        spacingX = spacingX,
         spacingY = spacingY,
         yAxisRange = yAxisRange ,
         specialChart = specialChart,

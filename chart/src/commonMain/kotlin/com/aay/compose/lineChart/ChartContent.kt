@@ -127,7 +127,6 @@ internal fun ChartContent(
                         lowerValue = lowerValue.toFloat(),
                         upperValue = upperValue.toFloat(),
                         animatedProgress = animatedProgress,
-                        xAxisSize = xAxisData.size,
                         spacingX = spacingX,
                         spacingY = spacingY,
                         clickedPoints = clickedPoints,
