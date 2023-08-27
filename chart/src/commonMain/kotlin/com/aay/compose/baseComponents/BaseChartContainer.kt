@@ -26,7 +26,7 @@ fun <T> DrawScope.baseChartContainer(
     chartHeight : Dp,
     showXAxis : Boolean,
     showYAxis : Boolean,
-    specialChart : Boolean = false
+    specialChart : Boolean = false,
 ) {
   if(showXAxis) {
       xAxisDrawing(
@@ -34,7 +34,8 @@ fun <T> DrawScope.baseChartContainer(
           spacing = spacingX,
           textMeasure = textMeasure,
           xAxisStyle = xAxisStyle,
-          specialChart = specialChart
+          specialChart = specialChart,
+          upperValue = upperValue,
       )
   }
 
@@ -55,9 +56,10 @@ fun <T> DrawScope.baseChartContainer(
         gridColor = gridColor,
         backgroundLineWidth = backgroundLineWidth,
         showGridWithSpacer = showGridWithSpacer,
-        spacingX = spacingX,
         spacingY = spacingY,
         yAxisRange = yAxisRange ,
-        specialChart = specialChart
-    )
+        specialChart = specialChart,
+        textMeasurer = textMeasure,
+        upperValue = upperValue,
+        )
 }
