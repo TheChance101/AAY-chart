@@ -21,6 +21,7 @@ import com.aay.compose.baseComponents.baseChartContainer
 import com.aay.compose.barChart.model.BarParameters
 import com.aay.compose.baseComponents.xAxisDrawing
 import com.aay.compose.utils.ChartDefaultValues.specialChart
+import com.aay.compose.utils.formatToThousandsMillionsBillions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -56,7 +57,7 @@ internal fun BarChartContent(
     var lowerValue by rememberSaveable {
         mutableStateOf(barsParameters.getLowerValue())
     }
-
+    var yTextLayoutResult by remember { mutableStateOf(0) }
     var maxWidth by remember { mutableStateOf(0f) }
     var maxHeight by remember { mutableStateOf(0f) }
     var barWidth by remember { mutableStateOf(0f) }
@@ -82,15 +83,14 @@ internal fun BarChartContent(
         Canvas(
             modifier = Modifier.fillMaxSize().background(Color.Cyan.copy(0.5f))
         ) {
-
-            val spacingX = (boxWidth / 18)
+            val spacingXBetweenGroups = (boxWidth / 18)
             val spacingY = (boxWidth / 8)
             spaceBetweenBars = (boxWidth.toPx() / 1000)
             xRegionWidth = (boxWidth.toPx() / 5)
-            xRegionWidthWithoutSpacing = xRegionWidth - (spacingX.toPx())
+            xRegionWidthWithoutSpacing = xRegionWidth - (spacingXBetweenGroups.toPx())
             barWidth = (xRegionWidthWithoutSpacing / barsParameters.size) - spaceBetweenBars
             maxWidth = xRegionWidth * xAxisData.size
-            maxHeight = size.height - spacingY.toPx() + 10.dp.toPx()
+            maxHeight = boxHeight.toPx() - spacingY.toPx() + 10.dp.toPx()
 
             baseChartContainer(
                 xAxisData = xAxisData,
@@ -101,7 +101,7 @@ internal fun BarChartContent(
                 backgroundLineWidth = backgroundLineWidth,
                 gridColor = gridColor,
                 showGridWithSpacer = showGridWithSpacer,
-                spacingX = spacingX,
+                spacingX = spacingXBetweenGroups,
                 spacingY = spacingY,
                 yAxisStyle = yAxisStyle,
                 xAxisStyle = xAxisStyle,
@@ -116,14 +116,18 @@ internal fun BarChartContent(
         }
 
         Box(
-            modifier = Modifier.padding(start = 55.dp).fillMaxSize().horizontalScroll(rememberScrollState())
+            modifier = Modifier.fillMaxSize().horizontalScroll(rememberScrollState())
         ) {
 
             Canvas(
-                Modifier.width(maxWidth.dp).fillMaxHeight().background(Color.Blue.copy(0.5f))
+                Modifier.width(boxWidth).fillMaxHeight().background(Color.Blue.copy(0.5f))
 
             ) {
                 val spacingX = (size.width / 18.dp.toPx()).dp
+
+                yTextLayoutResult = textMeasure.measure(
+                    text = AnnotatedString(upperValue.toFloat().formatToThousandsMillionsBillions()),
+                ).size.width
 
                 drawBarGroups(
                     barsParameters = barsParameters,
@@ -136,6 +140,7 @@ internal fun BarChartContent(
                     spaceBetweenBars = spaceBetweenBars,
                     maxWidth = maxWidth.dp,
                     height = maxHeight.dp,
+                    yTextLayoutResult = yTextLayoutResult
                 )
 
                 xAxisDrawing(
@@ -146,7 +151,8 @@ internal fun BarChartContent(
                     barWidth = barWidth,
                     xRegionWidthWithoutSpacing = xRegionWidthWithoutSpacing,
                     height = maxHeight.dp,
-                    barSize = barsParameters.size
+                    barSize = barsParameters.size,
+                    yTextLayoutResult = yTextLayoutResult
                 )
             }
         }

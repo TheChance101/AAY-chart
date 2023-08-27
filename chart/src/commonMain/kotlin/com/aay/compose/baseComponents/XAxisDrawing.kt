@@ -50,6 +50,7 @@ fun <T> DrawScope.xAxisDrawing(
     barWidth: Float,
     xRegionWidthWithoutSpacing: Float,
     barSize: Int,
+    yTextLayoutResult :Int,
 ) {
     if (specialChart) {
         return
@@ -62,7 +63,7 @@ fun <T> DrawScope.xAxisDrawing(
 
 //        val xLength = (barWidth / xAxisData.size) * xRegionWidthWithoutSpacing * index
         val xLength =
-            ((barWidth.dp.toPx() * barSize.dp.toPx()) / (barSize.dp.toPx() / 1.2f)) + (((barWidth.dp.toPx() * barSize.dp.toPx()) / 0.7.dp.toPx()) * index)
+            yTextLayoutResult.dp.toPx() + (((barWidth.dp.toPx() * barSize.dp.toPx()) / 0.7.dp.toPx()) * index)
 
 
         drawContext.canvas.nativeCanvas.apply {

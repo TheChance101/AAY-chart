@@ -20,6 +20,7 @@ internal fun DrawScope.drawBarGroups(
     spaceBetweenBars: Float,
     maxWidth: Dp,
     height: Dp,
+    yTextLayoutResult:Int
 ) {
 
     barsParameters.forEachIndexed { barIndex, bar ->
