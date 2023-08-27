@@ -42,11 +42,11 @@ private fun DrawScope.chartRectangleWithText(
 ) {
     val rectSize = Size(50.dp.toPx(), 30.dp.toPx())
     val rectTopLeft = Offset(
-        x.toPx() - rectSize.width / 2,
+        x.toPx() - rectSize.width / 1.5.toFloat(),
         y.toFloat() - rectSize.height * 1.5.toFloat()
     )
     val rectBounds = Rect(rectTopLeft, rectSize)
-    val text = "Value:${infoText.toLong().formatToThousandsMillionsBillions()}"
+    val text = "Value:${infoText.toFloat().formatToThousandsMillionsBillions()}"
 
     val textStyle = TextStyle(fontSize = 8.sp, color = Color.Black)
 

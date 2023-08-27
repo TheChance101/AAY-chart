@@ -55,13 +55,13 @@ fun PieChart(
     }
 
     Column(
-        modifier = modifier.padding(vertical = 24.dp),
+        modifier = modifier,
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
 
         Box(
-            modifier = Modifier.fillMaxSize().weight(1f)
+            modifier = Modifier.fillMaxSize().weight(1.5f)
                 .drawBehind {
                     val canvasWidth = size.width
                     val canvasHeight = size.height
@@ -93,7 +93,7 @@ fun PieChart(
         PieChartDescriptionComposable(
             pieChartData = pieChartData,
             descriptionStyle = descriptionStyle,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.fillMaxWidth().weight(0.5f)
         )
 
     }

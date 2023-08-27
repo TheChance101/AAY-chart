@@ -6,7 +6,6 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -18,11 +17,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import com.aay.compose.baseComponents.baseChartContainer
+import com.aay.compose.lineChart.components.drawDefaultLineWithShadow
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
 import com.aay.compose.utils.checkIfDataValid
 import com.aay.compose.lineChart.components.drawQuarticLineWithShadow
-import com.aay.compose.lineChart.components.drawDefaultLineWithShadow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -39,10 +38,10 @@ internal fun ChartContent(
     showGridWithSpacer: Boolean,
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
-    yAxisRange: Int,
-    showXAxis: Boolean,
-    showYAxis: Boolean,
-    specialChart: Boolean,
+    yAxisRange : Int,
+    showXAxis : Boolean,
+    showYAxis : Boolean,
+    specialChart : Boolean,
     onChartClick: (Float, Float) -> Unit,
     clickedPoints: MutableList<Pair<Float, Float>>,
     gridOrientation: Orientation
@@ -71,8 +70,11 @@ internal fun ChartContent(
             }
     ) {
 
+
+
         val spacingX = (size.width / 18.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
+        val chartHeight = size.height.dp - spacingY
 
         baseChartContainer(
             xAxisData = xAxisData,
@@ -88,7 +90,7 @@ internal fun ChartContent(
             yAxisStyle = yAxisStyle,
             xAxisStyle = xAxisStyle,
             yAxisRange = yAxisRange,
-            showXAxis = showXAxis,
+            showXAxis  = showXAxis,
             showYAxis = showYAxis,
             specialChart = specialChart,
             gridOrientation = gridOrientation,
@@ -111,7 +113,7 @@ internal fun ChartContent(
                     spacingX = spacingX,
                     spacingY = spacingY,
                     specialChart = specialChart,
-                    clickedPoints = clickedPoints,
+                    clickedPoints  = clickedPoints,
                     textMeasure
                 )
 
@@ -145,13 +147,14 @@ internal fun ChartContent(
                         spacingX = spacingX,
                         spacingY = spacingY,
                         specialChart = specialChart,
-                        clickedPoints = clickedPoints,
+                        clickedPoints  = clickedPoints,
                         textMeasure
                     )
 
                 }
             }
         }
+
     }
 
     LaunchedEffect(linesParameters, animateChart) {

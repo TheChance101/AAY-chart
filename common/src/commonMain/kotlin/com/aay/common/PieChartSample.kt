@@ -41,7 +41,7 @@ fun PieChartSample() {
     )
 
     PieChart(
-        modifier = Modifier.width(550.dp).height(550.dp),
+        modifier = Modifier.size(260.dp),
         pieChartData = testPieChartData,
         centerTitle = "Orders",
         centerTitleStyle = TextStyle(color = Color.Gray),

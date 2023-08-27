@@ -23,7 +23,7 @@ internal fun PieChartDescriptionComposable(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxSize()
-            .padding(bottom = 16.dp, top = 50.dp),
+            .padding(bottom = 16.dp),
         contentPadding = PaddingValues(16.dp)
     ) {
 
