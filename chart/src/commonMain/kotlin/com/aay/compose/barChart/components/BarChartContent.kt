@@ -125,7 +125,6 @@ internal fun BarChartContent(
                     spaceBetweenBars = spaceBetweenBars,
                     maxWidth = maxWidth.dp,
                     height = maxHeight.dp,
-                    spacingY = (size.height/8).dp
                 )
 
                 xAxisDrawing(

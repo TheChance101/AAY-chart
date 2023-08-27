@@ -56,12 +56,13 @@ fun <T> DrawScope.xAxisDrawing(
     }
 
     println("xRegionWidth -------- ${barWidth.dp.toPx()}")
-    println("xRegionWidthWithoutSpacing -------- ${xRegionWidthWithoutSpacing.dp.toPx()}")
+    println("barSize -------- ${(barSize.dp.toPx() / 2.5.dp.toPx())}")
 
     xAxisData.forEachIndexed { index, dataPoint ->
 
 //        val xLength = (barWidth / xAxisData.size) * xRegionWidthWithoutSpacing * index
-        val xLength = ((barWidth * barSize) + (30.dp.toPx() * barSize)) * index
+        val xLength =
+            ((barWidth.dp.toPx() * barSize.dp.toPx()) / (barSize.dp.toPx() / 1.2f)) + (((barWidth.dp.toPx() * barSize.dp.toPx()) / 0.7.dp.toPx()) * index)
 
 
         drawContext.canvas.nativeCanvas.apply {
