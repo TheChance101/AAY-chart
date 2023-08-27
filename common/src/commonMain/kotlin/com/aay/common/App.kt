@@ -12,7 +12,7 @@ fun App() {
     BarChartSample()
 
     /** Sample of Pie Chart **/
-    PieChartSample()
+//    PieChartSample()
 
     /** Sample of Radar Chart **/
 //    RadarChartSample()

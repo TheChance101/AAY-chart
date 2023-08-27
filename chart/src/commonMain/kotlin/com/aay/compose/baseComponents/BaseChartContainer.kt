@@ -52,7 +52,8 @@ fun <T> DrawScope.baseChartContainer(
             spacing = spacingY,
             yAxisStyle = yAxisStyle,
             yAxisRange = yAxisRange,
-            specialChart = specialChart
+            specialChart = specialChart,
+            isFromBarChart = isFromBarChart
         )
     }
 

@@ -54,7 +54,7 @@ fun BarChartSample() {
                 color = Color.DarkGray,
                 fontWeight = FontWeight.W400
             ),
-            barWidthPx = 15.dp,
+            barWidthPx = 5.dp,
             boxSize = 700.dp
         )
     }
