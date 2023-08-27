@@ -72,7 +72,7 @@ internal fun ChartContent(
 
 
 
-        val spacingX = (size.width / 180.dp.toPx()).dp
+        val spacingX = (size.width / 16.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
         val chartHeight = size.height.dp - spacingY
 
@@ -106,7 +106,7 @@ internal fun ChartContent(
                     lowerValue = lowerValue.toFloat(),
                     upperValue = upperValue.toFloat(),
                     animatedProgress = animatedProgress,
-                    xAxisSize = xAxisData.size,
+                    xAxisData = xAxisData,
                     spacingX = spacingX,
                     spacingY = spacingY,
                     specialChart = specialChart,
@@ -131,7 +131,8 @@ internal fun ChartContent(
                         spacingX = spacingX,
                         spacingY = spacingY,
                         clickedPoints = clickedPoints,
-                        textMeasure = textMeasure
+                        textMeasure = textMeasure,
+                        xAxisData = xAxisData
                     )
 
                 } else {
@@ -140,7 +141,7 @@ internal fun ChartContent(
                         lowerValue = lowerValue.toFloat(),
                         upperValue = upperValue.toFloat(),
                         animatedProgress = animatedProgress,
-                        xAxisSize = xAxisData.size,
+                        xAxisData = xAxisData,
                         spacingX = spacingX,
                         spacingY = spacingY,
                         specialChart = specialChart,

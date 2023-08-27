@@ -13,20 +13,27 @@ fun <T> DrawScope.xAxisDrawing(
     spacing: Dp,
     textMeasure: TextMeasurer,
     xAxisStyle: TextStyle,
-    specialChart : Boolean
+    specialChart: Boolean,
 ) {
-    if (specialChart){
+    if (specialChart) {
         return
     }
-    val spaceBetweenXes = (size.width - spacing.toPx()) / xAxisData.size
 
     xAxisData.forEachIndexed { index, dataPoint ->
-        val xLength = (spacing + 60.dp / 2) + (index * spaceBetweenXes).toDp()
+        val textLayoutResult = textMeasure.measure(
+            text = AnnotatedString(xAxisData[index].toString()),
+        ).size.width
+
+        val startSpace = (spacing) + (textLayoutResult).dp
+        val spaceBetweenXes = (size.width - startSpace.toPx()) / (xAxisData.size - 1)
+
+        val xLength = (spacing) + (index * spaceBetweenXes).toDp()
         drawContext.canvas.nativeCanvas.apply {
             drawText(
                 textMeasurer = textMeasure,
                 text = dataPoint.toString(),
                 style = xAxisStyle,
+                maxLines = 1,
                 topLeft = Offset(
                     xLength.coerceAtMost(size.width.toDp()).toPx(),
                     size.height / 1.07f

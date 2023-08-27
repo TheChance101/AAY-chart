@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.unit.Dp
@@ -24,7 +25,7 @@ fun DrawScope.drawQuarticLineWithShadow(
     lowerValue: Float,
     upperValue: Float,
     animatedProgress: Animatable<Float, AnimationVector1D>,
-    xAxisSize: Int,
+    xAxisData: List<String>,
     spacingX: Dp,
     spacingY: Dp,
     specialChart: Boolean,
@@ -32,18 +33,24 @@ fun DrawScope.drawQuarticLineWithShadow(
     textMeasurer: TextMeasurer,
 ) {
 
-    val spaceBetweenXes = (size.width.toDp() - spacingX) / (xAxisSize - .8).toFloat()
+    val textLayoutResult = textMeasurer.measure(
+        text = AnnotatedString(xAxisData.first().toString()),
+    ).size.width
+
+    val startSpace = (spacingX) + (textLayoutResult / 2).dp
+    val spaceBetweenXes = ((size.width - startSpace.toPx()) / (xAxisData.size - 1)).toDp()
+
     val strokePathOfQuadraticLine = drawLineAsQuadratic(
         line = line,
         lowerValue = lowerValue,
         upperValue = upperValue,
-        spaceBetweenXes = spaceBetweenXes,
         animatedProgress = animatedProgress,
         spacingX = spacingX,
         spacingY = spacingY,
         specialChart = specialChart,
         clickedPoints = clickedPoints,
-        textMeasurer = textMeasurer
+        textMeasurer = textMeasurer,
+        xAxisData = xAxisData
     )
 
     if (line.lineShadow && !specialChart) {
@@ -69,13 +76,13 @@ fun DrawScope.drawLineAsQuadratic(
     line: LineParameters,
     lowerValue: Float,
     upperValue: Float,
-    spaceBetweenXes: Dp,
     animatedProgress: Animatable<Float, AnimationVector1D>,
     spacingX: Dp,
     spacingY: Dp,
     specialChart: Boolean,
     clickedPoints: MutableList<Pair<Float, Float>>,
     textMeasurer: TextMeasurer,
+    xAxisData: List<String>,
 ) = Path().apply {
     var medX: Float
     val height = size.height.toDp()
@@ -86,15 +93,21 @@ fun DrawScope.drawLineAsQuadratic(
         animatedProgress = animatedProgress,
     ) { lineParameter, index ->
 
+        val textLayoutResult = textMeasurer.measure(
+            text = AnnotatedString(xAxisData[index]),
+        ).size.width
+
+        val startSpace = (spacingX) + (textLayoutResult / 2).dp
+        val spaceBetweenXes = ((size.width - startSpace.toPx()) / (xAxisData.size - 1)).toDp()
+
         val info = lineParameter.data[index]
         val nextInfo = lineParameter.data.getOrNull(index + 1) ?: lineParameter.data.last()
         val firstRatio = (info - lowerValue) / (upperValue - lowerValue)
         val secondRatio = (nextInfo - lowerValue) / (upperValue - lowerValue)
 
-        val xFirstPoint = (spacingX  + 40.dp / 0.8.dp.toPx()) + index * spaceBetweenXes
-        val xSecondPoint = (spacingX + 40.dp  / 0.8.dp.toPx()) + (
-                index + checkLastIndex(lineParameter.data, index)
-                ) * spaceBetweenXes
+        val xFirstPoint = (spacingX) + index * spaceBetweenXes
+        val xSecondPoint =
+            (spacingX) + (index + checkLastIndex(lineParameter.data, index)) * spaceBetweenXes
 
         val yFirstPoint = (height.toPx()
                 + 12.dp.toPx()

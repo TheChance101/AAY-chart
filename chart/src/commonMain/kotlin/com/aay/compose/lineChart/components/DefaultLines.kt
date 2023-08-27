@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.unit.Dp
@@ -29,19 +30,26 @@ fun DrawScope.drawDefaultLineWithShadow(
     spacingY: Dp,
     clickedPoints: MutableList<Pair<Float, Float>>,
     textMeasure: TextMeasurer,
+    xAxisData: List<String>,
 ) {
 
-    val spaceBetweenXes = (size.width.toDp() - spacingX) / (xAxisSize - .8).toFloat()
+    val textLayoutResult = textMeasure.measure(
+        text = AnnotatedString(xAxisData.first().toString()),
+    ).size.width
+
+    val startSpace = (spacingX ) + (textLayoutResult / 2).dp
+    val spaceBetweenXes = ((size.width - startSpace.toPx()) / (xAxisData.size - 1)).toDp()
+
     val strokePathOfDefaultLine = drawLineAsDefault(
         lineParameter = line,
         lowerValue = lowerValue,
         upperValue = upperValue,
-        spaceBetweenXes = spaceBetweenXes,
         animatedProgress = animatedProgress,
         spacingX = spacingX,
         spacingY = spacingY,
         clickedPoints = clickedPoints,
-        textMeasure = textMeasure
+        textMeasure = textMeasure,
+        xAxisData = xAxisData
     )
 
     if (line.lineShadow) {
@@ -66,25 +74,30 @@ private fun DrawScope.drawLineAsDefault(
     lineParameter: LineParameters,
     lowerValue: Float,
     upperValue: Float,
-    spaceBetweenXes: Dp,
     animatedProgress: Animatable<Float, AnimationVector1D>,
     spacingX: Dp,
     spacingY: Dp,
     clickedPoints: MutableList<Pair<Float, Float>>,
     textMeasure: TextMeasurer,
+    xAxisData: List<String>
 ) = Path().apply {
-
     val height = size.height.toDp()
     drawPathLineWrapper(
         lineParameter = lineParameter,
         strokePath = this,
         animatedProgress = animatedProgress,
     ) { lineParameter, index ->
+        val textLayoutResult = textMeasure.measure(
+            text = AnnotatedString(xAxisData[index]),
+        ).size.width
+
+        val startSpace = (spacingX ) + (textLayoutResult / 2).dp
+        val spaceBetweenXes = ((size.width - startSpace.toPx()) / (xAxisData.size - 1)).toDp()
 
 
         val info = lineParameter.data[index]
         val ratio = (info - lowerValue) / (upperValue - lowerValue)
-        val startXPoint = (spacingX + 40.dp / 0.8.dp.toPx()) + (index * spaceBetweenXes)
+        val startXPoint = (spacingX) + (index * spaceBetweenXes)
         val startYPoint =
             (height.toPx() + 14.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
 

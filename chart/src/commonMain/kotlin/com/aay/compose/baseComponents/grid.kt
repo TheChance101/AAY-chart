@@ -34,7 +34,7 @@ fun DrawScope.grid(
 
             drawLine(
                 gridColor,
-                start = Offset(spacingX.toPx() + 38.dp.toPx(), yAlignmentValue),
+                start = Offset(spacingX.toPx(), yAlignmentValue),
                 end = Offset(xAxisMaxValue, yAlignmentValue),
                 strokeWidth = backgroundLineWidth,
                 pathEffect = PathEffect.dashPathEffect(
