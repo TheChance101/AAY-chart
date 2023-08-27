@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.utils.clickedOnThisPoint
+import com.aay.compose.utils.formatToThousandsMillionsBillions
 
 private var lastClickedPoint: Pair<Float, Float>? = null
 
@@ -97,6 +98,10 @@ fun DrawScope.drawLineAsQuadratic(
             text = AnnotatedString(xAxisData[index]),
         ).size.width
 
+        val yTextLayoutResult = textMeasurer.measure(
+            text = AnnotatedString(upperValue.formatToThousandsMillionsBillions()),
+        ).size.width
+
         val startSpace = (spacingX) + (textLayoutResult / 2).dp
         val spaceBetweenXes = ((size.width - startSpace.toPx()) / (xAxisData.size - 1)).toDp()
 
@@ -105,9 +110,9 @@ fun DrawScope.drawLineAsQuadratic(
         val firstRatio = (info - lowerValue) / (upperValue - lowerValue)
         val secondRatio = (nextInfo - lowerValue) / (upperValue - lowerValue)
 
-        val xFirstPoint = (spacingX) + index * spaceBetweenXes
+        val xFirstPoint = (yTextLayoutResult.dp) + index * spaceBetweenXes
         val xSecondPoint =
-            (spacingX) + (index + checkLastIndex(lineParameter.data, index)) * spaceBetweenXes
+            (yTextLayoutResult.dp) + (index + checkLastIndex(lineParameter.data, index)) * spaceBetweenXes
 
         val yFirstPoint = (height.toPx()
                 + 12.dp.toPx()

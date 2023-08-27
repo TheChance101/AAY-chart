@@ -4,9 +4,14 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.ExperimentalTextApi
+import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.aay.compose.utils.formatToThousandsMillionsBillions
 
+@OptIn(ExperimentalTextApi::class)
 fun DrawScope.grid(
     isShowGrid: Boolean,
     gridColor: Color,
@@ -15,11 +20,16 @@ fun DrawScope.grid(
     spacingX: Dp,
     spacingY: Dp,
     yAxisRange : Int,
-    specialChart : Boolean
+    specialChart : Boolean,
+    upperValue: Float,
+    textMeasurer:TextMeasurer
 ) {
     if (specialChart){
         return
     }
+    val yTextLayoutResult = textMeasurer.measure(
+        text = AnnotatedString(upperValue.formatToThousandsMillionsBillions()),
+    ).size.width
     val xAxisMaxValue = size.width
 
     val yAxisList = mutableListOf<Float>()
@@ -34,7 +44,7 @@ fun DrawScope.grid(
 
             drawLine(
                 gridColor,
-                start = Offset(spacingX.toPx(), yAlignmentValue),
+                start = Offset(yTextLayoutResult.dp.toPx(), yAlignmentValue),
                 end = Offset(xAxisMaxValue, yAlignmentValue),
                 strokeWidth = backgroundLineWidth,
                 pathEffect = PathEffect.dashPathEffect(

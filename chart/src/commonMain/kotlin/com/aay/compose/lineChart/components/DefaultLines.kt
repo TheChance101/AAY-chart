@@ -16,6 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.utils.clickedOnThisPoint
+import com.aay.compose.utils.formatToThousandsMillionsBillions
+import kotlin.math.roundToInt
 
 private var lastClickedPoint: Pair<Float, Float>? = null
 
@@ -93,11 +95,13 @@ private fun DrawScope.drawLineAsDefault(
 
         val startSpace = (spacingX ) + (textLayoutResult / 2).dp
         val spaceBetweenXes = ((size.width - startSpace.toPx()) / (xAxisData.size - 1)).toDp()
-
+        val yTextLayoutResult = textMeasure.measure(
+            text = AnnotatedString(upperValue.formatToThousandsMillionsBillions()),
+        ).size.width
 
         val info = lineParameter.data[index]
         val ratio = (info - lowerValue) / (upperValue - lowerValue)
-        val startXPoint = (spacingX) + (index * spaceBetweenXes)
+        val startXPoint = (yTextLayoutResult.dp) + (index * spaceBetweenXes)
         val startYPoint =
             (height.toPx() + 14.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
 
