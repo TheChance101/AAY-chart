@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.times
 import com.aay.compose.utils.formatToThousandsMillionsBillions
 
 @OptIn(ExperimentalTextApi::class)
@@ -23,6 +24,7 @@ fun <T> DrawScope.xAxisDrawing(
     val yTextLayoutResult = textMeasure.measure(
         text = AnnotatedString(upperValue.formatToThousandsMillionsBillions()),
     ).size.width
+
     xAxisData.forEachIndexed { index, dataPoint ->
         val textLayoutResult = textMeasure.measure(
             text = AnnotatedString(xAxisData[index].toString()),
@@ -42,6 +44,41 @@ fun <T> DrawScope.xAxisDrawing(
                 topLeft = Offset(
                     xLength.coerceAtMost(size.width.toDp()).toPx(),
                     size.height / 1.07f
+                )
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalTextApi::class)
+fun <T> DrawScope.xAxisDrawing(
+    xAxisData: List<T>,
+    height: Dp,
+    textMeasure: TextMeasurer,
+    xAxisStyle: TextStyle,
+    specialChart: Boolean,
+    xRegionWidth: Dp,
+    xRegionWidthWithoutSpacing: Dp,
+) {
+    if (specialChart) {
+        return
+    }
+
+    xAxisData.forEachIndexed { index, dataPoint ->
+
+
+        val xLength =
+            (xRegionWidthWithoutSpacing / 4) + (index * (xRegionWidth))
+
+        drawContext.canvas.nativeCanvas.apply {
+            drawText(
+                textMeasurer = textMeasure,
+                text = dataPoint.toString(),
+                style = xAxisStyle,
+                maxLines = 1,
+                topLeft = Offset(
+                    xLength.toPx().coerceAtMost(size.width),
+                    height.value + 20.dp.toPx()
                 )
             )
         }

@@ -11,23 +11,30 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.times
 import com.aay.compose.utils.formatToThousandsMillionsBillions
 
+
 @OptIn(ExperimentalTextApi::class)
 fun DrawScope.yAxisDrawing(
     upperValue: Float, lowerValue: Float,
     textMeasure: TextMeasurer,
     spacing: Dp,
     yAxisStyle: TextStyle,
-    yAxisRange : Int,
-    specialChart : Boolean
+    yAxisRange: Int,
+    specialChart: Boolean,
+    isFromBarChart: Boolean,
 ) {
-    if (specialChart){
+    if (specialChart) {
         return
     }
     val dataRange = upperValue - lowerValue
     val dataStep = dataRange / yAxisRange
 
-    (0..yAxisRange ).forEach { i ->
-        val yValue = lowerValue + dataStep * i
+    (0..yAxisRange).forEach { i ->
+        val yValue = if (isFromBarChart) {
+            dataStep * i
+        } else {
+            lowerValue + dataStep * i
+        }
+
         val y = (size.height.toDp() - spacing - i * (size.height.toDp() - spacing) / (yAxisRange))
         drawContext.canvas.nativeCanvas.apply {
             drawText(

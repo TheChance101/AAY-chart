@@ -13,34 +13,33 @@ internal fun DrawScope.drawBarGroups(
     barsParameters: List<BarParameters>,
     upperValue: Double,
     lowerValue: Double,
-    spacingY: Dp,
-    spacingX: Dp,
-    xAxisData: List<String>,
-    barWidthPx: Dp,
+    barWidth: Dp,
+    xRegionWidth: Dp,
+    spaceBetweenBars: Dp,
+    maxWidth: Dp,
+    height: Dp,
 ) {
-
-    val height = size.height.toDp().toPx()
-    val width = size.width.toDp()
 
     barsParameters.forEachIndexed { barIndex, bar ->
 
-
         bar.data.forEachIndexed { index, data ->
-            val ratio = (((data.toFloat() - lowerValue) / (upperValue)) / 1.12.dp.toPx()).dp.toPx()
-            val barLength = ratio * (height- (spacingY.toPx() / 4.dp.toPx()))
-            val xAxisLength = ((spacingX * 0.6.dp.toPx()) + (index * ((width - spacingX) / xAxisData.size)))
-            val lengthWithRatio = xAxisLength + (barIndex * (barWidthPx + (barWidthPx / 2)))
+            val ratio = (data.toFloat() ) / (upperValue)
+            val barLength = (ratio * (height/ 2.toDp().toPx())) - lowerValue.dp
 
-            drawRect(
+            val xAxisLength = (index * xRegionWidth)
+            val lengthWithRatio = xAxisLength + (barIndex * (barWidth + spaceBetweenBars))
+
+            drawRoundRect(
                 brush = Brush.verticalGradient(listOf(bar.barColor, bar.barColor)),
                 topLeft = Offset(
-                    lengthWithRatio.coerceAtMost(width).toPx(),
-                    (height + 5.dp.toPx() - spacingY.toPx() - barLength)
+                    lengthWithRatio.coerceAtMost(maxWidth).toPx(),
+                    (height.value - barLength.toPx())
                 ),
                 size = Size(
-                    width = barWidthPx.toPx(),
-                    height = (barLength)
+                    width = barWidth.toPx(),
+                    height = barLength.toPx()
                 ),
+                cornerRadius = CornerRadius(50.dp.toPx(), 50.dp.toPx())
             )
         }
     }

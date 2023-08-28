@@ -1,5 +1,6 @@
 package com.aay.compose.barChart
 
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -16,26 +17,22 @@ import com.aay.compose.utils.ChartDefaultValues
 
 @Composable
 fun BarChart(
-    modifier: Modifier = Modifier,
     chartParameters: List<BarParameters> = ChartDefaultValues.barParameters,
     gridColor: Color = ChartDefaultValues.gridColor,
     xAxisData: List<String> = emptyList(),
     isShowGrid: Boolean = ChartDefaultValues.IS_SHOW_GRID,
-    barWidthPx: Dp = ChartDefaultValues.backgroundLineWidth,
     animateChart: Boolean = ChartDefaultValues.ANIMATED_CHART,
     showGridWithSpacer: Boolean = ChartDefaultValues.SHOW_BACKGROUND_WITH_SPACER,
     descriptionStyle: TextStyle = ChartDefaultValues.descriptionDefaultStyle,
     yAxisStyle: TextStyle = ChartDefaultValues.axesStyle,
     xAxisStyle: TextStyle = ChartDefaultValues.axesStyle,
-    chartRatio: Float = ChartDefaultValues.chartRatio,
     horizontalArrangement: Arrangement.Horizontal = ChartDefaultValues.headerArrangement,
     backgroundLineWidth: Float = ChartDefaultValues.backgroundLineWidth.value,
     yAxisRange: Int = ChartDefaultValues.yAxisRange,
-    showXAxis : Boolean = ChartDefaultValues.showXAxis,
-    showYAxis: Boolean = ChartDefaultValues.showyAxis
-    ) {
-
-    Box(modifier.wrapContentHeight()) {
+    showXAxis: Boolean = ChartDefaultValues.showXAxis,
+    showYAxis: Boolean = ChartDefaultValues.showyAxis,
+    gridOrientation: Orientation = ChartDefaultValues.gridOrientation,
+) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             LazyRow(
                 horizontalArrangement = horizontalArrangement,
@@ -54,14 +51,10 @@ fun BarChart(
             }
 
             BarChartContent(
-                modifier = if (chartRatio == 0f) Modifier.wrapContentSize()
-                else Modifier.aspectRatio(chartRatio)
-                    .fillMaxSize(),
                 barsParameters = chartParameters,
                 gridColor = gridColor,
                 xAxisData = xAxisData,
                 isShowGrid = isShowGrid,
-                barWidthPx = barWidthPx,
                 animateChart = animateChart,
                 showGridWithSpacer = showGridWithSpacer,
                 yAxisStyle = yAxisStyle,
@@ -69,8 +62,7 @@ fun BarChart(
                 backgroundLineWidth = backgroundLineWidth,
                 yAxisRange = yAxisRange,
                 showXAxis = showXAxis,
-                showYAxis = showYAxis
+                showYAxis = showYAxis,
             )
         }
-    }
 }

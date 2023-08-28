@@ -1,6 +1,7 @@
 package com.aay.compose.baseComponents
 
 
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.ExperimentalTextApi
@@ -22,22 +23,25 @@ fun <T> DrawScope.baseChartContainer(
     spacingY: Dp,
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
-    yAxisRange : Int,
-    chartHeight : Dp,
-    showXAxis : Boolean,
-    showYAxis : Boolean,
-    specialChart : Boolean = false,
+    yAxisRange: Int,
+    showXAxis: Boolean,
+    showYAxis: Boolean,
+    specialChart: Boolean = false,
+    isFromBarChart: Boolean,
+    yTextLayoutResult : Dp,
 ) {
-  if(showXAxis) {
-      xAxisDrawing(
-          xAxisData = xAxisData,
-          spacing = spacingX,
-          textMeasure = textMeasure,
-          xAxisStyle = xAxisStyle,
-          specialChart = specialChart,
-          upperValue = upperValue,
-      )
-  }
+    if (showXAxis) {
+        if (!isFromBarChart) {
+            xAxisDrawing(
+                xAxisData = xAxisData,
+                spacing = spacingX,
+                textMeasure = textMeasure,
+                xAxisStyle = xAxisStyle,
+                specialChart = specialChart,
+                upperValue = upperValue,
+            )
+        }
+    }
 
     if (showYAxis) {
         yAxisDrawing(
@@ -47,7 +51,8 @@ fun <T> DrawScope.baseChartContainer(
             spacing = spacingY,
             yAxisStyle = yAxisStyle,
             yAxisRange = yAxisRange,
-            specialChart = specialChart
+            specialChart = specialChart,
+            isFromBarChart = isFromBarChart
         )
     }
 
@@ -61,5 +66,5 @@ fun <T> DrawScope.baseChartContainer(
         specialChart = specialChart,
         textMeasurer = textMeasure,
         upperValue = upperValue,
-        )
+    )
 }
