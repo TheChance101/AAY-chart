@@ -29,17 +29,13 @@ internal fun DrawScope.drawPedigreeChart(
     transitionProgress: Animatable<Float, AnimationVector1D>,
     textMeasure: TextMeasurer,
     textRatioStyle: TextStyle,
-    outerCircularColor: Color,
-    innerCircularColor: Color,
-    ratioLineColor: Color
+    ratioLineColor: Color,
+    arcWidth: Float,
+    minValue: Float,
 ) {
-    val minValue = min(size.width, size.height)
-        .coerceAtMost(size.height / 2)
-        .coerceAtMost(size.width / 2)
+    val outerCircularRadius = (minValue / 2) + (arcWidth / 1.2f)
     var startArc = -90F
     var startArcWithoutAnimation = -90f
-    val arcWidth = (size.minDimension.dp.toPx() * 0.13f).coerceAtMost(minValue / 4)
-    val outerCircularRadius = (minValue / 2) + (arcWidth / 1.2f)
     pieValueWithRatio.forEachIndexed { index, _ ->
 
         val arcWithAnimation = calculateAngle(
@@ -52,45 +48,22 @@ internal fun DrawScope.drawPedigreeChart(
         )
         val angleInRadians = (startArcWithoutAnimation + arcWithoutAnimation / 2).degreeToAngle
         val lineStart = Offset(
-            center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 0.85f,
-            center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 0.85f
+            center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 0.8f,
+            center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 0.8f
         )
         val lineEnd = Offset(
             center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 1.1f,
             center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 1.1f
         )
+        val arcOffset = Offset(center.x - (minValue / 2), center.y - (minValue / 2))
         val region = pieValueWithRatio.subList(0, index).sum()
-        var regionSign = 1
-        val secondLineEnd =
-            if (region >= 180f) {
-                regionSign *= 1
-                Offset((center.x + (outerCircularRadius + (arcWidth))), lineEnd.y)
-            } else {
-                regionSign *= -1
-                Offset((center.x - (outerCircularRadius + (arcWidth))), lineEnd.y)
-            }
-        //draw outer circle
-        draPieCircle(
-            circleColor = outerCircularColor,
-            radiusRatioCircle = (minValue / 2) + (arcWidth / 1.2f)
-        )
-        //draw inner circle
-        draPieCircle(
-            circleColor = innerCircularColor,
-            radiusRatioCircle = (minValue / 2) - (arcWidth / 1.2f)
-        )
-        drawLine(
-            color = ratioLineColor,
-            start = lineStart,
-            end = lineEnd,
-            strokeWidth = 2.dp.toPx()
-        )
-        drawLine(
-            color = ratioLineColor,
-            start = lineEnd,
-            end = Offset(lineEnd.x + (arcWidth * regionSign), lineEnd.y),
-            strokeWidth = 2.dp.toPx()
-        )
+        val regionSign = if (region >= 180f) {
+            1
+        } else {
+            -1
+        }
+        val secondLineEnd = Offset(lineEnd.x + (arcWidth * regionSign), lineEnd.y)
+        drawLines(ratioLineColor, lineStart, lineEnd, secondLineEnd)
         drawArc(
             color = pieChartData[index].color,
             startAngle = startArc,
@@ -100,18 +73,14 @@ internal fun DrawScope.drawPedigreeChart(
                 arcWidth, cap = StrokeCap.Butt
             ),
             size = Size(minValue, minValue),
-            topLeft = Offset(center.x - (minValue / 2), center.y - (minValue / 2))
+            topLeft = arcOffset
         )
         val textOffset = getTextOffsetByRegion(regionSign, lineEnd.x, secondLineEnd.y, arcWidth)
-        drawContext.canvas.nativeCanvas.apply {
-            drawText(
-                textMeasurer = textMeasure,
-                text = "${getPartRatio(pieValueWithRatio, index)}%",
-                style = textRatioStyle,
-                topLeft = Offset(textOffset.x, textOffset.y - 20.dp.toPx()),
-                overflow = TextOverflow.Visible
-            )
-        }
+        ratioText(
+            textMeasure,
+            getPartRatio(pieValueWithRatio, index),
+            textRatioStyle, Offset(textOffset.x, textOffset.y - 20.toDp().toPx())
+        )
         startArc += arcWithAnimation
         startArcWithoutAnimation += arcWithoutAnimation
     }

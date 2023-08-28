@@ -7,6 +7,7 @@ import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
+import com.aay.compose.utils.formatToThousandsMillionsBillions
 
 @OptIn(ExperimentalTextApi::class)
 fun <T> DrawScope.xAxisDrawing(
@@ -14,15 +15,26 @@ fun <T> DrawScope.xAxisDrawing(
     spacing: Dp,
     textMeasure: TextMeasurer,
     xAxisStyle: TextStyle,
-    specialChart: Boolean
-) {
+    specialChart: Boolean,
+    upperValue: Float,
+    ) {
     if (specialChart) {
         return
     }
-    val spaceBetweenXes = (size.width - spacing.toPx()) / xAxisData.size
+    val yTextLayoutResult = textMeasure.measure(
+        text = AnnotatedString(upperValue.formatToThousandsMillionsBillions()),
+    ).size.width
 
     xAxisData.forEachIndexed { index, dataPoint ->
-        val xLength = (spaceBetweenXes - 30.dp.toPx()) + (index * spaceBetweenXes)
+        val textLayoutResult = textMeasure.measure(
+            text = AnnotatedString(xAxisData[index].toString()),
+        ).size.width
+
+        val startSpace = (spacing) + (textLayoutResult).dp
+        val spaceBetweenXes = (size.width - startSpace.toPx()) / (xAxisData.size - 1)
+
+        val xLength = (yTextLayoutResult.toDp()) + (index * spaceBetweenXes).toDp()
+
         drawContext.canvas.nativeCanvas.apply {
             drawText(
                 textMeasurer = textMeasure,
@@ -30,7 +42,7 @@ fun <T> DrawScope.xAxisDrawing(
                 style = xAxisStyle,
                 maxLines = 1,
                 topLeft = Offset(
-                    xLength.coerceAtMost(size.width),
+                    xLength.coerceAtMost(size.width.toDp()).toPx(),
                     size.height / 1.07f
                 )
             )

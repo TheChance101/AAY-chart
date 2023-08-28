@@ -27,7 +27,6 @@ fun <T> DrawScope.baseChartContainer(
     showXAxis: Boolean,
     showYAxis: Boolean,
     specialChart: Boolean = false,
-    gridOrientation: Orientation,
     isFromBarChart: Boolean,
     yTextLayoutResult : Dp,
 ) {
@@ -39,6 +38,7 @@ fun <T> DrawScope.baseChartContainer(
                 textMeasure = textMeasure,
                 xAxisStyle = xAxisStyle,
                 specialChart = specialChart,
+                upperValue = upperValue,
             )
         }
     }
@@ -64,8 +64,9 @@ fun <T> DrawScope.baseChartContainer(
         spacingY = spacingY,
         yAxisRange = yAxisRange,
         specialChart = specialChart,
-        gridOrientation = gridOrientation,
         xAxisDataSize = xAxisData.size,
-        yTextLayoutResult = yTextLayoutResult
+        yTextLayoutResult = yTextLayoutResult,
+        textMeasurer = textMeasure,
+        upperValue = upperValue,
     )
 }

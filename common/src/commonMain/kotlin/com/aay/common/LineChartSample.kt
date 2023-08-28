@@ -20,7 +20,7 @@ fun LineChartSample() {
     val testLineParameters: List<LineParameters> = listOf(
         LineParameters(
             label = "revenue",
-            data = listOf(70.0, 00.0, 50.33, 40.0, 100.232, 50.0),
+            data = listOf(70.0, 00.0, 50.33, 40.0, 100.500, 50.0),
             lineColor = Color.Gray,
             lineType = LineType.QUADRATIC_LINE,
             lineShadow = true,

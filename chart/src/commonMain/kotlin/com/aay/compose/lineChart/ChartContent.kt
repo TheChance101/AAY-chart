@@ -5,7 +5,6 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
@@ -45,7 +44,6 @@ internal fun ChartContent(
     specialChart: Boolean,
     onChartClick: (Float, Float) -> Unit,
     clickedPoints: MutableList<Pair<Float, Float>>,
-    gridOrientation: Orientation
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -74,6 +72,7 @@ internal fun ChartContent(
 
         val spacingX = (size.width / 18.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
+        val chartHeight = size.height.dp - spacingY
 
         baseChartContainer(
             xAxisData = xAxisData,
@@ -92,13 +91,13 @@ internal fun ChartContent(
             showXAxis = showXAxis,
             showYAxis = showYAxis,
             specialChart = specialChart,
-            gridOrientation = gridOrientation,
             isFromBarChart = false,
             yTextLayoutResult = 0.dp,
+            chartHeight = chartHeight
         )
 
-        if (specialChart) {
-            if (linesParameters.size >= 2) {
+        if (specialChart){
+            if (linesParameters.size >= 2){
                 throw Exception("Special case must contain just one line")
             }
             linesParameters.forEach { line ->
@@ -107,17 +106,17 @@ internal fun ChartContent(
                     lowerValue = lowerValue.toFloat(),
                     upperValue = upperValue.toFloat(),
                     animatedProgress = animatedProgress,
-                    xAxisSize = xAxisData.size,
+                    xAxisData = xAxisData,
                     spacingX = spacingX,
                     spacingY = spacingY,
                     specialChart = specialChart,
-                    clickedPoints = clickedPoints,
+                    clickedPoints  = clickedPoints,
                     textMeasure
                 )
 
             }
-        } else {
-            if (linesParameters.size >= 2) {
+        }else {
+            if (linesParameters.size >= 2){
                 clickedPoints.clear()
             }
             linesParameters.forEach { line ->
@@ -131,7 +130,8 @@ internal fun ChartContent(
                         spacingX = spacingX,
                         spacingY = spacingY,
                         clickedPoints = clickedPoints,
-                        textMeasure = textMeasure
+                        textMeasure = textMeasure,
+                        xAxisData = xAxisData
                     )
 
                 } else {
@@ -140,11 +140,11 @@ internal fun ChartContent(
                         lowerValue = lowerValue.toFloat(),
                         upperValue = upperValue.toFloat(),
                         animatedProgress = animatedProgress,
-                        xAxisSize = xAxisData.size,
+                        xAxisData = xAxisData,
                         spacingX = spacingX,
                         spacingY = spacingY,
                         specialChart = specialChart,
-                        clickedPoints = clickedPoints,
+                        clickedPoints  = clickedPoints,
                         textMeasure
                     )
 
