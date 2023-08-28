@@ -55,14 +55,14 @@ internal fun BarChartContent(
     var lowerValue by rememberSaveable {
         mutableStateOf(barsParameters.getLowerValue())
     }
-    var maxWidth by remember { mutableStateOf(0f) }
+    var maxWidth by remember { mutableStateOf(0.dp) }
     var yTextLayoutResult by remember { mutableStateOf(0.dp) }
     var maxHeight by remember { mutableStateOf(0f) }
-    var barWidth by remember { mutableStateOf(0f) }
-    var xRegionWidthWithoutSpacing by remember { mutableStateOf(0f) }
-    var xRegionWidth by remember { mutableStateOf(0f) }
-    var spaceBetweenBars by remember { mutableStateOf(0f) }
-    var barsWidthWithSpace by remember { mutableStateOf(0f) }
+    var barWidth by remember { mutableStateOf(0.dp) }
+    var xRegionWidthWithoutSpacing by remember { mutableStateOf(0.dp) }
+    var xRegionWidth by remember { mutableStateOf(0.dp) }
+    var spaceBetweenBars by remember { mutableStateOf(0.dp) }
+    var barsWidthWithSpace by remember { mutableStateOf(0.dp) }
     //initial height set at 0.dp
     var boxWidth by remember { mutableStateOf(0.dp) }
     var boxHeight by remember { mutableStateOf(0.dp) }
@@ -85,8 +85,8 @@ internal fun BarChartContent(
 
             val spacingY = (boxWidth / 8)
             val regions = if (xAxisData.size > 5) 5 else xAxisData.size
-            xRegionWidth = ((boxWidth.toPx()) / regions)
-            val spacingXBetweenGroups = xRegionWidth.dp.toPx() / 5
+            xRegionWidth = ((boxWidth.toPx()) / regions).toDp()
+            val spacingXBetweenGroups = xRegionWidth / 5
             xRegionWidthWithoutSpacing = xRegionWidth - spacingXBetweenGroups
             barsWidthWithSpace = if (barsParameters.size < 3) {
                 xRegionWidthWithoutSpacing / 3
@@ -107,7 +107,7 @@ internal fun BarChartContent(
                 backgroundLineWidth = backgroundLineWidth,
                 gridColor = gridColor,
                 showGridWithSpacer = showGridWithSpacer,
-                spacingX = spacingXBetweenGroups.dp,
+                spacingX = spacingXBetweenGroups,
                 spacingY = spacingY,
                 yAxisStyle = yAxisStyle,
                 xAxisStyle = xAxisStyle,
@@ -121,12 +121,12 @@ internal fun BarChartContent(
         }
 
         Box(
-            modifier = Modifier.fillMaxSize().padding(start = yTextLayoutResult + 30.dp)
+            modifier = Modifier.fillMaxSize().padding(start = yTextLayoutResult + (yTextLayoutResult/2) )
                 .horizontalScroll(rememberScrollState())
         ) {
 
             Canvas(
-                Modifier.width(maxWidth.dp).fillMaxHeight().background(Color.Blue.copy(0.5f))
+                Modifier.width(maxWidth).fillMaxHeight().background(Color.Blue.copy(0.5f))
 
             ) {
                 yTextLayoutResult = textMeasure.measure(
@@ -140,7 +140,7 @@ internal fun BarChartContent(
                     barWidth = barWidth,
                     xRegionWidth = xRegionWidth,
                     spaceBetweenBars = spaceBetweenBars,
-                    maxWidth = maxWidth.dp,
+                    maxWidth = maxWidth,
                     height = maxHeight.dp,
                 )
 

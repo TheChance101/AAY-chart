@@ -6,6 +6,8 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.times
+
 @OptIn(ExperimentalTextApi::class)
 fun <T> DrawScope.xAxisDrawing(
     xAxisData: List<T>,
@@ -43,8 +45,8 @@ fun <T> DrawScope.xAxisDrawing(
     textMeasure: TextMeasurer,
     xAxisStyle: TextStyle,
     specialChart: Boolean,
-    xRegionWidth: Float,
-    xRegionWidthWithoutSpacing: Float,
+    xRegionWidth: Dp,
+    xRegionWidthWithoutSpacing: Dp,
 ) {
     if (specialChart) {
         return
@@ -54,7 +56,7 @@ fun <T> DrawScope.xAxisDrawing(
 
 
         val xLength =
-            (xRegionWidthWithoutSpacing / 4) + (index * (xRegionWidth.dp).toPx())
+            (xRegionWidthWithoutSpacing / 4) + (index * (xRegionWidth))
 
         drawContext.canvas.nativeCanvas.apply {
             drawText(
@@ -63,7 +65,7 @@ fun <T> DrawScope.xAxisDrawing(
                 style = xAxisStyle,
                 maxLines = 1,
                 topLeft = Offset(
-                    xLength.coerceAtMost(size.width),
+                    xLength.toPx().coerceAtMost(size.width),
                     height.value + 20.dp.toPx()
                 )
             )

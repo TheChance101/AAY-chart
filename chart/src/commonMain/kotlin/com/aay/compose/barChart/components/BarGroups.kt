@@ -13,9 +13,9 @@ internal fun DrawScope.drawBarGroups(
     barsParameters: List<BarParameters>,
     upperValue: Double,
     lowerValue: Double,
-    barWidth: Float,
-    xRegionWidth: Float,
-    spaceBetweenBars: Float,
+    barWidth: Dp,
+    xRegionWidth: Dp,
+    spaceBetweenBars: Dp,
     maxWidth: Dp,
     height: Dp,
 ) {
@@ -26,8 +26,8 @@ internal fun DrawScope.drawBarGroups(
             val ratio = (data.toFloat() ) / (upperValue - lowerValue)
             val barLength = (ratio * (height/ 2.toDp().toPx())) - lowerValue.dp
 
-            val xAxisLength = (index * xRegionWidth).dp
-            val lengthWithRatio = xAxisLength + (barIndex * (barWidth + spaceBetweenBars).dp)
+            val xAxisLength = (index * xRegionWidth)
+            val lengthWithRatio = xAxisLength + (barIndex * (barWidth + spaceBetweenBars))
             println(spaceBetweenBars)
             drawRoundRect(
                 brush = Brush.verticalGradient(listOf(bar.barColor, bar.barColor)),
@@ -36,7 +36,7 @@ internal fun DrawScope.drawBarGroups(
                     (height.value - barLength.toPx())
                 ),
                 size = Size(
-                    width = barWidth,
+                    width = barWidth.toPx(),
                     height = barLength.toPx()
                 ),
                 cornerRadius = CornerRadius(50.dp.toPx(), 50.dp.toPx())
