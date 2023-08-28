@@ -1,8 +1,11 @@
 package com.aay.compose.radarChart
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -15,6 +18,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aay.compose.radarChart.model.NetLinesStyle
 import com.aay.compose.radarChart.model.Polygon
@@ -35,7 +39,7 @@ fun RadarChart(
 
     validatePolygons(radarLabels, scalarValue, polygons, scalarSteps)
 
-    Canvas(modifier = Modifier.fillMaxSize()) {
+    Canvas(modifier = Modifier.size(200.dp)) {
 
         val labelWidth = textMeasurer.measure(
             AnnotatedString(
@@ -44,16 +48,9 @@ fun RadarChart(
                 fontSize = 10.sp
             )
         ).size.width.toDp().toPx()
-        val radius = (size.minDimension / 2) - labelWidth
+        val radius = (size.minDimension / 2) - labelWidth *1.5f
         val numLines = radarLabels.size
         val radarChartConfig = getRadarConfig(labelWidth, radius, size, numLines, scalarSteps)
-
-
-//            drawCircle(
-//                color = Color.White,
-//                radius = endRadius,
-//                center = Offset((size.width / 2), (size.height / 2))
-//            )
 
         drawRadarNet(netLinesStyle, radarChartConfig)
 
@@ -66,7 +63,7 @@ fun RadarChart(
                 Offset(size.width / 2, size.height / 2)
             )
         }
-
+//
         drawAxisData(
             labelsStyle,
             scalarValuesStyle,

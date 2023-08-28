@@ -46,7 +46,7 @@ fun DrawScope.drawAxisData(
             text = radarLabels[line],
             style = labelsStyle,
             topLeft = Offset(
-                labelsEndPoints[line].x - textVerticalOffset,
+                labelsEndPoints[line].x - 50.toDp().toPx(),
                 labelsEndPoints[line].y
             )
         )

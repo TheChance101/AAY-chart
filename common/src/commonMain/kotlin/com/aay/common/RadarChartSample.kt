@@ -16,7 +16,7 @@ import com.aay.compose.radarChart.model.PolygonStyle
 fun RadarChartSample() {
 
     val radarLabels =
-        listOf("Party A", "Party B", "Party Chhhhh", "PartD", "Party E", "Party F ", "Party G", "Party H", "Party I")
+        listOf("Party A", "Party B", "Party C", "PartD", "Party E", "Party F ", "Party G", "Party H", "Party I")
     val values2 = listOf(120.0, 160.0, 110.0, 112.0, 200.0, 120.0, 145.0, 101.0, 200.0)
     val values = listOf(180.0, 180.0, 165.0, 135.0, 120.0, 150.0, 140.0, 190.0, 200.0)
     val labelsStyle = TextStyle(
