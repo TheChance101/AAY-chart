@@ -63,7 +63,6 @@ fun BarChart(
                 yAxisRange = yAxisRange,
                 showXAxis = showXAxis,
                 showYAxis = showYAxis,
-                gridOrientation = gridOrientation,
             )
         }
 }

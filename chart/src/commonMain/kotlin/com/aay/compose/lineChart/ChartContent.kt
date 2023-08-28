@@ -72,7 +72,6 @@ internal fun ChartContent(
 
         val spacingX = (size.width / 18.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
-        val chartHeight = size.height.dp - spacingY
 
         baseChartContainer(
             xAxisData = xAxisData,
@@ -93,7 +92,6 @@ internal fun ChartContent(
             specialChart = specialChart,
             isFromBarChart = false,
             yTextLayoutResult = 0.dp,
-            chartHeight = chartHeight
         )
 
         if (specialChart){

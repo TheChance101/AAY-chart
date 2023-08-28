@@ -62,10 +62,8 @@ fun <T> DrawScope.baseChartContainer(
         backgroundLineWidth = backgroundLineWidth,
         showGridWithSpacer = showGridWithSpacer,
         spacingY = spacingY,
-        yAxisRange = yAxisRange,
+        yAxisRange = yAxisRange ,
         specialChart = specialChart,
-        xAxisDataSize = xAxisData.size,
-        yTextLayoutResult = yTextLayoutResult,
         textMeasurer = textMeasure,
         upperValue = upperValue,
     )

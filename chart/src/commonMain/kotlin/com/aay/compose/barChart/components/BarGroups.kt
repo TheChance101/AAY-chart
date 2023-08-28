@@ -23,12 +23,12 @@ internal fun DrawScope.drawBarGroups(
     barsParameters.forEachIndexed { barIndex, bar ->
 
         bar.data.forEachIndexed { index, data ->
-            val ratio = (data.toFloat() ) / (upperValue - lowerValue)
+            val ratio = (data.toFloat() ) / (upperValue)
             val barLength = (ratio * (height/ 2.toDp().toPx())) - lowerValue.dp
 
             val xAxisLength = (index * xRegionWidth)
             val lengthWithRatio = xAxisLength + (barIndex * (barWidth + spaceBetweenBars))
-            println(spaceBetweenBars)
+
             drawRoundRect(
                 brush = Brush.verticalGradient(listOf(bar.barColor, bar.barColor)),
                 topLeft = Offset(

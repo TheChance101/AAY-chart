@@ -35,7 +35,6 @@ fun LineChart(
     showXAxis : Boolean = ChartDefaultValues.showXAxis,
     showYAxis : Boolean = ChartDefaultValues.showyAxis,
     oneLineChart : Boolean = ChartDefaultValues.specialChart,
-    gridOrientation: Orientation = ChartDefaultValues.gridOrientation
 ) {
     val clickedPoints = remember { mutableStateListOf<Pair<Float, Float>>() }
 
@@ -74,7 +73,6 @@ fun LineChart(
                 showXAxis = showXAxis,
                 showYAxis = showYAxis,
                 specialChart = oneLineChart,
-                gridOrientation = gridOrientation,
                 onChartClick = { x, y ->
                     clickedPoints.add(x to y)
                 },

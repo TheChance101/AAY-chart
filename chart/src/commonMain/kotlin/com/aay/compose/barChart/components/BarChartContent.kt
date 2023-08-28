@@ -41,7 +41,6 @@ internal fun BarChartContent(
     yAxisRange: Int,
     showXAxis: Boolean,
     showYAxis: Boolean,
-    gridOrientation: Orientation,
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -80,7 +79,7 @@ internal fun BarChartContent(
     }
     ) {
         Canvas(
-            modifier = Modifier.fillMaxSize().background(Color.Cyan.copy(0.5f))
+            modifier = Modifier.fillMaxSize()
         ) {
 
             val spacingY = (boxWidth / 8)
@@ -114,19 +113,18 @@ internal fun BarChartContent(
                 yAxisRange = yAxisRange,
                 showXAxis = showXAxis,
                 showYAxis = showYAxis,
-                gridOrientation = gridOrientation,
                 isFromBarChart = true,
                 yTextLayoutResult = yTextLayoutResult
             )
         }
 
         Box(
-            modifier = Modifier.fillMaxSize().padding(start = yTextLayoutResult + (yTextLayoutResult/2) )
+            modifier = Modifier.fillMaxSize().padding(start = yTextLayoutResult + (yTextLayoutResult / 2))
                 .horizontalScroll(rememberScrollState())
         ) {
 
             Canvas(
-                Modifier.width(maxWidth).fillMaxHeight().background(Color.Blue.copy(0.5f))
+                Modifier.width(maxWidth).fillMaxHeight()
 
             ) {
                 yTextLayoutResult = textMeasure.measure(

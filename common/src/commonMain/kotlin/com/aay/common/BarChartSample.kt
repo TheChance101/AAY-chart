@@ -17,41 +17,41 @@ fun BarChartSample() {
     val testBarParameters: List<BarParameters> = listOf(
         BarParameters(
             dataName = "Completed",
-            data = listOf(54.0, 50.6,40.0, 50.6,40.0, 50.6,40.0),
+            data = listOf(54.0, 50.6),
             barColor = Color.Blue,
         ),
         BarParameters(
             dataName = "Completed",
-            data = listOf(30.0, 80.6,50.0, 10.6,40.0, 60.6,60.0),
+            data = listOf(30.0, 20.6),
             barColor = Color.Black,
         ),
         BarParameters(
             dataName = "Completed",
-            data = listOf(50.0, 70.6,30.0, 40.6,50.0, 50.6,70.0),
+            data = listOf(50.0, 70.6),
             barColor = Color.LightGray,
         ),
-        BarParameters(
-            dataName = "Completed",
-            data = listOf(0.0, 50.6,80.0, 55.6,40.0, 10.6,90.0),
-            barColor = Color.Magenta,
-        ),
-        BarParameters(
-            dataName = "Completed",
-            data = listOf(70.0, 50.6,70.0, 60.6,50.0, 30.6,80.0),
-            barColor = Color.Green,
-        ),
-        BarParameters(
-            dataName = "Completed",
-            data = listOf(70.0, 50.6,60.0, 50.6,80.0, 60.6,70.0),
-            barColor = Color.Gray,
-        ),
+//        BarParameters(
+//            dataName = "Completed",
+//            data = listOf(0.0, 50.6,80.0, 55.6,40.0, 10.6,90.0),
+//            barColor = Color.Magenta,
+//        ),
+//        BarParameters(
+//            dataName = "Completed",
+//            data = listOf(70.0, 50.6,70.0, 60.6,50.0, 30.6,80.0),
+//            barColor = Color.Green,
+//        ),
+//        BarParameters(
+//            dataName = "Completed",
+//            data = listOf(70.0, 50.6,60.0, 50.6,80.0, 60.6,70.0),
+//            barColor = Color.Gray,
+//        ),
     )
 
     Box(Modifier.padding(24.dp).fillMaxSize()) {
         BarChart(
             chartParameters = testBarParameters,
             gridColor = Color.DarkGray,
-            xAxisData = listOf("2016", "2017","2018","2019","2020","2021"),
+            xAxisData = listOf("2016", "2017"),
             isShowGrid = true,
             animateChart = true,
             showGridWithSpacer = true,
