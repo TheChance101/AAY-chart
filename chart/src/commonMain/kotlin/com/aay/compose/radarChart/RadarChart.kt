@@ -39,7 +39,7 @@ fun RadarChart(
 
     validatePolygons(radarLabels, scalarValue, polygons, scalarSteps)
 
-    Canvas(modifier = Modifier.size(200.dp)) {
+    Canvas(modifier = Modifier.fillMaxSize()) {
 
         val labelWidth = textMeasurer.measure(
             AnnotatedString(
@@ -48,9 +48,10 @@ fun RadarChart(
                 fontSize = 10.sp
             )
         ).size.width.toDp().toPx()
-        val radius = (size.minDimension / 2) - labelWidth *1.5f
+        val radius = (size.minDimension / 2) - labelWidth
+        val labelRadius = (size.minDimension / 2) - (labelWidth /2)
         val numLines = radarLabels.size
-        val radarChartConfig = getRadarConfig(labelWidth, radius, size, numLines, scalarSteps)
+        val radarChartConfig = getRadarConfig(labelRadius ,labelWidth, radius, size, numLines, scalarSteps)
 
         drawRadarNet(netLinesStyle, radarChartConfig)
 
@@ -63,7 +64,7 @@ fun RadarChart(
                 Offset(size.width / 2, size.height / 2)
             )
         }
-//
+
         drawAxisData(
             labelsStyle,
             scalarValuesStyle,

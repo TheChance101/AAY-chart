@@ -8,6 +8,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 fun getRadarConfig(
+    labelRadius: Float,
     labelWidth: Float,
     netRadius: Float,
     size: Size,
@@ -23,7 +24,6 @@ fun getRadarConfig(
 
     val center = Offset(size.width / 2, size.height / 2)
     val angleBetweenLines = 2 * PI / numLines
-    val labelRadius = (size.minDimension / 2) - labelWidth + labelWidth*0.5f
     val angleOfFirstLine = 0 * angleBetweenLines
     val offsetAngle = -PI / 2 - angleOfFirstLine
 
