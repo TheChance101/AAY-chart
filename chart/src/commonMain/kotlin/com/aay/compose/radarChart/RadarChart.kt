@@ -1,17 +1,25 @@
 package com.aay.compose.radarChart
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.aay.compose.radarChart.model.NetLinesStyle
 import com.aay.compose.radarChart.model.Polygon
 
@@ -24,21 +32,37 @@ fun RadarChart(
     scalarSteps: Int,
     scalarValue: Double,
     scalarValuesStyle: TextStyle,
-    polygon: List<Polygon>
+    polygons: List<Polygon>
 ) {
 
-
-    validatePolygons(radarLabels, scalarValue, polygon, scalarSteps)
-
-    val numLines = radarLabels.size
     val textMeasurer = rememberTextMeasurer()
+
+    validatePolygons(radarLabels, scalarValue, polygons, scalarSteps)
+
     Canvas(modifier = Modifier.fillMaxSize()) {
-        val radius = (size.minDimension / 2) - 50.toDp().toPx()
-        val radarChartConfig = getRadarConfig(radius, size, numLines, scalarSteps)
+
+        val labelWidth = textMeasurer.measure(
+            AnnotatedString(
+                text = radarLabels.maxByOrNull { it.length } ?: "",
+            ), style = TextStyle(
+                fontSize = 10.sp
+            )
+        ).size.width.toDp().toPx()
+        val radius = (size.minDimension / 2) - labelWidth
+        val labelRadius = (size.minDimension / 2) - (labelWidth /2)
+        val numLines = radarLabels.size
+        val radarChartConfig = getRadarConfig(labelRadius ,labelWidth, radius, size, numLines, scalarSteps)
+
         drawRadarNet(netLinesStyle, radarChartConfig)
 
-        polygon.forEach {
-            drawPolygonShape(this, it, radius, scalarValue, Offset(size.width / 2, size.height / 2))
+        polygons.forEach {
+            drawPolygonShape(
+                this,
+                it,
+                radius,
+                scalarValue,
+                Offset(size.width / 2, size.height / 2)
+            )
         }
 
         drawAxisData(
@@ -49,10 +73,13 @@ fun RadarChart(
             radarLabels,
             scalarValue,
             scalarSteps,
-            polygon[0].unit
+            polygons[0].unit
         )
+
     }
+
 }
+
 
 private fun validatePolygons(
     radarLabels: List<String>,
@@ -105,7 +132,12 @@ private fun DrawScope.drawPolygonShape(
             style = Stroke(polygon.style.borderStrokeWidth),
             alpha = polygon.style.borderColorAlpha
         )
-        drawPath(path, color = polygon.style.fillColor, style = Fill, alpha = polygon.style.fillColorAlpha)
+        drawPath(
+            path,
+            color = polygon.style.fillColor,
+            style = Fill,
+            alpha = polygon.style.fillColorAlpha
+        )
     }
 }
 

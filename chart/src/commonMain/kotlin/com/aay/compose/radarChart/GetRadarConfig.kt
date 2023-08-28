@@ -7,7 +7,14 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-fun getRadarConfig(netRadius: Float, size: Size, numLines: Int, scalarSteps: Int): RadarChartConfig {
+fun getRadarConfig(
+    labelRadius: Float,
+    labelWidth: Float,
+    netRadius: Float,
+    size: Size,
+    numLines: Int,
+    scalarSteps: Int
+): RadarChartConfig {
 
     val endPoints = mutableListOf<Offset>()
     val nextStartPoints = mutableListOf<Offset>()
@@ -17,7 +24,6 @@ fun getRadarConfig(netRadius: Float, size: Size, numLines: Int, scalarSteps: Int
 
     val center = Offset(size.width / 2, size.height / 2)
     val angleBetweenLines = 2 * PI / numLines
-    val labelRadius = (size.minDimension / 2)
     val angleOfFirstLine = 0 * angleBetweenLines
     val offsetAngle = -PI / 2 - angleOfFirstLine
 
@@ -41,7 +47,9 @@ fun getRadarConfig(netRadius: Float, size: Size, numLines: Int, scalarSteps: Int
         }
     }
 
-    return RadarChartConfig(center, endPoints, nextEndPoints, nextStartPoints, scalarPoints, labelsPoints)
+    return RadarChartConfig(
+        center, endPoints, nextEndPoints, nextStartPoints, scalarPoints, labelsPoints
+    )
 
 }
 

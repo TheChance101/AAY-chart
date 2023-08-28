@@ -44,7 +44,7 @@ fun RadarChartSample() {
         scalarSteps = 5,
         scalarValue = 200.0,
         scalarValuesStyle = scalarValuesStyle,
-        polygon = listOf(
+        polygons = listOf(
             Polygon(
                 values = values,
                 unit = "$",
