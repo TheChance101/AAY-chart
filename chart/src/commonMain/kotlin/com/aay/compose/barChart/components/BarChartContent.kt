@@ -90,13 +90,13 @@ internal fun BarChartContent(
             val spacingXBetweenGroups = xRegionWidth.dp.toPx()/5
             xRegionWidthWithoutSpacing = xRegionWidth - spacingXBetweenGroups
             barsWidthWithSpace = if (barsParameters.size < 3){
-                xRegionWidthWithoutSpacing / 4
+                xRegionWidthWithoutSpacing / 3
             } else{
                 xRegionWidthWithoutSpacing / barsParameters.size
             }
             spaceBetweenBars = barsWidthWithSpace /5
             barWidth = barsWidthWithSpace -spaceBetweenBars
-            maxWidth = xRegionWidth * xAxisData.size
+            maxWidth = (xRegionWidth * xAxisData.size) - spacingXBetweenGroups
             maxHeight = boxHeight.toPx() - spacingY.toPx() + 10.dp.toPx()
 
             baseChartContainer(
@@ -124,7 +124,7 @@ internal fun BarChartContent(
         }
 
         Box(
-            modifier = Modifier.fillMaxSize().horizontalScroll(rememberScrollState())
+            modifier = Modifier.fillMaxSize().padding(start = yTextLayoutResult.dp).horizontalScroll(rememberScrollState())
         ) {
 
             Canvas(

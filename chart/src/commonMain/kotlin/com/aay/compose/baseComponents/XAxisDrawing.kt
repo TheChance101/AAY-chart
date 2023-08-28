@@ -61,7 +61,7 @@ fun <T> DrawScope.xAxisDrawing(
 
 
         val xLength =
-            (yTextLayoutResult.dp+(barWidth.dp/2)).toPx()  + (index * (xRegionWidth.dp ).toPx())
+              (xRegionWidthWithoutSpacing/4)+ (index * (xRegionWidth.dp ).toPx())
 
         drawContext.canvas.nativeCanvas.apply {
             drawText(

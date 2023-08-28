@@ -29,7 +29,7 @@ internal fun DrawScope.drawBarGroups(
             val ratio = (data.toFloat() ) / (upperValue )
             val barLength = ratio * (height/ 2.dp.toPx())
 
-            val xAxisLength = (yTextLayoutResult.dp+(barWidth.dp/2)) +( index * xRegionWidth).dp
+            val xAxisLength = ( index * xRegionWidth).dp
             val lengthWithRatio =  xAxisLength + (barIndex * (barWidth + spaceBetweenBars).dp)
             println(spaceBetweenBars)
             drawRect(
