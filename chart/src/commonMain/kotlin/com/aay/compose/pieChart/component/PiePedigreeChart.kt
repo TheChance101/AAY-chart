@@ -79,7 +79,7 @@ internal fun DrawScope.drawPedigreeChart(
         ratioText(
             textMeasure,
             getPartRatio(pieValueWithRatio, index),
-            textRatioStyle, Offset(textOffset.x, textOffset.y - 20.dp.toPx())
+            textRatioStyle, Offset(textOffset.x, textOffset.y - 20.toDp().toPx())
         )
         startArc += arcWithAnimation
         startArcWithoutAnimation += arcWithoutAnimation
