@@ -5,11 +5,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.coerceAtMost
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.times
-import kotlin.math.pow
-
 @OptIn(ExperimentalTextApi::class)
 fun <T> DrawScope.xAxisDrawing(
     xAxisData: List<T>,
@@ -47,11 +43,8 @@ fun <T> DrawScope.xAxisDrawing(
     textMeasure: TextMeasurer,
     xAxisStyle: TextStyle,
     specialChart: Boolean,
-    barWidth: Float,
     xRegionWidth: Float,
     xRegionWidthWithoutSpacing: Float,
-    barSize: Int,
-    yTextLayoutResult: Int,
 ) {
     if (specialChart) {
         return
@@ -61,7 +54,7 @@ fun <T> DrawScope.xAxisDrawing(
 
 
         val xLength =
-              (xRegionWidthWithoutSpacing/4)+ (index * (xRegionWidth.dp ).toPx())
+            (xRegionWidthWithoutSpacing / 4) + (index * (xRegionWidth.dp).toPx())
 
         drawContext.canvas.nativeCanvas.apply {
             drawText(

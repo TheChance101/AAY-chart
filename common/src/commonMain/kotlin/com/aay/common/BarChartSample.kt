@@ -32,7 +32,7 @@ fun BarChartSample() {
         ),
         BarParameters(
             dataName = "Completed",
-            data = listOf(60.0, 50.6,80.0, 55.6,40.0, 10.6,90.0),
+            data = listOf(0.0, 50.6,80.0, 55.6,40.0, 10.6,90.0),
             barColor = Color.Magenta,
         ),
         BarParameters(
@@ -47,7 +47,7 @@ fun BarChartSample() {
         ),
     )
 
-    Box(Modifier.padding(24.dp).size(500.dp)) {
+    Box(Modifier.padding(24.dp).fillMaxSize()) {
         BarChart(
             chartParameters = testBarParameters,
             gridColor = Color.DarkGray,
@@ -64,7 +64,6 @@ fun BarChartSample() {
                 color = Color.DarkGray,
                 fontWeight = FontWeight.W400
             ),
-            barWidthPx = 5.dp,
         )
     }
 }

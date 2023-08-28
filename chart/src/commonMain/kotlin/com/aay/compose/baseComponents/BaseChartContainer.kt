@@ -28,10 +28,8 @@ fun <T> DrawScope.baseChartContainer(
     showYAxis: Boolean,
     specialChart: Boolean = false,
     gridOrientation: Orientation,
-    xRegionWidth: Float,
-    xRegionWidthWithoutSpacing: Float,
     isFromBarChart: Boolean,
-    yTextLayoutResult : Int,
+    yTextLayoutResult : Dp,
 ) {
     if (showXAxis) {
         if (!isFromBarChart) {
@@ -63,12 +61,10 @@ fun <T> DrawScope.baseChartContainer(
         gridColor = gridColor,
         backgroundLineWidth = backgroundLineWidth,
         showGridWithSpacer = showGridWithSpacer,
-        spacingX = spacingX,
         spacingY = spacingY,
         yAxisRange = yAxisRange,
         specialChart = specialChart,
         gridOrientation = gridOrientation,
-        isFromBarChart = isFromBarChart,
         xAxisDataSize = xAxisData.size,
         yTextLayoutResult = yTextLayoutResult
     )

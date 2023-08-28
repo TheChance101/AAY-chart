@@ -13,26 +13,23 @@ internal fun DrawScope.drawBarGroups(
     barsParameters: List<BarParameters>,
     upperValue: Double,
     lowerValue: Double,
-    xAxisData: List<String>,
     barWidth: Float,
     xRegionWidth: Float,
-    xRegionWidthWithoutSpacing: Float,
     spaceBetweenBars: Float,
     maxWidth: Dp,
     height: Dp,
-    yTextLayoutResult:Int
 ) {
 
     barsParameters.forEachIndexed { barIndex, bar ->
 
         bar.data.forEachIndexed { index, data ->
-            val ratio = (data.toFloat() ) / (upperValue )
-            val barLength = ratio * (height/ 2.dp.toPx())
+            val ratio = (data.toFloat() ) / (upperValue - lowerValue)
+            val barLength = (ratio * (height/ 2.toDp().toPx())) - lowerValue.dp
 
-            val xAxisLength = ( index * xRegionWidth).dp
-            val lengthWithRatio =  xAxisLength + (barIndex * (barWidth + spaceBetweenBars).dp)
+            val xAxisLength = (index * xRegionWidth).dp
+            val lengthWithRatio = xAxisLength + (barIndex * (barWidth + spaceBetweenBars).dp)
             println(spaceBetweenBars)
-            drawRect(
+            drawRoundRect(
                 brush = Brush.verticalGradient(listOf(bar.barColor, bar.barColor)),
                 topLeft = Offset(
                     lengthWithRatio.coerceAtMost(maxWidth).toPx(),
@@ -42,6 +39,7 @@ internal fun DrawScope.drawBarGroups(
                     width = barWidth,
                     height = barLength.toPx()
                 ),
+                cornerRadius = CornerRadius(50.dp.toPx(), 50.dp.toPx())
             )
         }
     }

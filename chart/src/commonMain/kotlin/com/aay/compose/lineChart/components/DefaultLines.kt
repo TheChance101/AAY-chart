@@ -24,7 +24,6 @@ fun DrawScope.drawDefaultLineWithShadow(
     lowerValue: Float,
     upperValue: Float,
     animatedProgress: Animatable<Float, AnimationVector1D>,
-    xAxisSize: Int,
     spacingX: Dp,
     spacingY: Dp,
     clickedPoints: MutableList<Pair<Float, Float>>,
@@ -37,7 +36,6 @@ fun DrawScope.drawDefaultLineWithShadow(
         upperValue = upperValue,
         spaceBetweenXes = spaceBetweenXes,
         animatedProgress = animatedProgress,
-        spacingX = spacingX,
         spacingY = spacingY,
         clickedPoints = clickedPoints,
         textMeasure = textMeasure
@@ -67,7 +65,6 @@ private fun DrawScope.drawLineAsDefault(
     upperValue: Float,
     spaceBetweenXes: Dp,
     animatedProgress: Animatable<Float, AnimationVector1D>,
-    spacingX: Dp,
     spacingY: Dp,
     clickedPoints: MutableList<Pair<Float, Float>>,
     textMeasure: TextMeasurer,

@@ -14,14 +14,12 @@ fun DrawScope.grid(
     gridColor: Color,
     backgroundLineWidth: Float,
     showGridWithSpacer: Boolean,
-    spacingX: Dp,
     spacingY: Dp,
     yAxisRange: Int,
     specialChart: Boolean,
     gridOrientation: Orientation,
-    isFromBarChart: Boolean,
-    yTextLayoutResult: Int,
-    ) {
+    yTextLayoutResult: Dp,
+) {
     if (specialChart) {
         return
     }
@@ -47,7 +45,7 @@ fun DrawScope.grid(
 
                 drawLine(
                     gridColor,
-                    start = Offset((yTextLayoutResult.dp.toPx()*1.7f), yAlignmentValue),
+                    start = Offset((yTextLayoutResult.toPx()), yAlignmentValue),
                     end = Offset(xAxisMaxValue, yAlignmentValue),
                     strokeWidth = backgroundLineWidth,
                     pathEffect = PathEffect.dashPathEffect(

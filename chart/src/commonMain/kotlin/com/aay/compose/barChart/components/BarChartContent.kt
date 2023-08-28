@@ -33,7 +33,6 @@ internal fun BarChartContent(
     gridColor: Color,
     xAxisData: List<String>,
     isShowGrid: Boolean,
-    barWidthPx: Dp,
     animateChart: Boolean,
     showGridWithSpacer: Boolean,
     yAxisStyle: TextStyle,
@@ -57,7 +56,7 @@ internal fun BarChartContent(
         mutableStateOf(barsParameters.getLowerValue())
     }
     var maxWidth by remember { mutableStateOf(0f) }
-    var yTextLayoutResult by remember { mutableStateOf(0) }
+    var yTextLayoutResult by remember { mutableStateOf(0.dp) }
     var maxHeight by remember { mutableStateOf(0f) }
     var barWidth by remember { mutableStateOf(0f) }
     var xRegionWidthWithoutSpacing by remember { mutableStateOf(0f) }
@@ -87,15 +86,15 @@ internal fun BarChartContent(
             val spacingY = (boxWidth / 8)
             val regions = if (xAxisData.size > 5) 5 else xAxisData.size
             xRegionWidth = ((boxWidth.toPx()) / regions)
-            val spacingXBetweenGroups = xRegionWidth.dp.toPx()/5
+            val spacingXBetweenGroups = xRegionWidth.dp.toPx() / 5
             xRegionWidthWithoutSpacing = xRegionWidth - spacingXBetweenGroups
-            barsWidthWithSpace = if (barsParameters.size < 3){
+            barsWidthWithSpace = if (barsParameters.size < 3) {
                 xRegionWidthWithoutSpacing / 3
-            } else{
+            } else {
                 xRegionWidthWithoutSpacing / barsParameters.size
             }
-            spaceBetweenBars = barsWidthWithSpace /5
-            barWidth = barsWidthWithSpace -spaceBetweenBars
+            spaceBetweenBars = barsWidthWithSpace / 5
+            barWidth = barsWidthWithSpace - spaceBetweenBars
             maxWidth = (xRegionWidth * xAxisData.size) - spacingXBetweenGroups
             maxHeight = boxHeight.toPx() - spacingY.toPx() + 10.dp.toPx()
 
@@ -116,39 +115,33 @@ internal fun BarChartContent(
                 showXAxis = showXAxis,
                 showYAxis = showYAxis,
                 gridOrientation = gridOrientation,
-                xRegionWidth = xRegionWidth,
-                xRegionWidthWithoutSpacing = xRegionWidthWithoutSpacing,
                 isFromBarChart = true,
                 yTextLayoutResult = yTextLayoutResult
             )
         }
 
         Box(
-            modifier = Modifier.fillMaxSize().padding(start = yTextLayoutResult.dp).horizontalScroll(rememberScrollState())
+            modifier = Modifier.fillMaxSize().padding(start = yTextLayoutResult + 30.dp)
+                .horizontalScroll(rememberScrollState())
         ) {
 
             Canvas(
                 Modifier.width(maxWidth.dp).fillMaxHeight().background(Color.Blue.copy(0.5f))
 
             ) {
-                val spacingX = (size.width / 18.dp.toPx()).dp
-
                 yTextLayoutResult = textMeasure.measure(
                     text = AnnotatedString(upperValue.toFloat().formatToThousandsMillionsBillions()),
-                ).size.width
+                ).size.width.toDp()
 
                 drawBarGroups(
                     barsParameters = barsParameters,
                     upperValue = upperValue,
                     lowerValue = lowerValue,
-                    xAxisData = xAxisData,
                     barWidth = barWidth,
                     xRegionWidth = xRegionWidth,
-                    xRegionWidthWithoutSpacing = xRegionWidthWithoutSpacing,
                     spaceBetweenBars = spaceBetweenBars,
                     maxWidth = maxWidth.dp,
                     height = maxHeight.dp,
-                    yTextLayoutResult = yTextLayoutResult
                 )
 
                 xAxisDrawing(
@@ -156,12 +149,9 @@ internal fun BarChartContent(
                     textMeasure = textMeasure,
                     xAxisStyle = xAxisStyle,
                     specialChart = specialChart,
-                    barWidth = barWidth,
                     xRegionWidth = xRegionWidth,
                     xRegionWidthWithoutSpacing = xRegionWidthWithoutSpacing,
                     height = maxHeight.dp,
-                    barSize = barsParameters.size,
-                    yTextLayoutResult = yTextLayoutResult
                 )
             }
         }
