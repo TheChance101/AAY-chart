@@ -24,32 +24,4 @@ fun App() {
 
     /** Sample of Radar Chart **/
     RadarChartSample()
-//    FullScreenCircleExample()
-}
-
-@Composable
-fun DrawFullScreenCircle() {
-    Canvas(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        val centerX = size.width / 2
-        val centerY = size.height / 2
-        val radius = min(centerX, centerY)
-
-        drawCircle(
-            color = Color.Blue,
-            radius = radius,
-            center = Offset(centerX, centerY)
-        )
-    }
-}
-
-@Composable
-fun FullScreenCircleExample() {
-//    Box(
-//        modifier = Modifier.fillMaxSize(),
-//        contentAlignment = Alignment.Center
-//    ) {
-        DrawFullScreenCircle()
-//    }
 }
