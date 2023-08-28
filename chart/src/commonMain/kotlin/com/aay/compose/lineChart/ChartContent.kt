@@ -98,6 +98,7 @@ internal fun ChartContent(
             xRegionWidth = 0f,
             xRegionWidthWithoutSpacing = 0f,
             isFromBarChart = false,
+            yTextLayoutResult = 0,
         )
 
         if (specialChart) {

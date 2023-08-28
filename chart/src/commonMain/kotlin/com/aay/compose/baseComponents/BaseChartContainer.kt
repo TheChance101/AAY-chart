@@ -31,6 +31,7 @@ fun <T> DrawScope.baseChartContainer(
     xRegionWidth: Float,
     xRegionWidthWithoutSpacing: Float,
     isFromBarChart: Boolean,
+    yTextLayoutResult : Int,
 ) {
     if (showXAxis) {
         if (!isFromBarChart) {
@@ -68,6 +69,7 @@ fun <T> DrawScope.baseChartContainer(
         specialChart = specialChart,
         gridOrientation = gridOrientation,
         isFromBarChart = isFromBarChart,
-        xAxisDataSize = xAxisData.size
+        xAxisDataSize = xAxisData.size,
+        yTextLayoutResult = yTextLayoutResult
     )
 }

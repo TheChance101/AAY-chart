@@ -20,7 +20,8 @@ fun DrawScope.grid(
     specialChart: Boolean,
     gridOrientation: Orientation,
     isFromBarChart: Boolean,
-) {
+    yTextLayoutResult: Int,
+    ) {
     if (specialChart) {
         return
     }
@@ -46,7 +47,7 @@ fun DrawScope.grid(
 
                 drawLine(
                     gridColor,
-                    start = Offset(60.dp.toPx(), yAlignmentValue),
+                    start = Offset((yTextLayoutResult.dp.toPx()*1.7f), yAlignmentValue),
                     end = Offset(xAxisMaxValue, yAlignmentValue),
                     strokeWidth = backgroundLineWidth,
                     pathEffect = PathEffect.dashPathEffect(

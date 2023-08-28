@@ -50,20 +50,20 @@ internal fun BarChartContent(
     val animatedProgress = remember(barsParameters) {
         if (animateChart) Animatable(0f) else Animatable(1f)
     }
-
     var upperValue by rememberSaveable {
         mutableStateOf(barsParameters.getUpperValue())
     }
     var lowerValue by rememberSaveable {
         mutableStateOf(barsParameters.getLowerValue())
     }
-    var yTextLayoutResult by remember { mutableStateOf(0) }
     var maxWidth by remember { mutableStateOf(0f) }
+    var yTextLayoutResult by remember { mutableStateOf(0) }
     var maxHeight by remember { mutableStateOf(0f) }
     var barWidth by remember { mutableStateOf(0f) }
     var xRegionWidthWithoutSpacing by remember { mutableStateOf(0f) }
     var xRegionWidth by remember { mutableStateOf(0f) }
     var spaceBetweenBars by remember { mutableStateOf(0f) }
+    var barsWidthWithSpace by remember { mutableStateOf(0f) }
     //initial height set at 0.dp
     var boxWidth by remember { mutableStateOf(0.dp) }
     var boxHeight by remember { mutableStateOf(0.dp) }
@@ -83,12 +83,19 @@ internal fun BarChartContent(
         Canvas(
             modifier = Modifier.fillMaxSize().background(Color.Cyan.copy(0.5f))
         ) {
-            val spacingXBetweenGroups = (boxWidth / 18)
+
             val spacingY = (boxWidth / 8)
-            spaceBetweenBars = (boxWidth.toPx() / 1000)
-            xRegionWidth = (boxWidth.toPx() / 5)
-            xRegionWidthWithoutSpacing = xRegionWidth - (spacingXBetweenGroups.toPx())
-            barWidth = (xRegionWidthWithoutSpacing / barsParameters.size) - spaceBetweenBars
+            val regions = if (xAxisData.size > 5) 5 else xAxisData.size
+            xRegionWidth = ((boxWidth.toPx()) / regions)
+            val spacingXBetweenGroups = xRegionWidth.dp.toPx()/5
+            xRegionWidthWithoutSpacing = xRegionWidth - spacingXBetweenGroups
+            barsWidthWithSpace = if (barsParameters.size < 3){
+                xRegionWidthWithoutSpacing / 4
+            } else{
+                xRegionWidthWithoutSpacing / barsParameters.size
+            }
+            spaceBetweenBars = barsWidthWithSpace /5
+            barWidth = barsWidthWithSpace -spaceBetweenBars
             maxWidth = xRegionWidth * xAxisData.size
             maxHeight = boxHeight.toPx() - spacingY.toPx() + 10.dp.toPx()
 
@@ -101,7 +108,7 @@ internal fun BarChartContent(
                 backgroundLineWidth = backgroundLineWidth,
                 gridColor = gridColor,
                 showGridWithSpacer = showGridWithSpacer,
-                spacingX = spacingXBetweenGroups,
+                spacingX = spacingXBetweenGroups.dp,
                 spacingY = spacingY,
                 yAxisStyle = yAxisStyle,
                 xAxisStyle = xAxisStyle,
@@ -112,6 +119,7 @@ internal fun BarChartContent(
                 xRegionWidth = xRegionWidth,
                 xRegionWidthWithoutSpacing = xRegionWidthWithoutSpacing,
                 isFromBarChart = true,
+                yTextLayoutResult = yTextLayoutResult
             )
         }
 
@@ -120,7 +128,7 @@ internal fun BarChartContent(
         ) {
 
             Canvas(
-                Modifier.width(boxWidth).fillMaxHeight().background(Color.Blue.copy(0.5f))
+                Modifier.width(maxWidth.dp).fillMaxHeight().background(Color.Blue.copy(0.5f))
 
             ) {
                 val spacingX = (size.width / 18.dp.toPx()).dp
@@ -149,6 +157,7 @@ internal fun BarChartContent(
                     xAxisStyle = xAxisStyle,
                     specialChart = specialChart,
                     barWidth = barWidth,
+                    xRegionWidth = xRegionWidth,
                     xRegionWidthWithoutSpacing = xRegionWidthWithoutSpacing,
                     height = maxHeight.dp,
                     barSize = barsParameters.size,

@@ -48,23 +48,20 @@ fun <T> DrawScope.xAxisDrawing(
     xAxisStyle: TextStyle,
     specialChart: Boolean,
     barWidth: Float,
+    xRegionWidth: Float,
     xRegionWidthWithoutSpacing: Float,
     barSize: Int,
-    yTextLayoutResult :Int,
+    yTextLayoutResult: Int,
 ) {
     if (specialChart) {
         return
     }
 
-    println("xRegionWidth -------- ${barWidth.dp.toPx()}")
-    println("barSize -------- ${(barSize.dp.toPx() / 2.5.dp.toPx())}")
-
     xAxisData.forEachIndexed { index, dataPoint ->
 
-//        val xLength = (barWidth / xAxisData.size) * xRegionWidthWithoutSpacing * index
-        val xLength =
-            yTextLayoutResult.dp.toPx() + (((barWidth.dp.toPx() * barSize.dp.toPx()) / 0.7.dp.toPx()) * index)
 
+        val xLength =
+            (yTextLayoutResult.dp+(barWidth.dp/2)).toPx()  + (index * (xRegionWidth.dp ).toPx())
 
         drawContext.canvas.nativeCanvas.apply {
             drawText(
