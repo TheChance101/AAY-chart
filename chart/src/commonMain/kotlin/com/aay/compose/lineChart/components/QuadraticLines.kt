@@ -38,7 +38,7 @@ fun DrawScope.drawQuarticLineWithShadow(
         text = AnnotatedString(xAxisData.first().toString()),
     ).size.width
 
-    val startSpace = (spacingX) + (textLayoutResult / 2).dp
+    val startSpace = (spacingX) + (textLayoutResult / 2).toDp()
     val spaceBetweenXes = ((size.width - startSpace.toPx()) / (xAxisData.size - 1)).toDp()
 
     val strokePathOfQuadraticLine = drawLineAsQuadratic(
@@ -110,9 +110,9 @@ fun DrawScope.drawLineAsQuadratic(
         val firstRatio = (info - lowerValue) / (upperValue - lowerValue)
         val secondRatio = (nextInfo - lowerValue) / (upperValue - lowerValue)
 
-        val xFirstPoint = (yTextLayoutResult.toDp()) + index * spaceBetweenXes
+        val xFirstPoint = (yTextLayoutResult.toDp() + 36.dp) + index * spaceBetweenXes
         val xSecondPoint =
-            (yTextLayoutResult.toDp() ) + (index + checkLastIndex(lineParameter.data, index)) * spaceBetweenXes
+            (yTextLayoutResult.toDp()+36.dp) + (index + checkLastIndex(lineParameter.data, index)) * spaceBetweenXes
 
         val yFirstPoint = (height.toPx()
                 + 11.dp.toPx()

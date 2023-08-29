@@ -37,7 +37,7 @@ fun DrawScope.drawDefaultLineWithShadow(
         text = AnnotatedString(xAxisData.first().toString()),
     ).size.width
 
-    val startSpace = (spacingX ) + (textLayoutResult / 2).dp
+    val startSpace = (spacingX) + (textLayoutResult).toDp()
     val spaceBetweenXes = ((size.width - startSpace.toPx()) / (xAxisData.size - 1)).toDp()
 
     val strokePathOfDefaultLine = drawLineAsDefault(
@@ -79,7 +79,7 @@ private fun DrawScope.drawLineAsDefault(
     spacingY: Dp,
     clickedPoints: MutableList<Pair<Float, Float>>,
     textMeasure: TextMeasurer,
-    xAxisData: List<String>
+    xAxisData: List<String>,
 ) = Path().apply {
     val height = size.height.toDp()
     drawPathLineWrapper(
@@ -91,7 +91,7 @@ private fun DrawScope.drawLineAsDefault(
             text = AnnotatedString(xAxisData[index]),
         ).size.width
 
-        val startSpace = (spacingX ) + (textLayoutResult / 2).dp
+        val startSpace = (spacingX) + (textLayoutResult / 2).toDp()
         val spaceBetweenXes = ((size.width - startSpace.toPx()) / (xAxisData.size - 1)).toDp()
         val yTextLayoutResult = textMeasure.measure(
             text = AnnotatedString(upperValue.formatToThousandsMillionsBillions()),
@@ -99,9 +99,9 @@ private fun DrawScope.drawLineAsDefault(
 
         val info = lineParameter.data[index]
         val ratio = (info - lowerValue) / (upperValue - lowerValue)
-        val startXPoint = (yTextLayoutResult.toDp()) + (index * spaceBetweenXes)
+        val startXPoint = (yTextLayoutResult.toDp() + 36.dp) + (index * spaceBetweenXes)
         val startYPoint =
-            (height.toPx() + 11.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
+            (height.toPx() + 8.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
 
         val tolerance = 20.dp.toPx()
         val savedClicks =
