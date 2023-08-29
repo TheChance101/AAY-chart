@@ -54,7 +54,7 @@ fun DrawScope.grid(
 
                 drawLine(
                     gridColor,
-                    start = Offset(yTextLayoutResult.toDp().toPx(), yAlignmentValue),
+                    start = Offset(yTextLayoutResult.toDp().toPx() + 32.dp.toPx(), yAlignmentValue),
                     end = Offset(xAxisMaxValue, yAlignmentValue),
                     strokeWidth = backgroundLineWidth,
                     pathEffect = PathEffect.dashPathEffect(
@@ -78,8 +78,8 @@ fun DrawScope.grid(
 
                 drawLine(
                     gridColor,
-                    start = Offset(xLength.toPx() + (yTextLayoutResult / 2), 10.toDp().toPx()),
-                    end = Offset(xLength.toPx() + (yTextLayoutResult / 2), maxValue),
+                    start = Offset(xLength.toPx() + (yTextLayoutResult / 2) + 32.dp.toPx(), 10.toDp().toPx()),
+                    end = Offset(xLength.toPx() + (yTextLayoutResult / 2) + 32.dp.toPx(), maxValue),
                     strokeWidth = backgroundLineWidth,
                     pathEffect = PathEffect.dashPathEffect(
                         if (showGridWithSpacer) floatArrayOf(16f, 16f)
