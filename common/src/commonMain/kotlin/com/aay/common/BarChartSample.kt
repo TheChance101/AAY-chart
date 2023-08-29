@@ -32,22 +32,22 @@ fun BarChartSample() {
 //        ),
         BarParameters(
             dataName = "Completed",
-            data = listOf(400.0, 1000.6,800.0, 550.6,444.0, 100.6,100.0),
-            barColor = Color.Magenta,
+            data = listOf(50.0, 90.6,80.0,77.6,50.0, 20.6,10.0),
+            barColor = Color.Red.copy(0.8f),
         ),
         BarParameters(
             dataName = "Completed",
-            data = listOf(700.0, 500.6,707.0, 699.6,500.0, 300.6,800.0),
-            barColor = Color.Green,
+            data = listOf(40.0, 30.6,20.0, 15.6,70.0, 80.6,60.0),
+            barColor = Color.Black.copy(0.8f),
         ),
         BarParameters(
             dataName = "Completed",
-            data = listOf(100.0, 999.6,600.0, 800.6,150.0, 100.6,0.99),
-            barColor = Color.Gray,
+            data = listOf(20.0, 15.6,30.0, 50.6,70.0, 90.6,70.0),
+            barColor = Color.Gray.copy(0.8f,0.9F),
         ),
     )
 
-    Box(Modifier.padding(24.dp).fillMaxSize()) {
+    Box(Modifier.fillMaxWidth().height(350.dp)) {
         BarChart(
             chartParameters = testBarParameters,
             gridColor = Color.DarkGray,

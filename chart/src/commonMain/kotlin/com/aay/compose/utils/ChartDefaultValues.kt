@@ -30,7 +30,9 @@ object ChartDefaultValues {
             barColor = Color.Blue,
         )
     )
-
+    val barWidth = 30.dp
+    val spaceBetweenBars = 10.dp
+    val spaceBetweenGroups = 40.dp
     const val IS_SHOW_GRID = true
     val gridColor = Color.Gray
     const val ANIMATED_CHART = true
