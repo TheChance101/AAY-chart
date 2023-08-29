@@ -42,7 +42,7 @@ fun DrawScope.grid(
 
     if (isShowGrid) {
 
-        if (isShowGrid) {
+        if (orientation == Orientation.Horizontal) {
 
             (0..yAxisRange).forEach { i ->
                 yAxisList.add(
