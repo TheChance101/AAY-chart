@@ -64,5 +64,6 @@ fun <T> DrawScope.baseChartContainer(
         specialChart = specialChart,
         textMeasurer = textMeasure,
         upperValue = upperValue,
+        isFromBarChart = isFromBarChart
     )
 }
