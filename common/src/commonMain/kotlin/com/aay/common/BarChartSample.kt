@@ -1,7 +1,7 @@
 package com.aay.common
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -32,17 +32,17 @@ fun BarChartSample() {
 //        ),
         BarParameters(
             dataName = "Completed",
-            data = listOf(400.0, 1000.6,800.0, 550.6,444.0, 100.6,100.0),
+            data = listOf(0.6, 10.6,80.0, 50.6,44.0, 100.6,10.0),
             barColor = Color.Magenta,
         ),
         BarParameters(
             dataName = "Completed",
-            data = listOf(700.0, 500.6,707.0, 699.6,500.0, 300.6,800.0),
+            data = listOf(50.0, 30.6,77.0, 69.6,50.0, 30.6,80.0),
             barColor = Color.Green,
         ),
         BarParameters(
             dataName = "Completed",
-            data = listOf(100.0, 999.6,600.0, 800.6,150.0, 100.6,0.99),
+            data = listOf(100.0, 99.6,60.0, 80.6,10.0, 100.6,55.99),
             barColor = Color.Gray,
         ),
     )
@@ -64,6 +64,7 @@ fun BarChartSample() {
                 color = Color.DarkGray,
                 fontWeight = FontWeight.W400
             ),
+            yAxisRange = 15
         )
     }
 }
