@@ -5,6 +5,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
@@ -44,6 +45,7 @@ internal fun ChartContent(
     specialChart: Boolean,
     onChartClick: (Float, Float) -> Unit,
     clickedPoints: MutableList<Pair<Float, Float>>,
+    orientation: Orientation
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -92,10 +94,11 @@ internal fun ChartContent(
             specialChart = specialChart,
             isFromBarChart = false,
             yTextLayoutResult = 0.dp,
+            orientation = orientation
         )
 
-        if (specialChart){
-            if (linesParameters.size >= 2){
+        if (specialChart) {
+            if (linesParameters.size >= 2) {
                 throw Exception("Special case must contain just one line")
             }
             linesParameters.forEach { line ->
@@ -108,13 +111,13 @@ internal fun ChartContent(
                     spacingX = spacingX,
                     spacingY = spacingY,
                     specialChart = specialChart,
-                    clickedPoints  = clickedPoints,
+                    clickedPoints = clickedPoints,
                     textMeasure
                 )
 
             }
-        }else {
-            if (linesParameters.size >= 2){
+        } else {
+            if (linesParameters.size >= 2) {
                 clickedPoints.clear()
             }
             linesParameters.forEach { line ->
@@ -142,7 +145,7 @@ internal fun ChartContent(
                         spacingX = spacingX,
                         spacingY = spacingY,
                         specialChart = specialChart,
-                        clickedPoints  = clickedPoints,
+                        clickedPoints = clickedPoints,
                         textMeasure
                     )
 

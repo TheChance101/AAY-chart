@@ -53,6 +53,6 @@ object ChartDefaultValues {
     const val showXAxis = true
     const val showyAxis = true
 
-    val gridOrientation = Orientation.Vertical
+    val gridOrientation = Orientation.Horizontal
 
 }
