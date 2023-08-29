@@ -1,7 +1,7 @@
 package com.aay.common
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -13,6 +13,7 @@ import com.aay.compose.barChart.model.BarParameters
 
 @Composable
 fun BarChartSample() {
+    var randomValue by remember { mutableStateOf(0.0) }
 
     val testBarParameters: List<BarParameters> = listOf(
 //        BarParameters(
@@ -32,7 +33,7 @@ fun BarChartSample() {
 //        ),
         BarParameters(
             dataName = "Completed",
-            data = listOf(50.0, 90.6,80.0,77.6,50.0, 20.6,10.0),
+            data = listOf(randomValue, 90.6,80.0,77.6,50.0, 20.6,10.0),
             barColor = Color.Red.copy(0.8f),
         ),
         BarParameters(
@@ -65,5 +66,9 @@ fun BarChartSample() {
                 fontWeight = FontWeight.W400
             ),
         )
+    }
+    LaunchedEffect(Unit){
+        while (true){
+            randomValue = (10..100).random().toDouble()}
     }
 }

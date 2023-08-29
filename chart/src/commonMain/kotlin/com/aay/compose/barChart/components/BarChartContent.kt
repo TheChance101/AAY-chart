@@ -1,12 +1,8 @@
 package com.aay.compose.barChart.components
 
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -22,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import com.aay.compose.baseComponents.baseChartContainer
 import com.aay.compose.barChart.model.BarParameters
 import com.aay.compose.baseComponents.xAxisDrawing
-import com.aay.compose.utils.ChartDefaultValues
 import com.aay.compose.utils.ChartDefaultValues.specialChart
 import com.aay.compose.utils.formatToThousandsMillionsBillions
 import kotlinx.coroutines.CoroutineScope
@@ -44,9 +39,9 @@ internal fun BarChartContent(
     yAxisRange: Int,
     showXAxis: Boolean,
     showYAxis: Boolean,
-    barWidth: Dp ,
+    barWidth: Dp,
     spaceBetweenBars: Dp,
-    spaceBetweenGroups: Dp ,
+    spaceBetweenGroups: Dp,
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -87,7 +82,7 @@ internal fun BarChartContent(
         ) {
 
             val spacingY = (boxHeight / 10)
-            xRegionWidth = ((barWidth+spaceBetweenBars) * barsParameters.size) + spaceBetweenGroups
+            xRegionWidth = ((barWidth + spaceBetweenBars) * barsParameters.size) + spaceBetweenGroups
             xRegionWidthWithoutSpacing = xRegionWidth - spaceBetweenGroups
             maxWidth = (xRegionWidth * xAxisData.size) - spaceBetweenGroups
             maxHeight = boxHeight.toPx() - spacingY.toPx() + 10.dp.toPx()
@@ -115,7 +110,8 @@ internal fun BarChartContent(
 
         Box(
             modifier = Modifier.fillMaxSize().padding(start = yTextLayoutResult + (yTextLayoutResult / 2))
-                .horizontalScroll(rememberScrollState())) {
+                .horizontalScroll(rememberScrollState())
+        ) {
 
             Canvas(
                 Modifier.width(maxWidth).fillMaxHeight()
