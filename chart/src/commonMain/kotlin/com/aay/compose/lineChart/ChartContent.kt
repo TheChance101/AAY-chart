@@ -70,7 +70,7 @@ internal fun ChartContent(
     ) {
 
 
-        val spacingX = (size.width / 18.dp.toPx()).dp
+        val spacingX = (size.width / 50.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
 
         baseChartContainer(

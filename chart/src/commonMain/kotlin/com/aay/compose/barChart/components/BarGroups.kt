@@ -3,16 +3,12 @@ package com.aay.compose.barChart.components
 import androidx.compose.ui.geometry.*
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.coerceAtMost
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.times
+import androidx.compose.ui.unit.*
 import com.aay.compose.barChart.model.BarParameters
 
 internal fun DrawScope.drawBarGroups(
     barsParameters: List<BarParameters>,
     upperValue: Double,
-    lowerValue: Double,
     barWidth: Dp,
     xRegionWidth: Dp,
     spaceBetweenBars: Dp,
@@ -23,8 +19,8 @@ internal fun DrawScope.drawBarGroups(
     barsParameters.forEachIndexed { barIndex, bar ->
 
         bar.data.forEachIndexed { index, data ->
-            val ratio = (data.toFloat() ) / (upperValue)
-            val barLength = (ratio * (height/ 2.toDp().toPx())) - lowerValue.dp
+            val ratio = (data.toFloat()) / upperValue.toFloat()
+            val barLength = (height / 1.18.toFloat().dp).toDp() * ratio
 
             val xAxisLength = (index * xRegionWidth)
             val lengthWithRatio = xAxisLength + (barIndex * (barWidth + spaceBetweenBars))
@@ -33,7 +29,7 @@ internal fun DrawScope.drawBarGroups(
                 brush = Brush.verticalGradient(listOf(bar.barColor, bar.barColor)),
                 topLeft = Offset(
                     lengthWithRatio.coerceAtMost(maxWidth).toPx(),
-                    (height.value - barLength.toPx())
+                    height.value - barLength.toPx()
                 ),
                 size = Size(
                     width = barWidth.toPx(),

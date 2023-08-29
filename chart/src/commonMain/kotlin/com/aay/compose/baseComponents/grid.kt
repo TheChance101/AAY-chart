@@ -18,13 +18,13 @@ fun DrawScope.grid(
     backgroundLineWidth: Float,
     showGridWithSpacer: Boolean,
     spacingY: Dp,
-    yAxisRange : Int,
-    specialChart : Boolean,
+    yAxisRange: Int,
+    specialChart: Boolean,
     upperValue: Float,
-    textMeasurer:TextMeasurer,
-
-    ) {
-    if (specialChart){
+    textMeasurer: TextMeasurer,
+    isFromBarChart: Boolean,
+) {
+    if (specialChart) {
         return
     }
     val yTextLayoutResult = textMeasurer.measure(
@@ -35,9 +35,12 @@ fun DrawScope.grid(
     val yAxisList = mutableListOf<Float>()
 
     if (isShowGrid) {
-        (0..yAxisRange ).forEach { i ->
+        val range = if (isFromBarChart) yAxisRange + 1 else yAxisRange
+
+        (0..range).forEach { i ->
             yAxisList.add(
-                size.height.toDp().toPx() - spacingY.toPx() - i * (size.height.toDp() - spacingY).toPx() / (yAxisRange)
+                size.height.toDp()
+                    .toPx() - (spacingY.toPx()) - i * (size.height.toDp() - spacingY).toPx() / range
             )
             val yAlignmentValue = yAxisList[i] + 9.dp.toPx()
 

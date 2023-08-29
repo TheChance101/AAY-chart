@@ -15,43 +15,43 @@ import com.aay.compose.barChart.model.BarParameters
 fun BarChartSample() {
 
     val testBarParameters: List<BarParameters> = listOf(
-        BarParameters(
-            dataName = "Completed",
-            data = listOf(54.0, 50.6),
-            barColor = Color.Blue,
-        ),
-        BarParameters(
-            dataName = "Completed",
-            data = listOf(30.0, 20.6),
-            barColor = Color.Black,
-        ),
-        BarParameters(
-            dataName = "Completed",
-            data = listOf(50.0, 70.6),
-            barColor = Color.LightGray,
-        ),
 //        BarParameters(
 //            dataName = "Completed",
-//            data = listOf(0.0, 50.6,80.0, 55.6,40.0, 10.6,90.0),
-//            barColor = Color.Magenta,
+//            data = listOf(54.0, 50.6),
+//            barColor = Color.Blue,
 //        ),
 //        BarParameters(
 //            dataName = "Completed",
-//            data = listOf(70.0, 50.6,70.0, 60.6,50.0, 30.6,80.0),
-//            barColor = Color.Green,
+//            data = listOf(30.0, 20.6),
+//            barColor = Color.Black,
 //        ),
 //        BarParameters(
 //            dataName = "Completed",
-//            data = listOf(70.0, 50.6,60.0, 50.6,80.0, 60.6,70.0),
-//            barColor = Color.Gray,
+//            data = listOf(50.0, 70.6),
+//            barColor = Color.LightGray,
 //        ),
+        BarParameters(
+            dataName = "Completed",
+            data = listOf(400.0, 1000.6,800.0, 550.6,444.0, 100.6,100.0),
+            barColor = Color.Magenta,
+        ),
+        BarParameters(
+            dataName = "Completed",
+            data = listOf(700.0, 500.6,707.0, 699.6,500.0, 300.6,800.0),
+            barColor = Color.Green,
+        ),
+        BarParameters(
+            dataName = "Completed",
+            data = listOf(100.0, 999.6,600.0, 800.6,150.0, 100.6,0.99),
+            barColor = Color.Gray,
+        ),
     )
 
     Box(Modifier.padding(24.dp).fillMaxSize()) {
         BarChart(
             chartParameters = testBarParameters,
             gridColor = Color.DarkGray,
-            xAxisData = listOf("2016", "2017"),
+            xAxisData = listOf("2016", "2017", "2018","2019","2020", "2021","2022"),
             isShowGrid = true,
             animateChart = true,
             showGridWithSpacer = true,

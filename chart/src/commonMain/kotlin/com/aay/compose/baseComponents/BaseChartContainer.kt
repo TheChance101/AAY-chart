@@ -1,7 +1,5 @@
 package com.aay.compose.baseComponents
 
-
-import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.ExperimentalTextApi
@@ -66,5 +64,6 @@ fun <T> DrawScope.baseChartContainer(
         specialChart = specialChart,
         textMeasurer = textMeasure,
         upperValue = upperValue,
+        isFromBarChart = isFromBarChart
     )
 }
