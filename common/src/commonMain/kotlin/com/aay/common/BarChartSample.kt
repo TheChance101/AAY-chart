@@ -15,21 +15,6 @@ import com.aay.compose.barChart.model.BarParameters
 fun BarChartSample() {
 
     val testBarParameters: List<BarParameters> = listOf(
-//        BarParameters(
-//            dataName = "Completed",
-//            data = listOf(54.0, 50.6),
-//            barColor = Color.Blue,
-//        ),
-//        BarParameters(
-//            dataName = "Completed",
-//            data = listOf(30.0, 20.6),
-//            barColor = Color.Black,
-//        ),
-//        BarParameters(
-//            dataName = "Completed",
-//            data = listOf(50.0, 70.6),
-//            barColor = Color.LightGray,
-//        ),
         BarParameters(
             dataName = "Completed",
             data = listOf(0.6, 10.6,80.0, 50.6,44.0, 100.6,10.0),

@@ -1,5 +1,6 @@
 package com.aay.compose.baseComponents
 
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.ExperimentalTextApi
@@ -26,7 +27,8 @@ fun <T> DrawScope.baseChartContainer(
     showYAxis: Boolean,
     specialChart: Boolean = false,
     isFromBarChart: Boolean,
-    yTextLayoutResult : Dp,
+    yTextLayoutResult: Dp,
+    orientation: Orientation = Orientation.Horizontal
 ) {
     if (showXAxis) {
         if (!isFromBarChart) {
@@ -60,10 +62,13 @@ fun <T> DrawScope.baseChartContainer(
         backgroundLineWidth = backgroundLineWidth,
         showGridWithSpacer = showGridWithSpacer,
         spacingY = spacingY,
-        yAxisRange = yAxisRange ,
+        yAxisRange = yAxisRange,
         specialChart = specialChart,
         textMeasurer = textMeasure,
         upperValue = upperValue,
-        isFromBarChart = isFromBarChart
+        isFromBarChart = isFromBarChart,
+        orientation = orientation,
+        spacingX = spacingX,
+        xAxisDataSize = xAxisData.size
     )
 }
