@@ -4,10 +4,12 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.*
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import com.aay.compose.utils.formatToThousandsMillionsBillions
+
 
 @OptIn(ExperimentalTextApi::class)
 fun <T> DrawScope.xAxisDrawing(
@@ -17,7 +19,7 @@ fun <T> DrawScope.xAxisDrawing(
     xAxisStyle: TextStyle,
     specialChart: Boolean,
     upperValue: Float,
-    ) {
+) {
     if (specialChart) {
         return
     }
@@ -30,10 +32,11 @@ fun <T> DrawScope.xAxisDrawing(
             text = AnnotatedString(xAxisData[index].toString()),
         ).size.width
 
-        val startSpace = (spacing) + (textLayoutResult).dp
-        val spaceBetweenXes = (size.width - startSpace.toPx()) / (xAxisData.size - 1)
+        val startSpace = (spacing) + (textLayoutResult).toDp()
+        val spaceBetweenXes =
+            ((size.width - 32.dp.toPx()) - startSpace.toPx()) / (xAxisData.size - 1)
 
-        val xLength = (yTextLayoutResult.toDp()) + (index * spaceBetweenXes).toDp()
+        val xLength = (yTextLayoutResult.toDp() + 32.dp) + (index * spaceBetweenXes).toDp()
 
         drawContext.canvas.nativeCanvas.apply {
             drawText(
@@ -41,6 +44,7 @@ fun <T> DrawScope.xAxisDrawing(
                 text = dataPoint.toString(),
                 style = xAxisStyle,
                 maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 topLeft = Offset(
                     xLength.coerceAtMost(size.width.toDp()).toPx(),
                     size.height / 1.07f
