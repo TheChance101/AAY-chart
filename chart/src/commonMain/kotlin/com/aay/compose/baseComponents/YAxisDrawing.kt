@@ -25,18 +25,17 @@ fun DrawScope.yAxisDrawing(
     if (specialChart) {
         return
     }
-    val dataRange = upperValue - lowerValue
+    val dataRange = if (isFromBarChart) upperValue else upperValue - lowerValue
     val dataStep = dataRange / yAxisRange
-    val range = if (isFromBarChart) yAxisRange + 1 else yAxisRange
 
-    (0..range).forEach { i ->
+    (0..yAxisRange).forEach { i ->
         val yValue = if (isFromBarChart) {
             dataStep * i
         } else {
             lowerValue + dataStep * i
         }
 
-        val y = (size.height.toDp() - spacing - i * (size.height.toDp() - spacing) / range)
+        val y = (size.height.toDp() - spacing - i * (size.height.toDp() - spacing) / yAxisRange)
         drawContext.canvas.nativeCanvas.apply {
             drawText(
                 textMeasurer = textMeasure,
