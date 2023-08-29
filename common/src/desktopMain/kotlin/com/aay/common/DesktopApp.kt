@@ -6,4 +6,5 @@ import androidx.compose.runtime.Composable
 @Preview
 @Composable
 fun AppPreview() {
+    App()
 }
