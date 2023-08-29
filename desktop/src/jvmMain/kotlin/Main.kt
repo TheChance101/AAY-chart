@@ -5,6 +5,6 @@ import com.aay.common.App
 
 fun main() = application {
     Window(onCloseRequest = ::exitApplication) {
-       App()
+        App()
     }
 }
