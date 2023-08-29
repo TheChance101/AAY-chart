@@ -39,15 +39,15 @@ fun DrawScope.grid(
 
 
     val yAxisList = mutableListOf<Float>()
-    val range = if (isFromBarChart) yAxisRange + 1 else yAxisRange
 
     if (isShowGrid) {
 
-        if (orientation == Orientation.Horizontal) {
-            (0..range).forEach { i ->
+        if (isShowGrid) {
+
+            (0..yAxisRange).forEach { i ->
                 yAxisList.add(
                     size.height.toDp()
-                        .toPx() - (spacingY.toPx()) - i * (size.height.toDp() - spacingY).toPx() / range
+                        .toPx() - (spacingY.toPx()) - i * (size.height.toDp() - spacingY).toPx() / yAxisRange
                 )
                 val yAlignmentValue = yAxisList[i] + 9.dp.toPx()
 

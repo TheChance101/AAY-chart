@@ -38,6 +38,9 @@ internal fun BarChartContent(
     yAxisRange: Int,
     showXAxis: Boolean,
     showYAxis: Boolean,
+    barWidth: Dp,
+    spaceBetweenBars: Dp,
+    spaceBetweenGroups: Dp,
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -54,10 +57,8 @@ internal fun BarChartContent(
     var maxWidth by remember { mutableStateOf(0.dp) }
     var yTextLayoutResult by remember { mutableStateOf(0.dp) }
     var maxHeight by remember { mutableStateOf(0f) }
-    var barWidth by remember { mutableStateOf(0.dp) }
     var xRegionWidthWithoutSpacing by remember { mutableStateOf(0.dp) }
     var xRegionWidth by remember { mutableStateOf(0.dp) }
-    var spaceBetweenBars by remember { mutableStateOf(0.dp) }
     var barsWidthWithSpace by remember { mutableStateOf(0.dp) }
     //initial height set at 0.dp
     var boxWidth by remember { mutableStateOf(0.dp) }
@@ -80,18 +81,9 @@ internal fun BarChartContent(
         ) {
 
             val spacingY = (boxHeight / 10)
-            val regions = if (xAxisData.size > 5) 5 else xAxisData.size
-            xRegionWidth = ((boxWidth.toPx()) / regions).toDp()
-            val spacingXBetweenGroups = xRegionWidth / 5
-            xRegionWidthWithoutSpacing = xRegionWidth - spacingXBetweenGroups
-            barsWidthWithSpace = if (barsParameters.size < 3) {
-                xRegionWidthWithoutSpacing / 3
-            } else {
-                xRegionWidthWithoutSpacing / barsParameters.size
-            }
-            spaceBetweenBars = barsWidthWithSpace / 5
-            barWidth = barsWidthWithSpace - spaceBetweenBars
-            maxWidth = (xRegionWidth * xAxisData.size) - spacingXBetweenGroups
+            xRegionWidth = ((barWidth + spaceBetweenBars) * barsParameters.size) + spaceBetweenGroups
+            xRegionWidthWithoutSpacing = xRegionWidth - spaceBetweenGroups
+            maxWidth = (xRegionWidth * xAxisData.size) - spaceBetweenGroups
             maxHeight = boxHeight.toPx() - spacingY.toPx() + 10.dp.toPx()
 
             baseChartContainer(
@@ -103,7 +95,7 @@ internal fun BarChartContent(
                 backgroundLineWidth = backgroundLineWidth,
                 gridColor = gridColor,
                 showGridWithSpacer = showGridWithSpacer,
-                spacingX = spacingXBetweenGroups,
+                spacingX = spaceBetweenGroups,
                 spacingY = spacingY,
                 yAxisStyle = yAxisStyle,
                 xAxisStyle = xAxisStyle,
@@ -136,6 +128,7 @@ internal fun BarChartContent(
                     spaceBetweenBars = spaceBetweenBars,
                     maxWidth = maxWidth,
                     height = maxHeight.dp,
+                    animatedProgress = animatedProgress
                 )
 
                 xAxisDrawing(
