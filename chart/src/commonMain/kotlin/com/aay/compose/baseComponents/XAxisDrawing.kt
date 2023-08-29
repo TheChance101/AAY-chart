@@ -79,7 +79,7 @@ fun <T> DrawScope.xAxisDrawing(
                 maxLines = 1,
                 topLeft = Offset(
                     xLength.toPx().coerceAtMost(size.width),
-                    (height.value + size.height/40).coerceAtMost(size.height)
+                    (height.value + 20.dp.toPx()).coerceAtMost(size.height)
                 )
             )
         }

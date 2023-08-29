@@ -25,29 +25,29 @@ fun BarChartSample() {
 //            data = listOf(30.0, 20.6),
 //            barColor = Color.Black,
 //        ),
+//        BarParameters(
+//            dataName = "Completed",
+//            data = listOf(50.0, 70.6),
+//            barColor = Color.LightGray,
+//        ),
         BarParameters(
             dataName = "Completed",
-            data = listOf(50.0, 90.6,80.0,77.6,50.0, 20.6,10.0),
-            barColor = Color.LightGray,
+            data = listOf(0.6, 10.6,80.0, 50.6,44.0, 100.6,10.0),
+            barColor = Color.Magenta,
         ),
         BarParameters(
             dataName = "Completed",
-            data = listOf(50.0, 90.6,80.0,77.6,50.0, 20.6,10.0),
-            barColor = Color.Red.copy(0.8f),
+            data = listOf(50.0, 30.6,77.0, 69.6,50.0, 30.6,80.0),
+            barColor = Color.Green,
         ),
         BarParameters(
-            dataName = "andrew",
-            data = listOf(40.0, 30.6,20.0, 15.6,70.0, 80.6,60.0),
-            barColor = Color.Black.copy(0.8f),
-        ),
-        BarParameters(
-            dataName = "amnah",
-            data = listOf(20.0, 15.6,30.0, 50.6,70.0, 90.6,70.0),
-            barColor = Color.Gray.copy(0.8f,0.9F),
+            dataName = "Completed",
+            data = listOf(100.0, 99.6,60.0, 80.6,10.0, 100.6,55.99),
+            barColor = Color.Gray,
         ),
     )
 
-    Box(Modifier.fillMaxSize()) {
+    Box(Modifier.padding(24.dp).fillMaxSize()) {
         BarChart(
             chartParameters = testBarParameters,
             gridColor = Color.DarkGray,
@@ -64,9 +64,7 @@ fun BarChartSample() {
                 color = Color.DarkGray,
                 fontWeight = FontWeight.W400
             ),
-            barWidth = 30.dp,
-            spaceBetweenBars = 50.dp,
-            spaceBetweenGroups = 100.dp
+            yAxisRange = 15
         )
     }
 }

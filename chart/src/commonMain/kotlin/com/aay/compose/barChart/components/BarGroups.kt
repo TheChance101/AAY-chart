@@ -22,8 +22,8 @@ internal fun DrawScope.drawBarGroups(
     barsParameters.forEachIndexed { barIndex, bar ->
 
         bar.data.forEachIndexed { index, data ->
-            val ratio = (data.toFloat()) / upperValue.toFloat()
-            val barLength = ((height.toPx().toDp() - (height/8).toPx().toDp())* animatedProgress.value) * ratio
+            val ratio = (data.toFloat()) / (upperValue.toFloat())
+            val barLength = (height -(height/4.8f)) * ratio
 
             val xAxisLength = (index * xRegionWidth)
             val lengthWithRatio = xAxisLength + (barIndex * (barWidth + spaceBetweenBars))
@@ -32,7 +32,7 @@ internal fun DrawScope.drawBarGroups(
                 brush = Brush.verticalGradient(listOf(bar.barColor, bar.barColor)),
                 topLeft = Offset(
                     lengthWithRatio.coerceAtMost(maxWidth).toPx(),
-                    (height.toPx()-(height.toPx()/15)) - barLength.toPx()
+                    height.value - barLength.toPx()
                 ),
                 size = Size(
                     width = barWidth.toPx(),

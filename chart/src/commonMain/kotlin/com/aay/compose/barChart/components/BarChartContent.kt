@@ -128,7 +128,7 @@ internal fun BarChartContent(
                     xRegionWidth = xRegionWidth,
                     spaceBetweenBars = spaceBetweenBars,
                     maxWidth = maxWidth,
-                    height = boxHeight,
+                    height = maxHeight.dp,
                     animatedProgress = animatedProgress
                 )
 
