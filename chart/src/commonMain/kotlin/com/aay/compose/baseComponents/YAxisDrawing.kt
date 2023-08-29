@@ -28,7 +28,6 @@ fun DrawScope.yAxisDrawing(
     val dataRange = if (isFromBarChart) upperValue else upperValue - lowerValue
     val dataStep = dataRange / yAxisRange
 
-
     (0..yAxisRange).forEach { i ->
         val yValue = if (isFromBarChart) {
             dataStep * i
