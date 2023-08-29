@@ -32,17 +32,17 @@ fun BarChartSample() {
 //        ),
         BarParameters(
             dataName = "Completed",
-            data = listOf(10.0, 5000.6,80.0, 55.6,40.0, 10.6,100.0),
+            data = listOf(400.0, 1000.6,800.0, 550.6,444.0, 100.6,100.0),
             barColor = Color.Magenta,
         ),
         BarParameters(
             dataName = "Completed",
-            data = listOf(70.0, 50.6,70.0, 60.6,50.0, 30.6,80.0),
+            data = listOf(700.0, 500.6,707.0, 699.6,500.0, 300.6,800.0),
             barColor = Color.Green,
         ),
         BarParameters(
             dataName = "Completed",
-            data = listOf(10.0, 9.6,600.0, 800.6,15.0, 10.6,0.99),
+            data = listOf(100.0, 999.6,600.0, 800.6,150.0, 100.6,0.99),
             barColor = Color.Gray,
         ),
     )
