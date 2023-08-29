@@ -9,7 +9,6 @@ import com.aay.compose.barChart.model.BarParameters
 internal fun DrawScope.drawBarGroups(
     barsParameters: List<BarParameters>,
     upperValue: Double,
-    lowerValue: Double,
     barWidth: Dp,
     xRegionWidth: Dp,
     spaceBetweenBars: Dp,
@@ -21,17 +20,16 @@ internal fun DrawScope.drawBarGroups(
 
         bar.data.forEachIndexed { index, data ->
             val ratio =  ((data.toFloat()) / upperValue.toFloat())
-            val barLength =  (height / 0.85.dp.toPx()) * ratio
+            val barLength =  (height / 1.02.dp.toPx()) * ratio
 
             val xAxisLength = (index * xRegionWidth)
             val lengthWithRatio = xAxisLength + (barIndex * (barWidth + spaceBetweenBars))
 
-            println(height.value - barLength.toPx())
             drawRoundRect(
                 brush = Brush.verticalGradient(listOf(bar.barColor, bar.barColor)),
                 topLeft = Offset(
                     lengthWithRatio.coerceAtMost(maxWidth).toPx(),
-                    (height.value - barLength.toPx())
+                    (height.value - barLength.toPx()).coerceAtMost(height.toPx())
                 ),
                 size = Size(
                     width = barWidth.toPx(),

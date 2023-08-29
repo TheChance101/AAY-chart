@@ -22,23 +22,23 @@ fun LineChartSample() {
             label = "revenue",
             data = listOf(70.0, 00.0, 50.33, 40.0, 100.500, 50.0),
             lineColor = Color.Gray,
-            lineType = LineType.QUADRATIC_LINE,
+            lineType = LineType.DEFAULT_LINE,
             lineShadow = true,
         ),
-        LineParameters(
-            label = "Earnings",
-            data = listOf(60.0, 80.6, 40.33, 86.232, 88.0, 90.0),
-            lineColor = Color(0xFFFF7F50),
-            lineType = LineType.DEFAULT_LINE,
-            lineShadow = true
-        ),
-        LineParameters(
-            label = "Earnings",
-            data = listOf(1.0, 40.0, 11.33, 55.23,1.0, 100.0),
-            lineColor = Color(0xFF81BE88),
-            lineType = LineType.QUADRATIC_LINE,
-            lineShadow = false,
-        )
+//        LineParameters(
+//            label = "Earnings",
+//            data = listOf(60.0, 80.6, 40.33, 86.232, 88.0, 90.0),
+//            lineColor = Color(0xFFFF7F50),
+//            lineType = LineType.DEFAULT_LINE,
+//            lineShadow = true
+//        ),
+//        LineParameters(
+//            label = "Earnings",
+//            data = listOf(1.0, 40.0, 11.33, 55.23,1.0, 100.0),
+//            lineColor = Color(0xFF81BE88),
+//            lineType = LineType.QUADRATIC_LINE,
+//            lineShadow = false,
+//        )
     )
 
     Box(Modifier.padding(24.dp)) {

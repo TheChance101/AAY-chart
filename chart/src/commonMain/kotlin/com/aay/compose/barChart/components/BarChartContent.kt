@@ -82,7 +82,7 @@ internal fun BarChartContent(
             modifier = Modifier.fillMaxSize()
         ) {
 
-            val spacingY = (boxWidth / 8)
+            val spacingY = (boxHeight / 10)
             val regions = if (xAxisData.size > 5) 5 else xAxisData.size
             xRegionWidth = ((boxWidth.toPx()) / regions).toDp()
             val spacingXBetweenGroups = xRegionWidth / 5
@@ -134,7 +134,6 @@ internal fun BarChartContent(
                 drawBarGroups(
                     barsParameters = barsParameters,
                     upperValue = upperValue,
-                    lowerValue = lowerValue,
                     barWidth = barWidth,
                     xRegionWidth = xRegionWidth,
                     spaceBetweenBars = spaceBetweenBars,
