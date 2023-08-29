@@ -68,7 +68,7 @@ fun <T> DrawScope.xAxisDrawing(
 
 
         val xLength =
-            (xRegionWidthWithoutSpacing / 4) + (index * (xRegionWidth))
+            (xRegionWidthWithoutSpacing / 3) + (index * (xRegionWidth))
         println(size.height/20)
 
         drawContext.canvas.nativeCanvas.apply {
