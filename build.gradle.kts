@@ -1,5 +1,3 @@
-group = "com.aay"
-version = "1.0-SNAPSHOT"
 
 allprojects {
     repositories {
