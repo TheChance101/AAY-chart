@@ -69,6 +69,7 @@ fun <T> DrawScope.xAxisDrawing(
 
         val xLength =
             (xRegionWidthWithoutSpacing / 4) + (index * (xRegionWidth))
+        println(size.height/20)
 
         drawContext.canvas.nativeCanvas.apply {
             drawText(
@@ -78,7 +79,7 @@ fun <T> DrawScope.xAxisDrawing(
                 maxLines = 1,
                 topLeft = Offset(
                     xLength.toPx().coerceAtMost(size.width),
-                    height.value + 20.dp.toPx()
+                    (height.value + size.height/40).coerceAtMost(size.height)
                 )
             )
         }

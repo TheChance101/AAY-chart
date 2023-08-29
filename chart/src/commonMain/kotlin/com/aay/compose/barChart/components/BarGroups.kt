@@ -1,5 +1,7 @@
 package com.aay.compose.barChart.components
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.ui.geometry.*
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.drawscope.DrawScope
@@ -14,13 +16,14 @@ internal fun DrawScope.drawBarGroups(
     spaceBetweenBars: Dp,
     maxWidth: Dp,
     height: Dp,
+    animatedProgress: Animatable<Float, AnimationVector1D>,
 ) {
 
     barsParameters.forEachIndexed { barIndex, bar ->
 
         bar.data.forEachIndexed { index, data ->
             val ratio = (data.toFloat()) / upperValue.toFloat()
-            val barLength = (height / 1.18.toFloat().dp).toDp() * ratio
+            val barLength = ((height.toPx().toDp() - (height/8).toPx().toDp())* animatedProgress.value) * ratio
 
             val xAxisLength = (index * xRegionWidth)
             val lengthWithRatio = xAxisLength + (barIndex * (barWidth + spaceBetweenBars))
@@ -29,7 +32,7 @@ internal fun DrawScope.drawBarGroups(
                 brush = Brush.verticalGradient(listOf(bar.barColor, bar.barColor)),
                 topLeft = Offset(
                     lengthWithRatio.coerceAtMost(maxWidth).toPx(),
-                    height.value - barLength.toPx()
+                    (height.toPx()-(height.toPx()/15)) - barLength.toPx()
                 ),
                 size = Size(
                     width = barWidth.toPx(),

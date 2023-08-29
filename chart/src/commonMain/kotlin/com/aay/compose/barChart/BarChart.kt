@@ -31,38 +31,43 @@ fun BarChart(
     yAxisRange: Int = ChartDefaultValues.yAxisRange,
     showXAxis: Boolean = ChartDefaultValues.showXAxis,
     showYAxis: Boolean = ChartDefaultValues.showyAxis,
-    gridOrientation: Orientation = ChartDefaultValues.gridOrientation,
+    barWidth: Dp = ChartDefaultValues.barWidth,
+    spaceBetweenBars: Dp = ChartDefaultValues.spaceBetweenBars,
+    spaceBetweenGroups: Dp = ChartDefaultValues.spaceBetweenGroups
 ) {
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            LazyRow(
-                horizontalArrangement = horizontalArrangement,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
-            ) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        LazyRow(
+            horizontalArrangement = horizontalArrangement,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
+        ) {
 
-                items(chartParameters) { details ->
-                    ChartDescription(
-                        chartColor = details.barColor,
-                        chartName = details.dataName,
-                        descriptionStyle = descriptionStyle,
-                    )
-                }
+            items(chartParameters) { details ->
+                ChartDescription(
+                    chartColor = details.barColor,
+                    chartName = details.dataName,
+                    descriptionStyle = descriptionStyle,
+                )
             }
-
-            BarChartContent(
-                barsParameters = chartParameters,
-                gridColor = gridColor,
-                xAxisData = xAxisData,
-                isShowGrid = isShowGrid,
-                animateChart = animateChart,
-                showGridWithSpacer = showGridWithSpacer,
-                yAxisStyle = yAxisStyle,
-                xAxisStyle = xAxisStyle,
-                backgroundLineWidth = backgroundLineWidth,
-                yAxisRange = yAxisRange,
-                showXAxis = showXAxis,
-                showYAxis = showYAxis,
-            )
         }
+
+        BarChartContent(
+            barsParameters = chartParameters,
+            gridColor = gridColor,
+            xAxisData = xAxisData,
+            isShowGrid = isShowGrid,
+            animateChart = animateChart,
+            showGridWithSpacer = showGridWithSpacer,
+            yAxisStyle = yAxisStyle,
+            xAxisStyle = xAxisStyle,
+            backgroundLineWidth = backgroundLineWidth,
+            yAxisRange = yAxisRange,
+            showXAxis = showXAxis,
+            showYAxis = showYAxis,
+            barWidth = barWidth,
+            spaceBetweenBars = spaceBetweenBars,
+            spaceBetweenGroups = spaceBetweenGroups
+        )
+    }
 }
