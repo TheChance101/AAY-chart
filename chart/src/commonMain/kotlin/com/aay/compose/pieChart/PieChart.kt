@@ -15,12 +15,14 @@ import com.aay.compose.pieChart.component.draPieCircle
 import com.aay.compose.pieChart.component.drawCenterText
 import com.aay.compose.pieChart.component.drawPedigreeChart
 import com.aay.compose.pieChart.model.PieChartData
+import com.aay.compose.pieChart.model.ChartTypes
+import com.aay.compose.utils.ChartDefaultValues
 import com.aay.compose.utils.checkIfDataIsNegative
 import kotlin.math.min
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
-fun PieChart(
+fun DonutChart(
     modifier: Modifier = Modifier,
     pieChartData: List<PieChartData>,
     centerTitle: String = "",
@@ -30,7 +32,8 @@ fun PieChart(
     testRatioStyle: TextStyle = TextStyle.Default.copy(fontSize = 12.sp),
     outerCircularColor: Color = Color.Gray,
     innerCircularColor: Color = Color.Gray,
-    ratioLineColor: Color = Color.Gray
+    ratioLineColor: Color = Color.Gray,
+    chartType : ChartTypes = ChartDefaultValues.pieChartType
 ) {
 
     var totalSum = 0.0f
@@ -72,37 +75,59 @@ fun PieChart(
                         .coerceAtMost(canvasWidth / 2)
                     val arcWidth = (size.minDimension.dp.toPx() * 0.13f).coerceAtMost(minValue / 4)
 
-                    drawCenterText(
-                        textMeasure = textMeasure,
-                        centerTitle = centerTitle,
-                        centerTitleStyle = centerTitleStyle,
-                        canvasHeight = canvasHeight,
-                        canvasWidth = canvasWidth,
-                        textSize = textSize
-                    )
 
-                    drawPedigreeChart(
-                        pieValueWithRatio = pieValueWithRatio,
-                        pieChartData = pieChartData,
-                        totalSum = totalSum,
-                        transitionProgress = transitionProgress,
-                        textMeasure = textMeasure,
-                        textRatioStyle =testRatioStyle,
-                        ratioLineColor = ratioLineColor,
-                        arcWidth = arcWidth,
-                        minValue = minValue
-                    )
-                    //draw outer circle
-                    draPieCircle(
-                        circleColor = outerCircularColor,
-                        radiusRatioCircle = (minValue / 2) + (arcWidth / 1.5f)
-                    )
-                    //draw inner circle
-                    draPieCircle(
-                        circleColor = innerCircularColor,
-                        radiusRatioCircle = (minValue / 2) - (arcWidth / 1.5f)
-                    )
+                    if (chartType == ChartTypes.PIE_CHART) {
+                        drawPedigreeChart(
+                            pieValueWithRatio = pieValueWithRatio,
+                            pieChartData = pieChartData,
+                            totalSum = totalSum,
+                            transitionProgress = transitionProgress,
+                            textMeasure = textMeasure,
+                            textRatioStyle = testRatioStyle,
+                            ratioLineColor = ratioLineColor,
+                            arcWidth = arcWidth,
+                            minValue = minValue,
+                            pieChart = chartType
+                        )
+                        //draw outer circle
+                        draPieCircle(
+                            circleColor = outerCircularColor,
+                            radiusRatioCircle = (minValue / 2) + (arcWidth / 1.5f)
+                        )
+                    } else {
+                        drawCenterText(
+                            textMeasure = textMeasure,
+                            centerTitle = centerTitle,
+                            centerTitleStyle = centerTitleStyle,
+                            canvasHeight = canvasHeight,
+                            canvasWidth = canvasWidth,
+                            textSize = textSize
+                        )
 
+                        drawPedigreeChart(
+                            pieValueWithRatio = pieValueWithRatio,
+                            pieChartData = pieChartData,
+                            totalSum = totalSum,
+                            transitionProgress = transitionProgress,
+                            textMeasure = textMeasure,
+                            textRatioStyle = testRatioStyle,
+                            ratioLineColor = ratioLineColor,
+                            arcWidth = arcWidth,
+                            minValue = minValue,
+                            pieChart = chartType
+                        )
+                        //draw outer circle
+                        draPieCircle(
+                            circleColor = outerCircularColor,
+                            radiusRatioCircle = (minValue / 2) + (arcWidth / 1.5f)
+                        )
+                        //draw inner circle
+                        draPieCircle(
+                            circleColor = innerCircularColor,
+                            radiusRatioCircle = (minValue / 2) - (arcWidth / 1.5f)
+                        )
+
+                    }
                 }
         )
 

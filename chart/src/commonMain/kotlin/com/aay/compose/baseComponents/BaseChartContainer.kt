@@ -68,7 +68,6 @@ fun <T> DrawScope.baseChartContainer(
         specialChart = specialChart,
         textMeasurer = textMeasure,
         upperValue = upperValue,
-        isFromBarChart = isFromBarChart,
         orientation = orientation,
         spacingX = spacingX,
         xAxisDataSize = xAxisData.size,
