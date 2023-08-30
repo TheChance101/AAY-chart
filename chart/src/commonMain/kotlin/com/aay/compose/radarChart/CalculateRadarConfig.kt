@@ -7,7 +7,7 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-fun getRadarConfig(
+fun calculateRadarConfig(
     labelRadius: Float,
     netRadius: Float,
     size: Size,
@@ -15,10 +15,10 @@ fun getRadarConfig(
     scalarSteps: Int
 ): RadarChartConfig {
 
-    val endPoints = mutableListOf<Offset>()
-    val nextStartPoints = mutableListOf<Offset>()
-    val nextEndPoints = mutableListOf<Offset>()
-    val scalarPoints = mutableListOf<Offset>()
+    val netCornersPoints = mutableListOf<Offset>()
+    val stepsStartPoints = mutableListOf<Offset>()
+    val stepsEndPoints = mutableListOf<Offset>()
+    val polygonPoints = mutableListOf<Offset>()
     val labelsPoints = mutableListOf<Offset>()
 
     val center = Offset(size.width / 2, size.height / 2)
@@ -32,7 +32,7 @@ fun getRadarConfig(
         val nextAngle = nextIndex * angleBetweenLines + offsetAngle
         val value = netRadius / scalarSteps
         val endPoint = getCircumferencePointOffset(center, netRadius, angle)
-        endPoints.add(endPoint)
+        netCornersPoints.add(endPoint)
 
         val labelEndPoint = getCircumferencePointOffset(center, labelRadius, angle)
         labelsPoints.add(labelEndPoint)
@@ -40,14 +40,14 @@ fun getRadarConfig(
         for (step in 1 until scalarSteps + 1) {
             val startEndPoint = getCircumferencePointOffset(center, value * step, angle)
             val nextEndPoint = getCircumferencePointOffset(center, value * step, nextAngle)
-            nextStartPoints.add(startEndPoint)
-            nextEndPoints.add(nextEndPoint)
-            if (lineIndex == 0) scalarPoints.add(startEndPoint)
+            stepsStartPoints.add(startEndPoint)
+            stepsEndPoints.add(nextEndPoint)
+            if (lineIndex == 0) polygonPoints.add(startEndPoint)
         }
     }
 
     return RadarChartConfig(
-        center, endPoints, nextEndPoints, nextStartPoints, scalarPoints, labelsPoints
+        center, netCornersPoints, stepsEndPoints, stepsStartPoints, polygonPoints, labelsPoints
     )
 
 }

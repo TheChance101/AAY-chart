@@ -1,7 +1,6 @@
 package com.aay.compose.radarChart
 
 
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import com.aay.compose.radarChart.model.NetLinesStyle
 import com.aay.compose.radarChart.model.RadarChartConfig
@@ -11,11 +10,11 @@ fun DrawScope.drawRadarNet(
     config: RadarChartConfig
 ) {
 
-    val endPoints = config.endPoints
-    val nextStartPoints = config.nextStartPoints
-    val nextEndPoints = config.nextEndPoints
+    val netCornersPoints = config.netCornersPoints
+    val stepsStartPoints = config.stepsStartPoints
+    val stepsEndPoints = config.stepsEndPoints
 
-    for (endpoint in endPoints) {
+    for (endpoint in netCornersPoints) {
         drawLine(
             color = netLinesStyle.netLineColor,
             start = center,
@@ -23,14 +22,17 @@ fun DrawScope.drawRadarNet(
             strokeWidth = netLinesStyle.netLinesStrokeWidth,
             cap = netLinesStyle.netLinesStrokeCap,
         )
-        for (index in nextStartPoints.indices) {
+
+        for (index in stepsStartPoints.indices) {
             drawLine(
                 color = netLinesStyle.netLineColor,
-                start = nextStartPoints[index],
-                end = nextEndPoints[index],
+                start = stepsStartPoints[index],
+                end = stepsEndPoints[index],
                 strokeWidth = netLinesStyle.netLinesStrokeWidth,
                 cap = netLinesStyle.netLinesStrokeCap,
             )
         }
+
     }
+
 }

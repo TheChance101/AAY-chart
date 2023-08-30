@@ -5,10 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.Fill
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
@@ -101,35 +98,6 @@ private fun validatePolygons(
 
 }
 
-private fun DrawScope.drawPolygonShape(
-    drawScope: DrawScope,
-    polygon: Polygon,
-    radius: Float,
-    scalarValue: Double,
-    center: Offset,
-    scalarSteps: Int
-) {
-    val polygonEndPoints =
-        getPolygonShapeEndPoints(polygon.values, radius, scalarValue, center, scalarSteps)
-    val path = Path().apply {
-        drawPolygon(polygonEndPoints)
-    }
-
-    drawScope.apply {
-        drawPath(
-            path,
-            color = polygon.style.borderColor,
-            style = Stroke(polygon.style.borderStrokeWidth),
-            alpha = polygon.style.borderColorAlpha
-        )
-        drawPath(
-            path,
-            color = polygon.style.fillColor,
-            style = Fill,
-            alpha = polygon.style.fillColorAlpha
-        )
-    }
-}
 
 @OptIn(ExperimentalTextApi::class)
 private fun DrawScope.measureMaxLabelWidth(
