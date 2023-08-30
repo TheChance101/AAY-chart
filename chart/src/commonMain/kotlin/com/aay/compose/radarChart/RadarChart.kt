@@ -1,7 +1,6 @@
 package com.aay.compose.radarChart
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -23,14 +22,15 @@ fun RadarChart(
     scalarSteps: Int,
     scalarValue: Double,
     scalarValuesStyle: TextStyle,
-    polygons: List<Polygon>
+    polygons: List<Polygon>,
+    modifier: Modifier = Modifier
 ) {
 
     val textMeasurer = rememberTextMeasurer()
 
     validateRadarChartConfiguration(radarLabels, scalarValue, polygons, scalarSteps)
 
-    Canvas(modifier = Modifier.fillMaxSize()) {
+    Canvas(modifier = modifier) {
 
         val labelWidth = measureMaxLabelWidth(radarLabels, labelsStyle, textMeasurer)
         val radius = (size.minDimension / 2) - (labelWidth + 10.toDp().toPx())
