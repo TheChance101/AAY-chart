@@ -95,8 +95,8 @@ fun PieChartSample() {
         centerTitleStyle = TextStyle(color = Color.Gray),
         outerCircularColor = Color.LightGray,
         innerCircularColor = Color.LightGray,
-        ratioLineColor = Color.Red,
-        chartType = ChartTypes.PIE_CHART
+        ratioLineColor = Color.LightGray,
+        chartType = ChartTypes.DONUT_CHART
     )
 
 }
