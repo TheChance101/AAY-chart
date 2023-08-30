@@ -32,7 +32,7 @@ fun BarChartSample() {
         ),
     )
 
-    Box(Modifier.padding(24.dp).fillMaxSize()) {
+    Box(Modifier.fillMaxSize()) {
         BarChart(
             chartParameters = testBarParameters,
             gridColor = Color.DarkGray,

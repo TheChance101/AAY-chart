@@ -96,7 +96,7 @@ fun PieChartSample() {
         outerCircularColor = Color.LightGray,
         innerCircularColor = Color.LightGray,
         ratioLineColor = Color.LightGray,
-        chartType = ChartTypes.DONUT_CHART
+        chartType = ChartTypes.PIE_CHART
     )
 
 }
