@@ -29,11 +29,6 @@ fun <T> DrawScope.xAxisDrawing(
     ).size.width
 
     xAxisData.forEachIndexed { index, dataPoint ->
-        val textLayoutResult = textMeasure.measure(
-            text = AnnotatedString(xAxisData[index].toString()),
-        ).size.width
-
-        val startSpace = (spacing) + (textLayoutResult).toDp()
         val xLength = (yTextLayoutResult.toDp()) + (index * xRegionWidth)
 
         drawContext.canvas.nativeCanvas.apply {

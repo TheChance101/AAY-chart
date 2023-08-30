@@ -62,7 +62,7 @@ fun LineChartSample() {
             ),
             yAxisRange = 14,
             oneLineChart = false,
-            orientation = Orientation.Vertical
+            orientation = Orientation.Horizontal
         )
     }
 }
