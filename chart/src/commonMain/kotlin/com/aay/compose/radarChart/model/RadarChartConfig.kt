@@ -4,9 +4,9 @@ import androidx.compose.ui.geometry.Offset
 
 data class RadarChartConfig(
     val center: Offset,
-    val endPoints: List<Offset>,
-    val nextEndPoints: List<Offset>,
-    val nextStartPoints: List<Offset>,
-    val scalarPoints: List<Offset>,
+    val netCornersPoints: List<Offset>,
+    val stepsEndPoints: List<Offset>,
+    val stepsStartPoints: List<Offset>,
+    val polygonPoints: List<Offset>,
     val labelsPoints: List<Offset>
 )

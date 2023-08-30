@@ -2,6 +2,7 @@ package com.aay.compose.radarChart
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
@@ -21,12 +22,14 @@ fun DrawScope.drawAxisData(
 ) {
 
     val labelsEndPoints = radarChartConfig.labelsPoints
-    val nextStartPoints = radarChartConfig.scalarPoints.toMutableList()
+    val nextStartPoints = radarChartConfig.polygonPoints.toMutableList()
     nextStartPoints.add(0, center)
     nextStartPoints.removeAt(nextStartPoints.size - 1)
 
     val scalarStep = scalarValue / (scalarSteps - 1)
     val textVerticalOffset = 20.toDp().toPx()
+    val labelHeight = textMeasurer.measure(AnnotatedString("M")).size.height
+
 
     for (step in 0 until scalarSteps) {
         drawText(
@@ -46,8 +49,12 @@ fun DrawScope.drawAxisData(
             text = radarLabels[line],
             style = labelsStyle,
             topLeft = Offset(
-                labelsEndPoints[line].x - textVerticalOffset ,
-                labelsEndPoints[line].y
+                labelsEndPoints[line].x - textMeasurer.measure(
+                    AnnotatedString(
+                        text = radarLabels[line],
+                    ), style = labelsStyle
+                ).size.width / 2,
+                labelsEndPoints[line].y - labelHeight / 2
             )
         )
     }
