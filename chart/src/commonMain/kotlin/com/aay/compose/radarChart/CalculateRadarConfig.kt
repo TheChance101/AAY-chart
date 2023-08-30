@@ -7,7 +7,7 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-fun calculateRadarConfig(
+internal fun calculateRadarConfig(
     labelRadius: Float,
     netRadius: Float,
     size: Size,
