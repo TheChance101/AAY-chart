@@ -8,7 +8,6 @@ import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.style.TextOverflow
-
 @OptIn(ExperimentalTextApi::class)
 internal fun DrawScope.ratioText(
     textMeasurer : TextMeasurer,
