@@ -32,7 +32,6 @@ object ChartDefaultValues {
         )
     )
 
-     val pieChartType = ChartTypes.DonutChart
     const val IS_SHOW_GRID = true
     val gridColor = Color.Gray
     const val ANIMATED_CHART = true
@@ -56,5 +55,8 @@ object ChartDefaultValues {
     const val showyAxis = true
 
     val gridOrientation = Orientation.Vertical
+
+    val pieChartType = ChartTypes.DonutChart
+
 
 }
