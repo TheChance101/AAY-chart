@@ -20,6 +20,7 @@ import com.aay.compose.barChart.model.BarParameters
 import com.aay.compose.baseComponents.xAxisDrawing
 import com.aay.compose.utils.ChartDefaultValues.specialChart
 import com.aay.compose.utils.checkIfDataValid
+import com.aay.compose.utils.checkIfSizeValid
 import com.aay.compose.utils.formatToThousandsMillionsBillions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay

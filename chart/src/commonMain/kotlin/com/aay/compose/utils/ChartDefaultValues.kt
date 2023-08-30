@@ -19,7 +19,7 @@ object ChartDefaultValues {
             label = "revenue",
             data = emptyList(),
             lineColor = Color.Blue,
-            lineType = LineType.QUADRATIC_LINE,
+            lineType = LineType.CURVED_LINE,
             lineShadow = true,
         )
     )

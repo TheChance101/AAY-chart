@@ -4,6 +4,7 @@ import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,7 +24,7 @@ fun LineChartSample() {
             label = "revenue",
             data = listOf(70.0, 00.0, 50.33, 40.0, 100.500, 50.0),
             lineColor = Color.Gray,
-            lineType = LineType.DEFAULT_LINE,
+            lineType = LineType.CURVED_LINE,
             lineShadow = true,
         ),
         LineParameters(
@@ -37,8 +38,8 @@ fun LineChartSample() {
             label = "Earnings",
             data = listOf(1.0, 40.0, 11.33, 55.23,1.0, 100.0),
             lineColor = Color(0xFF81BE88),
-            lineType = LineType.QUADRATIC_LINE,
-            lineShadow = true,
+            lineType = LineType.CURVED_LINE,
+            lineShadow = false,
         )
     )
 
