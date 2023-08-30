@@ -45,7 +45,7 @@ internal fun DrawScope.drawPedigreeChart(
             dataLength = pieChartData[index].data.toFloat(), totalLength = totalSum
         )
         val angleInRadians = (startArcWithoutAnimation + arcWithoutAnimation / 2).degreeToAngle
-        if (pieChart == ChartTypes.PieChart) {
+        if (pieChart == ChartTypes.PIE_CHART) {
             val lineStart = Offset(
                 center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 0.8f,
                 center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 0.8f

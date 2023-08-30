@@ -58,7 +58,7 @@ object ChartDefaultValues {
 
     val gridOrientation = Orientation.Horizontal
 
-    val pieChartType = ChartTypes.DonutChart
+    val pieChartType = ChartTypes.DONUT_CHART
 
 
 }

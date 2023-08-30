@@ -76,7 +76,7 @@ fun DonutChart(
                     val arcWidth = (size.minDimension.dp.toPx() * 0.13f).coerceAtMost(minValue / 4)
 
 
-                    if (chartType == ChartTypes.PieChart) {
+                    if (chartType == ChartTypes.PIE_CHART) {
                         drawPedigreeChart(
                             pieValueWithRatio = pieValueWithRatio,
                             pieChartData = pieChartData,
