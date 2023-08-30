@@ -44,14 +44,12 @@ fun RadarChart(
         val labelWidth = textMeasurer.measure(
             AnnotatedString(
                 text = radarLabels.maxByOrNull { it.length } ?: "",
-            ), style = TextStyle(
-                fontSize = 10.sp
-            )
+            ), style = labelsStyle
         ).size.width.toDp().toPx()
-        val radius = (size.minDimension / 2) - labelWidth
-        val labelRadius = (size.minDimension / 2) - (labelWidth /2)
+        val radius = (size.minDimension / 2) - (labelWidth + 10.toDp().toPx())
+        val labelRadius = (size.minDimension / 2) - (labelWidth / 2)
         val numLines = radarLabels.size
-        val radarChartConfig = getRadarConfig(labelRadius ,labelWidth, radius, size, numLines, scalarSteps)
+        val radarChartConfig = getRadarConfig(labelRadius, radius, size, numLines, scalarSteps)
 
         drawRadarNet(netLinesStyle, radarChartConfig)
 
@@ -61,7 +59,8 @@ fun RadarChart(
                 it,
                 radius,
                 scalarValue,
-                Offset(size.width / 2, size.height / 2)
+                Offset(size.width / 2, size.height / 2),
+                scalarSteps
             )
         }
 
@@ -79,7 +78,6 @@ fun RadarChart(
     }
 
 }
-
 
 private fun validatePolygons(
     radarLabels: List<String>,
@@ -110,6 +108,7 @@ private fun validatePolygons(
             }
         }
     }
+
 }
 
 private fun DrawScope.drawPolygonShape(
@@ -117,10 +116,11 @@ private fun DrawScope.drawPolygonShape(
     polygon: Polygon,
     radius: Float,
     scalarValue: Double,
-    center: Offset
+    center: Offset,
+    scalarSteps: Int
 ) {
     val polygonEndPoints =
-        getPolygonShapeEndPoints(polygon.values, radius, scalarValue, center)
+        getPolygonShapeEndPoints(polygon.values, radius, scalarValue, center, scalarSteps)
     val path = Path().apply {
         drawPolygon(polygonEndPoints)
     }

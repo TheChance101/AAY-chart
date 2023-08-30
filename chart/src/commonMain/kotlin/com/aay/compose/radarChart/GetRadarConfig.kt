@@ -9,7 +9,6 @@ import kotlin.math.sin
 
 fun getRadarConfig(
     labelRadius: Float,
-    labelWidth: Float,
     netRadius: Float,
     size: Size,
     numLines: Int,
@@ -67,7 +66,8 @@ fun getPolygonShapeEndPoints(
     values: List<Double>,
     radius: Float,
     scalarValue: Double,
-    center: Offset
+    center: Offset,
+    scalarSteps: Int
 ): List<Offset> {
     val scalarShapeEndPoints = mutableListOf<Offset>()
     val angleBetweenLines = 2 * PI / values.size
@@ -75,7 +75,7 @@ fun getPolygonShapeEndPoints(
         val angleOfFirstLine = 0 * angleBetweenLines
         val offsetAngle = -PI / 2 - angleOfFirstLine
         val angle = index * angleBetweenLines + offsetAngle
-        val polygonRadius = radius - (radius / 5)
+        val polygonRadius = radius - (radius / scalarSteps)
 
         val value = values[index]
         val scalarRadius = (value / scalarValue) * polygonRadius
