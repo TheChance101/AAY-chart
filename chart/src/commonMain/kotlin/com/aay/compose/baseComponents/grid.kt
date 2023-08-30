@@ -10,6 +10,7 @@ import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.times
 import com.aay.compose.utils.formatToThousandsMillionsBillions
 
 @OptIn(ExperimentalTextApi::class)
@@ -25,7 +26,9 @@ fun DrawScope.grid(
     specialChart: Boolean,
     upperValue: Float,
     textMeasurer: TextMeasurer,
-    orientation: Orientation
+    isFromBarChart: Boolean,
+    orientation: Orientation,
+    xRegionWidth:Dp,
 ) {
     if (specialChart) {
         return
@@ -53,7 +56,7 @@ fun DrawScope.grid(
 
                 drawLine(
                     gridColor,
-                    start = Offset(yTextLayoutResult.toDp().toPx() + 32.dp.toPx(), yAlignmentValue),
+                    start = Offset((yTextLayoutResult * 1.5.toFloat().toDp()).toPx(), yAlignmentValue),
                     end = Offset(xAxisMaxValue, yAlignmentValue),
                     strokeWidth = backgroundLineWidth,
                     pathEffect = PathEffect.dashPathEffect(
@@ -66,19 +69,14 @@ fun DrawScope.grid(
             }
         } else {
 
-            val maxValue = size.height - (spacingY.toPx() - 35.toDp().toPx())
+            val maxValue = size.height
             (0..xAxisDataSize).forEach { i ->
 
-                val startSpace = (spacingX) + (yTextLayoutResult).dp
-                val spaceBetweenXes = (size.width - startSpace.toPx()) / (xAxisDataSize - 1)
-
-                val xLength = (yTextLayoutResult.toDp()) + (i * spaceBetweenXes).toDp()
-
-
+                val xLength =   (i * xRegionWidth)
                 drawLine(
                     gridColor,
-                    start = Offset(xLength.toPx() + ((yTextLayoutResult / 2) + 32.dp.toPx()), 10.toDp().toPx()),
-                    end = Offset(xLength.toPx() + ((yTextLayoutResult / 2) + 32.dp.toPx()), maxValue),
+                    start = Offset(xLength.toPx() + (yTextLayoutResult * 1.5.toFloat().toDp()).toPx() , 10.dp.toPx()),
+                    end = Offset(xLength.toPx() + (yTextLayoutResult * 1.5.toFloat().toDp()).toPx() , maxValue-(yTextLayoutResult * 1.5.toFloat().toDp()).toPx() ),
                     strokeWidth = backgroundLineWidth,
                     pathEffect = PathEffect.dashPathEffect(
                         if (showGridWithSpacer) floatArrayOf(16f, 16f)

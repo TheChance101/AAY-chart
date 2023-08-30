@@ -40,12 +40,11 @@ fun LineChart(
     val clickedPoints = remember { mutableStateListOf<Pair<Float, Float>>() }
 
     Box(modifier.wrapContentHeight()) {
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Column() {
             LazyRow(
                 horizontalArrangement = horizontalArrangement,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 24.dp)
             ) {
 
                 items(linesParameters) { details ->

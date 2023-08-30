@@ -26,23 +26,23 @@ fun LineChartSample() {
             lineType = LineType.DEFAULT_LINE,
             lineShadow = true,
         ),
-//        LineParameters(
-//            label = "Earnings",
-//            data = listOf(60.0, 80.6, 40.33, 86.232, 88.0, 90.0),
-//            lineColor = Color(0xFFFF7F50),
-//            lineType = LineType.DEFAULT_LINE,
-//            lineShadow = true
-//        ),
-//        LineParameters(
-//            label = "Earnings",
-//            data = listOf(1.0, 40.0, 11.33, 55.23,1.0, 100.0),
-//            lineColor = Color(0xFF81BE88),
-//            lineType = LineType.QUADRATIC_LINE,
-//            lineShadow = false,
-//        )
+        LineParameters(
+            label = "Earnings",
+            data = listOf(60.0, 80.6, 40.33, 86.232, 88.0, 90.0),
+            lineColor = Color(0xFFFF7F50),
+            lineType = LineType.DEFAULT_LINE,
+            lineShadow = true
+        ),
+        LineParameters(
+            label = "Earnings",
+            data = listOf(1.0, 40.0, 11.33, 55.23,1.0, 100.0),
+            lineColor = Color(0xFF81BE88),
+            lineType = LineType.QUADRATIC_LINE,
+            lineShadow = true,
+        )
     )
 
-    Box(Modifier.padding(24.dp)) {
+    Box(Modifier) {
         LineChart(
             modifier = Modifier.fillMaxSize(),
             linesParameters = testLineParameters,
@@ -62,7 +62,7 @@ fun LineChartSample() {
             ),
             yAxisRange = 14,
             oneLineChart = false,
-            orientation = Orientation.Vertical
+            orientation = Orientation.Horizontal
         )
     }
 }

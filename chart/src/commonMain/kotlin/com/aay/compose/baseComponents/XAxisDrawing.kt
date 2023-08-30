@@ -19,6 +19,7 @@ fun <T> DrawScope.xAxisDrawing(
     xAxisStyle: TextStyle,
     specialChart: Boolean,
     upperValue: Float,
+    xRegionWidth:Dp
 ) {
     if (specialChart) {
         return
@@ -28,15 +29,7 @@ fun <T> DrawScope.xAxisDrawing(
     ).size.width
 
     xAxisData.forEachIndexed { index, dataPoint ->
-        val textLayoutResult = textMeasure.measure(
-            text = AnnotatedString(xAxisData[index].toString()),
-        ).size.width
-
-        val startSpace = (spacing) + (textLayoutResult).toDp()
-        val spaceBetweenXes =
-            ((size.width - 32.dp.toPx()) - startSpace.toPx()) / (xAxisData.size - 1)
-
-        val xLength = (yTextLayoutResult.toDp() + 32.dp) + (index * spaceBetweenXes).toDp()
+        val xLength = (yTextLayoutResult.toDp()) + (index * xRegionWidth)
 
         drawContext.canvas.nativeCanvas.apply {
             drawText(
@@ -73,7 +66,6 @@ fun <T> DrawScope.xAxisDrawing(
 
         val xLength =
             (xRegionWidthWithoutSpacing / 3) + (index * (xRegionWidth))
-        println(size.height/20)
 
         drawContext.canvas.nativeCanvas.apply {
             drawText(

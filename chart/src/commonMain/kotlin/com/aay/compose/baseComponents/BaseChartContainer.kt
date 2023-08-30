@@ -28,7 +28,8 @@ fun <T> DrawScope.baseChartContainer(
     specialChart: Boolean = false,
     isFromBarChart: Boolean,
     yTextLayoutResult: Dp,
-    orientation: Orientation = Orientation.Horizontal
+    orientation: Orientation = Orientation.Horizontal,
+    xRegionWidth:Dp
 ) {
     if (showXAxis) {
         if (!isFromBarChart) {
@@ -39,6 +40,7 @@ fun <T> DrawScope.baseChartContainer(
                 xAxisStyle = xAxisStyle,
                 specialChart = specialChart,
                 upperValue = upperValue,
+                xRegionWidth = xRegionWidth
             )
         }
     }
@@ -68,6 +70,8 @@ fun <T> DrawScope.baseChartContainer(
         upperValue = upperValue,
         orientation = orientation,
         spacingX = spacingX,
-        xAxisDataSize = xAxisData.size
+        xAxisDataSize = xAxisData.size,
+        xRegionWidth = xRegionWidth,
+        isFromBarChart = isFromBarChart
     )
 }

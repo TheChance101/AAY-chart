@@ -31,6 +31,7 @@ fun DrawScope.drawQuarticLineWithShadow(
     spacingY: Dp,
     specialChart: Boolean,
     clickedPoints: MutableList<Pair<Float, Float>>,
+    xRegionWidth : Dp,
     textMeasurer: TextMeasurer,
 ) {
 
@@ -38,8 +39,6 @@ fun DrawScope.drawQuarticLineWithShadow(
         text = AnnotatedString(xAxisData.first().toString()),
     ).size.width
 
-    val startSpace = (spacingX) + (textLayoutResult / 2).toDp()
-    val spaceBetweenXes = ((size.width - startSpace.toPx()) / (xAxisData.size - 1)).toDp()
 
     val strokePathOfQuadraticLine = drawLineAsQuadratic(
         line = line,
@@ -51,12 +50,13 @@ fun DrawScope.drawQuarticLineWithShadow(
         specialChart = specialChart,
         clickedPoints = clickedPoints,
         textMeasurer = textMeasurer,
-        xAxisData = xAxisData
+        xAxisData = xAxisData,
+        xRegionWidth = xRegionWidth
     )
 
     if (line.lineShadow && !specialChart) {
         val fillPath = strokePathOfQuadraticLine.apply {
-            lineTo(size.width - spaceBetweenXes.toPx() + 40.dp.toPx(), size.height * 40)
+            lineTo(size.width - xRegionWidth.toPx() + 40.dp.toPx(), size.height * 40)
             lineTo(spacingX.toPx() * 2, size.height * 40)
             close()
         }
@@ -84,6 +84,7 @@ fun DrawScope.drawLineAsQuadratic(
     clickedPoints: MutableList<Pair<Float, Float>>,
     textMeasurer: TextMeasurer,
     xAxisData: List<String>,
+    xRegionWidth : Dp
 ) = Path().apply {
     var medX: Float
     val height = size.height.toDp()
@@ -94,25 +95,19 @@ fun DrawScope.drawLineAsQuadratic(
         animatedProgress = animatedProgress,
     ) { lineParameter, index ->
 
-        val textLayoutResult = textMeasurer.measure(
-            text = AnnotatedString(xAxisData[index]),
-        ).size.width
-
         val yTextLayoutResult = textMeasurer.measure(
             text = AnnotatedString(upperValue.formatToThousandsMillionsBillions()),
         ).size.width
 
-        val startSpace = (spacingX) + (textLayoutResult / 2).dp
-        val spaceBetweenXes = ((size.width - startSpace.toPx()) / (xAxisData.size - 1)).toDp()
 
         val info = lineParameter.data[index]
         val nextInfo = lineParameter.data.getOrNull(index + 1) ?: lineParameter.data.last()
         val firstRatio = (info - lowerValue) / (upperValue - lowerValue)
         val secondRatio = (nextInfo - lowerValue) / (upperValue - lowerValue)
 
-        val xFirstPoint = (yTextLayoutResult.toDp() + 36.dp) + index * spaceBetweenXes
+        val xFirstPoint = (yTextLayoutResult * 1.5.toFloat().toDp() ) + index * xRegionWidth
         val xSecondPoint =
-            (yTextLayoutResult.toDp()+36.dp) + (index + checkLastIndex(lineParameter.data, index)) * spaceBetweenXes
+            (yTextLayoutResult * 1.5.toFloat().toDp()) + (index + checkLastIndex(lineParameter.data, index)) * xRegionWidth
 
         val yFirstPoint = (height.toPx()
                 + 11.dp.toPx()

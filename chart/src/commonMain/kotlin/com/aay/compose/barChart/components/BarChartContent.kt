@@ -105,7 +105,8 @@ internal fun BarChartContent(
                 showXAxis = showXAxis,
                 showYAxis = showYAxis,
                 isFromBarChart = true,
-                yTextLayoutResult = yTextLayoutResult
+                yTextLayoutResult = yTextLayoutResult,
+                xRegionWidth = xRegionWidth
             )
         }
 
