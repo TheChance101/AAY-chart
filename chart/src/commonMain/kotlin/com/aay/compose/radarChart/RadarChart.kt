@@ -28,7 +28,7 @@ fun RadarChart(
 
     val textMeasurer = rememberTextMeasurer()
 
-    validatePolygons(radarLabels, scalarValue, polygons, scalarSteps)
+    validateRadarChartConfiguration(radarLabels, scalarValue, polygons, scalarSteps)
 
     Canvas(modifier = Modifier.fillMaxSize()) {
 
@@ -36,7 +36,8 @@ fun RadarChart(
         val radius = (size.minDimension / 2) - (labelWidth + 10.toDp().toPx())
         val labelRadius = (size.minDimension / 2) - (labelWidth / 2)
         val numLines = radarLabels.size
-        val radarChartConfig = calculateRadarConfig(labelRadius, radius, size, numLines, scalarSteps)
+        val radarChartConfig =
+            calculateRadarConfig(labelRadius, radius, size, numLines, scalarSteps)
 
         drawRadarNet(netLinesStyle, radarChartConfig)
 
@@ -66,36 +67,26 @@ fun RadarChart(
 
 }
 
-private fun validatePolygons(
+private fun validateRadarChartConfiguration(
     radarLabels: List<String>,
     scalarValue: Double,
     polygons: List<Polygon>,
     scalarSteps: Int
 ) {
-
-    if (scalarSteps < 0) {
-        throw Exception("Scalar steps must be greater than 0")
-    }
-
-    if (scalarValue < 0.0) {
-        throw Exception("Scalar value must be greater than 0")
-    }
-
-    if (radarLabels.size < 3) {
-        throw Exception("Number of radar labels must be greater than 2")
-    }
+    require(scalarSteps > 0) { "Scalar steps must be a positive value" }
+    require(scalarValue > 0.0) { "Scalar value must be greater than 0" }
+    require(radarLabels.size >= 3) { "At least 3 radar labels are required" }
 
     for (polygon in polygons) {
-        if (polygon.values.size != radarLabels.size) {
-            throw Exception("Number of polygon values must equal to number of radar labels")
+        require(polygon.values.size == radarLabels.size) {
+            "Number of polygon values must match the number of radar labels"
         }
-        polygon.values.forEach { value ->
-            if (value > scalarValue || value < 0.0) {
-                throw Exception("Polygon values must be between 0 and scalar value ($scalarValue)")
+        polygon.values.forEachIndexed { index, value ->
+            require(value in 0.0..scalarValue) {
+                "Polygon value at index $index must be between 0 and scalar value ($scalarValue)"
             }
         }
     }
-
 }
 
 
