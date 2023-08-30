@@ -19,6 +19,7 @@ import com.aay.compose.baseComponents.baseChartContainer
 import com.aay.compose.barChart.model.BarParameters
 import com.aay.compose.baseComponents.xAxisDrawing
 import com.aay.compose.utils.ChartDefaultValues.specialChart
+import com.aay.compose.utils.checkIfDataValid
 import com.aay.compose.utils.formatToThousandsMillionsBillions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -67,7 +68,7 @@ internal fun BarChartContent(
     // get local density from composable
     val density = LocalDensity.current
 
-
+    checkIfDataValid(xAxisData = xAxisData , barParameters = barsParameters)
     Box(modifier = Modifier.fillMaxSize().onGloballyPositioned {
         boxWidth = with(density) {
             it.size.width.toDp()

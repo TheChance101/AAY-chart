@@ -45,7 +45,7 @@ internal fun ChartContent(
     specialChart: Boolean,
     onChartClick: (Float, Float) -> Unit,
     clickedPoints: MutableList<Pair<Float, Float>>,
-    orientation: Orientation
+    orientation: Orientation,
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -59,7 +59,7 @@ internal fun ChartContent(
     var lowerValue by rememberSaveable {
         mutableStateOf(linesParameters.getLowerValue())
     }
-    checkIfDataValid(xAxisData, linesParameters)
+    checkIfDataValid(xAxisData = xAxisData, linesParameters = linesParameters)
 
     Canvas(
         modifier = modifier
@@ -182,7 +182,7 @@ private fun List<LineParameters>.getLowerValue(): Double {
 
 private fun CoroutineScope.collectToSnapShotFlow(
     linesParameters: List<LineParameters>,
-    makeUpdateData: (List<LineParameters>) -> Unit
+    makeUpdateData: (List<LineParameters>) -> Unit,
 ) {
     this.launch {
         snapshotFlow {
