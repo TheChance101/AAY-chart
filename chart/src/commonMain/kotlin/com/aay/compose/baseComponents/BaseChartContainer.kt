@@ -72,5 +72,6 @@ fun <T> DrawScope.baseChartContainer(
         spacingX = spacingX,
         xAxisDataSize = xAxisData.size,
         xRegionWidth = xRegionWidth,
+        isFromBarChart = isFromBarChart
     )
 }
