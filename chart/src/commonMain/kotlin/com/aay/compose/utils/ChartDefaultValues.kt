@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.sp
 import com.aay.compose.barChart.model.BarParameters
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
+import com.aay.compose.pieChart.model.ChartTypes
 
 object ChartDefaultValues {
 
@@ -31,6 +32,7 @@ object ChartDefaultValues {
         )
     )
 
+     val pieChartType = ChartTypes.DonutChart
     const val IS_SHOW_GRID = true
     val gridColor = Color.Gray
     const val ANIMATED_CHART = true
