@@ -31,14 +31,12 @@ fun DrawScope.drawDefaultLineWithShadow(
     clickedPoints: MutableList<Pair<Float, Float>>,
     textMeasure: TextMeasurer,
     xAxisData: List<String>,
-) {
+    xRegionWidth:Dp,
+    ) {
 
     val textLayoutResult = textMeasure.measure(
         text = AnnotatedString(xAxisData.first().toString()),
     ).size.width
-
-    val startSpace = (spacingX) + (textLayoutResult).toDp()
-    val spaceBetweenXes = ((size.width - startSpace.toPx()) / (xAxisData.size - 1)).toDp()
 
     val strokePathOfDefaultLine = drawLineAsDefault(
         lineParameter = line,
@@ -49,12 +47,13 @@ fun DrawScope.drawDefaultLineWithShadow(
         spacingY = spacingY,
         clickedPoints = clickedPoints,
         textMeasure = textMeasure,
-        xAxisData = xAxisData
+        xAxisData = xAxisData,
+        xRegionWidth =xRegionWidth
     )
 
     if (line.lineShadow) {
         val fillPath = strokePathOfDefaultLine.apply {
-            lineTo(size.width - spaceBetweenXes.toPx() + 40.dp.toPx(), size.height * 40)
+            lineTo(size.width - xRegionWidth.toPx() + 40.dp.toPx(), size.height * 40)
             lineTo(spacingX.toPx() * 2, size.height * 40)
             close()
         }
@@ -80,6 +79,7 @@ private fun DrawScope.drawLineAsDefault(
     clickedPoints: MutableList<Pair<Float, Float>>,
     textMeasure: TextMeasurer,
     xAxisData: List<String>,
+    xRegionWidth:Dp,
 ) = Path().apply {
     val height = size.height.toDp()
     drawPathLineWrapper(
@@ -87,19 +87,14 @@ private fun DrawScope.drawLineAsDefault(
         strokePath = this,
         animatedProgress = animatedProgress,
     ) { lineParameter, index ->
-        val textLayoutResult = textMeasure.measure(
-            text = AnnotatedString(xAxisData[index]),
-        ).size.width
 
-        val startSpace = (spacingX) + (textLayoutResult / 2).toDp()
-        val spaceBetweenXes = ((size.width - startSpace.toPx()) / (xAxisData.size - 1)).toDp()
         val yTextLayoutResult = textMeasure.measure(
             text = AnnotatedString(upperValue.formatToThousandsMillionsBillions()),
         ).size.width
 
         val info = lineParameter.data[index]
         val ratio = (info - lowerValue) / (upperValue - lowerValue)
-        val startXPoint = (yTextLayoutResult.toDp() + 36.dp) + (index * spaceBetweenXes)
+        val startXPoint = (yTextLayoutResult * 1.5.toFloat().toDp() ) + (index * xRegionWidth)
         val startYPoint =
             (height.toPx() + 8.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
 

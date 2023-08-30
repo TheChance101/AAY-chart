@@ -42,7 +42,7 @@ fun LineChartSample() {
         )
     )
 
-    Box(Modifier.padding(24.dp)) {
+    Box(Modifier) {
         LineChart(
             modifier = Modifier.fillMaxSize(),
             linesParameters = testLineParameters,

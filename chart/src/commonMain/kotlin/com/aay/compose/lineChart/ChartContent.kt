@@ -70,10 +70,12 @@ internal fun ChartContent(
                 }
             }
     ) {
-
-
+        val textLayoutResult = textMeasure.measure(
+            text = AnnotatedString(xAxisData.last().toString()),
+        ).size.width
         val spacingX = (size.width / 50.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
+        val xRegionWidth = (size.width.toDp() /(xAxisData.size-1).toDp()).toDp() - (textLayoutResult.toDp()/2)
 
         baseChartContainer(
             xAxisData = xAxisData,
@@ -94,7 +96,8 @@ internal fun ChartContent(
             specialChart = specialChart,
             isFromBarChart = false,
             yTextLayoutResult = 0.dp,
-            orientation = orientation
+            orientation = orientation,
+            xRegionWidth = xRegionWidth
         )
 
         if (specialChart) {
@@ -112,6 +115,7 @@ internal fun ChartContent(
                     spacingY = spacingY,
                     specialChart = specialChart,
                     clickedPoints = clickedPoints,
+                    xRegionWidth = xRegionWidth,
                     textMeasure
                 )
 
@@ -132,7 +136,8 @@ internal fun ChartContent(
                         spacingY = spacingY,
                         clickedPoints = clickedPoints,
                         textMeasure = textMeasure,
-                        xAxisData = xAxisData
+                        xAxisData = xAxisData,
+                        xRegionWidth = xRegionWidth
                     )
 
                 } else {
@@ -146,6 +151,7 @@ internal fun ChartContent(
                         spacingY = spacingY,
                         specialChart = specialChart,
                         clickedPoints = clickedPoints,
+                        xRegionWidth = xRegionWidth,
                         textMeasure
                     )
 
