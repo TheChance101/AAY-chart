@@ -5,6 +5,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
@@ -38,13 +39,13 @@ internal fun ChartContent(
     showGridWithSpacer: Boolean,
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
-    yAxisRange : Int,
-    showXAxis : Boolean,
-    showYAxis : Boolean,
-    specialChart : Boolean,
+    yAxisRange: Int,
+    showXAxis: Boolean,
+    showYAxis: Boolean,
+    specialChart: Boolean,
     onChartClick: (Float, Float) -> Unit,
-    clickedPoints : MutableList<Pair<Float, Float>>
-
+    clickedPoints: MutableList<Pair<Float, Float>>,
+    orientation: Orientation,
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -58,7 +59,7 @@ internal fun ChartContent(
     var lowerValue by rememberSaveable {
         mutableStateOf(linesParameters.getLowerValue())
     }
-    checkIfDataValid(xAxisData, linesParameters)
+    checkIfDataValid(xAxisData = xAxisData, linesParameters = linesParameters)
 
     Canvas(
         modifier = modifier
@@ -69,12 +70,12 @@ internal fun ChartContent(
                 }
             }
     ) {
-
-
-
-        val spacingX = (size.width / 18.dp.toPx()).dp
+        val textLayoutResult = textMeasure.measure(
+            text = AnnotatedString(xAxisData.last().toString()),
+        ).size.width
+        val spacingX = (size.width / 50.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
-        val chartHeight = size.height.dp - spacingY
+        val xRegionWidth = (size.width.toDp() /(xAxisData.size-1).toDp()).toDp() - (textLayoutResult.toDp()/2)
 
         baseChartContainer(
             xAxisData = xAxisData,
@@ -90,14 +91,17 @@ internal fun ChartContent(
             yAxisStyle = yAxisStyle,
             xAxisStyle = xAxisStyle,
             yAxisRange = yAxisRange,
-            showXAxis  = showXAxis,
+            showXAxis = showXAxis,
             showYAxis = showYAxis,
             specialChart = specialChart,
-            chartHeight = chartHeight
+            isFromBarChart = false,
+            yTextLayoutResult = 0.dp,
+            orientation = orientation,
+            xRegionWidth = xRegionWidth
         )
 
-        if (specialChart){
-            if (linesParameters.size >= 2){
+        if (specialChart) {
+            if (linesParameters.size >= 2) {
                 throw Exception("Special case must contain just one line")
             }
             linesParameters.forEach { line ->
@@ -106,17 +110,18 @@ internal fun ChartContent(
                     lowerValue = lowerValue.toFloat(),
                     upperValue = upperValue.toFloat(),
                     animatedProgress = animatedProgress,
-                    xAxisSize = xAxisData.size,
+                    xAxisData = xAxisData,
                     spacingX = spacingX,
                     spacingY = spacingY,
                     specialChart = specialChart,
-                    clickedPoints  = clickedPoints,
+                    clickedPoints = clickedPoints,
+                    xRegionWidth = xRegionWidth,
                     textMeasure
                 )
 
             }
-        }else {
-            if (linesParameters.size >= 2){
+        } else {
+            if (linesParameters.size >= 2) {
                 clickedPoints.clear()
             }
             linesParameters.forEach { line ->
@@ -127,11 +132,12 @@ internal fun ChartContent(
                         lowerValue = lowerValue.toFloat(),
                         upperValue = upperValue.toFloat(),
                         animatedProgress = animatedProgress,
-                        xAxisSize = xAxisData.size,
                         spacingX = spacingX,
                         spacingY = spacingY,
                         clickedPoints = clickedPoints,
-                        textMeasure = textMeasure
+                        textMeasure = textMeasure,
+                        xAxisData = xAxisData,
+                        xRegionWidth = xRegionWidth
                     )
 
                 } else {
@@ -140,11 +146,12 @@ internal fun ChartContent(
                         lowerValue = lowerValue.toFloat(),
                         upperValue = upperValue.toFloat(),
                         animatedProgress = animatedProgress,
-                        xAxisSize = xAxisData.size,
+                        xAxisData = xAxisData,
                         spacingX = spacingX,
                         spacingY = spacingY,
                         specialChart = specialChart,
-                        clickedPoints  = clickedPoints,
+                        clickedPoints = clickedPoints,
+                        xRegionWidth = xRegionWidth,
                         textMeasure
                     )
 
@@ -181,7 +188,7 @@ private fun List<LineParameters>.getLowerValue(): Double {
 
 private fun CoroutineScope.collectToSnapShotFlow(
     linesParameters: List<LineParameters>,
-    makeUpdateData: (List<LineParameters>) -> Unit
+    makeUpdateData: (List<LineParameters>) -> Unit,
 ) {
     this.launch {
         snapshotFlow {

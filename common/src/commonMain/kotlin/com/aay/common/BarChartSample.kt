@@ -1,9 +1,7 @@
 package com.aay.common
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -18,34 +16,27 @@ fun BarChartSample() {
 
     val testBarParameters: List<BarParameters> = listOf(
         BarParameters(
-            dataName = "Revenue",
-            data = listOf(50.0, 70.6, 90.33, 70.9, 20.232, 90.0),
-            barColor = Color(0xFFF2BD00),
-        ),
-        BarParameters(
-            dataName = "Customers",
-            data = listOf(77.0, 20.6, 44.33, 10.9, 50.232, 22.0),
-            barColor = Color.Blue.copy(alpha = .5f),
+            dataName = "Completed",
+            data = listOf(0.6, 10.6,80.0, 50.6,44.0, 100.6,10.0),
+            barColor = Color.Magenta,
         ),
         BarParameters(
             dataName = "Completed",
-            data = listOf(90.0, 50.6, 30.33, 40.9, 60.232, 70.0),
-            barColor = Color(0xFF81BE88),
+            data = listOf(50.0, 30.6,77.0, 69.6,50.0, 30.6,80.0),
+            barColor = Color.Green,
         ),
         BarParameters(
-            dataName = "Sales",
-            data = listOf(30.0, 10.6, 20.33, 55.9, 40.232, 66.0),
-            barColor = Color(0xFFFF7F50),
+            dataName = "Completed",
+            data = listOf(100.0, 99.6,60.0, 80.6,10.0, 100.6,55.99),
+            barColor = Color.Gray,
         ),
-
     )
 
-    Box(Modifier.padding(24.dp)) {
+    Box(Modifier.padding(24.dp).fillMaxSize()) {
         BarChart(
-            modifier = Modifier.fillMaxSize(),
             chartParameters = testBarParameters,
             gridColor = Color.DarkGray,
-            xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020"),
+            xAxisData = listOf("2016", "2017", "2018","2019","2020", "2021","2022"),
             isShowGrid = true,
             animateChart = true,
             showGridWithSpacer = true,
@@ -58,7 +49,7 @@ fun BarChartSample() {
                 color = Color.DarkGray,
                 fontWeight = FontWeight.W400
             ),
-            barWidthPx = 15.dp
+            yAxisRange = 15
         )
     }
 }

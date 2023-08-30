@@ -1,5 +1,6 @@
 package com.aay.compose.utils
 
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -9,6 +10,7 @@ import androidx.compose.ui.unit.sp
 import com.aay.compose.barChart.model.BarParameters
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
+import com.aay.compose.pieChart.model.ChartTypes
 
 object ChartDefaultValues {
 
@@ -29,7 +31,9 @@ object ChartDefaultValues {
             barColor = Color.Blue,
         )
     )
-
+    val barWidth = 30.dp
+    val spaceBetweenBars = 10.dp
+    val spaceBetweenGroups = 40.dp
     const val IS_SHOW_GRID = true
     val gridColor = Color.Gray
     const val ANIMATED_CHART = true
@@ -51,5 +55,10 @@ object ChartDefaultValues {
     const val specialChart = false
     const val showXAxis = true
     const val showyAxis = true
+
+    val gridOrientation = Orientation.Horizontal
+
+    val pieChartType = ChartTypes.DONUT_CHART
+
 
 }

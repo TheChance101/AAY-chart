@@ -11,41 +11,38 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.times
 import com.aay.compose.utils.formatToThousandsMillionsBillions
 
+
 @OptIn(ExperimentalTextApi::class)
 fun DrawScope.yAxisDrawing(
     upperValue: Float, lowerValue: Float,
     textMeasure: TextMeasurer,
     spacing: Dp,
     yAxisStyle: TextStyle,
-    yAxisRange : Int,
-    specialChart : Boolean
+    yAxisRange: Int,
+    specialChart: Boolean,
+    isFromBarChart: Boolean,
 ) {
-    if (specialChart){
+    if (specialChart) {
         return
     }
-    val dataRange = upperValue - lowerValue
+    val dataRange = if (isFromBarChart) upperValue else upperValue - lowerValue
     val dataStep = dataRange / yAxisRange
 
-    (0..yAxisRange ).forEach { i ->
-        val yValue = lowerValue + dataStep * i
-        val y = (size.height.toDp() - spacing - i * (size.height.toDp() - spacing) / (yAxisRange))
+    (0..yAxisRange).forEach { i ->
+        val yValue = if (isFromBarChart) {
+            dataStep * i
+        } else {
+            lowerValue + dataStep * i
+        }
+
+        val y = (size.height.toDp() - spacing - i * (size.height.toDp() - spacing) / yAxisRange)
         drawContext.canvas.nativeCanvas.apply {
             drawText(
                 textMeasurer = textMeasure,
-                text = yValue.toLong().formatToThousandsMillionsBillions(),
+                text = yValue.formatToThousandsMillionsBillions(),
                 style = yAxisStyle,
                 topLeft = Offset(0f, y.toPx())
             )
         }
-    }
-}
-
-private fun Long.formatToThousandsMillionsBillions(): String {
-    return when {
-        this < 1000 -> "${this.toFloat()}"
-        this < 1000000 -> "${String.format("%.1f", this.toFloat() / 1000)}k"
-        this < 1000000000 -> "${String.format("%.1f", this.toFloat() / 1000000)}M"
-        this < 1000000000000 -> "${String.format("%.1f", this.toFloat() / 1000000000)}B"
-        else -> "${String.format("%.1f", this.toFloat() / 1000000000000)}T"
     }
 }

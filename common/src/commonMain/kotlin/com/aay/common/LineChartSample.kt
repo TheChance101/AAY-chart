@@ -1,5 +1,6 @@
 package com.aay.common
 
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -20,9 +21,9 @@ fun LineChartSample() {
     val testLineParameters: List<LineParameters> = listOf(
         LineParameters(
             label = "revenue",
-            data = listOf(70.0, 00.0, 50.33, 40.0, 100.232, 50.0),
+            data = listOf(70.0, 00.0, 50.33, 40.0, 100.500, 50.0),
             lineColor = Color.Gray,
-            lineType = LineType.QUADRATIC_LINE,
+            lineType = LineType.DEFAULT_LINE,
             lineShadow = true,
         ),
         LineParameters(
@@ -37,16 +38,16 @@ fun LineChartSample() {
             data = listOf(1.0, 40.0, 11.33, 55.23,1.0, 100.0),
             lineColor = Color(0xFF81BE88),
             lineType = LineType.QUADRATIC_LINE,
-            lineShadow = false,
+            lineShadow = true,
         )
     )
 
-    Box(Modifier.padding(24.dp)) {
+    Box(Modifier) {
         LineChart(
             modifier = Modifier.fillMaxSize(),
             linesParameters = testLineParameters,
             isGrid = true,
-            gridColor = Color.LightGray.copy(alpha = .5f),
+            gridColor = Color.Blue,
             xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020"),
             animateChart = true,
             showGridWithSpacer = true,
@@ -60,7 +61,8 @@ fun LineChartSample() {
                 fontWeight = FontWeight.W400
             ),
             yAxisRange = 14,
-            oneLineChart = false
+            oneLineChart = false,
+            orientation = Orientation.Horizontal
         )
     }
 }

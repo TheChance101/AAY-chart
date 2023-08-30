@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.unit.Dp
@@ -15,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.utils.clickedOnThisPoint
+import com.aay.compose.utils.formatToThousandsMillionsBillions
 
 private var lastClickedPoint: Pair<Float, Float>? = null
 
@@ -24,32 +26,38 @@ fun DrawScope.drawQuarticLineWithShadow(
     lowerValue: Float,
     upperValue: Float,
     animatedProgress: Animatable<Float, AnimationVector1D>,
-    xAxisSize: Int,
+    xAxisData: List<String>,
     spacingX: Dp,
     spacingY: Dp,
     specialChart: Boolean,
     clickedPoints: MutableList<Pair<Float, Float>>,
+    xRegionWidth : Dp,
     textMeasurer: TextMeasurer,
 ) {
 
-    val spaceBetweenXes = (size.width.toDp() - spacingX) / xAxisSize
+    val textLayoutResult = textMeasurer.measure(
+        text = AnnotatedString(xAxisData.first().toString()),
+    ).size.width
+
+
     val strokePathOfQuadraticLine = drawLineAsQuadratic(
         line = line,
         lowerValue = lowerValue,
         upperValue = upperValue,
-        spaceBetweenXes = spaceBetweenXes,
         animatedProgress = animatedProgress,
         spacingX = spacingX,
         spacingY = spacingY,
         specialChart = specialChart,
         clickedPoints = clickedPoints,
-        textMeasurer = textMeasurer
+        textMeasurer = textMeasurer,
+        xAxisData = xAxisData,
+        xRegionWidth = xRegionWidth
     )
 
     if (line.lineShadow && !specialChart) {
         val fillPath = strokePathOfQuadraticLine.apply {
-            lineTo(size.width - spaceBetweenXes.toPx() + 40.dp.toPx(), size.height)
-            lineTo(spacingX.toPx() * 2, size.height)
+            lineTo(size.width - xRegionWidth.toPx() + 40.dp.toPx(), size.height * 40)
+            lineTo(spacingX.toPx() * 2, size.height * 40)
             close()
         }
         clipRect(right = size.width * animatedProgress.value) {
@@ -69,13 +77,14 @@ fun DrawScope.drawLineAsQuadratic(
     line: LineParameters,
     lowerValue: Float,
     upperValue: Float,
-    spaceBetweenXes: Dp,
     animatedProgress: Animatable<Float, AnimationVector1D>,
     spacingX: Dp,
     spacingY: Dp,
     specialChart: Boolean,
     clickedPoints: MutableList<Pair<Float, Float>>,
     textMeasurer: TextMeasurer,
+    xAxisData: List<String>,
+    xRegionWidth : Dp
 ) = Path().apply {
     var medX: Float
     val height = size.height.toDp()
@@ -86,23 +95,27 @@ fun DrawScope.drawLineAsQuadratic(
         animatedProgress = animatedProgress,
     ) { lineParameter, index ->
 
+        val yTextLayoutResult = textMeasurer.measure(
+            text = AnnotatedString(upperValue.formatToThousandsMillionsBillions()),
+        ).size.width
+
+
         val info = lineParameter.data[index]
         val nextInfo = lineParameter.data.getOrNull(index + 1) ?: lineParameter.data.last()
         val firstRatio = (info - lowerValue) / (upperValue - lowerValue)
         val secondRatio = (nextInfo - lowerValue) / (upperValue - lowerValue)
 
-        val xFirstPoint = (spacingX + 50.dp / 0.8.dp.toPx()) + index * spaceBetweenXes
-        val xSecondPoint = (spacingX + 50.dp / 0.8.dp.toPx()) + (
-                index + checkLastIndex(lineParameter.data, index)
-                ) * spaceBetweenXes
+        val xFirstPoint = (yTextLayoutResult * 1.5.toFloat().toDp() ) + index * xRegionWidth
+        val xSecondPoint =
+            (yTextLayoutResult * 1.5.toFloat().toDp()) + (index + checkLastIndex(lineParameter.data, index)) * xRegionWidth
 
         val yFirstPoint = (height.toPx()
-                + 5.dp.toPx()
+                + 11.dp.toPx()
                 - spacingY.toPx()
                 - (firstRatio * (size.height.toDp() - spacingY).toPx())
                 )
         val ySecondPoint = (height.toPx()
-                + 5.dp.toPx()
+                + 11.dp.toPx()
                 - spacingY.toPx()
                 - (secondRatio * (size.height.toDp() - spacingY).toPx())
                 )
@@ -120,7 +133,7 @@ fun DrawScope.drawLineAsQuadratic(
                     x = xFirstPoint,
                     y = yFirstPoint,
                     textMeasure = textMeasurer,
-                    info = info ,
+                    info = info,
                     stroke = Stroke(width = 2.dp.toPx()),
                     line = line,
                     animatedProgress = animatedProgress

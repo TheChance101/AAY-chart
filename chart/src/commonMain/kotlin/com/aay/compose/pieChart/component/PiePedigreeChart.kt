@@ -9,16 +9,12 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.scale
-import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.drawText
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import com.aay.compose.pieChart.model.PieChartData
+import com.aay.compose.pieChart.model.ChartTypes
 import kotlin.math.cos
-import kotlin.math.min
 import kotlin.math.roundToInt
 import kotlin.math.sin
 
@@ -30,81 +26,79 @@ internal fun DrawScope.drawPedigreeChart(
     transitionProgress: Animatable<Float, AnimationVector1D>,
     textMeasure: TextMeasurer,
     textRatioStyle: TextStyle,
-    outerCircularColor: Color,
-    innerCircularColor: Color,
-    ratioLineColor: Color
+    ratioLineColor: Color,
+    arcWidth: Float,
+    minValue: Float,
+    pieChart: ChartTypes
 ) {
-    val minValue = min(size.width, size.height)
-        .coerceAtMost(size.height / 2)
-        .coerceAtMost(size.width / 2)
+    val outerCircularRadius = (minValue / 2) + (arcWidth / 1.2f)
     var startArc = -90F
     var startArcWithoutAnimation = -90f
-    val arcWidth = (size.minDimension.dp.toPx() * 0.13f).coerceAtMost(minValue / 4)
-    val outerCircularRadius = (minValue / 2) + (arcWidth / 1.2f)
-
-
-
-    pieValueWithRatio.forEachIndexed { index, value ->
+    pieValueWithRatio.forEachIndexed { index, _ ->
 
         val arcWithAnimation = calculateAngle(
             dataLength = pieChartData[index].data.toFloat(),
             totalLength = totalSum,
             progress = transitionProgress.value
         )
-
         val arcWithoutAnimation = calculateAngle(
             dataLength = pieChartData[index].data.toFloat(), totalLength = totalSum
         )
-
         val angleInRadians = (startArcWithoutAnimation + arcWithoutAnimation / 2).degreeToAngle
-        val lineStart = Offset(
-            center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 0.85f,
-            center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 0.85f
-        )
-        val lineEnd = Offset(
-            center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 1.1f,
-            center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 1.1f
-        )
-
-        val region = pieValueWithRatio.subList(0, index).sum()
-        var regionSign = 1
-        val secondLineEnd =
-
-            if (region >= 180f) {
-                regionSign *= 1
-                Offset((center.x + (outerCircularRadius + (arcWidth))), lineEnd.y)
+        if (pieChart == ChartTypes.PIE_CHART) {
+            val lineStart = Offset(
+                center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 0.8f,
+                center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 0.8f
+            )
+            val lineEnd = Offset(
+                center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 1.1f,
+                center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 1.1f
+            )
+            val arcOffset = Offset(center.x - (minValue / 2), center.y - (minValue / 2))
+            val region = pieValueWithRatio.subList(0, index).sum()
+            val regionSign = if (region >= 180f) {
+                1
             } else {
-                regionSign *= -1
-                Offset((center.x - (outerCircularRadius + (arcWidth))), lineEnd.y)
+                -1
             }
-
-        scale(1f) {
-            //draw outer circle
-            draPieCircle(
-                circleColor = outerCircularColor,
-                radiusRatioCircle = (minValue / 2) + (arcWidth / 1.2f)
+            val secondLineEnd = Offset(lineEnd.x + (arcWidth * regionSign), lineEnd.y)
+            drawLines(ratioLineColor, lineStart, lineEnd, secondLineEnd)
+            scale(1.3f){
+            drawArc(
+                color = pieChartData[index].color,
+                startAngle = startArc,
+                sweepAngle = arcWithAnimation,
+                useCenter = true,
+                size = Size(minValue, minValue),
+                topLeft = arcOffset
+            )}
+            val textOffset = getTextOffsetByRegion(regionSign, lineEnd.x, secondLineEnd.y, arcWidth)
+            ratioText(
+                textMeasure,
+                getPartRatio(pieValueWithRatio, index),
+                textRatioStyle, Offset(textOffset.x, textOffset.y - 20.toDp().toPx())
             )
+            startArc += arcWithAnimation
+            startArcWithoutAnimation += arcWithoutAnimation
 
-            //draw outer circle
-            draPieCircle(
-                circleColor = innerCircularColor,
-                radiusRatioCircle = (minValue / 2) - (arcWidth / 1.2f)
+        } else {
+            val lineStart = Offset(
+                center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 0.8f,
+                center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 0.8f
             )
-
-
-            drawLine(
-                color = ratioLineColor,
-                start = lineStart,
-                end = lineEnd,
-                strokeWidth = 2.dp.toPx()
+            val lineEnd = Offset(
+                center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 1.1f,
+                center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 1.1f
             )
-            drawLine(
-                color = ratioLineColor,
-                start = lineEnd,
-                end = Offset(lineEnd.x + (arcWidth * regionSign), lineEnd.y),
-                strokeWidth = 2.dp.toPx()
-            )
-
+            val arcOffset = Offset(center.x - (minValue / 2), center.y - (minValue / 2))
+            val region = pieValueWithRatio.subList(0, index).sum()
+            val regionSign = if (region >= 180f) {
+                1
+            } else {
+                -1
+            }
+            val secondLineEnd = Offset(lineEnd.x + (arcWidth * regionSign), lineEnd.y)
+            drawLines(ratioLineColor, lineStart, lineEnd, secondLineEnd)
             drawArc(
                 color = pieChartData[index].color,
                 startAngle = startArc,
@@ -114,24 +108,17 @@ internal fun DrawScope.drawPedigreeChart(
                     arcWidth, cap = StrokeCap.Butt
                 ),
                 size = Size(minValue, minValue),
-                topLeft = Offset(center.x - (minValue / 2), center.y - (minValue / 2))
+                topLeft = arcOffset
             )
-
-
-            val textOffset = getOffsetByRegion(regionSign, lineEnd.x, secondLineEnd.y, arcWidth)
-            drawContext.canvas.nativeCanvas.apply {
-                drawText(
-                    textMeasurer = textMeasure,
-                    text = "${getPartRatio(pieValueWithRatio, index)}%",
-                    style = textRatioStyle,
-                    topLeft = Offset(textOffset.x, textOffset.y - 20.dp.toPx()),
-                    overflow = TextOverflow.Visible
-                )
-            }
+            val textOffset = getTextOffsetByRegion(regionSign, lineEnd.x, secondLineEnd.y, arcWidth)
+            ratioText(
+                textMeasure,
+                getPartRatio(pieValueWithRatio, index),
+                textRatioStyle, Offset(textOffset.x, textOffset.y - 20.toDp().toPx())
+            )
+            startArc += arcWithAnimation
+            startArcWithoutAnimation += arcWithoutAnimation
         }
-
-        startArc += arcWithAnimation
-        startArcWithoutAnimation += arcWithoutAnimation
     }
 }
 
@@ -148,11 +135,14 @@ private fun getPartRatio(pieValueWithRatio: List<Float>, index: Int): Int {
     return (pieValueWithRatio[index].toDouble() / 360.0 * 100).roundToInt()
 }
 
-private fun getOffsetByRegion(regionSign: Int, x: Float, y: Float, arcWidth: Float): Offset {
+private fun getTextOffsetByRegion(regionSign: Int, x: Float, y: Float, arcWidth: Float): Offset {
     return if (regionSign == 1) {
         Offset(x + arcWidth / 4, y)
     } else {
         Offset(x - arcWidth, y)
     }
 }
+
+
+
 

@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.unit.Dp
@@ -15,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.utils.clickedOnThisPoint
+import com.aay.compose.utils.formatToThousandsMillionsBillions
 
 private var lastClickedPoint: Pair<Float, Float>? = null
 
@@ -24,30 +26,31 @@ fun DrawScope.drawDefaultLineWithShadow(
     lowerValue: Float,
     upperValue: Float,
     animatedProgress: Animatable<Float, AnimationVector1D>,
-    xAxisSize: Int,
     spacingX: Dp,
     spacingY: Dp,
     clickedPoints: MutableList<Pair<Float, Float>>,
     textMeasure: TextMeasurer,
-) {
+    xAxisData: List<String>,
+    xRegionWidth:Dp,
+    ) {
 
-    val spaceBetweenXes = (size.width.toDp() - spacingX) / xAxisSize
     val strokePathOfDefaultLine = drawLineAsDefault(
         lineParameter = line,
         lowerValue = lowerValue,
         upperValue = upperValue,
-        spaceBetweenXes = spaceBetweenXes,
         animatedProgress = animatedProgress,
         spacingX = spacingX,
         spacingY = spacingY,
         clickedPoints = clickedPoints,
-        textMeasure = textMeasure
+        textMeasure = textMeasure,
+        xAxisData = xAxisData,
+        xRegionWidth =xRegionWidth
     )
 
     if (line.lineShadow) {
         val fillPath = strokePathOfDefaultLine.apply {
-            lineTo(size.width - spaceBetweenXes.toPx() + 40.dp.toPx(), size.height)
-            lineTo(spacingX.toPx() * 2, size.height)
+            lineTo(size.width - xRegionWidth.toPx() + 40.dp.toPx(), size.height * 40)
+            lineTo(spacingX.toPx() * 2, size.height * 40)
             close()
         }
         clipRect(right = size.width * animatedProgress.value) {
@@ -66,14 +69,14 @@ private fun DrawScope.drawLineAsDefault(
     lineParameter: LineParameters,
     lowerValue: Float,
     upperValue: Float,
-    spaceBetweenXes: Dp,
     animatedProgress: Animatable<Float, AnimationVector1D>,
     spacingX: Dp,
     spacingY: Dp,
     clickedPoints: MutableList<Pair<Float, Float>>,
     textMeasure: TextMeasurer,
+    xAxisData: List<String>,
+    xRegionWidth:Dp,
 ) = Path().apply {
-
     val height = size.height.toDp()
     drawPathLineWrapper(
         lineParameter = lineParameter,
@@ -81,15 +84,19 @@ private fun DrawScope.drawLineAsDefault(
         animatedProgress = animatedProgress,
     ) { lineParameter, index ->
 
+        val yTextLayoutResult = textMeasure.measure(
+            text = AnnotatedString(upperValue.formatToThousandsMillionsBillions()),
+        ).size.width
 
         val info = lineParameter.data[index]
         val ratio = (info - lowerValue) / (upperValue - lowerValue)
-        val startXPoint = (spacingX + 50.dp / 0.8.dp.toPx()) + (index * spaceBetweenXes)
+        val startXPoint = (yTextLayoutResult * 1.5.toFloat().toDp() ) + (index * xRegionWidth)
         val startYPoint =
-            (height.toPx() + 5.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
+            (height.toPx() + 8.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
 
         val tolerance = 20.dp.toPx()
-        val savedClicks = clickedOnThisPoint(clickedPoints, startXPoint.toPx(), startYPoint, tolerance)
+        val savedClicks =
+            clickedOnThisPoint(clickedPoints, startXPoint.toPx(), startYPoint, tolerance)
 
 
         if (savedClicks) {

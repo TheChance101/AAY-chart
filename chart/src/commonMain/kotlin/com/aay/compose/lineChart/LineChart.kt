@@ -1,5 +1,6 @@
 package com.aay.compose.lineChart
 
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -34,16 +35,16 @@ fun LineChart(
     showXAxis: Boolean = ChartDefaultValues.showXAxis,
     showYAxis: Boolean = ChartDefaultValues.showyAxis,
     oneLineChart: Boolean = ChartDefaultValues.specialChart,
+    orientation: Orientation = ChartDefaultValues.gridOrientation
 ) {
     val clickedPoints = remember { mutableStateListOf<Pair<Float, Float>>() }
 
     Box(modifier.wrapContentHeight()) {
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Column() {
             LazyRow(
                 horizontalArrangement = horizontalArrangement,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 24.dp)
             ) {
 
                 items(linesParameters) { details ->
@@ -75,8 +76,8 @@ fun LineChart(
                 onChartClick = { x, y ->
                     clickedPoints.add(x to y)
                 },
-
                 clickedPoints = clickedPoints,
+                orientation = orientation
             )
         }
     }
