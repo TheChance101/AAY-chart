@@ -72,8 +72,6 @@ fun DrawScope.grid(
             val maxValue = size.height
             (0..xAxisDataSize).forEach { i ->
 
-                val startSpace =  (yTextLayoutResult).dp
-
                 val xLength =   (i * xRegionWidth)
                 drawLine(
                     gridColor,

@@ -34,10 +34,6 @@ fun DrawScope.drawDefaultLineWithShadow(
     xRegionWidth:Dp,
     ) {
 
-    val textLayoutResult = textMeasure.measure(
-        text = AnnotatedString(xAxisData.first().toString()),
-    ).size.width
-
     val strokePathOfDefaultLine = drawLineAsDefault(
         lineParameter = line,
         lowerValue = lowerValue,
