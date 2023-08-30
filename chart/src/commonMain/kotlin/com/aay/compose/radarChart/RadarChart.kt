@@ -89,7 +89,6 @@ private fun validateRadarChartConfiguration(
     }
 }
 
-
 @OptIn(ExperimentalTextApi::class)
 private fun DrawScope.measureMaxLabelWidth(
     radarLabels: List<String>,

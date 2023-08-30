@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import com.aay.compose.radarChart.model.Polygon
 
 
-fun DrawScope.drawPolygonShape(
+ fun DrawScope.drawPolygonShape(
     drawScope: DrawScope,
     polygon: Polygon,
     radius: Float,
