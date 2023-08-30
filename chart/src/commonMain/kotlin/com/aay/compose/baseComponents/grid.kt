@@ -25,7 +25,6 @@ fun DrawScope.grid(
     specialChart: Boolean,
     upperValue: Float,
     textMeasurer: TextMeasurer,
-    isFromBarChart: Boolean,
     orientation: Orientation
 ) {
     if (specialChart) {
@@ -67,7 +66,7 @@ fun DrawScope.grid(
             }
         } else {
 
-            val maxValue = size.height - 40.dp.toPx()
+            val maxValue = size.height - (spacingY.toPx() - 35.toDp().toPx())
             (0..xAxisDataSize).forEach { i ->
 
                 val startSpace = (spacingX) + (yTextLayoutResult).dp
@@ -78,8 +77,8 @@ fun DrawScope.grid(
 
                 drawLine(
                     gridColor,
-                    start = Offset(xLength.toPx() + (yTextLayoutResult / 2) + 32.dp.toPx(), 10.toDp().toPx()),
-                    end = Offset(xLength.toPx() + (yTextLayoutResult / 2) + 32.dp.toPx(), maxValue),
+                    start = Offset(xLength.toPx() + ((yTextLayoutResult / 2) + 32.dp.toPx()), 10.toDp().toPx()),
+                    end = Offset(xLength.toPx() + ((yTextLayoutResult / 2) + 32.dp.toPx()), maxValue),
                     strokeWidth = backgroundLineWidth,
                     pathEffect = PathEffect.dashPathEffect(
                         if (showGridWithSpacer) floatArrayOf(16f, 16f)
