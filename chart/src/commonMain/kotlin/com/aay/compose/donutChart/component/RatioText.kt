@@ -1,4 +1,4 @@
-package com.aay.compose.pieChart.component
+package com.aay.compose.donutChart.component
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.DrawScope

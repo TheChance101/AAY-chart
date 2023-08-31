@@ -1,4 +1,4 @@
-package com.aay.compose.pieChart.component
+package com.aay.compose.donutChart.component
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap

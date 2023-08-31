@@ -1,6 +1,5 @@
 package com.aay.compose.utils
 
-import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -11,7 +10,6 @@ import com.aay.compose.barChart.model.BarParameters
 import com.aay.compose.baseComponents.model.GridOrientation
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
-import com.aay.compose.pieChart.model.ChartTypes
 
 internal object ChartDefaultValues {
 
@@ -59,6 +57,5 @@ internal object ChartDefaultValues {
 
     val gridOrientation = GridOrientation.HORIZONTAL
 
-    val pieChartType = ChartTypes.DONUT_CHART
 
 }

@@ -1,15 +1,15 @@
 package com.aay.common
 
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import com.aay.compose.donutChart.PieChart
+import com.aay.compose.donutChart.DonutChart
 import com.aay.compose.donutChart.model.PieChartData
 
 @Composable
-fun PieChartSample() {
+fun DonutChartSample() {
 
     val testPieChartData: List<PieChartData> = listOf(
         PieChartData(
@@ -89,11 +89,14 @@ fun PieChartSample() {
         ),
     )
 
-    PieChart(
+    DonutChart(
         modifier = Modifier.fillMaxSize(),
         pieChartData = testPieChartData,
+        centerTitle = "Orders",
+        centerTitleStyle = TextStyle(color = Color.Gray),
+        outerCircularColor = Color.LightGray,
+        innerCircularColor = Color.Gray,
         ratioLineColor = Color.LightGray,
-        textRatioStyle = TextStyle(color = Color.Gray),
     )
 
 }
