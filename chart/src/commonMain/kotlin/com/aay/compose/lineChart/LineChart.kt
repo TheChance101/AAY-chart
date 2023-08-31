@@ -13,6 +13,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.aay.compose.baseComponents.ChartDescription
+import com.aay.compose.baseComponents.model.GridOrientation
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.utils.ChartDefaultValues
 
@@ -35,7 +36,7 @@ fun LineChart(
     showXAxis: Boolean = ChartDefaultValues.showXAxis,
     showYAxis: Boolean = ChartDefaultValues.showyAxis,
     oneLineChart: Boolean = ChartDefaultValues.specialChart,
-    orientation: Orientation = ChartDefaultValues.gridOrientation
+    gridOrientation: GridOrientation = ChartDefaultValues.gridOrientation
 ) {
     val clickedPoints = remember { mutableStateListOf<Pair<Float, Float>>() }
 
@@ -77,7 +78,7 @@ fun LineChart(
                     clickedPoints.add(x to y)
                 },
                 clickedPoints = clickedPoints,
-                orientation = orientation
+                gridOrientation = gridOrientation
             )
         }
     }

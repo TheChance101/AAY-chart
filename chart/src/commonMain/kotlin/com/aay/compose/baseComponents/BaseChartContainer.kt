@@ -1,12 +1,12 @@
 package com.aay.compose.baseComponents
 
-import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
+import com.aay.compose.baseComponents.model.GridOrientation
 
 @OptIn(ExperimentalTextApi::class)
 internal fun <T> DrawScope.baseChartContainer(
@@ -26,7 +26,7 @@ internal fun <T> DrawScope.baseChartContainer(
     showYAxis: Boolean,
     specialChart: Boolean = false,
     isFromBarChart: Boolean,
-    orientation: Orientation = Orientation.Horizontal,
+    gridOrientation: GridOrientation = GridOrientation.HORIZONTAL,
     xRegionWidth: Dp
 ) {
     if (showXAxis) {
@@ -65,7 +65,7 @@ internal fun <T> DrawScope.baseChartContainer(
         specialChart = specialChart,
         textMeasurer = textMeasure,
         upperValue = upperValue,
-        orientation = orientation,
+        gridOrientation = gridOrientation,
         xAxisDataSize = xAxisData.size,
         xRegionWidth = xRegionWidth,
     )

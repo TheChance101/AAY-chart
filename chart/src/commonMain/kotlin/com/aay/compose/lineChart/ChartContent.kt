@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import com.aay.compose.baseComponents.baseChartContainer
+import com.aay.compose.baseComponents.model.GridOrientation
 import com.aay.compose.lineChart.components.drawDefaultLineWithShadow
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
@@ -45,7 +46,7 @@ internal fun ChartContent(
     specialChart: Boolean,
     onChartClick: (Float, Float) -> Unit,
     clickedPoints: MutableList<Pair<Float, Float>>,
-    orientation: Orientation,
+    gridOrientation: GridOrientation,
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -94,7 +95,7 @@ internal fun ChartContent(
             showYAxis = showYAxis,
             specialChart = specialChart,
             isFromBarChart = false,
-            orientation = orientation,
+            gridOrientation = gridOrientation,
             xRegionWidth = xRegionWidth
         )
 
