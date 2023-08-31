@@ -7,7 +7,7 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-fun calculateRadarConfig(
+internal fun calculateRadarConfig(
     labelRadius: Float,
     netRadius: Float,
     size: Size,
@@ -49,7 +49,6 @@ fun calculateRadarConfig(
     return RadarChartConfig(
         center, netCornersPoints, stepsEndPoints, stepsStartPoints, polygonPoints, labelsPoints
     )
-
 }
 
 private fun getCircumferencePointOffset(
@@ -62,7 +61,7 @@ private fun getCircumferencePointOffset(
 )
 
 
-fun getPolygonShapeEndPoints(
+internal fun getPolygonShapeEndPoints(
     values: List<Double>,
     radius: Float,
     scalarValue: Double,
@@ -71,6 +70,7 @@ fun getPolygonShapeEndPoints(
 ): List<Offset> {
     val scalarShapeEndPoints = mutableListOf<Offset>()
     val angleBetweenLines = 2 * PI / values.size
+
     for (index in values.indices) {
         val angleOfFirstLine = 0 * angleBetweenLines
         val offsetAngle = -PI / 2 - angleOfFirstLine
@@ -82,8 +82,8 @@ fun getPolygonShapeEndPoints(
         val scalarShapeEndPoint = getCircumferencePointOffset(center, scalarRadius.toFloat(), angle)
         scalarShapeEndPoints.add(scalarShapeEndPoint)
     }
-    return scalarShapeEndPoints
 
+    return scalarShapeEndPoints
 }
 
 

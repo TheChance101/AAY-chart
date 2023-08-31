@@ -21,36 +21,27 @@ import com.aay.compose.utils.formatToThousandsMillionsBillions
 private var lastClickedPoint: Pair<Float, Float>? = null
 
 @OptIn(ExperimentalTextApi::class)
-fun DrawScope.drawQuarticLineWithShadow(
+internal fun DrawScope.drawQuarticLineWithShadow(
     line: LineParameters,
     lowerValue: Float,
     upperValue: Float,
     animatedProgress: Animatable<Float, AnimationVector1D>,
-    xAxisData: List<String>,
     spacingX: Dp,
     spacingY: Dp,
     specialChart: Boolean,
     clickedPoints: MutableList<Pair<Float, Float>>,
-    xRegionWidth : Dp,
+    xRegionWidth: Dp,
     textMeasurer: TextMeasurer,
 ) {
-
-    val textLayoutResult = textMeasurer.measure(
-        text = AnnotatedString(xAxisData.first().toString()),
-    ).size.width
-
-
     val strokePathOfQuadraticLine = drawLineAsQuadratic(
         line = line,
         lowerValue = lowerValue,
         upperValue = upperValue,
         animatedProgress = animatedProgress,
-        spacingX = spacingX,
         spacingY = spacingY,
         specialChart = specialChart,
         clickedPoints = clickedPoints,
         textMeasurer = textMeasurer,
-        xAxisData = xAxisData,
         xRegionWidth = xRegionWidth
     )
 
@@ -78,13 +69,11 @@ fun DrawScope.drawLineAsQuadratic(
     lowerValue: Float,
     upperValue: Float,
     animatedProgress: Animatable<Float, AnimationVector1D>,
-    spacingX: Dp,
     spacingY: Dp,
     specialChart: Boolean,
     clickedPoints: MutableList<Pair<Float, Float>>,
     textMeasurer: TextMeasurer,
-    xAxisData: List<String>,
-    xRegionWidth : Dp
+    xRegionWidth: Dp
 ) = Path().apply {
     var medX: Float
     val height = size.height.toDp()
@@ -105,9 +94,12 @@ fun DrawScope.drawLineAsQuadratic(
         val firstRatio = (info - lowerValue) / (upperValue - lowerValue)
         val secondRatio = (nextInfo - lowerValue) / (upperValue - lowerValue)
 
-        val xFirstPoint = (yTextLayoutResult * 1.5.toFloat().toDp() ) + index * xRegionWidth
+        val xFirstPoint = (yTextLayoutResult * 1.5.toFloat().toDp()) + index * xRegionWidth
         val xSecondPoint =
-            (yTextLayoutResult * 1.5.toFloat().toDp()) + (index + checkLastIndex(lineParameter.data, index)) * xRegionWidth
+            (yTextLayoutResult * 1.5.toFloat().toDp()) + (index + checkLastIndex(
+                lineParameter.data,
+                index
+            )) * xRegionWidth
 
         val yFirstPoint = (height.toPx()
                 + 11.dp.toPx()

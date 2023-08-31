@@ -9,7 +9,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 
 @OptIn(ExperimentalTextApi::class)
-fun <T> DrawScope.baseChartContainer(
+internal fun <T> DrawScope.baseChartContainer(
     xAxisData: List<T>,
     textMeasure: TextMeasurer,
     upperValue: Float,
@@ -18,7 +18,6 @@ fun <T> DrawScope.baseChartContainer(
     gridColor: Color,
     backgroundLineWidth: Float,
     showGridWithSpacer: Boolean,
-    spacingX: Dp,
     spacingY: Dp,
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
@@ -27,15 +26,13 @@ fun <T> DrawScope.baseChartContainer(
     showYAxis: Boolean,
     specialChart: Boolean = false,
     isFromBarChart: Boolean,
-    yTextLayoutResult: Dp,
     orientation: Orientation = Orientation.Horizontal,
-    xRegionWidth:Dp
+    xRegionWidth: Dp
 ) {
     if (showXAxis) {
         if (!isFromBarChart) {
             xAxisDrawing(
                 xAxisData = xAxisData,
-                spacing = spacingX,
                 textMeasure = textMeasure,
                 xAxisStyle = xAxisStyle,
                 specialChart = specialChart,
@@ -69,9 +66,7 @@ fun <T> DrawScope.baseChartContainer(
         textMeasurer = textMeasure,
         upperValue = upperValue,
         orientation = orientation,
-        spacingX = spacingX,
         xAxisDataSize = xAxisData.size,
         xRegionWidth = xRegionWidth,
-        isFromBarChart = isFromBarChart
     )
 }

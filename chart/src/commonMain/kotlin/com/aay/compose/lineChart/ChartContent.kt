@@ -75,7 +75,7 @@ internal fun ChartContent(
         ).size.width
         val spacingX = (size.width / 50.dp.toPx()).dp
         val spacingY = (size.height / 8.dp.toPx()).dp
-        val xRegionWidth = (size.width.toDp() /(xAxisData.size-1).toDp()).toDp() - (textLayoutResult.toDp()/2)
+        val xRegionWidth = (size.width.toDp() / (xAxisData.size - 1).toDp()).toDp() - (textLayoutResult.toDp() / 2)
 
         baseChartContainer(
             xAxisData = xAxisData,
@@ -86,7 +86,6 @@ internal fun ChartContent(
             backgroundLineWidth = barWidthPx.toPx(),
             gridColor = gridColor,
             showGridWithSpacer = showGridWithSpacer,
-            spacingX = spacingX,
             spacingY = spacingY,
             yAxisStyle = yAxisStyle,
             xAxisStyle = xAxisStyle,
@@ -95,7 +94,6 @@ internal fun ChartContent(
             showYAxis = showYAxis,
             specialChart = specialChart,
             isFromBarChart = false,
-            yTextLayoutResult = 0.dp,
             orientation = orientation,
             xRegionWidth = xRegionWidth
         )
@@ -110,7 +108,6 @@ internal fun ChartContent(
                     lowerValue = lowerValue.toFloat(),
                     upperValue = upperValue.toFloat(),
                     animatedProgress = animatedProgress,
-                    xAxisData = xAxisData,
                     spacingX = spacingX,
                     spacingY = spacingY,
                     specialChart = specialChart,
@@ -136,7 +133,6 @@ internal fun ChartContent(
                         spacingY = spacingY,
                         clickedPoints = clickedPoints,
                         textMeasure = textMeasure,
-                        xAxisData = xAxisData,
                         xRegionWidth = xRegionWidth
                     )
 
@@ -146,7 +142,6 @@ internal fun ChartContent(
                         lowerValue = lowerValue.toFloat(),
                         upperValue = upperValue.toFloat(),
                         animatedProgress = animatedProgress,
-                        xAxisData = xAxisData,
                         spacingX = spacingX,
                         spacingY = spacingY,
                         specialChart = specialChart,

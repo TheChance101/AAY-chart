@@ -12,7 +12,7 @@ import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
 import com.aay.compose.pieChart.model.ChartTypes
 
-object ChartDefaultValues {
+internal object ChartDefaultValues {
 
     val lineParameters: List<LineParameters> = listOf(
         LineParameters(
@@ -59,6 +59,5 @@ object ChartDefaultValues {
     val gridOrientation = Orientation.Horizontal
 
     val pieChartType = ChartTypes.DONUT_CHART
-
 
 }

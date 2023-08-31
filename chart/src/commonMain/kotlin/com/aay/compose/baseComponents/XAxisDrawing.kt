@@ -12,14 +12,13 @@ import com.aay.compose.utils.formatToThousandsMillionsBillions
 
 
 @OptIn(ExperimentalTextApi::class)
-fun <T> DrawScope.xAxisDrawing(
+internal fun <T> DrawScope.xAxisDrawing(
     xAxisData: List<T>,
-    spacing: Dp,
     textMeasure: TextMeasurer,
     xAxisStyle: TextStyle,
     specialChart: Boolean,
     upperValue: Float,
-    xRegionWidth:Dp
+    xRegionWidth: Dp
 ) {
     if (specialChart) {
         return
@@ -48,7 +47,7 @@ fun <T> DrawScope.xAxisDrawing(
 }
 
 @OptIn(ExperimentalTextApi::class)
-fun <T> DrawScope.xAxisDrawing(
+internal fun <T> DrawScope.xAxisDrawing(
     xAxisData: List<T>,
     height: Dp,
     textMeasure: TextMeasurer,

@@ -20,7 +20,6 @@ import com.aay.compose.barChart.model.BarParameters
 import com.aay.compose.baseComponents.xAxisDrawing
 import com.aay.compose.utils.ChartDefaultValues.specialChart
 import com.aay.compose.utils.checkIfDataValid
-import com.aay.compose.utils.checkIfSizeValid
 import com.aay.compose.utils.formatToThousandsMillionsBillions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -62,14 +61,15 @@ internal fun BarChartContent(
     var maxHeight by remember { mutableStateOf(0f) }
     var xRegionWidthWithoutSpacing by remember { mutableStateOf(0.dp) }
     var xRegionWidth by remember { mutableStateOf(0.dp) }
-    var barsWidthWithSpace by remember { mutableStateOf(0.dp) }
+
     //initial height set at 0.dp
     var boxWidth by remember { mutableStateOf(0.dp) }
     var boxHeight by remember { mutableStateOf(0.dp) }
+
     // get local density from composable
     val density = LocalDensity.current
 
-    checkIfDataValid(xAxisData = xAxisData , barParameters = barsParameters)
+    checkIfDataValid(xAxisData = xAxisData, barParameters = barsParameters)
     Box(modifier = Modifier.fillMaxSize().onGloballyPositioned {
         boxWidth = with(density) {
             it.size.width.toDp()
@@ -98,7 +98,6 @@ internal fun BarChartContent(
                 backgroundLineWidth = backgroundLineWidth,
                 gridColor = gridColor,
                 showGridWithSpacer = showGridWithSpacer,
-                spacingX = spaceBetweenGroups,
                 spacingY = spacingY,
                 yAxisStyle = yAxisStyle,
                 xAxisStyle = xAxisStyle,
@@ -106,7 +105,6 @@ internal fun BarChartContent(
                 showXAxis = showXAxis,
                 showYAxis = showYAxis,
                 isFromBarChart = true,
-                yTextLayoutResult = yTextLayoutResult,
                 xRegionWidth = xRegionWidth
             )
         }

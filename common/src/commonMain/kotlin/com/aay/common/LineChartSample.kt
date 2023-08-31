@@ -3,14 +3,11 @@ package com.aay.common
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aay.compose.lineChart.LineChart
 import com.aay.compose.lineChart.model.LineParameters
@@ -36,7 +33,7 @@ fun LineChartSample() {
         ),
         LineParameters(
             label = "Earnings",
-            data = listOf(1.0, 40.0, 11.33, 55.23,1.0, 100.0),
+            data = listOf(1.0, 40.0, 11.33, 55.23, 1.0, 100.0),
             lineColor = Color(0xFF81BE88),
             lineType = LineType.CURVED_LINE,
             lineShadow = false,

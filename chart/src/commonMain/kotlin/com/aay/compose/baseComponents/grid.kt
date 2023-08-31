@@ -14,21 +14,19 @@ import androidx.compose.ui.unit.times
 import com.aay.compose.utils.formatToThousandsMillionsBillions
 
 @OptIn(ExperimentalTextApi::class)
-fun DrawScope.grid(
+internal fun DrawScope.grid(
     xAxisDataSize: Int,
     isShowGrid: Boolean,
     gridColor: Color,
     backgroundLineWidth: Float,
     showGridWithSpacer: Boolean,
     spacingY: Dp,
-    spacingX: Dp,
     yAxisRange: Int,
     specialChart: Boolean,
     upperValue: Float,
     textMeasurer: TextMeasurer,
-    isFromBarChart: Boolean,
     orientation: Orientation,
-    xRegionWidth:Dp,
+    xRegionWidth: Dp,
 ) {
     if (specialChart) {
         return
@@ -72,11 +70,14 @@ fun DrawScope.grid(
             val maxValue = size.height
             (0..xAxisDataSize).forEach { i ->
 
-                val xLength =   (i * xRegionWidth)
+                val xLength = (i * xRegionWidth)
                 drawLine(
                     gridColor,
-                    start = Offset(xLength.toPx() + (yTextLayoutResult * 1.5.toFloat().toDp()).toPx() , 10.dp.toPx()),
-                    end = Offset(xLength.toPx() + (yTextLayoutResult * 1.5.toFloat().toDp()).toPx() , maxValue-(yTextLayoutResult * 1.5.toFloat().toDp()).toPx() ),
+                    start = Offset(xLength.toPx() + (yTextLayoutResult * 1.5.toFloat().toDp()).toPx(), 10.dp.toPx()),
+                    end = Offset(
+                        xLength.toPx() + (yTextLayoutResult * 1.5.toFloat().toDp()).toPx(),
+                        maxValue - (yTextLayoutResult * 1.5.toFloat().toDp()).toPx()
+                    ),
                     strokeWidth = backgroundLineWidth,
                     pathEffect = PathEffect.dashPathEffect(
                         if (showGridWithSpacer) floatArrayOf(16f, 16f)
