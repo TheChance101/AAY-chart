@@ -16,7 +16,6 @@ import com.aay.compose.radarChart.model.PolygonStyle
 
 @Composable
 fun RadarChartSample() {
-
     val radarLabels =
         listOf(
             "Party A",

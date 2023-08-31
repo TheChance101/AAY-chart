@@ -2,11 +2,13 @@ package com.aay.common
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aay.compose.baseComponents.model.GridOrientation
 import com.aay.compose.lineChart.LineChart
@@ -60,7 +62,7 @@ fun LineChartSample() {
             ),
             yAxisRange = 14,
             oneLineChart = false,
-            gridOrientation = GridOrientation.GRID
+            gridOrientation = GridOrientation.VERTICAL
         )
     }
 }
