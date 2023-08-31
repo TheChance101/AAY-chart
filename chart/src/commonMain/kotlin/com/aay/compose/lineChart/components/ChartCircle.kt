@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.unit.dp
 
 
-fun DrawScope.chartCircle(
+internal fun DrawScope.chartCircle(
     x: Float,
     y: Float,
     color: Color,

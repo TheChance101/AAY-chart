@@ -10,7 +10,7 @@ import androidx.compose.ui.text.drawText
 import com.aay.compose.radarChart.model.RadarChartConfig
 
 @OptIn(ExperimentalTextApi::class)
-fun DrawScope.drawAxisData(
+internal fun DrawScope.drawAxisData(
     labelsStyle: TextStyle,
     scalarValuesStyle: TextStyle,
     textMeasurer: TextMeasurer,

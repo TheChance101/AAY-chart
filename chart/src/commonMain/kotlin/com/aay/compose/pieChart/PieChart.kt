@@ -33,7 +33,7 @@ fun DonutChart(
     outerCircularColor: Color = Color.Gray,
     innerCircularColor: Color = Color.Gray,
     ratioLineColor: Color = Color.Gray,
-    chartType : ChartTypes = ChartDefaultValues.pieChartType
+    chartType: ChartTypes = ChartDefaultValues.pieChartType
 ) {
 
     var totalSum = 0.0f

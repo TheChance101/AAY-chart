@@ -22,7 +22,7 @@ import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.utils.formatToThousandsMillionsBillions
 
 @OptIn(ExperimentalTextApi::class)
-fun DrawScope.circleWithRectAndText(
+internal fun DrawScope.circleWithRectAndText(
     animatedProgress: Animatable<Float, AnimationVector1D>,
     textMeasure: TextMeasurer,
     info: Double,
@@ -36,7 +36,7 @@ fun DrawScope.circleWithRectAndText(
 }
 
 
- @OptIn(ExperimentalTextApi::class)
+@OptIn(ExperimentalTextApi::class)
 private fun DrawScope.chartRectangleWithText(
     x: Dp, y: Double, color: Color, textMeasurer: TextMeasurer, infoText: Double,
 ) {

@@ -1,6 +1,5 @@
 package com.aay.compose.baseComponents
 
-import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
@@ -11,80 +10,155 @@ import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
+import com.aay.compose.baseComponents.model.GridOrientation
 import com.aay.compose.utils.formatToThousandsMillionsBillions
 
 @OptIn(ExperimentalTextApi::class)
-fun DrawScope.grid(
+internal fun DrawScope.grid(
     xAxisDataSize: Int,
     isShowGrid: Boolean,
     gridColor: Color,
     backgroundLineWidth: Float,
     showGridWithSpacer: Boolean,
     spacingY: Dp,
-    spacingX: Dp,
     yAxisRange: Int,
     specialChart: Boolean,
     upperValue: Float,
     textMeasurer: TextMeasurer,
-    isFromBarChart: Boolean,
-    orientation: Orientation,
-    xRegionWidth:Dp,
+    gridOrientation: GridOrientation,
+    xRegionWidth: Dp,
 ) {
     if (specialChart) {
         return
     }
+
     val yTextLayoutResult = textMeasurer.measure(
         text = AnnotatedString(upperValue.formatToThousandsMillionsBillions()),
     ).size.width
 
-    val xAxisMaxValue = size.width
-
-
-    val yAxisList = mutableListOf<Float>()
 
     if (isShowGrid) {
+        when (gridOrientation) {
+            GridOrientation.HORIZONTAL -> drawHorizontalGrid(
+                spacingY = spacingY,
+                yAxisRange = yAxisRange,
+                gridColor = gridColor,
+                backgroundLineWidth = backgroundLineWidth,
+                showGridWithSpacer = showGridWithSpacer,
+                yTextLayoutResult = yTextLayoutResult
+            )
 
-        if (orientation == Orientation.Horizontal) {
+            GridOrientation.VERTICAL -> drawVerticalGrid(
+                xAxisDataSize = xAxisDataSize,
+                xRegionWidth = xRegionWidth,
+                gridColor = gridColor,
+                backgroundLineWidth = backgroundLineWidth,
+                showGridWithSpacer = showGridWithSpacer,
+                yTextLayoutResult = yTextLayoutResult
+            )
 
-            (0..yAxisRange).forEach { i ->
-                yAxisList.add(
-                    size.height.toDp()
-                        .toPx() - (spacingY.toPx()) - i * (size.height.toDp() - spacingY).toPx() / yAxisRange
+            else -> {
+                drawHorizontalGrid(
+                    spacingY = spacingY,
+                    yAxisRange = yAxisRange,
+                    gridColor = gridColor,
+                    xEndLength = 38.dp.toPx(),
+                    backgroundLineWidth = backgroundLineWidth,
+                    showGridWithSpacer = showGridWithSpacer,
+                    yTextLayoutResult = yTextLayoutResult
                 )
-                val yAlignmentValue = yAxisList[i] + 9.dp.toPx()
 
-
-                drawLine(
-                    gridColor,
-                    start = Offset((yTextLayoutResult * 1.5.toFloat().toDp()).toPx(), yAlignmentValue),
-                    end = Offset(xAxisMaxValue, yAlignmentValue),
-                    strokeWidth = backgroundLineWidth,
-                    pathEffect = PathEffect.dashPathEffect(
-                        if (showGridWithSpacer)
-                            floatArrayOf(16f, 16f)
-                        else floatArrayOf(1f, 1f),
-                        0f
-                    )
-                )
-            }
-        } else {
-
-            val maxValue = size.height
-            (0..xAxisDataSize).forEach { i ->
-
-                val xLength =   (i * xRegionWidth)
-                drawLine(
-                    gridColor,
-                    start = Offset(xLength.toPx() + (yTextLayoutResult * 1.5.toFloat().toDp()).toPx() , 10.dp.toPx()),
-                    end = Offset(xLength.toPx() + (yTextLayoutResult * 1.5.toFloat().toDp()).toPx() , maxValue-(yTextLayoutResult * 1.5.toFloat().toDp()).toPx() ),
-                    strokeWidth = backgroundLineWidth,
-                    pathEffect = PathEffect.dashPathEffect(
-                        if (showGridWithSpacer) floatArrayOf(16f, 16f)
-                        else floatArrayOf(1f, 1f),
-                        0f
-                    )
+                drawVerticalGrid(
+                    xAxisDataSize = xAxisDataSize,
+                    xRegionWidth = xRegionWidth,
+                    gridColor = gridColor,
+                    yEndLength = 9f.toDp(),
+                    backgroundLineWidth = backgroundLineWidth,
+                    showGridWithSpacer = showGridWithSpacer,
+                    yTextLayoutResult = yTextLayoutResult
                 )
             }
+
         }
     }
+}
+
+private fun DrawScope.drawHorizontalGrid(
+    spacingY: Dp,
+    yAxisRange: Int,
+    gridColor: Color,
+    xEndLength: Float = 0f,
+    backgroundLineWidth: Float,
+    showGridWithSpacer: Boolean,
+    yTextLayoutResult: Int
+) {
+
+    val xAxisMaxValue = size.width
+    val yAxisList = mutableListOf<Float>()
+
+    (0..yAxisRange).forEach { i ->
+        yAxisList.add(
+            size.height.toDp()
+                .toPx() - (spacingY.toPx()) - i * (size.height.toDp() - spacingY).toPx() / yAxisRange
+        )
+        val yAlignmentValue = yAxisList[i] + 9.dp.toPx()
+
+        drawGrid(
+            gridColor = gridColor,
+            xStart = (yTextLayoutResult * 1.5.toFloat().toDp()).toPx(),
+            yStart = yAlignmentValue,
+            xEnd = xAxisMaxValue - xEndLength,
+            yEnd = yAlignmentValue,
+            backgroundLineWidth = backgroundLineWidth,
+            showGridWithSpacer = showGridWithSpacer
+        )
+    }
+
+}
+
+
+private fun DrawScope.drawVerticalGrid(
+    xAxisDataSize: Int,
+    xRegionWidth: Dp,
+    gridColor: Color,
+    backgroundLineWidth: Float,
+    showGridWithSpacer: Boolean,
+    yTextLayoutResult: Int,
+    yEndLength: Dp = 10.5.toFloat().toDp()
+) {
+    (0..xAxisDataSize).forEach { i ->
+        val xLength = (i * xRegionWidth)
+
+        drawGrid(
+            gridColor = gridColor,
+            xStart = xLength.toPx() + (yTextLayoutResult * 1.5.toFloat().toDp()).toPx(),
+            yStart = 10.dp.toPx(),
+            xEnd = xLength.toPx() + (yTextLayoutResult * 1.5.toFloat().toDp()).toPx(),
+            yEnd = size.height - (size.height.toDp() / yEndLength),
+            backgroundLineWidth = backgroundLineWidth,
+            showGridWithSpacer = showGridWithSpacer
+        )
+    }
+}
+
+private fun DrawScope.drawGrid(
+    gridColor: Color,
+    xStart: Float,
+    yStart: Float,
+    xEnd: Float,
+    yEnd: Float,
+    backgroundLineWidth: Float,
+    showGridWithSpacer: Boolean
+) {
+    drawLine(
+        color = gridColor,
+        start = Offset(xStart, yStart),
+        end = Offset(xEnd, yEnd),
+        strokeWidth = backgroundLineWidth,
+        pathEffect = PathEffect.dashPathEffect(
+            if (showGridWithSpacer) floatArrayOf(16f, 16f)
+            else floatArrayOf(1f, 1f),
+            0f
+        )
+    )
 }

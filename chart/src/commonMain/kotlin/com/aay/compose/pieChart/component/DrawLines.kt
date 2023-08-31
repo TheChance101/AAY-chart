@@ -6,11 +6,11 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.dp
 
 internal fun DrawScope.drawLines(
-    ratioLineColor:Color,
-    lineStart:Offset,
-    lineEnd:Offset,
-    secondLineEnd:Offset,
-){
+    ratioLineColor: Color,
+    lineStart: Offset,
+    lineEnd: Offset,
+    secondLineEnd: Offset,
+) {
     drawLine(
         color = ratioLineColor,
         start = lineStart,

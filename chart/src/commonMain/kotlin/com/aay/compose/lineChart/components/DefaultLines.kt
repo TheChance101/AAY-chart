@@ -21,7 +21,7 @@ import com.aay.compose.utils.formatToThousandsMillionsBillions
 private var lastClickedPoint: Pair<Float, Float>? = null
 
 @OptIn(ExperimentalTextApi::class)
-fun DrawScope.drawDefaultLineWithShadow(
+internal fun DrawScope.drawDefaultLineWithShadow(
     line: LineParameters,
     lowerValue: Float,
     upperValue: Float,
@@ -30,21 +30,18 @@ fun DrawScope.drawDefaultLineWithShadow(
     spacingY: Dp,
     clickedPoints: MutableList<Pair<Float, Float>>,
     textMeasure: TextMeasurer,
-    xAxisData: List<String>,
-    xRegionWidth:Dp,
-    ) {
+    xRegionWidth: Dp,
+) {
 
     val strokePathOfDefaultLine = drawLineAsDefault(
         lineParameter = line,
         lowerValue = lowerValue,
         upperValue = upperValue,
         animatedProgress = animatedProgress,
-        spacingX = spacingX,
         spacingY = spacingY,
         clickedPoints = clickedPoints,
         textMeasure = textMeasure,
-        xAxisData = xAxisData,
-        xRegionWidth =xRegionWidth
+        xRegionWidth = xRegionWidth
     )
 
     if (line.lineShadow) {
@@ -70,12 +67,10 @@ private fun DrawScope.drawLineAsDefault(
     lowerValue: Float,
     upperValue: Float,
     animatedProgress: Animatable<Float, AnimationVector1D>,
-    spacingX: Dp,
     spacingY: Dp,
     clickedPoints: MutableList<Pair<Float, Float>>,
     textMeasure: TextMeasurer,
-    xAxisData: List<String>,
-    xRegionWidth:Dp,
+    xRegionWidth: Dp,
 ) = Path().apply {
     val height = size.height.toDp()
     drawPathLineWrapper(
@@ -90,7 +85,7 @@ private fun DrawScope.drawLineAsDefault(
 
         val info = lineParameter.data[index]
         val ratio = (info - lowerValue) / (upperValue - lowerValue)
-        val startXPoint = (yTextLayoutResult * 1.5.toFloat().toDp() ) + (index * xRegionWidth)
+        val startXPoint = (yTextLayoutResult * 1.5.toFloat().toDp()) + (index * xRegionWidth)
         val startYPoint =
             (height.toPx() + 8.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
 

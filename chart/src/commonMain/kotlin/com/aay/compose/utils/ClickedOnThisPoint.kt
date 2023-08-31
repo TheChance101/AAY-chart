@@ -2,7 +2,7 @@ package com.aay.compose.utils
 
 import kotlin.math.hypot
 
-fun clickedOnThisPoint(
+internal fun clickedOnThisPoint(
     clickedPoints: MutableList<Pair<Float, Float>>,
     x: Float,
     y: Double,

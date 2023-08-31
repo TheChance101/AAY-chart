@@ -37,7 +37,8 @@ fun PieChartSample() {
             partName = "Andrew",
             data = 600.0,
             color = Color.Magenta.copy(alpha = .5f),
-        ),  PieChartData(
+        ),
+        PieChartData(
             partName = "Aziza",
             data = 500.0,
             color = Color(0xFFF2BD00),
@@ -61,7 +62,8 @@ fun PieChartSample() {
             partName = "Andrew",
             data = 600.0,
             color = Color.Magenta.copy(alpha = .5f),
-        ),  PieChartData(
+        ),
+        PieChartData(
             partName = "Aziza",
             data = 500.0,
             color = Color(0xFFF2BD00),
