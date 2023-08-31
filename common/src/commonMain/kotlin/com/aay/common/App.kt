@@ -9,7 +9,7 @@ fun App() {
 //    LineChartSample()
 
     /** Sample of Bar Chart **/
-    BarChartSample()
+//    BarChartSample()
 
     /** Sample of Donut Chart **/
 //    DonutChartSample()
@@ -18,5 +18,5 @@ fun App() {
 //    PieChartSample()
 
     /** Sample of Radar Chart **/
-//    RadarChartSample()
+    RadarChartSample()
 }
