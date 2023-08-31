@@ -2,7 +2,7 @@ package com.aay.compose.utils
 
 import java.math.BigDecimal
 
-fun Float.formatToThousandsMillionsBillions(): String {
+internal fun Float.formatToThousandsMillionsBillions(): String {
     val value = BigDecimal(this.toDouble())
     val absValue = value.abs()
     return when {

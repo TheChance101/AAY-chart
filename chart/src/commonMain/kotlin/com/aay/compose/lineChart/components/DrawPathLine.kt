@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.aay.compose.lineChart.model.LineParameters
 
 
-fun DrawScope.drawPathLineWrapper(
+internal fun DrawScope.drawPathLineWrapper(
     lineParameter: LineParameters,
     strokePath: Path,
     animatedProgress: Animatable<Float, AnimationVector1D>,

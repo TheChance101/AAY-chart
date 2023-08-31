@@ -1,15 +1,15 @@
 package com.aay.compose.baseComponents
 
-import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
+import com.aay.compose.baseComponents.model.GridOrientation
 
 @OptIn(ExperimentalTextApi::class)
-fun <T> DrawScope.baseChartContainer(
+internal fun <T> DrawScope.baseChartContainer(
     xAxisData: List<T>,
     textMeasure: TextMeasurer,
     upperValue: Float,
@@ -18,7 +18,6 @@ fun <T> DrawScope.baseChartContainer(
     gridColor: Color,
     backgroundLineWidth: Float,
     showGridWithSpacer: Boolean,
-    spacingX: Dp,
     spacingY: Dp,
     yAxisStyle: TextStyle,
     xAxisStyle: TextStyle,
@@ -27,15 +26,13 @@ fun <T> DrawScope.baseChartContainer(
     showYAxis: Boolean,
     specialChart: Boolean = false,
     isFromBarChart: Boolean,
-    yTextLayoutResult: Dp,
-    orientation: Orientation = Orientation.Horizontal,
-    xRegionWidth:Dp
+    gridOrientation: GridOrientation = GridOrientation.HORIZONTAL,
+    xRegionWidth: Dp
 ) {
     if (showXAxis) {
         if (!isFromBarChart) {
             xAxisDrawing(
                 xAxisData = xAxisData,
-                spacing = spacingX,
                 textMeasure = textMeasure,
                 xAxisStyle = xAxisStyle,
                 specialChart = specialChart,
@@ -68,10 +65,8 @@ fun <T> DrawScope.baseChartContainer(
         specialChart = specialChart,
         textMeasurer = textMeasure,
         upperValue = upperValue,
-        orientation = orientation,
-        spacingX = spacingX,
+        gridOrientation = gridOrientation,
         xAxisDataSize = xAxisData.size,
         xRegionWidth = xRegionWidth,
-        isFromBarChart = isFromBarChart
     )
 }

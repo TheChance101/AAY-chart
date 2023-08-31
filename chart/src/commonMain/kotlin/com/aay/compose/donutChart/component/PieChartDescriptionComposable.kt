@@ -15,7 +15,7 @@ import com.aay.compose.donutChart.model.PieChartData
 internal fun PieChartDescriptionComposable(
     pieChartData: List<PieChartData>,
     descriptionStyle: TextStyle = TextStyle.Default,
-    modifier: Modifier=Modifier
+    modifier: Modifier = Modifier
 ) {
 
     LazyRow(

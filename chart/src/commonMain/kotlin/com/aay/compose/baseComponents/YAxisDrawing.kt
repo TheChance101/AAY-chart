@@ -11,9 +11,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.times
 import com.aay.compose.utils.formatToThousandsMillionsBillions
 
-
 @OptIn(ExperimentalTextApi::class)
-fun DrawScope.yAxisDrawing(
+internal fun DrawScope.yAxisDrawing(
     upperValue: Float, lowerValue: Float,
     textMeasure: TextMeasurer,
     spacing: Dp,

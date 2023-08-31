@@ -1,11 +1,10 @@
 package com.aay.compose.radarChart
 
-
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import com.aay.compose.radarChart.model.NetLinesStyle
 import com.aay.compose.radarChart.model.RadarChartConfig
 
-fun DrawScope.drawRadarNet(
+internal fun DrawScope.drawRadarNet(
     netLinesStyle: NetLinesStyle,
     config: RadarChartConfig
 ) {
