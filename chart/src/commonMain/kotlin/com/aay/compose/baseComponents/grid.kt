@@ -72,7 +72,7 @@ internal fun DrawScope.grid(
                     xAxisDataSize = xAxisDataSize,
                     xRegionWidth = xRegionWidth,
                     gridColor = gridColor,
-                    yEndLength = 4.4.toFloat().dp,
+                    yEndLength = 9f.toDp(),
                     backgroundLineWidth = backgroundLineWidth,
                     showGridWithSpacer = showGridWithSpacer,
                     yTextLayoutResult = yTextLayoutResult
