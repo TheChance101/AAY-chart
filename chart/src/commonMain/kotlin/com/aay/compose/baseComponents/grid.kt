@@ -38,10 +38,8 @@ internal fun DrawScope.grid(
 
 
     if (isShowGrid) {
-
-        if (gridOrientation == GridOrientation.HORIZONTAL) {
-
-            drawHorizontalGrid(
+        when (gridOrientation) {
+            GridOrientation.HORIZONTAL -> drawHorizontalGrid(
                 spacingY = spacingY,
                 yAxisRange = yAxisRange,
                 gridColor = gridColor,
@@ -50,9 +48,7 @@ internal fun DrawScope.grid(
                 yTextLayoutResult = yTextLayoutResult
             )
 
-        } else {
-
-            drawVerticalGrid(
+            GridOrientation.VERTICAL -> drawVerticalGrid(
                 xAxisDataSize = xAxisDataSize,
                 xRegionWidth = xRegionWidth,
                 gridColor = gridColor,
@@ -60,6 +56,29 @@ internal fun DrawScope.grid(
                 showGridWithSpacer = showGridWithSpacer,
                 yTextLayoutResult = yTextLayoutResult
             )
+
+            else -> {
+                drawHorizontalGrid(
+                    spacingY = spacingY,
+                    yAxisRange = yAxisRange,
+                    gridColor = gridColor,
+                    xEndLength = 38.dp.toPx(),
+                    backgroundLineWidth = backgroundLineWidth,
+                    showGridWithSpacer = showGridWithSpacer,
+                    yTextLayoutResult = yTextLayoutResult
+                )
+
+                drawVerticalGrid(
+                    xAxisDataSize = xAxisDataSize,
+                    xRegionWidth = xRegionWidth,
+                    gridColor = gridColor,
+                    yEndLength = 4.4.toFloat().dp,
+                    backgroundLineWidth = backgroundLineWidth,
+                    showGridWithSpacer = showGridWithSpacer,
+                    yTextLayoutResult = yTextLayoutResult
+                )
+            }
+
         }
     }
 }
@@ -68,6 +87,7 @@ private fun DrawScope.drawHorizontalGrid(
     spacingY: Dp,
     yAxisRange: Int,
     gridColor: Color,
+    xEndLength: Float = 0f,
     backgroundLineWidth: Float,
     showGridWithSpacer: Boolean,
     yTextLayoutResult: Int
@@ -87,7 +107,7 @@ private fun DrawScope.drawHorizontalGrid(
             gridColor = gridColor,
             xStart = (yTextLayoutResult * 1.5.toFloat().toDp()).toPx(),
             yStart = yAlignmentValue,
-            xEnd = xAxisMaxValue,
+            xEnd = xAxisMaxValue - xEndLength,
             yEnd = yAlignmentValue,
             backgroundLineWidth = backgroundLineWidth,
             showGridWithSpacer = showGridWithSpacer
@@ -103,7 +123,8 @@ private fun DrawScope.drawVerticalGrid(
     gridColor: Color,
     backgroundLineWidth: Float,
     showGridWithSpacer: Boolean,
-    yTextLayoutResult: Int
+    yTextLayoutResult: Int,
+    yEndLength: Dp = 10.5.toFloat().toDp()
 ) {
     (0..xAxisDataSize).forEach { i ->
         val xLength = (i * xRegionWidth)
@@ -113,7 +134,7 @@ private fun DrawScope.drawVerticalGrid(
             xStart = xLength.toPx() + (yTextLayoutResult * 1.5.toFloat().toDp()).toPx(),
             yStart = 10.dp.toPx(),
             xEnd = xLength.toPx() + (yTextLayoutResult * 1.5.toFloat().toDp()).toPx(),
-            yEnd = size.height - (yTextLayoutResult * 1.5.toFloat().toDp()).toPx(),
+            yEnd = size.height - (size.height.toDp() / yEndLength),
             backgroundLineWidth = backgroundLineWidth,
             showGridWithSpacer = showGridWithSpacer
         )

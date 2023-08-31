@@ -1,6 +1,5 @@
 package com.aay.common
 
-import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -61,7 +60,7 @@ fun LineChartSample() {
             ),
             yAxisRange = 14,
             oneLineChart = false,
-            gridOrientation = GridOrientation.HORIZONTAL
+            gridOrientation = GridOrientation.GRID
         )
     }
 }
