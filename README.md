@@ -85,6 +85,9 @@ fun LineChartSample() {
 }
 ```
 
+![charts](/assets/line_chart.gif)
+![charts](/assets/special_line_chart.gif)
+
 2. Show Bar Chart in Jetpack Compose:
 
 ```kotlin
@@ -133,6 +136,8 @@ fun BarChartSample() {
 }
 ```
 
+![charts](/assets/bar_chart.gif)
+
 3. Show Pie Chart in Jetpack Compose:
 
 ```kotlin
@@ -170,6 +175,7 @@ fun PieChartSample() {
     )
 }
 ```
+![charts](/assets/pie_chart.gif)
 
 4. Show Donut Chart in Jetpack Compose:
    
@@ -211,7 +217,7 @@ fun DonutChartSample() {
     )
 }
 ```
-
+![charts](/assets/donut_chart.gif)
 
 5. Show Radar Chart in Jetpack Compose:
 
