@@ -1,4 +1,4 @@
-package com.aay.compose.pieChart.component
+package com.aay.compose.donutChart.component
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
@@ -12,8 +12,8 @@ import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
-import com.aay.compose.pieChart.model.PieChartData
-import com.aay.compose.pieChart.model.ChartTypes
+import com.aay.compose.donutChart.model.PieChartData
+import com.aay.compose.donutChart.model.ChartTypes
 import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin

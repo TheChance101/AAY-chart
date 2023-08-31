@@ -10,7 +10,6 @@ import androidx.compose.ui.unit.sp
 import com.aay.compose.barChart.model.BarParameters
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
-import com.aay.compose.pieChart.model.ChartTypes
 
 object ChartDefaultValues {
 
@@ -57,8 +56,6 @@ object ChartDefaultValues {
     const val showyAxis = true
 
     val gridOrientation = Orientation.Horizontal
-
-    val pieChartType = ChartTypes.DONUT_CHART
 
 
 }

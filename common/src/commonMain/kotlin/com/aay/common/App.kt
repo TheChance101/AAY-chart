@@ -6,14 +6,17 @@ import androidx.compose.runtime.Composable
 fun App() {
 
     /** Sample of Line Chart **/
-    LineChartSample()
+//    LineChartSample()
 
     /** Sample of Bar Chart **/
 //    BarChartSample()
 
-    /** Sample of Pie Chart **/
-//    PieChartSample()
+    /** Sample of Donut Chart **/
+//    DonutChartSample()
 
     /** Sample of Radar Chart **/
 //    RadarChartSample()
+
+    /** sample of Pie Chart **/
+    PieChartSample()
 }

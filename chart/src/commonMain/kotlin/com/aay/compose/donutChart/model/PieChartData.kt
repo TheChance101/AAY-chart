@@ -1,4 +1,4 @@
-package com.aay.compose.pieChart.model
+package com.aay.compose.donutChart.model
 
 import androidx.compose.ui.graphics.Color
 
