@@ -8,14 +8,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.*
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.aay.compose.baseComponents.model.LegendPosition
 import com.aay.compose.donutChart.component.PieChartDescriptionComposable
 import com.aay.compose.donutChart.component.draPieCircle
 import com.aay.compose.donutChart.component.drawCenterText
 import com.aay.compose.donutChart.component.drawPedigreeChart
 import com.aay.compose.donutChart.model.PieChartData
 import com.aay.compose.donutChart.model.ChartTypes
+import com.aay.compose.utils.ChartDefaultValues
 import com.aay.compose.utils.checkIfDataIsNegative
 import kotlin.math.min
 
@@ -32,6 +35,7 @@ fun DonutChart(
     outerCircularColor: Color = Color.Gray,
     innerCircularColor: Color = Color.Gray,
     ratioLineColor: Color = Color.Gray,
+    legendPosition: LegendPosition = ChartDefaultValues.legendPosition,
 ) {
     var totalSum = 0.0f
     val pieValueWithRatio = mutableListOf<Float>()
@@ -61,60 +65,138 @@ fun DonutChart(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
+        when (legendPosition) {
+            LegendPosition.TOP -> {
+                PieChartDescriptionComposable(
+                    pieChartData = pieChartData,
+                    descriptionStyle = descriptionStyle,
+                    modifier = Modifier.fillMaxWidth().weight(0.5f)
+                )
+                drawDonutChart(
+                    modifier = Modifier.weight(1.5f),
+                    textMeasure = textMeasure,
+                    pieChartData = pieChartData,
+                    centerTitle = centerTitle,
+                    centerTitleStyle = centerTitleStyle,
+                    textRatioStyle = textRatioStyle,
+                    outerCircularColor = outerCircularColor,
+                    innerCircularColor = innerCircularColor,
+                    ratioLineColor = ratioLineColor,
+                    textSize = textSize,
+                    pieValueWithRatio = pieValueWithRatio,
+                    totalSum = totalSum,
+                    transitionProgress = transitionProgress
+                )
+            }
 
-        Box(
-            modifier = Modifier.fillMaxSize().weight(1.5f)
-                .drawBehind {
-                    val canvasWidth = size.width
-                    val canvasHeight = size.height
-                    val minValue = min(canvasWidth, canvasHeight)
-                        .coerceAtMost(canvasHeight / 2)
-                        .coerceAtMost(canvasWidth / 2)
-                    val arcWidth = (size.minDimension.dp.toPx() * 0.13f).coerceAtMost(minValue / 4)
+            LegendPosition.BOTTOM -> {
+                drawDonutChart(
+                    modifier = Modifier.weight(1.5f),
+                    textMeasure = textMeasure,
+                    pieChartData = pieChartData,
+                    centerTitle = centerTitle,
+                    centerTitleStyle = centerTitleStyle,
+                    textRatioStyle = textRatioStyle,
+                    outerCircularColor = outerCircularColor,
+                    innerCircularColor = innerCircularColor,
+                    ratioLineColor = ratioLineColor,
+                    textSize = textSize,
+                    pieValueWithRatio = pieValueWithRatio,
+                    totalSum = totalSum,
+                    transitionProgress = transitionProgress
+                )
+                PieChartDescriptionComposable(
+                    pieChartData = pieChartData,
+                    descriptionStyle = descriptionStyle,
+                    modifier = Modifier.fillMaxWidth().weight(0.5f)
+                )
+            }
 
+            LegendPosition.DISAPPEAR -> {
+                drawDonutChart(
+                   modifier =  Modifier.weight(1.5f),
+                    textMeasure = textMeasure,
+                    pieChartData = pieChartData,
+                    centerTitle = centerTitle,
+                    centerTitleStyle = centerTitleStyle,
+                    textRatioStyle = textRatioStyle,
+                    outerCircularColor = outerCircularColor,
+                    innerCircularColor = innerCircularColor,
+                    ratioLineColor = ratioLineColor,
+                    textSize = textSize,
+                    pieValueWithRatio = pieValueWithRatio,
+                    totalSum = totalSum,
+                    transitionProgress = transitionProgress
+                )
+            }
+        }
 
-                    drawCenterText(
-                        textMeasure = textMeasure,
-                        centerTitle = centerTitle,
-                        centerTitleStyle = centerTitleStyle,
-                        canvasHeight = canvasHeight,
-                        canvasWidth = canvasWidth,
-                        textSize = textSize
-                    )
-
-                    drawPedigreeChart(
-                        pieValueWithRatio = pieValueWithRatio,
-                        pieChartData = pieChartData,
-                        totalSum = totalSum,
-                        transitionProgress = transitionProgress,
-                        textMeasure = textMeasure,
-                        textRatioStyle = textRatioStyle,
-                        ratioLineColor = ratioLineColor,
-                        arcWidth = arcWidth,
-                        minValue = minValue,
-                        pieChart = ChartTypes.DONUT_CHART
-                    )
-                    //draw outer circle
-                    draPieCircle(
-                        circleColor = outerCircularColor,
-                        radiusRatioCircle = (minValue / 2) + (arcWidth / 1.5f)
-                    )
-                    //draw inner circle
-                    draPieCircle(
-                        circleColor = innerCircularColor,
-                        radiusRatioCircle = (minValue / 2) - (arcWidth / 1.5f)
-                    )
-
-
-                }
-        )
-
-        PieChartDescriptionComposable(
-            pieChartData = pieChartData,
-            descriptionStyle = descriptionStyle,
-            modifier = Modifier.fillMaxWidth().weight(0.5f)
-        )
 
     }
+
+}
+
+@OptIn(ExperimentalTextApi::class)
+@Composable
+private fun drawDonutChart(
+    modifier: Modifier = Modifier,
+    textMeasure: TextMeasurer,
+    pieChartData: List<PieChartData>,
+    centerTitle: String = "",
+    centerTitleStyle: TextStyle = TextStyle.Default,
+    textRatioStyle: TextStyle = TextStyle.Default.copy(fontSize = 12.sp),
+    outerCircularColor: Color = Color.Gray,
+    innerCircularColor: Color = Color.Gray,
+    ratioLineColor: Color = Color.Gray,
+    textSize: IntSize,
+    pieValueWithRatio: MutableList<Float>,
+    totalSum: Float,
+    transitionProgress: Animatable<Float, AnimationVector1D>,
+) {
+    Box(
+        modifier = modifier.fillMaxSize()
+            .drawBehind {
+                val canvasWidth = size.width
+                val canvasHeight = size.height
+                val minValue = min(canvasWidth, canvasHeight)
+                    .coerceAtMost(canvasHeight / 2)
+                    .coerceAtMost(canvasWidth / 2)
+                val arcWidth = (size.minDimension.dp.toPx() * 0.13f).coerceAtMost(minValue / 4)
+
+                drawCenterText(
+                    textMeasure = textMeasure,
+                    centerTitle = centerTitle,
+                    centerTitleStyle = centerTitleStyle,
+                    canvasHeight = canvasHeight,
+                    canvasWidth = canvasWidth,
+                    textSize = textSize
+                )
+
+                drawPedigreeChart(
+                    pieValueWithRatio = pieValueWithRatio,
+                    pieChartData = pieChartData,
+                    totalSum = totalSum,
+                    transitionProgress = transitionProgress,
+                    textMeasure = textMeasure,
+                    textRatioStyle = textRatioStyle,
+                    ratioLineColor = ratioLineColor,
+                    arcWidth = arcWidth,
+                    minValue = minValue,
+                    pieChart = ChartTypes.DONUT_CHART
+                )
+                //draw outer circle
+                draPieCircle(
+                    circleColor = outerCircularColor,
+                    radiusRatioCircle = (minValue / 2) + (arcWidth / 1.5f)
+                )
+                //draw inner circle
+                draPieCircle(
+                    circleColor = innerCircularColor,
+                    radiusRatioCircle = (minValue / 2) - (arcWidth / 1.5f)
+                )
+
+
+            }
+    )
 
 }

@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aay.compose.barChart.BarChart
 import com.aay.compose.barChart.model.BarParameters
+import com.aay.compose.baseComponents.model.LegendPosition
 
 @Composable
 fun BarChartSample() {
@@ -50,7 +51,8 @@ fun BarChartSample() {
                 fontWeight = FontWeight.W400
             ),
             yAxisRange = 15,
-            barWidth = 20.dp
+            barWidth = 20.dp,
+            legendPosition = LegendPosition.TOP
         )
     }
 }

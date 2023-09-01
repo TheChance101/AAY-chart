@@ -11,6 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aay.compose.baseComponents.model.GridOrientation
+import com.aay.compose.baseComponents.model.LegendPosition
 import com.aay.compose.lineChart.LineChart
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
@@ -26,20 +27,20 @@ fun LineChartSample() {
             lineType = LineType.CURVED_LINE,
             lineShadow = true,
         ),
-//        LineParameters(
-//            label = "Earnings",
-//            data = listOf(60.0, 80.6, 40.33, 86.232, 88.0, 90.0),
-//            lineColor = Color(0xFFFF7F50),
-//            lineType = LineType.DEFAULT_LINE,
-//            lineShadow = true
-//        ),
-//        LineParameters(
-//            label = "Earnings",
-//            data = listOf(1.0, 40.0, 11.33, 55.23, 1.0, 100.0),
-//            lineColor = Color(0xFF81BE88),
-//            lineType = LineType.CURVED_LINE,
-//            lineShadow = false,
-//        )
+        LineParameters(
+            label = "Earnings",
+            data = listOf(60.0, 80.6, 40.33, 86.232, 88.0, 90.0),
+            lineColor = Color(0xFFFF7F50),
+            lineType = LineType.DEFAULT_LINE,
+            lineShadow = true
+        ),
+        LineParameters(
+            label = "Earnings",
+            data = listOf(1.0, 40.0, 11.33, 55.23, 1.0, 100.0),
+            lineColor = Color(0xFF81BE88),
+            lineType = LineType.CURVED_LINE,
+            lineShadow = false,
+        )
     )
 
     Box(Modifier.padding(top = 16.dp, start = 16.dp, bottom = 16.dp)) {
@@ -61,8 +62,9 @@ fun LineChartSample() {
                 fontWeight = FontWeight.W400
             ),
             yAxisRange = 14,
-            oneLineChart = true,
-            gridOrientation = GridOrientation.GRID
+            oneLineChart = false,
+            gridOrientation = GridOrientation.GRID,
+            legendPosition = LegendPosition.TOP
         )
     }
 }

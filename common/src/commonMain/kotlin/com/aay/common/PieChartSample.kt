@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import com.aay.compose.baseComponents.model.LegendPosition
 import com.aay.compose.donutChart.PieChart
 import com.aay.compose.donutChart.model.PieChartData
 
@@ -39,6 +40,7 @@ fun PieChartSample() {
         pieChartData = testPieChartData,
         ratioLineColor = Color.LightGray,
         textRatioStyle = TextStyle(color = Color.Gray),
+        legendPosition = LegendPosition.BOTTOM
     )
 
 }
