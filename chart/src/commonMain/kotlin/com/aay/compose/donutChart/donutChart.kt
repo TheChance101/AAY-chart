@@ -21,7 +21,24 @@ import com.aay.compose.donutChart.model.ChartTypes
 import com.aay.compose.utils.ChartDefaultValues
 import com.aay.compose.utils.checkIfDataIsNegative
 import kotlin.math.min
-
+/**
+ * Composable function to render a donut chart with an optional legend.
+ *
+ * @param modifier Modifier for configuring the layout and appearance of the donut chart.
+ * @param pieChartData List of data for the donut chart, including labels and values.
+ * @param centerTitle Title displayed in the center of the donut chart.
+ * @param centerTitleStyle TextStyle for configuring the appearance of the center title.
+ * @param animation Animation specification for the donut chart transitions (default is a 3-second linear animation).
+ * @param descriptionStyle TextStyle for configuring the appearance of the chart description (legend) text.
+ * @param textRatioStyle TextStyle for configuring the appearance of ratio text labels (default font size is 12sp).
+ * @param outerCircularColor Color of the outer circular border of the donut chart (default is Gray).
+ * @param innerCircularColor Color of the inner circular area of the donut chart (default is Gray).
+ * @param ratioLineColor Color of the lines connecting ratio labels to chart segments (default is Gray).
+ * @param legendPosition Position of the legend within the chart (default is [LegendPosition.TOP]).
+ *
+ * @see PieChartData
+ * @see LegendPosition
+ */
 @OptIn(ExperimentalTextApi::class)
 @Composable
 fun DonutChart(

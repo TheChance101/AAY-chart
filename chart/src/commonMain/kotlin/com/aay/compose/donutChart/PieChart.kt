@@ -28,11 +28,24 @@ import com.aay.compose.donutChart.model.PieChartData
 import com.aay.compose.utils.checkIfDataIsNegative
 import kotlin.math.min
 import androidx.compose.animation.core.*
-import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
 import androidx.compose.ui.text.*
 import com.aay.compose.baseComponents.model.LegendPosition
 import com.aay.compose.utils.ChartDefaultValues
+/**
+ * Composable function to render a pie chart with an optional legend.
+ *
+ * @param modifier Modifier for configuring the layout and appearance of the pie chart.
+ * @param pieChartData List of data for the pie chart, including labels and values.
+ * @param animation Animation specification for the pie chart transitions (default is a 3-second linear animation).
+ * @param textRatioStyle TextStyle for configuring the appearance of ratio text labels (default font size is 12sp).
+ * @param outerCircularColor Color of the outer circular border of the pie chart (default is Gray).
+ * @param ratioLineColor Color of the lines connecting ratio labels to chart segments (default is Gray).
+ * @param descriptionStyle TextStyle for configuring the appearance of the chart description (legend) text.
+ * @param legendPosition Position of the legend within the chart (default is [LegendPosition.TOP]).
+ *
+ * @see PieChartData
+ * @see LegendPosition
+ */
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
