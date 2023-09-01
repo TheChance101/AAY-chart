@@ -1,13 +1,13 @@
 import org.jetbrains.compose.compose
 
+group = "com.aay"
+version = "1.0-SNAPSHOT"
+
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
 }
-
-group = "com.aay"
-version = "1.0-SNAPSHOT"
 
 kotlin {
     android()
@@ -17,7 +17,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":chart"))
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material)
