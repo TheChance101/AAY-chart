@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import com.aay.compose.baseComponents.model.LegendPosition
 import com.aay.compose.donutChart.DonutChart
 import com.aay.compose.donutChart.model.PieChartData
 
@@ -42,6 +43,7 @@ fun DonutChartSample() {
         outerCircularColor = Color.LightGray,
         innerCircularColor = Color.Gray,
         ratioLineColor = Color.LightGray,
+        legendPosition = LegendPosition.BOTTOM
     )
 
 }

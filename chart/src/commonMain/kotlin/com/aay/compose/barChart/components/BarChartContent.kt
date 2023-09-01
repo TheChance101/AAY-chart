@@ -43,6 +43,7 @@ internal fun BarChartContent(
     barWidth: Dp,
     spaceBetweenBars: Dp,
     spaceBetweenGroups: Dp,
+    modifier: Modifier = Modifier
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -70,7 +71,7 @@ internal fun BarChartContent(
     val density = LocalDensity.current
 
     checkIfDataValid(xAxisData = xAxisData, barParameters = barsParameters)
-    Box(modifier = Modifier.fillMaxSize().onGloballyPositioned {
+    Box(modifier = modifier.fillMaxSize().onGloballyPositioned {
         boxWidth = with(density) {
             it.size.width.toDp()
         }

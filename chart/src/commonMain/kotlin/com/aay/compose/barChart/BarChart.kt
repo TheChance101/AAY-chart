@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.aay.compose.barChart.components.BarChartContent
 import com.aay.compose.barChart.model.BarParameters
 import com.aay.compose.baseComponents.ChartDescription
+import com.aay.compose.baseComponents.model.LegendPosition
 import com.aay.compose.utils.ChartDefaultValues
 
 @Composable
@@ -32,41 +33,104 @@ fun BarChart(
     showYAxis: Boolean = ChartDefaultValues.showyAxis,
     barWidth: Dp = ChartDefaultValues.barWidth,
     spaceBetweenBars: Dp = ChartDefaultValues.spaceBetweenBars,
-    spaceBetweenGroups: Dp = ChartDefaultValues.spaceBetweenGroups
+    spaceBetweenGroups: Dp = ChartDefaultValues.spaceBetweenGroups,
+    legendPosition: LegendPosition = ChartDefaultValues.legendPosition
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        LazyRow(
-            horizontalArrangement = horizontalArrangement,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp)
-        ) {
+        when(legendPosition){
+            LegendPosition.TOP -> {
+                LazyRow(
+                    horizontalArrangement = horizontalArrangement,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                ) {
 
-            items(chartParameters) { details ->
-                ChartDescription(
-                    chartColor = details.barColor,
-                    chartName = details.dataName,
-                    descriptionStyle = descriptionStyle,
+                    items(chartParameters) { details ->
+                        ChartDescription(
+                            chartColor = details.barColor,
+                            chartName = details.dataName,
+                            descriptionStyle = descriptionStyle,
+                        )
+                    }
+                }
+
+                BarChartContent(
+                    barsParameters = chartParameters,
+                    gridColor = gridColor,
+                    xAxisData = xAxisData,
+                    isShowGrid = isShowGrid,
+                    animateChart = animateChart,
+                    showGridWithSpacer = showGridWithSpacer,
+                    yAxisStyle = yAxisStyle,
+                    xAxisStyle = xAxisStyle,
+                    backgroundLineWidth = backgroundLineWidth,
+                    yAxisRange = yAxisRange,
+                    showXAxis = showXAxis,
+                    showYAxis = showYAxis,
+                    barWidth = barWidth,
+                    spaceBetweenBars = spaceBetweenBars,
+                    spaceBetweenGroups = spaceBetweenGroups
                 )
+            }
+            LegendPosition.BOTTOM -> {
+                BarChartContent(
+                    barsParameters = chartParameters,
+                    gridColor = gridColor,
+                    xAxisData = xAxisData,
+                    isShowGrid = isShowGrid,
+                    animateChart = animateChart,
+                    showGridWithSpacer = showGridWithSpacer,
+                    yAxisStyle = yAxisStyle,
+                    xAxisStyle = xAxisStyle,
+                    backgroundLineWidth = backgroundLineWidth,
+                    yAxisRange = yAxisRange,
+                    showXAxis = showXAxis,
+                    showYAxis = showYAxis,
+                    barWidth = barWidth,
+                    spaceBetweenBars = spaceBetweenBars,
+                    spaceBetweenGroups = spaceBetweenGroups,
+                    modifier = Modifier.weight(1f)
+
+                )
+
+                LazyRow(
+                    horizontalArrangement = horizontalArrangement,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                ) {
+
+                    items(chartParameters) { details ->
+                        ChartDescription(
+                            chartColor = details.barColor,
+                            chartName = details.dataName,
+                            descriptionStyle = descriptionStyle,
+                        )
+                    }
+                }
+            }
+            LegendPosition.DISAPPEAR -> {
+                BarChartContent(
+                    barsParameters = chartParameters,
+                    gridColor = gridColor,
+                    xAxisData = xAxisData,
+                    isShowGrid = isShowGrid,
+                    animateChart = animateChart,
+                    showGridWithSpacer = showGridWithSpacer,
+                    yAxisStyle = yAxisStyle,
+                    xAxisStyle = xAxisStyle,
+                    backgroundLineWidth = backgroundLineWidth,
+                    yAxisRange = yAxisRange,
+                    showXAxis = showXAxis,
+                    showYAxis = showYAxis,
+                    barWidth = barWidth,
+                    spaceBetweenBars = spaceBetweenBars,
+                    spaceBetweenGroups = spaceBetweenGroups
+                )
+
             }
         }
 
-        BarChartContent(
-            barsParameters = chartParameters,
-            gridColor = gridColor,
-            xAxisData = xAxisData,
-            isShowGrid = isShowGrid,
-            animateChart = animateChart,
-            showGridWithSpacer = showGridWithSpacer,
-            yAxisStyle = yAxisStyle,
-            xAxisStyle = xAxisStyle,
-            backgroundLineWidth = backgroundLineWidth,
-            yAxisRange = yAxisRange,
-            showXAxis = showXAxis,
-            showYAxis = showYAxis,
-            barWidth = barWidth,
-            spaceBetweenBars = spaceBetweenBars,
-            spaceBetweenGroups = spaceBetweenGroups
-        )
     }
 }

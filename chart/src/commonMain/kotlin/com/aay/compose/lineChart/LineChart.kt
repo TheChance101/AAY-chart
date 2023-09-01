@@ -1,6 +1,5 @@
 package com.aay.compose.lineChart
 
-import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -14,6 +13,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.aay.compose.baseComponents.ChartDescription
 import com.aay.compose.baseComponents.model.GridOrientation
+import com.aay.compose.baseComponents.model.LegendPosition
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.utils.ChartDefaultValues
 
@@ -36,50 +36,122 @@ fun LineChart(
     showXAxis: Boolean = ChartDefaultValues.showXAxis,
     showYAxis: Boolean = ChartDefaultValues.showyAxis,
     oneLineChart: Boolean = ChartDefaultValues.specialChart,
-    gridOrientation: GridOrientation = ChartDefaultValues.gridOrientation
+    gridOrientation: GridOrientation = ChartDefaultValues.gridOrientation,
+    legendPosition: LegendPosition = ChartDefaultValues.legendPosition
 ) {
     val clickedPoints = remember { mutableStateListOf<Pair<Float, Float>>() }
 
     Box(modifier.wrapContentHeight()) {
         Column() {
-            LazyRow(
-                horizontalArrangement = horizontalArrangement,
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
+            when(legendPosition){
+                LegendPosition.TOP -> {
+                    LazyRow(
+                        horizontalArrangement = horizontalArrangement,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    ) {
 
-                items(linesParameters) { details ->
-                    ChartDescription(
-                        chartColor = details.lineColor,
-                        chartName = details.label,
-                        descriptionStyle = descriptionStyle,
+                        items(linesParameters) { details ->
+                            ChartDescription(
+                                chartColor = details.lineColor,
+                                chartName = details.label,
+                                descriptionStyle = descriptionStyle,
+                            )
+                        }
+                    }
+
+                    ChartContent(
+                        modifier = if (chartRatio == 0f) Modifier.padding(top = 16.dp).wrapContentSize()
+                        else Modifier.padding(top = 16.dp).aspectRatio(chartRatio)
+                            .fillMaxSize(),
+                        linesParameters = linesParameters,
+                        gridColor = gridColor,
+                        xAxisData = xAxisData,
+                        isShowGrid = isGrid,
+                        barWidthPx = barWidthPx,
+                        animateChart = animateChart,
+                        showGridWithSpacer = showGridWithSpacer,
+                        yAxisStyle = yAxisStyle,
+                        xAxisStyle = xAxisStyle,
+                        yAxisRange = yAxisRange,
+                        showXAxis = showXAxis,
+                        showYAxis = showYAxis,
+                        specialChart = oneLineChart,
+                        onChartClick = { x, y ->
+                            clickedPoints.add(x to y)
+                        },
+                        clickedPoints = clickedPoints,
+                        gridOrientation = gridOrientation
+                    )
+                }
+                LegendPosition.BOTTOM -> {
+
+                    ChartContent(
+                        modifier = if (chartRatio == 0f) Modifier.padding(top = 16.dp).wrapContentSize().weight(1f)
+                        else Modifier.padding(top = 16.dp).aspectRatio(chartRatio)
+                            .fillMaxSize().weight(1f),
+                        linesParameters = linesParameters,
+                        gridColor = gridColor,
+                        xAxisData = xAxisData,
+                        isShowGrid = isGrid,
+                        barWidthPx = barWidthPx,
+                        animateChart = animateChart,
+                        showGridWithSpacer = showGridWithSpacer,
+                        yAxisStyle = yAxisStyle,
+                        xAxisStyle = xAxisStyle,
+                        yAxisRange = yAxisRange,
+                        showXAxis = showXAxis,
+                        showYAxis = showYAxis,
+                        specialChart = oneLineChart,
+                        onChartClick = { x, y ->
+                            clickedPoints.add(x to y)
+                        },
+                        clickedPoints = clickedPoints,
+                        gridOrientation = gridOrientation
+                    )
+                    LazyRow(
+                        horizontalArrangement = horizontalArrangement,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    ) {
+
+                        items(linesParameters) { details ->
+                            ChartDescription(
+                                chartColor = details.lineColor,
+                                chartName = details.label,
+                                descriptionStyle = descriptionStyle,
+                            )
+                        }
+                    }
+
+                }
+                LegendPosition.DISAPPEAR -> {
+                    ChartContent(
+                        modifier = if (chartRatio == 0f) Modifier.padding(top = 16.dp).wrapContentSize()
+                        else Modifier.padding(top = 16.dp).aspectRatio(chartRatio)
+                            .fillMaxSize(),
+                        linesParameters = linesParameters,
+                        gridColor = gridColor,
+                        xAxisData = xAxisData,
+                        isShowGrid = isGrid,
+                        barWidthPx = barWidthPx,
+                        animateChart = animateChart,
+                        showGridWithSpacer = showGridWithSpacer,
+                        yAxisStyle = yAxisStyle,
+                        xAxisStyle = xAxisStyle,
+                        yAxisRange = yAxisRange,
+                        showXAxis = showXAxis,
+                        showYAxis = showYAxis,
+                        specialChart = oneLineChart,
+                        onChartClick = { x, y ->
+                            clickedPoints.add(x to y)
+                        },
+                        clickedPoints = clickedPoints,
+                        gridOrientation = gridOrientation
                     )
                 }
             }
 
-            ChartContent(
-                modifier = if (chartRatio == 0f) Modifier.padding(top = 16.dp).wrapContentSize()
-                else Modifier.padding(top = 16.dp).aspectRatio(chartRatio)
-                    .fillMaxSize(),
-                linesParameters = linesParameters,
-                gridColor = gridColor,
-                xAxisData = xAxisData,
-                isShowGrid = isGrid,
-                barWidthPx = barWidthPx,
-                animateChart = animateChart,
-                showGridWithSpacer = showGridWithSpacer,
-                yAxisStyle = yAxisStyle,
-                xAxisStyle = xAxisStyle,
-                yAxisRange = yAxisRange,
-                showXAxis = showXAxis,
-                showYAxis = showYAxis,
-                specialChart = oneLineChart,
-                onChartClick = { x, y ->
-                    clickedPoints.add(x to y)
-                },
-                clickedPoints = clickedPoints,
-                gridOrientation = gridOrientation
-            )
         }
     }
 }

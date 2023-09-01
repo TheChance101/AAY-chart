@@ -8,6 +8,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aay.compose.barChart.model.BarParameters
 import com.aay.compose.baseComponents.model.GridOrientation
+import com.aay.compose.baseComponents.model.LegendPosition
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
 
@@ -56,6 +57,5 @@ internal object ChartDefaultValues {
     const val showyAxis = true
 
     val gridOrientation = GridOrientation.HORIZONTAL
-
-
+    val legendPosition = LegendPosition.TOP
 }
