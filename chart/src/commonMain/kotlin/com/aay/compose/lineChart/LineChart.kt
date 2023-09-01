@@ -16,7 +16,33 @@ import com.aay.compose.baseComponents.model.GridOrientation
 import com.aay.compose.baseComponents.model.LegendPosition
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.utils.ChartDefaultValues
-
+/**
+ * Composable function to render a line chart with optional legends.
+ *
+ * @param modifier Modifier for configuring the layout and appearance of the line chart.
+ * @param linesParameters List of LineParameters describing the data and style for each line in the chart.
+ * @param gridColor Color of the grid lines (default is Gray).
+ * @param xAxisData List of labels for the X-axis.
+ * @param isGrid Flag to determine whether to display grid lines (default is true).
+ * @param barWidthPx Width of the grid lines (default is 1.0).
+ * @param animateChart Flag to enable chart animations (default is true).
+ * @param showGridWithSpacer Flag to add background spacing when showing grid lines (default is true).
+ * @param descriptionStyle TextStyle for configuring the appearance of chart description (legend) text.
+ * @param yAxisStyle TextStyle for configuring the appearance of the Y-axis labels.
+ * @param xAxisStyle TextStyle for configuring the appearance of the X-axis labels.
+ * @param chartRatio Aspect ratio of the chart (default is 0 for automatic sizing).
+ * @param horizontalArrangement Horizontal arrangement for legend items (default is [Arrangement.Center]).
+ * @param yAxisRange Range of values for the Y-axis (default is 0 to 100).
+ * @param showXAxis Flag to determine whether to display the X-axis (default is true).
+ * @param showYAxis Flag to determine whether to display the Y-axis (default is true).
+ * @param oneLineChart Flag to specify if the chart should display only one line (default is false).
+ * @param gridOrientation Orientation of grid lines (default is [GridOrientation.HORIZONTAL]).
+ * @param legendPosition Position of the legend within the chart (default is [LegendPosition.TOP]).
+ *
+ * @see LineParameters
+ * @see LegendPosition
+ * @see GridOrientation
+ */
 @Composable
 fun LineChart(
     modifier: Modifier = Modifier,
