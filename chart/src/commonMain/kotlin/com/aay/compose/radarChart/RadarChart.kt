@@ -12,7 +12,21 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
 import com.aay.compose.radarChart.model.NetLinesStyle
 import com.aay.compose.radarChart.model.Polygon
-
+/**
+ * Composable function to render a radar chart with configurable radar labels, net lines, and polygons.
+ *
+ * @param radarLabels List of labels for the radar chart's axes.
+ * @param labelsStyle TextStyle for configuring the appearance of radar labels.
+ * @param netLinesStyle Style for configuring the appearance of the radar net lines.
+ * @param scalarSteps Number of scalar steps for the radar chart.
+ * @param scalarValue Scalar value to determine the scale of the radar chart.
+ * @param scalarValuesStyle TextStyle for configuring the appearance of scalar value labels.
+ * @param polygons List of polygons to be displayed on the radar chart.
+ * @param modifier Modifier for configuring the layout and appearance of the radar chart.
+ *
+ * @see Polygon
+ * @see NetLinesStyle
+ */
 @OptIn(ExperimentalTextApi::class)
 @Composable
 fun RadarChart(

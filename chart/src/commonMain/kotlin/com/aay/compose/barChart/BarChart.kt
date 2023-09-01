@@ -14,7 +14,31 @@ import com.aay.compose.barChart.model.BarParameters
 import com.aay.compose.baseComponents.ChartDescription
 import com.aay.compose.baseComponents.model.LegendPosition
 import com.aay.compose.utils.ChartDefaultValues
-
+/**
+ * Composable function to render a bar chart with an optional legend.
+ *
+ * @param chartParameters List of BarParameters describing the data for the bar chart.
+ * @param gridColor Color of the grid lines (default is Gray).
+ * @param xAxisData List of labels for the X-axis.
+ * @param isShowGrid Flag to determine whether to display grid lines (default is true).
+ * @param animateChart Flag to enable chart animations (default is true).
+ * @param showGridWithSpacer Flag to add background spacing when showing grid lines (default is true).
+ * @param descriptionStyle TextStyle for configuring the appearance of chart description (legend) text.
+ * @param yAxisStyle TextStyle for configuring the appearance of the Y-axis labels.
+ * @param xAxisStyle TextStyle for configuring the appearance of the X-axis labels.
+ * @param horizontalArrangement Horizontal arrangement for legend items (default is [Arrangement.Center]).
+ * @param backgroundLineWidth Width of the background grid lines (default is 1.0).
+ * @param yAxisRange Range of values for the Y-axis (default is 0 to 100).
+ * @param showXAxis Flag to determine whether to display the X-axis (default is true).
+ * @param showYAxis Flag to determine whether to display the Y-axis (default is true).
+ * @param barWidth Width of the bars in the chart (default is automatic).
+ * @param spaceBetweenBars Space between bars within the same group (default is automatic).
+ * @param spaceBetweenGroups Space between groups of bars (default is automatic).
+ * @param legendPosition Position of the legend within the chart (default is [LegendPosition.TOP]).
+ *
+ * @see BarParameters
+ * @see LegendPosition
+ */
 @Composable
 fun BarChart(
     chartParameters: List<BarParameters> = ChartDefaultValues.barParameters,

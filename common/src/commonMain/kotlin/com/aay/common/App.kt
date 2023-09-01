@@ -15,7 +15,7 @@ fun App() {
 //    DonutChartSample()
 
     /** sample of Pie Chart **/
-//    PieChartSample()
+    PieChartSample()
 
     /** Sample of Radar Chart **/
 //    RadarChartSample()
