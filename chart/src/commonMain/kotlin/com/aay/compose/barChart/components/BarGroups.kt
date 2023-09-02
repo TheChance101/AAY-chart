@@ -17,6 +17,7 @@ internal fun DrawScope.drawBarGroups(
     maxWidth: Dp,
     height: Dp,
     animatedProgress: Animatable<Float, AnimationVector1D>,
+    barCornerRadius: Dp
 ) {
 
     barsParameters.forEachIndexed { barIndex, bar ->
@@ -38,7 +39,7 @@ internal fun DrawScope.drawBarGroups(
                     width = barWidth.toPx(),
                     height = barLength.toPx()
                 ),
-                cornerRadius = CornerRadius(50.dp.toPx(), 50.dp.toPx())
+                cornerRadius = CornerRadius(barCornerRadius.toPx())
             )
         }
     }
