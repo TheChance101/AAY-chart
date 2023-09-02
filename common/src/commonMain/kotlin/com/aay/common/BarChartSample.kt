@@ -52,7 +52,8 @@ fun BarChartSample() {
             ),
             yAxisRange = 15,
             barWidth = 20.dp,
-            legendPosition = LegendPosition.TOP
+            legendPosition = LegendPosition.TOP,
+            barCornerRadius = 4.dp
         )
     }
 }
