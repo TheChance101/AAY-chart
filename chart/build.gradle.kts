@@ -25,6 +25,7 @@ val dokkaJar by tasks.creating(Jar::class) {
     from(tasks.dokkaHtml)
 }
 
+
 kotlin {
     android()
     jvm("desktop") {
@@ -105,6 +106,8 @@ publishing {
                     name.set("AAY-Charts")
                     description.set("Revenue Monster Kotlin Multiplatform SDK")
                     url.set("https://github.com/TheChance101/AAY-chart")
+
+
 
                     scm {
                         connection.set("scm:git:git://$gitUrl")
