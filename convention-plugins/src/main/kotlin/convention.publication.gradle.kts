@@ -62,7 +62,7 @@ publishing {
         // Provide artifacts information requited by Maven Central
         pom {
             name.set("AAY-Chart")
-            description.set("Sample Kotlin Multiplatform library (jvm + ios + js) test")
+            description.set("Multiplatform library for desktop and android")
             url.set("https://github.com/TheChance101/AAY-chart")
 
             licenses {

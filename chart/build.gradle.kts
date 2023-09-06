@@ -7,13 +7,16 @@ plugins {
     id("convention.publication")
 }
 group = "io.github.thechance101"
-version = "Beta-1.0.0"
+version = "Beta-0.0.1"
 
 kotlin {
-    android()
+    android {
+        publishLibraryVariants("release","debug")
+    }
     jvm("desktop") {
         jvmToolchain(11)
     }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -51,6 +54,7 @@ android {
     compileSdkVersion(34)
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
+        manifestPlaceholders["TheChance101"] = "io.github.thechance101"
         minSdkVersion(21)
         targetSdkVersion(34)
     }
@@ -58,6 +62,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+        }
+        create("staging") {
+            initWith(getByName("release"))
+            manifestPlaceholders["TheChance101"] = "io.github.thechance101"
+        }
+    }
 }
-
-
