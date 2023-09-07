@@ -43,7 +43,8 @@ internal fun BarChartContent(
     barWidth: Dp,
     spaceBetweenBars: Dp,
     spaceBetweenGroups: Dp,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    barCornerRadius: Dp
 ) {
 
     val textMeasure = rememberTextMeasurer()
@@ -131,7 +132,8 @@ internal fun BarChartContent(
                     spaceBetweenBars = spaceBetweenBars,
                     maxWidth = maxWidth,
                     height = maxHeight.dp,
-                    animatedProgress = animatedProgress
+                    animatedProgress = animatedProgress,
+                    barCornerRadius = barCornerRadius
                 )
 
                 xAxisDrawing(

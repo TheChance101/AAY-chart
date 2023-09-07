@@ -14,6 +14,7 @@ import com.aay.compose.barChart.model.BarParameters
 import com.aay.compose.baseComponents.ChartDescription
 import com.aay.compose.baseComponents.model.LegendPosition
 import com.aay.compose.utils.ChartDefaultValues
+
 /**
  * Composable function to render a bar chart with an optional legend.
  *
@@ -35,6 +36,7 @@ import com.aay.compose.utils.ChartDefaultValues
  * @param spaceBetweenBars Space between bars within the same group (default is automatic).
  * @param spaceBetweenGroups Space between groups of bars (default is automatic).
  * @param legendPosition Position of the legend within the chart (default is [LegendPosition.TOP]).
+ * @param barCornerRadius radius of the bar corner in the chart (default is zero).
  *
  * @see BarParameters
  * @see LegendPosition
@@ -58,10 +60,11 @@ fun BarChart(
     barWidth: Dp = ChartDefaultValues.barWidth,
     spaceBetweenBars: Dp = ChartDefaultValues.spaceBetweenBars,
     spaceBetweenGroups: Dp = ChartDefaultValues.spaceBetweenGroups,
-    legendPosition: LegendPosition = ChartDefaultValues.legendPosition
+    legendPosition: LegendPosition = ChartDefaultValues.legendPosition,
+    barCornerRadius: Dp = ChartDefaultValues.barCornerRadius
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        when(legendPosition){
+        when (legendPosition) {
             LegendPosition.TOP -> {
                 LazyRow(
                     horizontalArrangement = horizontalArrangement,
@@ -94,9 +97,11 @@ fun BarChart(
                     showYAxis = showYAxis,
                     barWidth = barWidth,
                     spaceBetweenBars = spaceBetweenBars,
-                    spaceBetweenGroups = spaceBetweenGroups
+                    spaceBetweenGroups = spaceBetweenGroups,
+                    barCornerRadius = barCornerRadius
                 )
             }
+
             LegendPosition.BOTTOM -> {
                 BarChartContent(
                     barsParameters = chartParameters,
@@ -114,8 +119,8 @@ fun BarChart(
                     barWidth = barWidth,
                     spaceBetweenBars = spaceBetweenBars,
                     spaceBetweenGroups = spaceBetweenGroups,
-                    modifier = Modifier.weight(1f)
-
+                    modifier = Modifier.weight(1f),
+                    barCornerRadius = barCornerRadius
                 )
 
                 LazyRow(
@@ -134,6 +139,7 @@ fun BarChart(
                     }
                 }
             }
+
             LegendPosition.DISAPPEAR -> {
                 BarChartContent(
                     barsParameters = chartParameters,
@@ -150,7 +156,8 @@ fun BarChart(
                     showYAxis = showYAxis,
                     barWidth = barWidth,
                     spaceBetweenBars = spaceBetweenBars,
-                    spaceBetweenGroups = spaceBetweenGroups
+                    spaceBetweenGroups = spaceBetweenGroups,
+                    barCornerRadius = barCornerRadius
                 )
 
             }

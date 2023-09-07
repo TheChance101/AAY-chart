@@ -293,6 +293,9 @@ fun RadarChartSample() {
 }
 
 ```
+
+![charts](/assets/radar_chart.png)
+
 ## Contributors
 <a href="https://github.com/TheChance101/AAY-chart/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=TheChance101/AAY-chart" />
