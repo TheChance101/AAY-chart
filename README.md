@@ -1,20 +1,23 @@
+
 <div align="center">
  <h1>AAY-chart</h1>
 </div>
 
-<div align="center">
+<div align="left">
 The library contains several chart composables for usage in <strong>Kotlin Multiplatform</strong> projects and <strong>Android Native</strong>.   
-Currently supported platforms are <strong>Desktop</strong> <strong>Android</strong> and soon <strong>IOS</strong>.
+Currently supported platforms are <strong>Desktop</strong> <strong>Android</strong> and soon <strong>IOS </strong></strong>
 </div>
+
+&nbsp;
+
+[![API](https://img.shields.io/badge/API-21%2B-green.svg?style=flat)](https://android-arsenal.com/api?level=21)
+[![linkedin](https://img.shields.io/badge/linkedin-blue.svg?style=flat)](https://www.linkedin.com/company/thechance101/)
+![](https://img.shields.io/github/actions/workflow/status/patrykandpatrick/vico/build-debug-apk.yml?branch=master)
+![Release](https://img.shields.io/github/release/TheChance101/AAY-chart.svg?style=flat)
+
 
 ![charts](/assets/allCharts.png)
 
-[![API](https://img.shields.io/badge/API-14%2B-green.svg?style=flat)](https://android-arsenal.com/api?level=14)
-[![linkedin](https://img.shields.io/badge/linkedin-blue.svg?style=flat)](https://www.linkedin.com/company/thechance101/)
-![](https://img.shields.io/github/actions/workflow/status/patrykandpatrick/vico/build-debug-apk.yml?branch=master)
-
-
-latest_release = ![Release](https://img.shields.io/github/release/TheChance101/AAY-chart.svg?style=flat)
 
 ## How to use?
 
@@ -300,8 +303,6 @@ fun RadarChartSample() {
 <a href="https://github.com/TheChance101/AAY-chart/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=TheChance101/AAY-chart" />
 </a>
-
-Made with [contrib.rocks](https://contrib.rocks).
 
 ## MIT License
 
