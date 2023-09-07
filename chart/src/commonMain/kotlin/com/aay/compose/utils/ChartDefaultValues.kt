@@ -58,4 +58,5 @@ internal object ChartDefaultValues {
 
     val gridOrientation = GridOrientation.HORIZONTAL
     val legendPosition = LegendPosition.TOP
+    val barCornerRadius = 0.dp
 }
