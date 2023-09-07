@@ -20,10 +20,7 @@ Add dependency in your module `build.gradle`
 
 ```kotlin
 dependencies {
-    implementation ""
-
-    implementation project(':charts')
-    implementation()
+    implementation("io.github.thechance101:chart:Beta-0.0.1")
 }
 ```
 
