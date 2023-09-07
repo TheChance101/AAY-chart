@@ -304,8 +304,6 @@ fun RadarChartSample() {
   <img src="https://contrib.rocks/image?repo=TheChance101/AAY-chart" />
 </a>
 
-Made with [contrib.rocks](https://contrib.rocks).
-
 ## MIT License
 
     Copyright (c) 2023 The Chance
