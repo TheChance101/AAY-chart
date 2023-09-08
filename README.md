@@ -1,18 +1,23 @@
+
 <div align="center">
  <h1>AAY-chart</h1>
 </div>
 
-<div align="center">
-Library contains several chart composables for usage in Kotlin Multiplatform projects.   
-Currently supported platforms are <strong>Desktop</strong> and <strong>Android</strong>.
+<div align="left">
+The library contains several chart composables for usage in <strong>Kotlin Multiplatform</strong> projects and <strong>Android Native</strong>.   
+Currently supported platforms are <strong>Desktop</strong> <strong>Android</strong> and soon <strong>IOS </strong></strong>
 </div>
 
-<div align="center">
-  <br/><em>Brought with</em> &nbsp;❤️ <em>by: Jewel Team &nbsp;:gem:</em>
-</div>
+&nbsp;
+
+[![API](https://img.shields.io/badge/API-21%2B-green.svg?style=flat)](https://android-arsenal.com/api?level=21)
+[![linkedin](https://img.shields.io/badge/linkedin-blue.svg?style=flat)](https://www.linkedin.com/company/thechance101/)
+![](https://img.shields.io/github/actions/workflow/status/patrykandpatrick/vico/build-debug-apk.yml?branch=master)
+![Release](https://img.shields.io/github/release/TheChance101/AAY-chart.svg?style=flat)
 
 
 ![charts](/assets/allCharts.png)
+
 
 ## How to use?
 
@@ -20,10 +25,7 @@ Add dependency in your module `build.gradle`
 
 ```kotlin
 dependencies {
-    implementation ""
-
-    implementation project(':charts')
-    implementation()
+    implementation("io.github.thechance101:chart:$latest_release")
 }
 ```
 
@@ -294,6 +296,13 @@ fun RadarChartSample() {
 }
 
 ```
+
+![charts](/assets/radar_chart.png)
+
+## Contributors
+<a href="https://github.com/TheChance101/AAY-chart/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=TheChance101/AAY-chart" />
+</a>
 
 ## MIT License
 
