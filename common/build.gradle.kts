@@ -1,4 +1,3 @@
-import org.jetbrains.compose.compose
 
 plugins {
     kotlin("multiplatform")
@@ -17,7 +16,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":chart"))
+                implementation("io.github.thechance101:chart:Beta-0.0.1")
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material)
