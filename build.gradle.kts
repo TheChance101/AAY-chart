@@ -9,6 +9,7 @@ allprojects {
 
 plugins {
     kotlin("multiplatform") apply false
+    kotlin("native.cocoapods") version "1.8.0"
     kotlin("android") apply false
     id("com.android.application") apply false
     id("com.android.library") apply false

@@ -5,6 +5,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.dokka") version "1.5.0"
     id("convention.publication")
+    id ("org.jetbrains.kotlin.native.cocoapods") version "1.8.0"
 }
 group = "io.github.thechance101"
 version = "Beta-0.0.1"
@@ -15,6 +16,20 @@ kotlin {
     }
     jvm("desktop") {
         jvmToolchain(11)
+    }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+    cocoapods {
+        version = "1.0.0"
+        summary = "Some description for the chart Module"
+        homepage = "Link to the chart Module homepage"
+        ios.deploymentTarget = "14.1"
+        podfile = project.file("../iosApp/Podfile")
+        framework {
+            baseName = "chart"
+            isStatic = true
+        }
     }
 
     sourceSets {
@@ -47,6 +62,20 @@ kotlin {
             }
         }
         val desktopTest by getting
+
+
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation("io.ktor:ktor-client-darwin:2.3.3")
+            }
+        }
     }
 }
 
@@ -73,3 +102,5 @@ android {
         }
     }
 }
+
+
