@@ -1,4 +1,3 @@
-
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
@@ -11,10 +10,20 @@ version = "Beta-0.0.1"
 
 kotlin {
     android {
-        publishLibraryVariants("release","debug")
+        publishLibraryVariants("release", "debug")
     }
     jvm("desktop") {
         jvmToolchain(11)
+    }
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "chart"
+            isStatic = true
+        }
     }
 
     sourceSets {
@@ -25,6 +34,7 @@ kotlin {
                 api(compose.material)
             }
         }
+
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -39,6 +49,18 @@ kotlin {
         val androidTest by getting {
             dependencies {
                 implementation("junit:junit:4.13.2")
+            }
+        }
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation("io.ktor:ktor-client-darwin:2.3.3")
             }
         }
         val desktopMain by getting {

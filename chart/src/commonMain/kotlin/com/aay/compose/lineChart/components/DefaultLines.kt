@@ -82,10 +82,10 @@ private fun DrawScope.drawLineAsDefault(
         val yTextLayoutResult = textMeasure.measure(
             text = AnnotatedString(upperValue.formatToThousandsMillionsBillions()),
         ).size.width
-
+        val textSpace = yTextLayoutResult - (yTextLayoutResult/4)
         val info = lineParameter.data[index]
         val ratio = (info - lowerValue) / (upperValue - lowerValue)
-        val startXPoint = (yTextLayoutResult * 1.5.toFloat().toDp()) + (index * xRegionWidth)
+        val startXPoint = (textSpace * 1.5.toFloat().toDp()) + (index * xRegionWidth)
         val startYPoint =
             (height.toPx() + 8.dp.toPx() - spacingY.toPx() - (ratio * (height.toPx() - spacingY.toPx())))
 

@@ -35,7 +35,7 @@ internal fun DrawScope.grid(
     val yTextLayoutResult = textMeasurer.measure(
         text = AnnotatedString(upperValue.formatToThousandsMillionsBillions()),
     ).size.width
-
+    val textSpace = yTextLayoutResult - (yTextLayoutResult/4)
 
     if (isShowGrid) {
         when (gridOrientation) {
@@ -45,7 +45,7 @@ internal fun DrawScope.grid(
                 gridColor = gridColor,
                 backgroundLineWidth = backgroundLineWidth,
                 showGridWithSpacer = showGridWithSpacer,
-                yTextLayoutResult = yTextLayoutResult
+                yTextLayoutResult = textSpace
             )
 
             GridOrientation.VERTICAL -> drawVerticalGrid(
@@ -54,7 +54,7 @@ internal fun DrawScope.grid(
                 gridColor = gridColor,
                 backgroundLineWidth = backgroundLineWidth,
                 showGridWithSpacer = showGridWithSpacer,
-                yTextLayoutResult = yTextLayoutResult
+                yTextLayoutResult = textSpace
             )
 
             else -> {
@@ -65,7 +65,7 @@ internal fun DrawScope.grid(
                     xEndLength = 38.dp.toPx(),
                     backgroundLineWidth = backgroundLineWidth,
                     showGridWithSpacer = showGridWithSpacer,
-                    yTextLayoutResult = yTextLayoutResult
+                    yTextLayoutResult = textSpace
                 )
 
                 drawVerticalGrid(
@@ -75,7 +75,7 @@ internal fun DrawScope.grid(
                     yEndLength = 9f.toDp(),
                     backgroundLineWidth = backgroundLineWidth,
                     showGridWithSpacer = showGridWithSpacer,
-                    yTextLayoutResult = yTextLayoutResult
+                    yTextLayoutResult = textSpace
                 )
             }
 
@@ -90,11 +90,13 @@ private fun DrawScope.drawHorizontalGrid(
     xEndLength: Float = 0f,
     backgroundLineWidth: Float,
     showGridWithSpacer: Boolean,
-    yTextLayoutResult: Int
+    yTextLayoutResult: Int,
 ) {
 
     val xAxisMaxValue = size.width
     val yAxisList = mutableListOf<Float>()
+
+    val textSpace = yTextLayoutResult - (yTextLayoutResult/4)
 
     (0..yAxisRange).forEach { i ->
         yAxisList.add(
@@ -107,7 +109,7 @@ private fun DrawScope.drawHorizontalGrid(
             gridColor = gridColor,
             xStart = (yTextLayoutResult * 1.5.toFloat().toDp()).toPx(),
             yStart = yAlignmentValue,
-            xEnd = xAxisMaxValue - xEndLength,
+            xEnd = xAxisMaxValue - (textSpace/0.9.toFloat().toDp().toPx()),
             yEnd = yAlignmentValue,
             backgroundLineWidth = backgroundLineWidth,
             showGridWithSpacer = showGridWithSpacer

@@ -87,16 +87,16 @@ fun DrawScope.drawLineAsQuadratic(
         val yTextLayoutResult = textMeasurer.measure(
             text = AnnotatedString(upperValue.formatToThousandsMillionsBillions()),
         ).size.width
-
+        val textSpace = yTextLayoutResult - (yTextLayoutResult/4)
 
         val info = lineParameter.data[index]
         val nextInfo = lineParameter.data.getOrNull(index + 1) ?: lineParameter.data.last()
         val firstRatio = (info - lowerValue) / (upperValue - lowerValue)
         val secondRatio = (nextInfo - lowerValue) / (upperValue - lowerValue)
 
-        val xFirstPoint = (yTextLayoutResult * 1.5.toFloat().toDp()) + index * xRegionWidth
+        val xFirstPoint = (textSpace * 1.5.toFloat().toDp()) + index * xRegionWidth
         val xSecondPoint =
-            (yTextLayoutResult * 1.5.toFloat().toDp()) + (index + checkLastIndex(
+            (textSpace * 1.5.toFloat().toDp()) + (index + checkLastIndex(
                 lineParameter.data,
                 index
             )) * xRegionWidth

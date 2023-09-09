@@ -45,12 +45,12 @@ internal fun DrawScope.drawPedigreeChart(
         val angleInRadians = (startArcWithoutAnimation + arcWithoutAnimation / 2).degreeToAngle
         if (pieChart == ChartTypes.PIE_CHART) {
             val lineStart = Offset(
-                center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 0.8f,
-                center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 0.8f
+                (center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 0.8f).toFloat(),
+                (center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 0.8f).toFloat()
             )
             val lineEnd = Offset(
-                center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 1.1f,
-                center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 1.1f
+                (center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 1.1f).toFloat(),
+                (center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 1.1f).toFloat()
             )
             val arcOffset = Offset(center.x - (minValue / 2), center.y - (minValue / 2))
             val region = pieValueWithRatio.subList(0, index).sum()
@@ -88,12 +88,12 @@ internal fun DrawScope.drawPedigreeChart(
 
         } else {
             val lineStart = Offset(
-                center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 0.8f,
-                center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 0.8f
+                (center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 0.8f).toFloat(),
+                (center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 0.8f).toFloat()
             )
             val lineEnd = Offset(
-                center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 1.1f,
-                center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 1.1f
+                (center.x + (outerCircularRadius * 1.18f) * cos(angleInRadians) * 1.1f).toFloat(),
+                (center.y + (outerCircularRadius * 1.18f) * sin(angleInRadians) * 1.1f).toFloat()
             )
             val arcOffset = Offset(center.x - (minValue / 2), center.y - (minValue / 2))
             val region = pieValueWithRatio.subList(0, index).sum()
@@ -132,7 +132,7 @@ internal fun DrawScope.drawPedigreeChart(
 }
 
 private val Float.degreeToAngle
-    get() = (this * Math.PI / 180f).toFloat()
+    get() = (this * (22/7) / 180f)
 
 private fun calculateAngle(dataLength: Float, totalLength: Float, progress: Float): Float =
     -360F * dataLength * progress / totalLength
