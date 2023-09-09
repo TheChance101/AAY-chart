@@ -109,7 +109,7 @@ private fun DrawScope.drawHorizontalGrid(
             gridColor = gridColor,
             xStart = (yTextLayoutResult * 1.5.toFloat().toDp()).toPx(),
             yStart = yAlignmentValue,
-            xEnd = xAxisMaxValue - (textSpace/1.18f.toDp().toPx()),
+            xEnd = xAxisMaxValue - (textSpace/0.9.toFloat().toDp().toPx()),
             yEnd = yAlignmentValue,
             backgroundLineWidth = backgroundLineWidth,
             showGridWithSpacer = showGridWithSpacer
