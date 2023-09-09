@@ -11,7 +11,6 @@ fun Float.format(status:String): String {
 
 internal fun Float.formatToThousandsMillionsBillions(): String {
     val absValue = abs(this)
-    println(absValue)
     return when {
         absValue < 1000 -> this.format("")
         absValue < 1_000_000 -> (this / 1_000).format("K")

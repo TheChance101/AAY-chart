@@ -90,11 +90,13 @@ private fun DrawScope.drawHorizontalGrid(
     xEndLength: Float = 0f,
     backgroundLineWidth: Float,
     showGridWithSpacer: Boolean,
-    yTextLayoutResult: Int
+    yTextLayoutResult: Int,
 ) {
 
     val xAxisMaxValue = size.width
     val yAxisList = mutableListOf<Float>()
+
+    val textSpace = yTextLayoutResult - (yTextLayoutResult/4)
 
     (0..yAxisRange).forEach { i ->
         yAxisList.add(
@@ -107,7 +109,7 @@ private fun DrawScope.drawHorizontalGrid(
             gridColor = gridColor,
             xStart = (yTextLayoutResult * 1.5.toFloat().toDp()).toPx(),
             yStart = yAlignmentValue,
-            xEnd = xAxisMaxValue - xEndLength,
+            xEnd = xAxisMaxValue - (textSpace/1.18f.toDp().toPx()),
             yEnd = yAlignmentValue,
             backgroundLineWidth = backgroundLineWidth,
             showGridWithSpacer = showGridWithSpacer
