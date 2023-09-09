@@ -1,22 +1,23 @@
 package com.aay.compose.utils
 
-import java.math.BigDecimal
+import kotlin.math.abs
+
+fun Float.format(status:String): String {
+    val intValue = this.toInt()
+    val floatValue = this - intValue
+        val decimalPart = (floatValue * 10).toInt()
+        return "$intValue.$decimalPart$status"
+}
 
 internal fun Float.formatToThousandsMillionsBillions(): String {
-    val value = BigDecimal(this.toDouble())
-    val absValue = value.abs()
+    val absValue = abs(this)
+    println(absValue)
     return when {
-        absValue < BigDecimal.valueOf(1000) -> String.format("%.1f", value)
-        absValue < BigDecimal.valueOf(1000000) -> "${String.format("%.1f", value.divide(BigDecimal.valueOf(1000)))}k"
-        absValue < BigDecimal.valueOf(1000000000) -> "${String.format("%.1f", value.divide(BigDecimal.valueOf(1000000)))}M"
-        absValue < BigDecimal.valueOf(1000000000000) -> "${String.format("%.1f", value.divide(BigDecimal.valueOf(1000000000)))}B"
-        absValue < BigDecimal.valueOf(1000000000000000) -> "${String.format("%.1f", value.divide(BigDecimal.valueOf(1000000000000)))}T"
-        absValue < BigDecimal.valueOf(1e18) -> "${String.format("%.1f", value.divide(BigDecimal.valueOf(1e15)))}Q"
-        absValue < BigDecimal.valueOf(1e21) -> "${String.format("%.1f", value.divide(BigDecimal.valueOf(1e18)))}KQ"
-        absValue < BigDecimal.valueOf(1e24) -> "${String.format("%.1f", value.divide(BigDecimal.valueOf(1e21)))}MQ"
-        absValue < BigDecimal.valueOf(1e27) -> "${String.format("%.1f", value.divide(BigDecimal.valueOf(1e24)))}BQ"
-        absValue < BigDecimal.valueOf(1e30) -> "${String.format("%.1f", value.divide(BigDecimal.valueOf(1e27)))}TQ"
-        absValue < BigDecimal.valueOf(1e33) -> "${String.format("%.1f", value.divide(BigDecimal.valueOf(1e30)))}QQ"
+        absValue < 1000 -> this.format("")
+        absValue < 1_000_000 -> (this / 1_000).format("K")
+        absValue < 1_000_000_000 -> (this / 1_000_000).format("M")
+        absValue < 1_000_000_000_000 -> (this / 1_000_000_000).format("B")
         else -> "Infinity"
     }
 }
+
