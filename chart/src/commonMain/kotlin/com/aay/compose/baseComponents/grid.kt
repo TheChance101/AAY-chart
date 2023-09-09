@@ -35,7 +35,7 @@ internal fun DrawScope.grid(
     val yTextLayoutResult = textMeasurer.measure(
         text = AnnotatedString(upperValue.formatToThousandsMillionsBillions()),
     ).size.width
-
+    val textSpace = yTextLayoutResult - (yTextLayoutResult/4)
 
     if (isShowGrid) {
         when (gridOrientation) {
@@ -45,7 +45,7 @@ internal fun DrawScope.grid(
                 gridColor = gridColor,
                 backgroundLineWidth = backgroundLineWidth,
                 showGridWithSpacer = showGridWithSpacer,
-                yTextLayoutResult = yTextLayoutResult
+                yTextLayoutResult = textSpace
             )
 
             GridOrientation.VERTICAL -> drawVerticalGrid(
@@ -54,7 +54,7 @@ internal fun DrawScope.grid(
                 gridColor = gridColor,
                 backgroundLineWidth = backgroundLineWidth,
                 showGridWithSpacer = showGridWithSpacer,
-                yTextLayoutResult = yTextLayoutResult
+                yTextLayoutResult = textSpace
             )
 
             else -> {
@@ -65,7 +65,7 @@ internal fun DrawScope.grid(
                     xEndLength = 38.dp.toPx(),
                     backgroundLineWidth = backgroundLineWidth,
                     showGridWithSpacer = showGridWithSpacer,
-                    yTextLayoutResult = yTextLayoutResult
+                    yTextLayoutResult = textSpace
                 )
 
                 drawVerticalGrid(
@@ -75,7 +75,7 @@ internal fun DrawScope.grid(
                     yEndLength = 9f.toDp(),
                     backgroundLineWidth = backgroundLineWidth,
                     showGridWithSpacer = showGridWithSpacer,
-                    yTextLayoutResult = yTextLayoutResult
+                    yTextLayoutResult = textSpace
                 )
             }
 
