@@ -5,7 +5,7 @@
 
 <div align="left">
 The library contains several chart composables for usage in <strong>Kotlin Multiplatform</strong> projects and <strong>Android Native</strong>.   
-Currently supported platforms are <strong>Desktop</strong> <strong>Android</strong> and soon <strong>IOS </strong></strong>
+Currently supported platforms are <strong>Desktop</strong> <strong>Android</strong> and  <strong>IOS </strong></strong>
 </div>
 
 &nbsp;
