@@ -53,17 +53,6 @@ kotlin {
 
         }
     }
-    cocoapods {
-        summary = "Common library for the KaMP starter kit"
-        homepage = "https://github.com/touchlab/KaMPKit"
-        framework {
-            isStatic = false // SwiftUI preview requires dynamic framework
-            linkerOpts("-lsqlite3")
-            export("co.touchlab:kermit-simple")
-        }
-        ios.deploymentTarget = "12.4"
-        podfile = project.file("../ios/Podfile")
-    }
 }
 
 android {
