@@ -1,6 +1,8 @@
 package com.aay.compose.radarChart
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -44,40 +46,44 @@ fun RadarChart(
 
     validateRadarChartConfiguration(radarLabels, scalarValue, polygons, scalarSteps)
 
-    Canvas(modifier = modifier) {
+    Column (modifier) {
+        Canvas(modifier = Modifier.fillMaxSize().weight(1f)) {
 
-        val labelWidth = measureMaxLabelWidth(radarLabels, labelsStyle, textMeasurer)
-        val radius = (size.minDimension / 2) - (labelWidth + 10.toDp().toPx())
-        val labelRadius = (size.minDimension / 2) - (labelWidth / 2)
-        val numLines = radarLabels.size
-        val radarChartConfig =
-            calculateRadarConfig(labelRadius, radius, size, numLines, scalarSteps)
+            val labelWidth = measureMaxLabelWidth(radarLabels, labelsStyle, textMeasurer)
+            val radius = (size.minDimension / 2) - (labelWidth + 10.toDp().toPx())
+            val labelRadius = (size.minDimension / 2) - (labelWidth / 2)
+            val numLines = radarLabels.size
+            val radarChartConfig =
+                calculateRadarConfig(labelRadius, radius, size, numLines, scalarSteps)
 
-        drawRadarNet(netLinesStyle, radarChartConfig)
+            drawRadarNet(netLinesStyle, radarChartConfig)
 
-        polygons.forEach {
-            drawPolygonShape(
-                this,
-                it,
-                radius,
+            polygons.forEach {
+                drawPolygonShape(
+                    this,
+                    it,
+                    radius,
+                    scalarValue,
+                    Offset(size.width / 2, size.height / 2),
+                    scalarSteps
+                )
+            }
+
+            drawAxisData(
+                labelsStyle,
+                scalarValuesStyle,
+                textMeasurer,
+                radarChartConfig,
+                radarLabels,
                 scalarValue,
-                Offset(size.width / 2, size.height / 2),
-                scalarSteps
+                scalarSteps,
+                polygons[0].unit
             )
+
         }
 
-        drawAxisData(
-            labelsStyle,
-            scalarValuesStyle,
-            textMeasurer,
-            radarChartConfig,
-            radarLabels,
-            scalarValue,
-            scalarSteps,
-            polygons[0].unit
-        )
-
     }
+
 
 }
 
@@ -109,9 +115,17 @@ private fun DrawScope.measureMaxLabelWidth(
     labelsStyle: TextStyle,
     textMeasurer: TextMeasurer
 ): Float {
+
+    val labelWithMaxWidth = radarLabels.maxBy {
+        textMeasurer.measure(
+            AnnotatedString(
+                text = it,
+            ), style = labelsStyle
+        ).size.width
+    }
     return textMeasurer.measure(
         AnnotatedString(
-            text = radarLabels.maxByOrNull { it.length } ?: "",
+            text = labelWithMaxWidth,
         ), style = labelsStyle
     ).size.width.toDp().toPx()
 }

@@ -10,7 +10,7 @@ import com.aay.compose.donutChart.PieChart
 import com.aay.compose.donutChart.model.PieChartData
 
 @Composable
-fun PieChartSample() {
+fun PieChartSample(modifier : Modifier = Modifier) {
 
     val testPieChartData: List<PieChartData> = listOf(
         PieChartData(
@@ -36,7 +36,7 @@ fun PieChartSample() {
     )
 
     PieChart(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         pieChartData = testPieChartData,
         ratioLineColor = Color.LightGray,
         textRatioStyle = TextStyle(color = Color.Gray),

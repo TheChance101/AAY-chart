@@ -17,7 +17,7 @@ import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.LineType
 
 @Composable
-fun LineChartSample() {
+fun LineChartSample(modifier : Modifier) {
 
     val testLineParameters: List<LineParameters> = listOf(
         LineParameters(
@@ -45,7 +45,7 @@ fun LineChartSample() {
 
     Box(Modifier.padding(top = 16.dp, start = 16.dp, bottom = 16.dp)) {
         LineChart(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             linesParameters = testLineParameters,
             isGrid = true,
             gridColor = Color.Gray,

@@ -17,14 +17,14 @@ import com.aay.compose.radarChart.model.Polygon
 import com.aay.compose.radarChart.model.PolygonStyle
 
 @Composable
-fun RadarChartSample() {
+fun RadarChartSample(modifier: Modifier) {
 
     val radarLabels =
         listOf(
             "Party A",
             "Party B",
             "Party C",
-            "Part D",
+            "Party D",
             "Party E",
             "Party F",
             "Party G",
@@ -48,7 +48,7 @@ fun RadarChartSample() {
     )
 
     RadarChart(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier,
         radarLabels = radarLabels,
         labelsStyle = labelsStyle,
         netLinesStyle = NetLinesStyle(
