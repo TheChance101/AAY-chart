@@ -21,6 +21,19 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    js(IR) {
+        browser {
+            testTask {
+                useKarma {
+                    useChromeHeadless()
+                    webpackConfig.cssSupport {
+                        enabled.set(true)
+                    }
+                }
+            }
+        }
+    }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -52,6 +65,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
 
         }
+        val jsMain by getting
     }
 }
 
