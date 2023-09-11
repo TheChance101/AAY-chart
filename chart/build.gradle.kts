@@ -32,6 +32,7 @@ kotlin {
                 }
             }
         }
+        binaries.executable()
     }
 
     sourceSets {
