@@ -7,7 +7,7 @@ plugins {
     kotlin("native.cocoapods")
 }
 group = "io.github.thechance101"
-version = "Beta-0.0.3"
+version = "Beta-0.0.5"
 
 kotlin {
     android {
@@ -35,24 +35,6 @@ kotlin {
         binaries.executable()
     }
 
-    val osName = System.getProperty("os.name")
-    val targetOs = when {
-        osName == "Mac OS X" -> "macos"
-        osName.startsWith("Win") -> "windows"
-        osName.startsWith("Linux") -> "linux"
-        else -> error("Unsupported OS: $osName")
-    }
-
-    val targetArch = when (val osArch = System.getProperty("os.arch")) {
-        "x86_64", "amd64" -> "x64"
-        "aarch64" -> "arm64"
-        else -> error("Unsupported arch: $osArch")
-    }
-
-    val version = "0.7.77" // or any more recent version
-    val target = "${targetOs}-${targetArch}"
-
-
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -71,7 +53,6 @@ kotlin {
 
         val desktopMain by getting {
             dependencies {
-                implementation("org.jetbrains.skiko:skiko-awt-runtime-$target:$version")
                 api(compose.preview)
             }
         }
@@ -100,15 +81,5 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-        }
-        create("staging") {
-            initWith(getByName("release"))
-            manifestPlaceholders["TheChance101"] = "io.github.thechance101"
-        }
     }
 }
