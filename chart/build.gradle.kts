@@ -7,7 +7,7 @@ plugins {
     kotlin("native.cocoapods")
 }
 group = "io.github.thechance101"
-version = "Beta-0.0.3"
+version = "Beta-0.0.5"
 
 kotlin {
     android {
@@ -20,6 +20,20 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+
+    js(IR) {
+        browser {
+            testTask {
+                useKarma {
+                    useChromeHeadless()
+                    webpackConfig.cssSupport {
+                        enabled.set(true)
+                    }
+                }
+            }
+        }
+        binaries.executable()
+    }
 
     sourceSets {
         val commonMain by getting {
@@ -52,6 +66,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
 
         }
+        val jsMain by getting
     }
 }
 
@@ -66,15 +81,5 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-        }
-        create("staging") {
-            initWith(getByName("release"))
-            manifestPlaceholders["TheChance101"] = "io.github.thechance101"
-        }
     }
 }
