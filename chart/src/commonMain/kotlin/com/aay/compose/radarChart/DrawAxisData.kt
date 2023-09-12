@@ -11,38 +11,42 @@ import com.aay.compose.radarChart.model.RadarChartConfig
 
 @OptIn(ExperimentalTextApi::class)
 internal fun DrawScope.drawAxisData(
-    labelsStyle: TextStyle,
     scalarValuesStyle: TextStyle,
     textMeasurer: TextMeasurer,
     radarChartConfig: RadarChartConfig,
-    radarLabels: List<String>,
     scalarValue: Double,
     scalarSteps: Int,
     unit: String
 ) {
-
-    val labelsEndPoints = radarChartConfig.labelsPoints
     val nextStartPoints = radarChartConfig.polygonPoints.toMutableList()
     nextStartPoints.add(0, center)
     nextStartPoints.removeAt(nextStartPoints.size - 1)
 
     val scalarStep = scalarValue / (scalarSteps - 1)
     val textVerticalOffset = 20.toDp().toPx()
-    val labelHeight = textMeasurer.measure(AnnotatedString("M")).size.height
-
-
     for (step in 0 until scalarSteps) {
         drawText(
             textMeasurer = textMeasurer,
             text = (scalarStep * step).toString() + " " + unit,
             style = scalarValuesStyle,
             topLeft = Offset(
-                nextStartPoints[step].x + 5.toDp().toPx(),
-                nextStartPoints[step].y - textVerticalOffset
+                nextStartPoints[step].x,
+                nextStartPoints[step].y
             )
         )
     }
 
+}
+
+@OptIn(ExperimentalTextApi::class)
+fun DrawScope.drawRadarLabels(
+    textMeasurer: TextMeasurer,
+    radarChartConfig: RadarChartConfig,
+    radarLabels: List<String>,
+    labelsStyle: TextStyle,
+) {
+    val labelsEndPoints = radarChartConfig.labelsPoints
+    val labelHeight = textMeasurer.measure(AnnotatedString("M")).size.height
     for (line in labelsEndPoints.indices) {
         drawText(
             textMeasurer = textMeasurer,
@@ -58,5 +62,4 @@ internal fun DrawScope.drawAxisData(
             )
         )
     }
-
 }

@@ -1,12 +1,15 @@
 package com.aay.common
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
 @Composable
 fun App() {
 
     /** Sample of Line Chart **/
-    LineChartSample()
+//    LineChartSample()
 
 
     /** Sample of Bar Chart **/
@@ -19,5 +22,10 @@ fun App() {
 //    PieChartSample()
 
     /** Sample of Radar Chart **/
-//    RadarChartSample()
+    Column {
+//        LineChartSample()
+        RadarChartSample(modifier = Modifier.weight(1f).fillMaxSize())
+        PieChartSample()
+    }
+
 }

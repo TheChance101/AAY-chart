@@ -1,6 +1,8 @@
 package com.aay.compose.radarChart
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -12,6 +14,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
 import com.aay.compose.radarChart.model.NetLinesStyle
 import com.aay.compose.radarChart.model.Polygon
+import com.aay.compose.radarChart.model.RadarChartConfig
+
 /**
  * Composable function to render a radar chart with configurable radar labels, net lines, and polygons.
  *
@@ -43,12 +47,11 @@ fun RadarChart(
     val textMeasurer = rememberTextMeasurer()
 
     validateRadarChartConfiguration(radarLabels, scalarValue, polygons, scalarSteps)
-
     Canvas(modifier = modifier) {
 
         val labelWidth = measureMaxLabelWidth(radarLabels, labelsStyle, textMeasurer)
         val radius = (size.minDimension / 2) - (labelWidth + 10.toDp().toPx())
-        val labelRadius = (size.minDimension / 2) - (labelWidth / 2)
+        val labelRadius = (size.minDimension / 2)
         val numLines = radarLabels.size
         val radarChartConfig =
             calculateRadarConfig(labelRadius, radius, size, numLines, scalarSteps)
@@ -66,17 +69,15 @@ fun RadarChart(
             )
         }
 
-        drawAxisData(
-            labelsStyle,
-            scalarValuesStyle,
-            textMeasurer,
-            radarChartConfig,
-            radarLabels,
-            scalarValue,
-            scalarSteps,
-            polygons[0].unit
-        )
-
+        drawRadarLabels(textMeasurer, radarChartConfig, radarLabels, labelsStyle)
+//            drawAxisData(
+//                scalarValuesStyle,
+//                textMeasurer,
+//                radarChartConfig,
+//                scalarValue,
+//                scalarSteps,
+//                polygons[0].unit
+//            )
     }
 
 }
@@ -115,6 +116,7 @@ private fun DrawScope.measureMaxLabelWidth(
         ), style = labelsStyle
     ).size.width.toDp().toPx()
 }
+
 
 
 
