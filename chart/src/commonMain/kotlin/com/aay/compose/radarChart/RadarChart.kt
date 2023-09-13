@@ -1,20 +1,16 @@
 package com.aay.compose.radarChart
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
-import androidx.compose.ui.unit.dp
 import com.aay.compose.radarChart.model.NetLinesStyle
 import com.aay.compose.radarChart.model.Polygon
 
@@ -72,7 +68,7 @@ fun RadarChart(
             }
 
             drawRadarLabels(textMeasurer, radarChartConfig, radarLabels, labelsStyle)
-            drawAxisData(
+            drawScalarValues(
                 scalarValuesStyle,
                 textMeasurer,
                 radarChartConfig,
