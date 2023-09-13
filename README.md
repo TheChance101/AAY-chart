@@ -1,6 +1,6 @@
 
 <div align="center">
- <h1>AAY-chart</h1>
+ <img src="assets/AAY-chrats-logo.png">
 </div>
 
 <div align="left">
