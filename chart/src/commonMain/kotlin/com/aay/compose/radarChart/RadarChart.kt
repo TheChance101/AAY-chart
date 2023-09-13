@@ -1,20 +1,22 @@
 package com.aay.compose.radarChart
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.unit.dp
 import com.aay.compose.radarChart.model.NetLinesStyle
 import com.aay.compose.radarChart.model.Polygon
-import com.aay.compose.radarChart.model.RadarChartConfig
 
 /**
  * Composable function to render a radar chart with configurable radar labels, net lines, and polygons.
@@ -47,37 +49,39 @@ fun RadarChart(
     val textMeasurer = rememberTextMeasurer()
 
     validateRadarChartConfiguration(radarLabels, scalarValue, polygons, scalarSteps)
-    Canvas(modifier = modifier) {
+    Column(modifier.fillMaxSize()) {
+        Canvas(modifier = Modifier.weight(1f).aspectRatio(1f).align(Alignment.CenterHorizontally)) {
+            val labelWidth = measureMaxLabelWidth(radarLabels, labelsStyle, textMeasurer)
+            val radius = size.minDimension / 2 - (labelWidth + 10.toDp().toPx())
+            val labelRadius = size.minDimension / 2 - (labelWidth / 2)
+            val numLines = radarLabels.size
+            val radarChartConfig =
+                calculateRadarConfig(labelRadius, radius, size, numLines, scalarSteps)
 
-        val labelWidth = measureMaxLabelWidth(radarLabels, labelsStyle, textMeasurer)
-        val radius = (size.minDimension / 2) - (labelWidth + 10.toDp().toPx())
-        val labelRadius = (size.minDimension / 2)
-        val numLines = radarLabels.size
-        val radarChartConfig =
-            calculateRadarConfig(labelRadius, radius, size, numLines, scalarSteps)
+            drawRadarNet(netLinesStyle, radarChartConfig)
 
-        drawRadarNet(netLinesStyle, radarChartConfig)
+            polygons.forEach {
+                drawPolygonShape(
+                    this,
+                    it,
+                    radius,
+                    scalarValue,
+                    Offset(size.width / 2, size.height / 2),
+                    scalarSteps
+                )
+            }
 
-        polygons.forEach {
-            drawPolygonShape(
-                this,
-                it,
-                radius,
+            drawRadarLabels(textMeasurer, radarChartConfig, radarLabels, labelsStyle)
+            drawAxisData(
+                scalarValuesStyle,
+                textMeasurer,
+                radarChartConfig,
                 scalarValue,
-                Offset(size.width / 2, size.height / 2),
-                scalarSteps
+                scalarSteps,
+                polygons[0].unit
             )
         }
 
-        drawRadarLabels(textMeasurer, radarChartConfig, radarLabels, labelsStyle)
-//            drawAxisData(
-//                scalarValuesStyle,
-//                textMeasurer,
-//                radarChartConfig,
-//                scalarValue,
-//                scalarSteps,
-//                polygons[0].unit
-//            )
     }
 
 }
@@ -105,16 +109,14 @@ private fun validateRadarChartConfiguration(
 }
 
 @OptIn(ExperimentalTextApi::class)
-private fun DrawScope.measureMaxLabelWidth(
+private fun measureMaxLabelWidth(
     radarLabels: List<String>,
     labelsStyle: TextStyle,
     textMeasurer: TextMeasurer
-): Float {
-    return textMeasurer.measure(
-        AnnotatedString(
-            text = radarLabels.maxByOrNull { it.length } ?: "",
-        ), style = labelsStyle
-    ).size.width.toDp().toPx()
+): Int {
+    return radarLabels.maxOf {
+        textMeasurer.measure(AnnotatedString(text = it), style = labelsStyle).size.width
+    }
 }
 
 

@@ -30,8 +30,8 @@ internal fun DrawScope.drawAxisData(
             text = (scalarStep * step).toString() + " " + unit,
             style = scalarValuesStyle,
             topLeft = Offset(
-                nextStartPoints[step].x,
-                nextStartPoints[step].y
+                nextStartPoints[step].x + 5.toDp().toPx(),
+                nextStartPoints[step].y - textVerticalOffset
             )
         )
     }
