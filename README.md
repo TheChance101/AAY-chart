@@ -28,6 +28,7 @@ dependencies {
     implementation("io.github.thechance101:chart:$latest_release")
 }
 ```
+Note: you can find `latest_release` here ![release](https://img.shields.io/github/release/TheChance101/AAY-chart.svg?style=flat)
 
 ## Examples
 
