@@ -6,10 +6,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.vector.DefaultTintBlendMode
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.graphics.StrokeCap
 import com.aay.compose.appleWatchChart.model.AppleChartParameters
 
 
@@ -35,9 +36,14 @@ fun AppleWatchChart(
             arcRadius -= gapBetweenCircles.toPx()
 
             drawCircle(
-                color = appleChartParameters[i].color.copy(alpha = 0.3f),
+                color = appleChartParameters[i].color.copy(alpha = 0.6f),
                 radius = arcRadius / 2,
-                style = Stroke(width = thickness.toPx(), cap = StrokeCap.Butt)
+                style = Stroke(width = thickness.toPx(), cap = StrokeCap.Butt),
+                blendMode = DefaultTintBlendMode,
+                center = Offset(
+                    x = (size.toPx() ) / 2,
+                    y = (size.toPx() ) / 2
+                )
             )
 
             drawArc(
