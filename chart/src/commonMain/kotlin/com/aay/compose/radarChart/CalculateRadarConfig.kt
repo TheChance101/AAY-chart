@@ -18,7 +18,7 @@ internal fun calculateRadarConfig(
     val netCornersPoints = mutableListOf<Offset>()
     val stepsStartPoints = mutableListOf<Offset>()
     val stepsEndPoints = mutableListOf<Offset>()
-    val polygonPoints = mutableListOf<Offset>()
+    val scalarValuesPoints = mutableListOf<Offset>()
     val labelsPoints = mutableListOf<Offset>()
 
     val center = Offset(size.width / 2, size.height / 2)
@@ -42,12 +42,12 @@ internal fun calculateRadarConfig(
             val nextEndPoint = getCircumferencePointOffset(center, value * step, nextAngle)
             stepsStartPoints.add(startEndPoint)
             stepsEndPoints.add(nextEndPoint)
-            if (lineIndex == 0) polygonPoints.add(startEndPoint)
+            if (lineIndex == 0) scalarValuesPoints.add(startEndPoint)
         }
     }
 
     return RadarChartConfig(
-        center, netCornersPoints, stepsEndPoints, stepsStartPoints, polygonPoints, labelsPoints
+        center, netCornersPoints, stepsEndPoints, stepsStartPoints, scalarValuesPoints, labelsPoints
     )
 }
 

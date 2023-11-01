@@ -7,6 +7,6 @@ internal data class RadarChartConfig(
     val netCornersPoints: List<Offset>,
     val stepsEndPoints: List<Offset>,
     val stepsStartPoints: List<Offset>,
-    val polygonPoints: List<Offset>,
+    val scalarValuesPoints: List<Offset>,
     val labelsPoints: List<Offset>
 )
