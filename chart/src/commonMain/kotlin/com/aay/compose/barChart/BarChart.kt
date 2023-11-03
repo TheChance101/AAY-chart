@@ -43,6 +43,7 @@ import com.aay.compose.utils.ChartDefaultValues
  */
 @Composable
 fun BarChart(
+    modifier: Modifier = ChartDefaultValues.barModifier,
     chartParameters: List<BarParameters> = ChartDefaultValues.barParameters,
     gridColor: Color = ChartDefaultValues.gridColor,
     xAxisData: List<String> = emptyList(),
@@ -83,6 +84,7 @@ fun BarChart(
                 }
 
                 BarChartContent(
+                    modifier = modifier,
                     barsParameters = chartParameters,
                     gridColor = gridColor,
                     xAxisData = xAxisData,
@@ -119,7 +121,7 @@ fun BarChart(
                     barWidth = barWidth,
                     spaceBetweenBars = spaceBetweenBars,
                     spaceBetweenGroups = spaceBetweenGroups,
-                    modifier = Modifier.weight(1f),
+                    modifier = modifier.weight(1f),
                     barCornerRadius = barCornerRadius
                 )
 
@@ -142,6 +144,7 @@ fun BarChart(
 
             LegendPosition.DISAPPEAR -> {
                 BarChartContent(
+                    modifier = modifier,
                     barsParameters = chartParameters,
                     gridColor = gridColor,
                     xAxisData = xAxisData,

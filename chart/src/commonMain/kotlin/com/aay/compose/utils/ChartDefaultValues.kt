@@ -1,6 +1,8 @@
 package com.aay.compose.utils
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -59,4 +61,5 @@ internal object ChartDefaultValues {
     val gridOrientation = GridOrientation.HORIZONTAL
     val legendPosition = LegendPosition.TOP
     val barCornerRadius = 0.dp
+    val barModifier = Modifier.fillMaxSize()
 }

@@ -29,6 +29,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalTextApi::class)
 @Composable
 internal fun BarChartContent(
+    modifier: Modifier = Modifier,
     barsParameters: List<BarParameters>,
     gridColor: Color,
     xAxisData: List<String>,
@@ -44,7 +45,6 @@ internal fun BarChartContent(
     barWidth: Dp,
     spaceBetweenBars: Dp,
     spaceBetweenGroups: Dp,
-    modifier: Modifier = Modifier,
     barCornerRadius: Dp
 ) {
 
@@ -86,7 +86,7 @@ internal fun BarChartContent(
             modifier = Modifier.size(height = boxHeight, width = boxWidth)
         ) {
 
-            val spacingY = (boxHeight - ((boxHeight - 20.0.dp.toPx().toDp() )/ 1.1f.toDp().toPx()))
+            val spacingY = (boxHeight - ((boxHeight - 20.0.dp.toPx().toDp()) / 1.1f.toDp().toPx()))
             xRegionWidth = ((barWidth + spaceBetweenBars) * barsParameters.size) + spaceBetweenGroups
             xRegionWidthWithoutSpacing = xRegionWidth - spaceBetweenGroups
             maxWidth = (xRegionWidth * xAxisData.size) - spaceBetweenGroups
