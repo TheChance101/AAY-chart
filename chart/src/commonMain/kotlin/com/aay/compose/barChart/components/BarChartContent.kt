@@ -3,6 +3,7 @@ package com.aay.compose.barChart.components
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -28,6 +29,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalTextApi::class)
 @Composable
 internal fun BarChartContent(
+    modifier: Modifier = Modifier,
     barsParameters: List<BarParameters>,
     gridColor: Color,
     xAxisData: List<String>,
@@ -43,7 +45,6 @@ internal fun BarChartContent(
     barWidth: Dp,
     spaceBetweenBars: Dp,
     spaceBetweenGroups: Dp,
-    modifier: Modifier = Modifier,
     barCornerRadius: Dp
 ) {
 
@@ -82,10 +83,10 @@ internal fun BarChartContent(
     }
     ) {
         Canvas(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.size(height = boxHeight, width = boxWidth)
         ) {
 
-            val spacingY = (boxHeight / 10)
+            val spacingY = (boxHeight - ((boxHeight - 20.0.dp.toPx().toDp()) / 1.1f.toDp().toPx()))
             xRegionWidth = ((barWidth + spaceBetweenBars) * barsParameters.size) + spaceBetweenGroups
             xRegionWidthWithoutSpacing = xRegionWidth - spaceBetweenGroups
             maxWidth = (xRegionWidth * xAxisData.size) - spaceBetweenGroups

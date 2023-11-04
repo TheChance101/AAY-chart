@@ -35,6 +35,7 @@ fun BarChartSample() {
 
     Box(Modifier.fillMaxSize().padding(24.dp)) {
         BarChart(
+            modifier = Modifier.fillMaxSize(),
             chartParameters = testBarParameters,
             gridColor = Color.DarkGray,
             xAxisData = listOf("2016", "2017", "2018", "2019", "2020", "2021", "2022"),
