@@ -17,6 +17,7 @@ import com.aay.compose.donutChart.model.ChartTypes
 import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
+import kotlin.math.PI
 
 @OptIn(ExperimentalTextApi::class)
 internal fun DrawScope.drawPedigreeChart(
@@ -132,7 +133,7 @@ internal fun DrawScope.drawPedigreeChart(
 }
 
 private val Float.degreeToAngle
-    get() = (this * (22/7) / 180f)
+    get() = this * PI / 180f
 
 private fun calculateAngle(dataLength: Float, totalLength: Float, progress: Float): Float =
     -360F * dataLength * progress / totalLength
