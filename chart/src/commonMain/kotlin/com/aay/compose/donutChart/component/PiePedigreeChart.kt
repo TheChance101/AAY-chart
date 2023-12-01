@@ -35,7 +35,13 @@ internal fun DrawScope.drawPedigreeChart(
     val outerCircularRadius = (minValue / 2) + (arcWidth / 1.2f)
     var startArc = -90F
     var startArcWithoutAnimation = -90f
+
+    // If totalSum equals zero, there's nothing to show
+    if (totalSum == 0f) return
+
     pieValueWithRatio.forEachIndexed { index, _ ->
+
+        if (pieChartData[index].data == 0.0) return@forEachIndexed
 
         val arcWithAnimation = calculateAngle(
             dataLength = pieChartData[index].data.toFloat(), totalLength = totalSum, progress = transitionProgress.value
