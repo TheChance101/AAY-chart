@@ -114,27 +114,29 @@ fun BarChartSample() {
         ),
     )
 
-    Box(Modifier.fillMaxSize()) {
-        BarChart(
-            chartParameters = testBarParameters,
-            gridColor = Color.DarkGray,
-            xAxisData = listOf("2016", "2017", "2018", "2019", "2020", "2021", "2022"),
-            isShowGrid = true,
-            animateChart = true,
-            showGridWithSpacer = true,
-            yAxisStyle = TextStyle(
-                fontSize = 14.sp,
-                color = Color.DarkGray,
-            ),
-            xAxisStyle = TextStyle(
-                fontSize = 14.sp,
-                color = Color.DarkGray,
-                fontWeight = FontWeight.W400
-            ),
-            yAxisRange = 15,
-            barWidth = 20.dp
-        )
-    }
+    BarChart(
+        // Require default min size for display bar chart. #96
+        modifier = Modifier.fillMaxSize().padding(24.dp),
+        chartParameters = testBarParameters,
+        gridColor = Color.DarkGray,
+        xAxisData = listOf("2016", "2017", "2018", "2019", "2020", "2021", "2022"),
+        isShowGrid = true,
+        animateChart = true,
+        showGridWithSpacer = true,
+        yAxisStyle = TextStyle(
+            fontSize = 14.sp,
+            color = Color.DarkGray,
+        ),
+        xAxisStyle = TextStyle(
+            fontSize = 14.sp,
+            color = Color.DarkGray,
+            fontWeight = FontWeight.W400
+        ),
+        yAxisRange = 15,
+        barWidth = 20.dp,
+        legendPosition = LegendPosition.TOP,
+        barCornerRadius = 4.dp
+    )
 }
 ```
 
