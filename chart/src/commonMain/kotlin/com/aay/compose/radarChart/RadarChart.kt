@@ -22,6 +22,7 @@ import com.aay.compose.radarChart.model.Polygon
  * @param scalarValue Scalar value to determine the scale of the radar chart.
  * @param scalarValuesStyle TextStyle for configuring the appearance of scalar value labels.
  * @param polygons List of polygons to be displayed on the radar chart.
+ * @param showScores Flag to determine whether to display polygon scores (default is false).
  * @param modifier Modifier for configuring the layout and appearance of the radar chart.
  *
  * @see Polygon
@@ -37,6 +38,7 @@ fun RadarChart(
     scalarValue: Double,
     scalarValuesStyle: TextStyle,
     polygons: List<Polygon>,
+    showScores: Boolean = false,
     modifier: Modifier = Modifier
 ) {
 
@@ -55,15 +57,25 @@ fun RadarChart(
 
         drawRadarNet(netLinesStyle, radarChartConfig)
 
-        polygons.forEach {
-            drawPolygonShape(
+        polygons.forEach { polygon ->
+            val points = drawPolygonShape(
                 this,
-                it,
+                polygon,
                 radius,
                 scalarValue,
                 Offset(size.width / 2, size.height / 2),
                 scalarSteps
             )
+
+            if (showScores) {
+                drawScores(
+                    points,
+                    polygon.values,
+                    scalarValuesStyle.copy(fontSize = scalarValuesStyle.fontSize * 0.8f),
+                    textMeasurer,
+                    polygons[0].unit
+                )
+            }
         }
 
         drawAxisData(
