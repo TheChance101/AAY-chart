@@ -62,8 +62,7 @@ fun RadarChart(
                 it,
                 radius,
                 scalarValue,
-                Offset(size.width / 2, size.height / 2),
-                scalarSteps
+                Offset(size.width / 2, size.height / 2)
             )
         }
 

@@ -65,8 +65,7 @@ internal fun getPolygonShapeEndPoints(
     values: List<Double>,
     radius: Float,
     scalarValue: Double,
-    center: Offset,
-    scalarSteps: Int
+    center: Offset
 ): List<Offset> {
     val scalarShapeEndPoints = mutableListOf<Offset>()
     val angleBetweenLines = 2 * PI / values.size
@@ -75,10 +74,9 @@ internal fun getPolygonShapeEndPoints(
         val angleOfFirstLine = 0 * angleBetweenLines
         val offsetAngle = -PI / 2 - angleOfFirstLine
         val angle = index * angleBetweenLines + offsetAngle
-        val polygonRadius = radius - (radius / scalarSteps)
 
         val value = values[index]
-        val scalarRadius = (value / scalarValue) * polygonRadius
+        val scalarRadius = (value / scalarValue) * radius
         val scalarShapeEndPoint = getCircumferencePointOffset(center, scalarRadius.toFloat(), angle)
         scalarShapeEndPoints.add(scalarShapeEndPoint)
     }

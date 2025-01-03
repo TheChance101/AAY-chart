@@ -12,11 +12,10 @@ internal fun DrawScope.drawPolygonShape(
     polygon: Polygon,
     radius: Float,
     scalarValue: Double,
-    center: Offset,
-    scalarSteps: Int
+    center: Offset
 ) {
     val polygonEndPoints =
-        getPolygonShapeEndPoints(polygon.values, radius, scalarValue, center, scalarSteps)
+        getPolygonShapeEndPoints(polygon.values, radius, scalarValue, center)
     val path = Path().apply {
         drawPolygon(polygonEndPoints)
     }
