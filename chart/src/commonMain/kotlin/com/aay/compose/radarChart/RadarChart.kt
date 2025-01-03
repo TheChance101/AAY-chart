@@ -10,8 +10,6 @@ import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.aay.compose.radarChart.model.NetLinesStyle
 import com.aay.compose.radarChart.model.Polygon
 /**
@@ -33,7 +31,6 @@ import com.aay.compose.radarChart.model.Polygon
 @Composable
 fun RadarChart(
     radarLabels: List<String>,
-    radarLabelsOffset: Dp = 10.dp,
     labelsStyle: TextStyle,
     netLinesStyle: NetLinesStyle,
     scalarSteps: Int,
@@ -51,7 +48,7 @@ fun RadarChart(
     Canvas(modifier = modifier) {
 
         val labelWidth = measureMaxLabelWidth(radarLabels, labelsStyle, textMeasurer)
-        val radius = (size.minDimension / 2) - (labelWidth + radarLabelsOffset.toPx())
+        val radius = (size.minDimension / 2) - (labelWidth + 10.toDp().toPx())
         val labelRadius = (size.minDimension / 2) - (labelWidth / 2)
         val numLines = radarLabels.size
         val radarChartConfig =
