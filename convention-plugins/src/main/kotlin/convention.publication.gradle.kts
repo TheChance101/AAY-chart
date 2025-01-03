@@ -63,7 +63,7 @@ publishing {
         pom {
             name.set("AAY-Chart")
             description.set("Multiplatform library for desktop and android")
-            url.set("https://github.com/TheChance101/AAY-chart")
+            url.set("https://github.com/kevinalfian8/AAY-chart")
 
             licenses {
                 license {
@@ -73,13 +73,13 @@ publishing {
             }
             developers {
                 developer {
-                    id.set("<https://github.com/TheChance101>")
+                    id.set("https://github.com/kevinalfian8/AAY-chart")
                     name.set("<The_chance>")
                     email.set("<hana_hany6@yahoo.com>")
                 }
             }
             scm {
-                url.set("https://github.com/TheChance101/AAY-chart")
+                url.set("https://github.com/kevinalfian8/AAY-chart")
             }
         }
     }

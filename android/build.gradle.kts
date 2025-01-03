@@ -9,7 +9,7 @@ group = "com.aay"
 version = "1.0-SNAPSHOT"
 
 repositories {
-    jcenter()
+    maven { setUrl ("https://jitpack.io" )}
 }
 
 dependencies {
