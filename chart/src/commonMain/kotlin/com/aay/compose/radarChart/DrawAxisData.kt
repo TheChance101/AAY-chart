@@ -18,7 +18,8 @@ internal fun DrawScope.drawAxisData(
     radarLabels: List<String>,
     scalarValue: Double,
     scalarSteps: Int,
-    unit: String
+    unit: String,
+    showScalarLabel: Boolean,
 ) {
 
     val labelsEndPoints = radarChartConfig.labelsPoints
@@ -26,21 +27,22 @@ internal fun DrawScope.drawAxisData(
     nextStartPoints.add(0, center)
     nextStartPoints.removeAt(nextStartPoints.size - 1)
 
-    val scalarStep = scalarValue / (scalarSteps - 1)
+    val scalarStep = scalarValue / scalarSteps
     val textVerticalOffset = 20.toDp().toPx()
     val labelHeight = textMeasurer.measure(AnnotatedString("M")).size.height
 
-
-    for (step in 0 until scalarSteps) {
-        drawText(
-            textMeasurer = textMeasurer,
-            text = (scalarStep * step).toString() + " " + unit,
-            style = scalarValuesStyle,
-            topLeft = Offset(
-                nextStartPoints[step].x + 5.toDp().toPx(),
-                nextStartPoints[step].y - textVerticalOffset
+    if (showScalarLabel) {
+        for (step in 0 until scalarSteps) {
+            drawText(
+                textMeasurer = textMeasurer,
+                text = (scalarStep * step).toString() + " " + unit,
+                style = scalarValuesStyle,
+                topLeft = Offset(
+                    nextStartPoints[step].x + 5.toDp().toPx(),
+                    nextStartPoints[step].y - textVerticalOffset
+                )
             )
-        )
+        }
     }
 
     for (line in labelsEndPoints.indices) {

@@ -36,6 +36,7 @@ fun RadarChart(
     scalarSteps: Int,
     scalarValue: Double,
     scalarValuesStyle: TextStyle,
+    showScalarLabel: Boolean = true,
     polygons: List<Polygon>,
     modifier: Modifier = Modifier
 ) {
@@ -74,7 +75,8 @@ fun RadarChart(
             radarLabels,
             scalarValue,
             scalarSteps,
-            polygons[0].unit
+            polygons[0].unit,
+            showScalarLabel
         )
 
     }
