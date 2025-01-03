@@ -1,8 +1,11 @@
 import org.jetbrains.compose.compose
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
+    id("org.jetbrains.kotlin.plugin.compose")
     id("com.android.library")
 }
 
@@ -10,9 +13,18 @@ group = "com.aay"
 version = "1.0-SNAPSHOT"
 
 kotlin {
-    android()
+    androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
+    }
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+
     jvm("desktop") {
-        jvmToolchain(11)
+//        jvmToolchain(17)
     }
     sourceSets {
         val commonMain by getting {
@@ -41,14 +53,15 @@ kotlin {
 }
 
 android {
-    compileSdkVersion(34)
+    compileSdk = (34)
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdkVersion(21)
-        targetSdkVersion(34)
+        minSdk = (21)
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
+
+    namespace = "com.aay"
 }

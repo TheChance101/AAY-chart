@@ -1,0 +1,12 @@
+[
+  {
+    "moduleId": "org.jetbrains.kotlinx:atomicfu:0.23.2",
+    "file": "/Users/user/StudioProjects/AAY-chart/.kotlin/metadata/kotlinTransformedCInteropMetadataLibraries/org.jetbrains.kotlinx-atomicfu-0.23.2-nativeMain-cinterop/org.jetbrains.kotlinx_atomicfu-cinterop-interop-yBS35w.klib",
+    "sourceSetName": "nativeMain"
+  },
+  {
+    "moduleId": "org.jetbrains.compose.ui:ui-uikit:1.7.3",
+    "file": "/Users/user/StudioProjects/AAY-chart/.kotlin/metadata/kotlinTransformedCInteropMetadataLibraries/org.jetbrains.compose.ui-ui-uikit-1.7.3-uikitMain-cinterop/org.jetbrains.compose.ui_ui-uikit-cinterop-utils-aNVDjg.klib",
+    "sourceSetName": "uikitMain"
+  }
+]

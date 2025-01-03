@@ -1,6 +1,7 @@
 plugins {
     id("org.jetbrains.compose")
     id("com.android.application")
+    id("org.jetbrains.kotlin.plugin.compose")
     kotlin("android")
 }
 
@@ -8,7 +9,7 @@ group = "com.aay"
 version = "1.0-SNAPSHOT"
 
 repositories {
-    jcenter()
+    maven { setUrl ("https://jitpack.io" )}
 }
 
 dependencies {
@@ -17,21 +18,22 @@ dependencies {
 }
 
 android {
-    compileSdkVersion(33)
+    compileSdk = 34
     defaultConfig {
         applicationId = "com.aay.android"
-        minSdkVersion(24)
-        targetSdkVersion(33)
+        minSdk = (24)
         versionCode = 1
         versionName = "1.0-SNAPSHOT"
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
         }
     }
+
+    namespace = "com.aay.android"
 }

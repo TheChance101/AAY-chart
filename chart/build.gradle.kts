@@ -1,6 +1,10 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
+    id("org.jetbrains.kotlin.plugin.compose")
     id("com.android.library")
     id("org.jetbrains.dokka") version "1.5.0"
     id("convention.publication")
@@ -10,16 +14,27 @@ group = "io.github.thechance101"
 version = "Beta-0.0.5"
 
 kotlin {
-    android {
+    androidTarget {
         publishLibraryVariants("release", "debug")
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
     }
+
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+
     jvm("desktop") {
-        jvmToolchain(11)
+//        jvmToolchain(17)
     }
-    ios{}
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    kotlin {
+//        ios()
+        iosX64()
+        iosArm64()
+        iosSimulatorArm64()
+    }
 
     js(IR) {
         browser {
@@ -46,8 +61,8 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                api("androidx.appcompat:appcompat:1.5.1")
-                api("androidx.core:core-ktx:1.9.0")
+                api("androidx.appcompat:appcompat:1.7.0")
+                api("androidx.core:core-ktx:1.13.1")
             }
         }
 
@@ -56,30 +71,29 @@ kotlin {
                 api(compose.preview)
             }
         }
-        val iosX64Main by getting
+
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
-        val iosMain by getting {
+        val iosX64Main by getting {
             dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
-
         }
         val jsMain by getting
     }
 }
 
 android {
-    compileSdkVersion(34)
+    compileSdk = 34
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         manifestPlaceholders["TheChance101"] = "io.github.thechance101"
-        minSdkVersion(21)
-        targetSdkVersion(34)
+        minSdk = 21
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
+
+    namespace = "io.github.thechance101"
 }
