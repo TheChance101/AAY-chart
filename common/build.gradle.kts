@@ -1,10 +1,8 @@
-import org.jetbrains.compose.compose
-
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
-    id("com.android.library")
-    id("org.jetbrains.kotlin.plugin.compose")
+    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.android.library)
 }
 
 group = "com.aay"
@@ -14,7 +12,7 @@ kotlin {
     androidTarget()
 
     jvm("desktop")
-    
+
     sourceSets {
         val commonMain by getting {
             dependencies {
