@@ -11,10 +11,10 @@ group = "com.aay"
 version = "1.0-SNAPSHOT"
 
 kotlin {
-    android()
-    jvm("desktop") {
-        // jvmToolchain(11)
-    }
+    androidTarget()
+
+    jvm("desktop")
+    
     sourceSets {
         val commonMain by getting {
             dependencies {
