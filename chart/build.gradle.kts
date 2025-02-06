@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform")
+    id("org.jetbrains.kotlin.plugin.compose")
     id("org.jetbrains.compose")
     id("com.android.library")
     id("org.jetbrains.dokka") version "1.5.0"
@@ -14,9 +15,9 @@ kotlin {
         publishLibraryVariants("release", "debug")
     }
     jvm("desktop") {
-        jvmToolchain(11)
+        //jvmToolchain(11)
     }
-    ios{}
+    ios {}
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -34,6 +35,26 @@ kotlin {
         }
         binaries.executable()
     }
+
+    /*wasmJs {
+        moduleName = "common"
+        browser {
+            val rootDirPath = project.rootDir.path
+            val projectDirPath = project.projectDir.path
+            commonWebpackConfig {
+                outputFileName = "chart.js"
+                devServer =
+                    (devServer ?: KotlinWebpackConfig.DevServer()).apply {
+                        static =
+                            (static ?: mutableListOf()).apply {
+                                add(rootDirPath)
+                                add(projectDirPath)
+                            }
+                    }
+            }
+        }
+        binaries.executable()
+    }*/
 
     sourceSets {
         val commonMain by getting {

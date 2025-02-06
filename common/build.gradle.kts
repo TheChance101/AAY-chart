@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 group = "com.aay"
@@ -12,7 +13,7 @@ version = "1.0-SNAPSHOT"
 kotlin {
     android()
     jvm("desktop") {
-        jvmToolchain(11)
+        // jvmToolchain(11)
     }
     sourceSets {
         val commonMain by getting {
