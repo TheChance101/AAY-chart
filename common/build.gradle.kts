@@ -25,8 +25,8 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                api("androidx.appcompat:appcompat:1.5.1")
-                api("androidx.core:core-ktx:1.9.0")
+                api(libs.appCompat)
+                api(libs.compose.activity)
             }
         }
 
@@ -40,18 +40,20 @@ kotlin {
 }
 
 android {
-    compileSdkVersion(34)
+    compileSdk = 34
+
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
     defaultConfig {
-        minSdkVersion(21)
-        targetSdkVersion(34)
+        minSdk = 21
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlin{
-        jvmToolchain(8)
-    }
+
+    kotlin.jvmToolchain(8)
+
     namespace = "com.aay.common"
 }
