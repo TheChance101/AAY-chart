@@ -17,10 +17,15 @@ kotlin {
 
     jvm("desktop")
 
-    ios {}
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "AAY-chart"
+        }
+    }
 
     js(IR) {
         browser {
@@ -37,37 +42,24 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                api(compose.runtime)
-                api(compose.foundation)
-                api(compose.material)
-            }
+        commonMain.dependencies {
+            api(compose.runtime)
+            api(compose.foundation)
+            api(compose.material)
         }
 
-        val androidMain by getting {
-            dependencies {
-                api(libs.appCompat)
-                api(libs.androidx.core)
-            }
+        androidMain.dependencies {
+            api(libs.appCompat)
+            api(libs.androidx.core)
         }
 
-        val desktopMain by getting {
-            dependencies {
-                api(compose.preview)
-            }
+        sourceSets["desktopMain"].dependencies {
+            api(compose.preview)
         }
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by getting {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
 
-        }
-        val jsMain by getting
+        iosMain.dependencies {}
+
+        jsMain.dependencies {}
     }
 }
 
