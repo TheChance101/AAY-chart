@@ -14,26 +14,20 @@ kotlin {
     jvm("desktop")
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(project(":chart"))
-                api(compose.runtime)
-                api(compose.foundation)
-                api(compose.material)
-            }
+        commonMain.dependencies {
+            implementation(project(":chart"))
+            api(compose.runtime)
+            api(compose.foundation)
+            api(compose.material)
         }
 
-        val androidMain by getting {
-            dependencies {
-                api(libs.appCompat)
-                api(libs.compose.activity)
-            }
+        androidMain.dependencies {
+            api(libs.appCompat)
+            api(libs.compose.activity)
         }
 
-        val desktopMain by getting {
-            dependencies {
-                api(compose.preview)
-            }
+        sourceSets["desktopMain"].dependencies {
+            api(compose.preview)
         }
 
     }

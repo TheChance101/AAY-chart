@@ -33,14 +33,11 @@ kotlin {
     val target = "${targetOs}-${targetArch}"
 
     sourceSets {
-        val jvmMain by getting {
-            dependencies {
-                implementation(project(":common"))
-                implementation(compose.desktop.currentOs)
-                implementation("org.jetbrains.skiko:skiko-awt-runtime-$target:$version")
-            }
+        jvmMain.dependencies {
+            implementation(project(":common"))
+            implementation(compose.desktop.currentOs)
+            implementation("org.jetbrains.skiko:skiko-awt-runtime-$target:$version")
         }
-        val jvmTest by getting
     }
 }
 
