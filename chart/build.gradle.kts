@@ -1,11 +1,11 @@
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.kotlin.plugin.compose")
-    id("org.jetbrains.compose")
-    id("com.android.library")
-    id("org.jetbrains.dokka") version "1.5.0"
+    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.nativeCocoapod)
     id("convention.publication")
-    kotlin("native.cocoapods")
 }
 group = "io.github.thechance101"
 version = "Beta-0.0.5"
@@ -14,6 +14,7 @@ kotlin {
     androidTarget {
         publishLibraryVariants("release", "debug")
     }
+
     jvm("desktop")
 
     ios {}
@@ -35,26 +36,6 @@ kotlin {
         binaries.executable()
     }
 
-    /*wasmJs {
-        moduleName = "common"
-        browser {
-            val rootDirPath = project.rootDir.path
-            val projectDirPath = project.projectDir.path
-            commonWebpackConfig {
-                outputFileName = "chart.js"
-                devServer =
-                    (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                        static =
-                            (static ?: mutableListOf()).apply {
-                                add(rootDirPath)
-                                add(projectDirPath)
-                            }
-                    }
-            }
-        }
-        binaries.executable()
-    }*/
-
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -66,8 +47,8 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                api("androidx.appcompat:appcompat:1.5.1")
-                api("androidx.core:core-ktx:1.9.0")
+                api(libs.appCompat)
+                api(libs.androidx.core)
             }
         }
 
@@ -91,19 +72,20 @@ kotlin {
 }
 
 android {
-    compileSdkVersion(34)
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    compileSdk = 34
+
     defaultConfig {
         manifestPlaceholders["TheChance101"] = "io.github.thechance101"
-        minSdkVersion(21)
-        targetSdkVersion(34)
+        minSdk = 21
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlin{
+    kotlin {
         jvmToolchain(8)
     }
+
     namespace = "com.aay.chart"
 }
