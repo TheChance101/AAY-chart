@@ -8,21 +8,17 @@ plugins {
 group = "com.aay"
 version = "1.0-SNAPSHOT"
 
-repositories {
-    jcenter()
-}
-
 dependencies {
     implementation(project(":common"))
-    implementation("androidx.activity:activity-compose:1.5.0")
+    implementation("androidx.activity:activity-compose:1.9.3")
 }
 
 android {
-    compileSdkVersion(33)
+    compileSdkVersion(34)
     defaultConfig {
         applicationId = "com.aay.android"
         minSdkVersion(24)
-        targetSdkVersion(33)
+        targetSdkVersion(34)
         versionCode = 1
         versionName = "1.0-SNAPSHOT"
     }
@@ -35,4 +31,9 @@ android {
             isMinifyEnabled = false
         }
     }
+    kotlin {
+        jvmToolchain(8)
+    }
+    namespace = "com.aay.android"
+
 }

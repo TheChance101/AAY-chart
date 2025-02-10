@@ -11,12 +11,11 @@ group = "io.github.thechance101"
 version = "Beta-0.0.5"
 
 kotlin {
-    android {
+    androidTarget {
         publishLibraryVariants("release", "debug")
     }
-    jvm("desktop") {
-        //jvmToolchain(11)
-    }
+    jvm("desktop")
+
     ios {}
     iosX64()
     iosArm64()
@@ -103,4 +102,8 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    kotlin{
+        jvmToolchain(8)
+    }
+    namespace = "com.aay.chart"
 }
