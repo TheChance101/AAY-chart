@@ -2,6 +2,7 @@
 kotlin = "2.0.21"
 agp = "8.8.0"
 compose-plugin = "1.7.0"
+compose-activity="1.9.3"
 
 [plugins]
 android-library = { id = "com.android.library", version.ref = "agp" }
@@ -12,3 +13,4 @@ compose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 [libraries]
+compose-activity={module="androidx.activity:activity-compose", version.ref="compose-activity"}
