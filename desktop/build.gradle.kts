@@ -1,8 +1,9 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
 }
 
 group = "com.aay"
@@ -11,7 +12,6 @@ version = "1.0-SNAPSHOT"
 
 kotlin {
     jvm {
-        jvmToolchain(11)
         withJava()
     }
 
@@ -33,14 +33,11 @@ kotlin {
     val target = "${targetOs}-${targetArch}"
 
     sourceSets {
-        val jvmMain by getting {
-            dependencies {
-                implementation(project(":common"))
-                implementation(compose.desktop.currentOs)
-                implementation("org.jetbrains.skiko:skiko-awt-runtime-$target:$version")
-            }
+        jvmMain.dependencies {
+            implementation(project(":common"))
+            implementation(compose.desktop.currentOs)
+            implementation("org.jetbrains.skiko:skiko-awt-runtime-$target:$version")
         }
-        val jvmTest by getting
     }
 }
 
