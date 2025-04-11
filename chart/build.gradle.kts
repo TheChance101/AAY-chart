@@ -1,25 +1,52 @@
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.composePlugin)
     id("com.android.library")
-    id("org.jetbrains.dokka") version "1.5.0"
+    alias(libs.plugins.dokka)
     id("convention.publication")
     kotlin("native.cocoapods")
 }
+
 group = "io.github.thechance101"
-version = "Beta-0.0.5"
+version = "1.1.0"
 
 kotlin {
-    android {
-        publishLibraryVariants("release", "debug")
+    jvmToolchain {
+        (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(11))
     }
-    jvm("desktop") {
-        jvmToolchain(11)
+
+    androidTarget {
+        publishLibraryVariants("release")
     }
-    ios{}
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    jvm("desktop")
+
+    iosX64 {
+        binaries {
+            framework("SharedFrameworkIosX64") {
+                baseName = "SharedFramework"
+            }
+        }
+    }
+
+    iosArm64 {
+        binaries {
+            framework("SharedFrameworkIosArm64") {
+                baseName = "SharedFramework"
+            }
+        }
+    }
+
+    iosSimulatorArm64 {
+        binaries {
+            framework("SharedFrameworkIosSimulatorArm64") {
+                baseName = "SharedFramework"
+            }
+        }
+    }
 
     js(IR) {
         browser {
@@ -30,6 +57,19 @@ kotlin {
                         enabled.set(true)
                     }
                 }
+            }
+        }
+        binaries.executable()
+    }
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        moduleName = "chart"
+        browser {
+            commonWebpackConfig {
+                outputFileName = "AAY-Chart.js"
+                mode = KotlinWebpackConfig.Mode.PRODUCTION
+                sourceMaps = false
             }
         }
         binaries.executable()
@@ -46,8 +86,8 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                api("androidx.appcompat:appcompat:1.5.1")
-                api("androidx.core:core-ktx:1.9.0")
+                api(libs.appcompat)
+                api(libs.core.ktx)
             }
         }
 
@@ -56,30 +96,38 @@ kotlin {
                 api(compose.preview)
             }
         }
+
+        val wasmJsMain by getting {
+            dependencies {
+                api(compose.runtime)
+                api(compose.foundation)
+                api(compose.material)
+                implementation("org.jetbrains.kotlinx:kotlinx-browser:0.1")
+            }
+        }
+
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
-        val iosMain by getting {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
 
-        }
         val jsMain by getting
     }
 }
 
 android {
     compileSdkVersion(34)
+    namespace = "com.aay"
+
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
     defaultConfig {
         manifestPlaceholders["TheChance101"] = "io.github.thechance101"
         minSdkVersion(21)
         targetSdkVersion(34)
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
