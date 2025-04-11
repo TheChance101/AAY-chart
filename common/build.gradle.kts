@@ -1,8 +1,11 @@
 import org.jetbrains.compose.compose
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.composePlugin)
     id("com.android.library")
 }
 
@@ -11,13 +14,26 @@ version = "1.0-SNAPSHOT"
 
 kotlin {
     android()
-    jvm("desktop") {
-        jvmToolchain(11)
+    jvm("desktop")
+
+    // WASM Target
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        moduleName = "composeApp"
+        browser {
+            commonWebpackConfig {
+                outputFileName = "AAY-Chart.js"
+                mode = KotlinWebpackConfig.Mode.PRODUCTION
+                sourceMaps = false
+            }
+        }
+        binaries.executable()
     }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":chart"))
+                implementation("io.github.thechance101:chart:1.0")
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material)
@@ -26,7 +42,7 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                api("androidx.appcompat:appcompat:1.5.1")
+                api("androidx.appcompat:appcompat:1.7.0")
                 api("androidx.core:core-ktx:1.9.0")
             }
         }
@@ -37,10 +53,18 @@ kotlin {
             }
         }
 
+        val wasmJsMain by getting {
+            dependencies{
+                api(compose.runtime)
+                api(compose.foundation)
+                api(compose.material)
+            }
+        }
     }
 }
 
 android {
+    namespace = "com.aay"
     compileSdkVersion(34)
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {

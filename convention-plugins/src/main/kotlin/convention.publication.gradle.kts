@@ -89,3 +89,8 @@ publishing {
 signing {
     sign(publishing.publications)
 }
+// Ensure all publish tasks depend on corresponding sign tasks
+tasks.withType<PublishToMavenRepository>().configureEach {
+    dependsOn(tasks.withType<Sign>())
+}
+

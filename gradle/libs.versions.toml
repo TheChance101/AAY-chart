@@ -1,0 +1,17 @@
+[versions]
+kotlin = "2.0.0"
+compose = "1.6.10"
+composePlugin = "2.0.0"
+appcompat = "1.7.0"
+coreKtx = "1.10.0"
+dokka = "1.5.0"
+
+[libraries]
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+
+[plugins]
+kotlin = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+composePlugin = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "composePlugin" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }

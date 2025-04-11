@@ -10,14 +10,14 @@ fun App() {
 
 
     /** Sample of Bar Chart **/
-//    BarChartSample()
+    BarChartSample()
 
     /** Sample of Donut Chart **/
-//    DonutChartSample()
+    DonutChartSample()
 
     /** sample of Pie Chart **/
-//    PieChartSample()
+    PieChartSample()
 
     /** Sample of Radar Chart **/
-//    RadarChartSample()
+    RadarChartSample()
 }
