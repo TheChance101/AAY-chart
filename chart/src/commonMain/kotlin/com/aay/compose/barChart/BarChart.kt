@@ -43,6 +43,7 @@ import com.aay.compose.utils.ChartDefaultValues
  */
 @Composable
 fun BarChart(
+    modifier: Modifier,
     chartParameters: List<BarParameters> = ChartDefaultValues.barParameters,
     gridColor: Color = ChartDefaultValues.gridColor,
     xAxisData: List<String> = emptyList(),
@@ -63,7 +64,10 @@ fun BarChart(
     legendPosition: LegendPosition = ChartDefaultValues.legendPosition,
     barCornerRadius: Dp = ChartDefaultValues.barCornerRadius
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
         when (legendPosition) {
             LegendPosition.TOP -> {
                 LazyRow(
