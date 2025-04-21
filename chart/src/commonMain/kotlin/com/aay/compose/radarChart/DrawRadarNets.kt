@@ -31,7 +31,5 @@ internal fun DrawScope.drawRadarNet(
                 cap = netLinesStyle.netLinesStrokeCap,
             )
         }
-
     }
-
 }
