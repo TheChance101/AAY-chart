@@ -1,11 +1,15 @@
-package com.aay.compose
+package com.aay.common
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
@@ -14,7 +18,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.ComposeViewport
 import com.aay.compose.barChart.BarChart
 import com.aay.compose.barChart.model.BarParameters
 import com.aay.compose.baseComponents.model.GridOrientation
@@ -29,15 +32,8 @@ import com.aay.compose.radarChart.RadarChart
 import com.aay.compose.radarChart.model.NetLinesStyle
 import com.aay.compose.radarChart.model.Polygon
 import com.aay.compose.radarChart.model.PolygonStyle
-import kotlinx.browser.document
-
-@OptIn(ExperimentalComposeUiApi::class)
-fun main() {
-    ComposeViewport(document.body!!) {
-        ChartsTestScreen()
-
-    }
-}
+import com.aay.compose.ringChart.RingChart
+import com.aay.compose.ringChart.model.RingChartData
 
 @Composable
 fun ChartsTestScreen() {
@@ -49,6 +45,76 @@ fun ChartsTestScreen() {
             .verticalScroll(scrollState)
             .padding(16.dp)
     ) {
+        Text("Ring Chart", fontSize = 18.sp)
+        val ringChartData = listOf(
+            RingChartData(
+                name = "Move",
+                value = 450.0,
+                maxValue = 600.0,
+                color = Color(0xFFFF3B30)
+            ),
+            RingChartData(
+                name = "Exercise",
+                value = 25.0,
+                maxValue = 30.0,
+                color = Color(0xFF4CD964)
+            ),
+            RingChartData(
+                name = "Stand",
+                value = 8.0,
+                maxValue = 12.0,
+                color = Color(0xFF5AC8FA)
+            ),
+            RingChartData(
+                name = "Sleep",
+                value = 6.0,
+                maxValue = 8.0,
+                color = Color(0xFF007AFF)
+            ),
+            RingChartData(
+                name = "Water",
+                value = 2.0,
+                maxValue = 3.0,
+                color = Color(0xFF5856D6)
+            ),
+            RingChartData(
+                name = "Meditation",
+                value = 1.0,
+                maxValue = 2.0,
+                color = Color(0xFFFF9500)
+            ),
+            RingChartData(
+                name = "Reading",
+                value = 0.5,
+                maxValue = 1.0,
+                color = Color(0xFFFFCC00)
+            ),
+            RingChartData(
+                name = "Writing",
+                value = 0.2,
+                maxValue = 0.5,
+                color = Color(0xFFAF52DE)
+            ),
+            RingChartData(
+                name = "Drawing",
+                value = 0.1,
+                maxValue = 0.2,
+                color = Color(0xFF5856D6)
+            ),
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(500.dp)
+                .padding(vertical = 16.dp)
+        ) {
+            RingChart(
+                ringChartData = ringChartData,
+                ringWidth = 0.15f,
+                ringGap = 0.03f,
+                legendPosition = LegendPosition.BOTTOM
+            )
+        }
 
         // ===== Bar Chart =====
         Text("Bar Chart", fontSize = 18.sp)
@@ -218,7 +284,7 @@ fun ChartsTestScreen() {
         }
 
         // ===== Radar Chart =====
-        Text("Radar Chart", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+        Text("Radar Chart", fontSize = 18.sp)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -296,4 +362,5 @@ fun ChartsTestScreen() {
         }
 
     }
+
 }

@@ -12,11 +12,11 @@ plugins {
 }
 
 group = "io.github.thechance101"
-version = "1.1.0"
+version = "1.2.0"
 
 kotlin {
     jvmToolchain {
-        (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(11))
+        this.languageVersion.set(JavaLanguageVersion.of(11))
     }
 
     androidTarget {
