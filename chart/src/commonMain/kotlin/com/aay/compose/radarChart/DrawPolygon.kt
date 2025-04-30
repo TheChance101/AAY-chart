@@ -14,7 +14,7 @@ internal fun DrawScope.drawPolygonShape(
     scalarValue: Double,
     center: Offset,
     scalarSteps: Int
-) {
+): List<Offset> {
     val polygonEndPoints =
         getPolygonShapeEndPoints(polygon.values, radius, scalarValue, center, scalarSteps)
     val path = Path().apply {
@@ -35,6 +35,8 @@ internal fun DrawScope.drawPolygonShape(
             alpha = polygon.style.fillColorAlpha
         )
     }
+
+    return polygonEndPoints
 }
 
 private fun Path.drawPolygon(polygonCorners: List<Offset>) {
