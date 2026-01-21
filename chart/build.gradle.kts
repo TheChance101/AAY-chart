@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
@@ -15,13 +15,13 @@ group = "io.github.thechance101"
 version = "1.1.0"
 
 kotlin {
-    jvmToolchain {
-        (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(11))
-    }
-
     androidTarget {
         publishLibraryVariants("release")
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_11
+        }
     }
+
     jvm("desktop")
 
     iosX64 {
@@ -62,9 +62,8 @@ kotlin {
         binaries.executable()
     }
 
-    @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
-        moduleName = "chart"
+        outputModuleName = "chart"
         browser {
             commonWebpackConfig {
                 outputFileName = "AAY-Chart.js"

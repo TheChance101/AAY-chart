@@ -11,9 +11,7 @@ version = "1.0-SNAPSHOT"
 
 
 kotlin {
-    jvm {
-        withJava()
-    }
+    jvm()
 
     val osName = System.getProperty("os.name")
     val targetOs = when {

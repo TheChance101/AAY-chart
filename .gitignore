@@ -1,5 +1,8 @@
 .gradle
+.kotlin
 build/
+chart.podspec
+yarn.lock
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
