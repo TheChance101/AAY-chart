@@ -1,7 +1,7 @@
 [versions]
-kotlin = "2.0.0"
+kotlin = "2.3.0"
 compose = "1.6.10"
-composePlugin = "2.0.0"
+composePlugin = "2.3.0"
 appcompat = "1.7.0"
 coreKtx = "1.10.0"
 dokka = "1.5.0"

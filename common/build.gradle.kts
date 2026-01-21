@@ -1,6 +1,6 @@
-import org.jetbrains.compose.compose
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.kotlin)
@@ -13,13 +13,17 @@ group = "com.aay"
 version = "1.0-SNAPSHOT"
 
 kotlin {
-    android()
     jvm("desktop")
 
+    androidTarget {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_11
+        }
+    }
+
     // WASM Target
-    @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
-        moduleName = "composeApp"
+        outputModuleName = "composeApp"
         browser {
             commonWebpackConfig {
                 outputFileName = "AAY-Chart.js"
@@ -54,7 +58,7 @@ kotlin {
         }
 
         val wasmJsMain by getting {
-            dependencies{
+            dependencies {
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material)
@@ -72,7 +76,7 @@ android {
         targetSdkVersion(34)
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }

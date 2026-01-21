@@ -1,15 +1,20 @@
+import org.gradle.kotlin.dsl.assign
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    id("org.jetbrains.compose")version "1.6.10"
+    id("org.jetbrains.compose")
     id("com.android.application")
     kotlin("android")
-    id ("org.jetbrains.kotlin.plugin.compose") version  "2.0.0"
+    id ("org.jetbrains.kotlin.plugin.compose") version("2.3.0")
 }
 
 group = "com.aay"
 version = "1.0"
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -35,6 +40,12 @@ android {
         getByName("release") {
             isMinifyEnabled = false
         }
+    }
+}
+
+tasks.withType<KotlinCompile>().configureEach {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_11
     }
 }
 
