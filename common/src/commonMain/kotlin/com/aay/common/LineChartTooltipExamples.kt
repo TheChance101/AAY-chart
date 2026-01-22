@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -171,12 +172,19 @@ fun LineChartWithSolidMarker() {
             lineShadow = true,
             tooltipConfig = TooltipConfig(
                 markerStyle = MarkerStyle.Solid, // Solid filled circle
-                backgroundColor = Color(0xFFFFF3E0),
-                borderColor = Color(0xFFFF5722),
+                backgroundColor = Color(0xFFF8F8F8),
+                //borderColor = Color(0xFFFF5722),
                 textColor = Color(0xFF5D4037),
                 content = TooltipContent.YValue(
                     label = "Temp",
                     formatter = { value -> "${value.toInt()}°C" }
+                ),
+                position = TooltipPosition.Left,
+                cornerRadii = TooltipCornerRadii(
+                    topLeft = 8.dp,
+                    topRight = 8.dp,
+                    bottomLeft = 8.dp,
+                    bottomRight = 2.dp
                 )
             )
         )

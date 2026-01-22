@@ -15,11 +15,13 @@ import com.aay.compose.utils.formatToThousandsMillionsBillions
  * @param borderColor Border color of the tooltip box. If null, uses the line color
  * @param textColor Color of the text inside the tooltip
  * @param textSize Font size of the tooltip text
- * @param cornerRadius Corner radius of the tooltip box
+ * @param cornerRadius Corner radius for all corners (used when cornerRadii is null)
+ * @param cornerRadii Individual corner radii. If provided, overrides cornerRadius
  * @param size Size configuration for the tooltip box
  * @param content Content configuration defining what to display in the tooltip
  * @param padding Internal padding of the tooltip box
  * @param markerStyle Style configuration for the circular marker at the clicked point
+ * @param position Horizontal position alignment of the tooltip relative to the point
  */
 data class TooltipConfig(
     val enabled: Boolean = true,
@@ -28,11 +30,48 @@ data class TooltipConfig(
     val textColor: Color = Color.Black,
     val textSize: TextUnit = 8.sp,
     val cornerRadius: Dp = 16.dp,
+    val cornerRadii: TooltipCornerRadii? = null,
     val size: TooltipSize = TooltipSize.Auto,
     val content: TooltipContent = TooltipContent.YValue(),
     val padding: Dp = 8.dp,
     val markerStyle: MarkerStyle = MarkerStyle.Stroke(),
+    val position: TooltipPosition = TooltipPosition.Center,
 )
+
+/**
+ * Individual corner radii for the tooltip box.
+ *
+ * @param topLeft Top-left corner radius
+ * @param topRight Top-right corner radius
+ * @param bottomLeft Bottom-left corner radius
+ * @param bottomRight Bottom-right corner radius
+ */
+data class TooltipCornerRadii(
+    val topLeft: Dp = 16.dp,
+    val topRight: Dp = 16.dp,
+    val bottomLeft: Dp = 16.dp,
+    val bottomRight: Dp = 16.dp,
+)
+
+/**
+ * Defines the horizontal position of the tooltip relative to the clicked point.
+ */
+sealed class TooltipPosition {
+    /**
+     * Tooltip is centered horizontally above the point
+     */
+    object Center : TooltipPosition()
+    
+    /**
+     * Tooltip is aligned to the left of the point
+     */
+    object Left : TooltipPosition()
+    
+    /**
+     * Tooltip is aligned to the right of the point
+     */
+    object Right : TooltipPosition()
+}
 
 /**
  * Defines the size of the tooltip box.

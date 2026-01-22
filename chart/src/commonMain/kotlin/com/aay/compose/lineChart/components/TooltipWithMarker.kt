@@ -5,8 +5,10 @@ import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -20,12 +22,15 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.aay.compose.lineChart.model.LineParameters
 import com.aay.compose.lineChart.model.MarkerStyle
+import com.aay.compose.lineChart.model.TooltipConfig
 import com.aay.compose.lineChart.model.TooltipContent
+import com.aay.compose.lineChart.model.TooltipCornerRadii
+import com.aay.compose.lineChart.model.TooltipPosition
 import com.aay.compose.lineChart.model.TooltipSize
 
 /**
  * Draws a tooltip with a circular marker at the clicked point on the line chart.
- * 
+ *
  * This is the main entry point for rendering tooltips when a user clicks on a data point.
  * It draws both the marker circle and the tooltip box with customizable content and styling.
  *
@@ -50,9 +55,9 @@ internal fun DrawScope.drawTooltipWithMarker(
     xAxisData: List<String> = emptyList(),
 ) {
     val config = line.tooltipConfig
-    
+
     if (!config.enabled) return
-    
+
     // Draw marker circle at the point
     drawMarkerCircle(
         x = x.toPx(),
@@ -61,7 +66,7 @@ internal fun DrawScope.drawTooltipWithMarker(
         animatedProgress = animatedProgress,
         markerStyle = config.markerStyle
     )
-    
+
     // Draw tooltip box with content
     drawTooltipBox(
         x = x,
@@ -101,6 +106,7 @@ private fun DrawScope.drawMarkerCircle(
                 stroke = Stroke(width = markerStyle.strokeWidth.toPx())
             )
         }
+
         is MarkerStyle.Solid -> {
             chartCircle(
                 x = x,
@@ -110,6 +116,7 @@ private fun DrawScope.drawMarkerCircle(
                 stroke = null // null means filled circle
             )
         }
+
         is MarkerStyle.None -> {
             // Don't draw any marker
         }
@@ -137,7 +144,7 @@ private fun DrawScope.drawTooltipBox(
     xIndex: Int,
     yValue: Double,
     xAxisData: List<String>,
-    config: com.aay.compose.lineChart.model.TooltipConfig,
+    config: TooltipConfig,
 ) {
     // Generate tooltip text based on content configuration
     val tooltipText = generateTooltipText(
@@ -146,19 +153,19 @@ private fun DrawScope.drawTooltipBox(
         yValue = yValue,
         xAxisData = xAxisData
     )
-    
+
     // Create text style
     val textStyle = TextStyle(
         fontSize = config.textSize,
         color = config.textColor
     )
-    
+
     // Measure text to determine tooltip size
     val textLayoutResult = textMeasurer.measure(
         text = AnnotatedString(tooltipText),
         style = textStyle
     )
-    
+
     // Calculate tooltip box size
     val tooltipSize = when (config.size) {
         is TooltipSize.Auto -> {
@@ -168,6 +175,7 @@ private fun DrawScope.drawTooltipBox(
                 height = textLayoutResult.size.height + (config.padding.toPx() * 2)
             )
         }
+
         is TooltipSize.Fixed -> {
             Size(
                 width = config.size.width.toPx(),
@@ -175,40 +183,57 @@ private fun DrawScope.drawTooltipBox(
             )
         }
     }
-    
-    // Calculate tooltip position (centered above the point)
+
+    // Calculate tooltip position based on alignment
+    val tooltipX = when (config.position) {
+        is TooltipPosition.Center -> x.toPx() - tooltipSize.width / 2f
+        is TooltipPosition.Left -> x.toPx() - tooltipSize.width
+        is TooltipPosition.Right -> x.toPx()
+    }
+
     val tooltipTopLeft = Offset(
-        x = x.toPx() - tooltipSize.width / 2f,
-        y = y.toFloat() - tooltipSize.height - 20.dp.toPx() // 20dp gap above the point
+        x = tooltipX,
+        y = y.toFloat() - tooltipSize.height - 10.dp.toPx()
     )
-    
-    val tooltipBounds = Rect(tooltipTopLeft, tooltipSize)
-    
-    // Draw tooltip background
-    drawRoundRect(
-        color = config.backgroundColor,
-        topLeft = tooltipBounds.topLeft,
-        size = tooltipBounds.size,
-        cornerRadius = CornerRadius(config.cornerRadius.toPx()),
-        style = Fill
-    )
-    
-    // Draw tooltip border
+
     val borderColor = config.borderColor ?: color
-    drawRoundRect(
-        color = borderColor,
-        topLeft = tooltipBounds.topLeft,
-        size = tooltipBounds.size,
-        cornerRadius = CornerRadius(config.cornerRadius.toPx()),
-        style = Stroke(width = 1.dp.toPx())
-    )
-    
+
+    // Draw tooltip with appropriate corner handling
+    val radii = config.cornerRadii
+    if (radii != null) {
+        // Use individual corner radii with Path
+        drawTooltipWithIndividualCorners(
+            topLeft = tooltipTopLeft,
+            size = tooltipSize,
+            radii = radii,
+            backgroundColor = config.backgroundColor,
+            borderColor = borderColor
+        )
+    } else {
+        // Use uniform corner radius
+        val tooltipBounds = Rect(tooltipTopLeft, tooltipSize)
+        drawRoundRect(
+            color = config.backgroundColor,
+            topLeft = tooltipBounds.topLeft,
+            size = tooltipBounds.size,
+            cornerRadius = CornerRadius(config.cornerRadius.toPx()),
+            style = Fill
+        )
+        drawRoundRect(
+            color = borderColor,
+            topLeft = tooltipBounds.topLeft,
+            size = tooltipBounds.size,
+            cornerRadius = CornerRadius(config.cornerRadius.toPx()),
+            style = Stroke(width = 1.dp.toPx())
+        )
+    }
+
     // Calculate text position (centered in tooltip)
     val textOffset = Offset(
         x = tooltipTopLeft.x + (tooltipSize.width - textLayoutResult.size.width) / 2f,
         y = tooltipTopLeft.y + (tooltipSize.height - textLayoutResult.size.height) / 2f
     )
-    
+
     // Draw text
     drawContext.canvas.nativeCanvas.apply {
         drawText(
@@ -240,12 +265,14 @@ private fun generateTooltipText(
             val formattedValue = content.formatter(yValue)
             "${content.label}: $formattedValue"
         }
+
         is TooltipContent.XValue -> {
-            val xValue = content.xAxisData.getOrElse(xIndex) { 
+            val xValue = content.xAxisData.getOrElse(xIndex) {
                 xAxisData.getOrElse(xIndex) { xIndex.toString() }
             }
             "${content.label}: $xValue"
         }
+
         is TooltipContent.XYValue -> {
             val xValue = content.xAxisData.getOrElse(xIndex) {
                 xAxisData.getOrElse(xIndex) { xIndex.toString() }
@@ -253,8 +280,54 @@ private fun generateTooltipText(
             val formattedYValue = content.yFormatter(yValue)
             "${content.xLabel}: $xValue\n${content.yLabel}: $formattedYValue"
         }
+
         is TooltipContent.Custom -> {
             content.formatter(xIndex, yValue, xAxisData)
         }
     }
+}
+
+/**
+ * Draws a rounded rectangle with individual corner radii using Path.
+ *
+ * @param topLeft Top-left position of the rectangle
+ * @param size Size of the rectangle
+ * @param radii Individual corner radii
+ * @param backgroundColor Fill color
+ * @param borderColor Border color
+ */
+private fun DrawScope.drawTooltipWithIndividualCorners(
+    topLeft: Offset,
+    size: Size,
+    radii: TooltipCornerRadii,
+    backgroundColor: Color,
+    borderColor: Color,
+) {
+    val rect = Rect(topLeft, size)
+
+    val roundRect = RoundRect(
+        rect = rect,
+        topLeft = CornerRadius(radii.topLeft.toPx()),
+        topRight = CornerRadius(radii.topRight.toPx()),
+        bottomLeft = CornerRadius(radii.bottomLeft.toPx()),
+        bottomRight = CornerRadius(radii.bottomRight.toPx())
+    )
+
+    val path = Path().apply {
+        addRoundRect(roundRect)
+    }
+
+    // Draw fill
+    drawPath(
+        path = path,
+        color = backgroundColor,
+        style = Fill
+    )
+
+    // Draw border
+    drawPath(
+        path = path,
+        color = borderColor,
+        style = Stroke(width = 1.dp.toPx())
+    )
 }
