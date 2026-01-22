@@ -5,7 +5,6 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
@@ -119,9 +118,7 @@ internal fun ChartContent(
 
             }
         } else {
-            if (linesParameters.size >= 2) {
-                clickedPoints.clear()
-            }
+            // Tooltips enabled for multi-line charts
             linesParameters.forEach { line ->
                 if (line.lineType == LineType.DEFAULT_LINE) {
 

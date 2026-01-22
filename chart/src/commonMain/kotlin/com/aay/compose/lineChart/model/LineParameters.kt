@@ -8,5 +8,6 @@ data class LineParameters(
     val lineColor: Color,
     val lineType: LineType,
     val lineShadow: Boolean,
+    val tooltipConfig: TooltipConfig = TooltipConfig(),
 )
 

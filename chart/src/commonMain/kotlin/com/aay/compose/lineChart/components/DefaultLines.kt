@@ -6,7 +6,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ExperimentalTextApi
@@ -31,6 +30,7 @@ internal fun DrawScope.drawDefaultLineWithShadow(
     clickedPoints: MutableList<Pair<Float, Float>>,
     textMeasure: TextMeasurer,
     xRegionWidth: Dp,
+    xAxisData: List<String> = emptyList(),
 ) {
 
     val strokePathOfDefaultLine = drawLineAsDefault(
@@ -41,7 +41,8 @@ internal fun DrawScope.drawDefaultLineWithShadow(
         spacingY = spacingY,
         clickedPoints = clickedPoints,
         textMeasure = textMeasure,
-        xRegionWidth = xRegionWidth
+        xRegionWidth = xRegionWidth,
+        xAxisData = xAxisData
     )
 
     if (line.lineShadow) {
@@ -71,6 +72,7 @@ private fun DrawScope.drawLineAsDefault(
     clickedPoints: MutableList<Pair<Float, Float>>,
     textMeasure: TextMeasurer,
     xRegionWidth: Dp,
+    xAxisData: List<String> = emptyList(),
 ) = Path().apply {
     val height = size.height.toDp()
     drawPathLineWrapper(
@@ -100,14 +102,15 @@ private fun DrawScope.drawLineAsDefault(
                 lastClickedPoint = null
             } else {
                 lastClickedPoint = Pair(startXPoint.toPx(), startYPoint.toFloat())
-                circleWithRectAndText(
+                drawTooltipWithMarker(
                     x = startXPoint,
                     y = startYPoint,
-                    textMeasure = textMeasure,
-                    info = info,
-                    stroke = Stroke(width = 2.dp.toPx()),
+                    textMeasurer = textMeasure,
+                    xIndex = index,
+                    yValue = info,
                     line = lineParameter,
-                    animatedProgress = animatedProgress
+                    animatedProgress = animatedProgress,
+                    xAxisData = xAxisData
                 )
             }
         }
