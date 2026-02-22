@@ -17,7 +17,7 @@ import com.aay.compose.ringChart.model.RingChartData
 import kotlin.math.min
 
 /**
- * Composable function to render a ring chart similar to iOS fitness app.
+ * Composable function to render a ring chart similar to an iOS fitness app.
  *
  * @param modifier Modifier for configuring the layout and appearance of the ring chart.
  * @param ringChartData List of data for the ring chart, including values, max values, and colors.
@@ -131,7 +131,7 @@ private fun DrawRingChart(
                     val ringRadius = baseRadius - (index * (ringWidth + ringGap) * baseRadius)
                     val strokeWidth = ringWidth * baseRadius
                     
-                    // Draw background ring with the same color as the progress ring but with transparency
+                    // Draw a background ring with the same color as the progress ring but with transparency
                     drawArc(
                         color = data.color.copy(alpha = 0.2f),
                         startAngle = 0f,
@@ -149,10 +149,10 @@ private fun DrawRingChart(
                     val progress = (data.value / data.maxValue).coerceIn(0.0, 1.0)
                     val sweepAngle = (progress * 360 * transitionProgress.value).toFloat()
                     
-                    // Draw progress ring
+                    // Draw a progress ring
                     drawArc(
                         color = data.color,
-                        startAngle = -90f, // Start from top
+                        startAngle = -90f, // Start from the top
                         sweepAngle = sweepAngle,
                         useCenter = false,
                         style = Stroke(

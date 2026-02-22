@@ -304,6 +304,12 @@ fun RadarChartSample() {
   <img src="https://contrib.rocks/image?repo=TheChance101/AAY-chart" />
 </a>
 
+## Contributing
+Contributions are welcome! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to get started.
+
+## CI/CD
+We use GitHub Actions for our CI/CD. All Pull Requests are automatically tested, and releases are published to Maven Central.
+
 ## MIT License
 
     Copyright (c) 2023 The Chance

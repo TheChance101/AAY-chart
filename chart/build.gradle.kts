@@ -131,3 +131,14 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 }
+
+// Fix for Gradle implicit dependency error (Race condition between Signing and Publishing)
+tasks.withType<PublishToMavenLocal>().configureEach {
+    val signingTasks = tasks.withType<Sign>()
+    mustRunAfter(signingTasks)
+}
+
+tasks.withType<PublishToMavenRepository>().configureEach {
+    val signingTasks = tasks.withType<Sign>()
+    mustRunAfter(signingTasks)
+}
