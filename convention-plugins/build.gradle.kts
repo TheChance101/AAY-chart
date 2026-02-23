@@ -1,7 +1,12 @@
 plugins {
-    `kotlin-dsl` // Is needed to turn our build logic written in Kotlin into the Gradle Plugin
+    `kotlin-dsl`
 }
 
 repositories {
-    gradlePluginPortal() // To use 'maven-publish' and 'signing' plugins in our own plugin
+    gradlePluginPortal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation("com.vanniktech:gradle-maven-publish-plugin:0.30.0")
 }

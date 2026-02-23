@@ -12,11 +12,11 @@ plugins {
 }
 
 group = "io.github.thechance101"
-version = "1.1.0"
+version = "1.2.0"
 
 kotlin {
     jvmToolchain {
-        (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(11))
+        this.languageVersion.set(JavaLanguageVersion.of(11))
     }
 
     androidTarget {
@@ -130,4 +130,15 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+}
+
+// Fix for Gradle implicit dependency error (Race condition between Signing and Publishing)
+tasks.withType<PublishToMavenLocal>().configureEach {
+    val signingTasks = tasks.withType<Sign>()
+    mustRunAfter(signingTasks)
+}
+
+tasks.withType<PublishToMavenRepository>().configureEach {
+    val signingTasks = tasks.withType<Sign>()
+    mustRunAfter(signingTasks)
 }

@@ -1,8 +1,8 @@
 plugins {
-    id("org.jetbrains.compose")version "1.6.10"
+    alias(libs.plugins.compose)
     id("com.android.application")
     kotlin("android")
-    id ("org.jetbrains.kotlin.plugin.compose") version  "2.0.0"
+    alias(libs.plugins.composePlugin)
 }
 
 group = "com.aay"
@@ -28,8 +28,8 @@ android {
         versionName = "1.0"
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildTypes {
         getByName("release") {

@@ -1,96 +1,66 @@
-import org.gradle.api.publish.maven.MavenPublication
-import org.gradle.api.tasks.bundling.Jar
-import org.gradle.kotlin.dsl.`maven-publish`
-import org.gradle.kotlin.dsl.signing
-import java.util.*
-
 plugins {
-    `maven-publish`
-    signing
-
+    id("com.vanniktech.maven.publish")
 }
 
-// Stub secrets to let the project sync and build without the publication values set up
-ext["signing.keyId"] = null
-ext["signing.password"] = null
-ext["signing.secretKeyRingFile"] = null
-ext["ossrhUsername"] = null
-ext["ossrhPassword"] = null
-
-// Grabbing secrets from local.properties file or from environment variables, which could be used on CI
-val secretPropsFile = project.rootProject.file("local.properties")
-if (secretPropsFile.exists()) {
-    secretPropsFile.reader().use {
-        Properties().apply {
-            load(it)
-        }
-    }.onEach { (name, value) ->
-        ext[name.toString()] = value
+mavenPublishing {
+    // Load signing and publishing credentials
+    val localProperties = java.util.Properties()
+    val localPropertiesFile = project.rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use { localProperties.load(it) }
     }
-} else {
-    ext["signing.keyId"] = System.getenv("SIGNING_KEY_ID")
-    ext["signing.password"] = System.getenv("SIGNING_PASSWORD")
-    ext["signing.secretKeyRingFile"] = System.getenv("SIGNING_SECRET_KEY_RING_FILE")
-    ext["ossrhUsername"] = System.getenv("OSSRH_USERNAME")
-    ext["ossrhPassword"] = System.getenv("OSSRH_PASSWORD")
-}
 
-val javadocJar by tasks.registering(Jar::class) {
-    archiveClassifier.set("javadoc")
-}
-
-fun getExtraString(name: String) = ext[name]?.toString()
-
-publishing {
-    // Configure maven central repository
-    repositories {
-        maven {
-            name = "sonatype"
-            setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = getExtraString("ossrhUsername")
-                password = getExtraString("ossrhPassword")
+    // Set properties from local.properties if they are not already set (e.g., from gradle.properties or ENV)
+    fun setIfMissing(envKey: String, propertyKey: String) {
+        if (!project.hasProperty(propertyKey)) {
+            val value = localProperties.getProperty(propertyKey) ?: System.getenv(envKey)
+            if (value != null) {
+                project.extensions.extraProperties.set(propertyKey, value)
             }
         }
     }
 
-    // Configure all publications
-    publications.withType<MavenPublication> {
-        // Stub javadoc.jar artifact
-        artifact(javadocJar.get())
+    setIfMissing("MAVEN_CENTRAL_USERNAME", "mavenCentralUsername")
+    setIfMissing("MAVEN_CENTRAL_PASSWORD", "mavenCentralPassword")
+    setIfMissing("SIGNING_KEY_ID", "signing.keyId")
+    setIfMissing("SIGNING_PASSWORD", "signing.password")
+    setIfMissing("SIGNING_SECRET_KEY", "signing.secretKey")
 
-        // Provide artifacts information requited by Maven Central
-        pom {
-            name.set("AAY-Chart")
-            description.set("Multiplatform library for desktop and android")
+    // 1. Define your library's coordinates (Update these to match your project)
+    coordinates(
+        groupId = "io.github.thechance101",
+        artifactId = "aay-chart",
+        version = "1.2.0"
+    )
+
+    // 2. Provide the POM metadata
+    pom {
+        name.set("AAY-Chart")
+        description.set("Multiplatform library for desktop and android")
+        url.set("https://github.com/TheChance101/AAY-chart")
+        inceptionYear.set("2023") // Optional, but good practice
+
+        licenses {
+            license {
+                name.set("MIT")
+                url.set("https://opensource.org/licenses/MIT")
+            }
+        }
+        developers {
+            developer {
+                id.set("TheChance101") // Fixed: Removed the angle brackets
+                name.set("The_chance")
+                email.set("hana_hany6@yahoo.com")
+            }
+        }
+        scm {
             url.set("https://github.com/TheChance101/AAY-chart")
-
-            licenses {
-                license {
-                    name.set("MIT")
-                    url.set("https://opensource.org/licenses/MIT")
-                }
-            }
-            developers {
-                developer {
-                    id.set("<https://github.com/TheChance101>")
-                    name.set("<The_chance>")
-                    email.set("<hana_hany6@yahoo.com>")
-                }
-            }
-            scm {
-                url.set("https://github.com/TheChance101/AAY-chart")
-            }
         }
     }
-}
 
-// Signing artifacts. Signing.* extra properties values will be used
-signing {
-    sign(publishing.publications)
-}
-// Ensure all publish tasks depend on corresponding sign tasks
-tasks.withType<PublishToMavenRepository>().configureEach {
-    dependsOn(tasks.withType<Sign>())
-}
+    // 3. Target the new Maven Central Portal natively
+    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
 
+    // 4. Automatically sign the artifacts
+    signAllPublications()
+}

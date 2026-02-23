@@ -13,7 +13,7 @@ group = "com.aay"
 version = "1.0-SNAPSHOT"
 
 kotlin {
-    android()
+    androidTarget()
     jvm("desktop")
 
     // WASM Target
@@ -33,7 +33,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("io.github.thechance101:chart:1.0")
+                implementation(project(":chart"))
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material)
@@ -72,7 +72,7 @@ android {
         targetSdkVersion(34)
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
